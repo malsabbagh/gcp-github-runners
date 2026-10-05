@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "profile": "controller-source-archive",
+  "runtime": "nodejs24",
+  "entry": "controller-entry.js",
+  "rootPackage": "package.json",
+  "packageLock": "package-lock.json",
+  "files": [
+    {
+      "path": "cloud-functions/cleanup-function/allocation-lifecycle.js",
+      "sha256": "27f9d00514b79ab238d2ef683697743831f2053378219bb9979aa1bcb910c2d8"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
+      "sha256": "d7ea9069f942d88498100a1a9c3d5a9f09e36bfda21ea18965d6529b10ba7072"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/retirement-controller.js",
+      "sha256": "73f3078dcd2a523bbb1541ad7272026b1b17fb553ce30b9775543a3f48dc31bd"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/runner-cleanup.sh",
+      "sha256": "f1f6ba4c71737fe11825287de813d15c8acd6fc271d53909b0d23de987a2ced8"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/actual-job-association.js",
+      "sha256": "6dd80e4de707cde7b6f939307ca972295b6e3dda37e6bf4a832fb7f5d559083c"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/allocation-bootstrap-broker.js",
+      "sha256": "87eaa20e2dfebd8fbbd78a9222eb6c29cde03faa58720a0f0dcc33d45574e6ed"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/allocation-bootstrap-store.js",
+      "sha256": "c288b8826f41328be11e7ba866840ca95dcbd9fd0f6e752437c6515c0c286cfb"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/allocation-recovery.js",
+      "sha256": "75b57b65bc1e7f821fc27dc0d57b6d5846693cd630f7dec8407a3f5c4bbd5260"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/bootstrap-http.js",
+      "sha256": "39202c6baf004b8bcfbfb059b26211d7bd59b881fcf408a0a806cce454527742"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "sha256": "ecc3b740975518b5e394fba400f67787b9853098989e832730569d582a1ce09c"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/controller-profile.js",
+      "sha256": "720a1bba5be13c7a749214ff1371f4a497beed61e2df2c72eadbcfe9f3145ed0"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/controller-runtime.js",
+      "sha256": "c75c4e647d3aa0561452fa4f1d2777eee8ddd6fd72f98d950d98c821fb70cf27"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+      "sha256": "77eef7a1c8d35df68927627684f4e7a3e123c7ae8a0f2f04a4dd3af8ec048787"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/infrastructure-config.js",
+      "sha256": "c60a0edad37bd141143bf419f8dfb8eecb951dbc042a7536a67b8146deb52608"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/invocation-auth.js",
+      "sha256": "ffdc728ffa7024b545ed7d05c6ebe407fe932af3c60a9adefd83aa62d24160e8"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/job-identity.js",
+      "sha256": "2afdeb3cdfdf8f89f0e59840abfbfe523ffd09671f91da09accdd318199502ae"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/managed-instance-verifier.js",
+      "sha256": "84badc1754fbf75b8ba3e8352be7e51e0e5e3417305bcf46665d16c3e0e25b17"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/management-http.js",
+      "sha256": "cda730adcb21664b4fc6923a31c5f4b59b11b50bb41200710509ba56d05866a7"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/provision-runner.py",
+      "sha256": "e25041b4a8e8ea2774433041fd710627e9e335a8d087947ccdc1c3844dacf49f"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/provisioning-state.js",
+      "sha256": "930511114f866ac79ca669c3ca18bf32f08074e16ed58e4d0cfd64376812980a"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/runner-labels.js",
+      "sha256": "3e55ec65c904bd2e11568fb6df5d22896a1f4411e3477a47d26e3f8a376e7e4a"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/scheduled-recovery.js",
+      "sha256": "7070df800036e96aff2393014e6500b4d6dedb92de1ce38fc58fefe511695328"
+    },
+    {
+      "path": "controller-entry.js",
+      "sha256": "86f42ad36e303535472d25d9cd665b45a684557a6fee9b069455c4ed7ab3561f"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": null
+    },
+    {
+      "path": "package.json",
+      "sha256": "098eb075e80424f0f09efa1bc00268603f03f481513cf4306ce8c43e1c6bcf77"
+    },
+    {
+      "path": "startup/one-job-worker.py",
+      "sha256": "2c9ed8f43bbc221ca9a46ae568bb9efafb7b1b7e72a88ad8b2a5e2b165679a66"
+    },
+    {
+      "path": "startup/one-job-worker.service",
+      "sha256": "0911911cc98cb131d6a840dae634adf858ecafebbc160500d85dcc2ea11f72d2"
+    },
+    {
+      "path": "startup/shutdown-worker.py",
+      "sha256": "ace6b3e769873a9af6ae525c0a9d0af915252cfed52995391659be74844047d3"
+    }
+  ]
+}

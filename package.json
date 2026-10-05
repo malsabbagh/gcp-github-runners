@@ -1,0 +1,26 @@
+{
+  "name": "gcp-github-runners",
+  "version": "1.0.0",
+  "description": "GitHub Runner Infrastructure with Cloud Functions",
+  "private": true,
+  "workspaces": [
+    "cloud-functions/webhook-handler",
+    "cloud-functions/cleanup-function"
+  ],
+  "scripts": {
+    "test": "npm run test:webhook-handler && npm run test:cleanup-function",
+    "test:webhook-handler": "cd cloud-functions/webhook-handler && npm test",
+    "test:cleanup-function": "cd cloud-functions/cleanup-function && npm test",
+    "test:coverage": "npm run test:coverage:webhook-handler && npm run test:coverage:cleanup-function",
+    "test:coverage:webhook-handler": "cd cloud-functions/webhook-handler && npm run test:coverage",
+    "test:coverage:cleanup-function": "cd cloud-functions/cleanup-function && npm run test:coverage",
+    "test:coverage-check": "npm run test:coverage-check:webhook-handler && npm run test:coverage-check:cleanup-function",
+    "test:coverage-check:webhook-handler": "cd cloud-functions/webhook-handler && npm run test:coverage-check",
+    "test:coverage-check:cleanup-function": "cd cloud-functions/cleanup-function && npm run test:coverage-check"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

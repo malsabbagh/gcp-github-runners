@@ -1,0 +1,62 @@
+{
+  "status": "UNRESOLVED_DEPENDENCY_DECLARATIONS",
+  "deployment_lock_required": "package-lock.json",
+  "deployment_lock_present": false,
+  "do_not_reuse_baseline_lock": true,
+  "baseline": {
+    "package_json_sha256": "7224f9e4dc2a4c4a7324e3f82af22045ed7e912c84fe6793cbfefb56015445ee",
+    "lock_path": "restricted/runtime-functional-slice-2/candidate/package-lock.json",
+    "lock_sha256": "89d4a77aa34dc54b110bba66390f8601228f1563ab74bc5f5f25fb36094afa56",
+    "lockfile_version": 3,
+    "purpose": "unchanged historical workspace source snapshot; not matching new deployment root"
+  },
+  "requests": {
+    "@google-cloud/cloudbuild": {
+      "requested_exact_version": "4.8.1",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": false
+    },
+    "@google-cloud/compute": {
+      "requested_exact_version": "4.12.0",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": false
+    },
+    "@google-cloud/firestore": {
+      "requested_exact_version": "7.11.2",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": false
+    },
+    "@google-cloud/functions-framework": {
+      "requested_exact_version": "3.5.1",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": false
+    },
+    "@google-cloud/secret-manager": {
+      "requested_exact_version": "5.6.0",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": false
+    },
+    "@octokit/rest": {
+      "requested_exact_version": "20.1.2",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": false
+    },
+    "google-auth-library": {
+      "requested_exact_version": "9.15.1",
+      "basis": "existing frozen lock observation; not an upgrade or compatibility claim",
+      "new_direct_declaration": true
+    },
+    "@octokit/auth-app": {
+      "requested_exact_version": "6.1.3",
+      "basis": "official auth-app v6.1.3 source tag; not installed",
+      "new_direct_declaration": true
+    }
+  },
+  "auth_app_metadata_reference": "https://raw.githubusercontent.com/octokit/auth-app.js/v6.1.3/package.json",
+  "auth_app_declared_node_engine": ">=18",
+  "runtime_reference": "https://docs.cloud.google.com/run/docs/runtimes/function-runtimes",
+  "proposed_runtime": "nodejs24",
+  "compatibility_tests": "UNRUN",
+  "dependency_resolution_install_lock_generation": "UNRUN",
+  "transitive_complete_lock_resolution": "UNRUN"
+}

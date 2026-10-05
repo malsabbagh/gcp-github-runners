@@ -1,0 +1,29 @@
+[Unit]
+Description=One ephemeral private runner attempt
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=runner
+Group=runner
+ExecStart=/usr/bin/python3 -I -B /opt/runner-bootstrap/one-job-worker.py
+ExecStop=/usr/bin/python3 -I -B /opt/runner-bootstrap/shutdown-worker.py
+Restart=no
+UMask=0077
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/ephemeral-runner
+InaccessiblePaths=-/run/docker.sock -/var/run/docker.sock
+RestrictSUIDSGID=yes
+KillMode=control-group
+TimeoutStopSec=120
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target

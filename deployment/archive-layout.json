@@ -1,0 +1,33 @@
+{
+  "layout": "single controller archive rooted at deployment package; cloud-functions sibling hierarchy retained",
+  "root_main": "controller-entry.js",
+  "factory_export": "createControllerDeployment(options, {runtimeFactory?})",
+  "runtime_factory": "cloud-functions/webhook-handler/controller-runtime.js:createControllerRuntime(options)",
+  "missing_or_future_files": [
+    "package-lock.json"
+  ],
+  "assets": {
+    "build_provisioner": "cloud-functions/webhook-handler/provision-runner.py",
+    "canonical_cleanup_helper": "cloud-functions/cleanup-function/runner-cleanup.sh",
+    "worker_image_assets": [
+      "startup/one-job-worker.py",
+      "startup/shutdown-worker.py",
+      "startup/one-job-worker.service"
+    ]
+  },
+  "exclude": [
+    "original root workspace package.json",
+    "historical workspace package-lock.json",
+    "webhook-handler/index.js SDK-initializing legacy entry",
+    "cleanup-function/index.js legacy cleanup deployment",
+    "workspace package.json files",
+    "tests",
+    "terraform from controller source archive",
+    "node_modules",
+    "credentials/private key/session data"
+  ],
+  "imports_descriptor_status": "all current literal import expressions including runtime/dispatcher/auth/endpoints/scheduler inventoried for independent review",
+  "cloud_archive_created": false,
+  "manifest_pins_status": "all 27 available source files pinned; current deployment lock remains explicitly unpinned and missing",
+  "worker_assets_note": "included source is not an installed/image ownership attestation"
+}

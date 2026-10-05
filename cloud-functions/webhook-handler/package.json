@@ -1,0 +1,63 @@
+{
+  "name": "webhook-handler",
+  "version": "1.0.0",
+  "description": "Cloud Function to handle GitHub webhooks for runner provisioning",
+  "main": "index.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@google-cloud/cloudbuild": "^4.0.0",
+    "@google-cloud/compute": "^4.0.0",
+    "@google-cloud/firestore": "^7.0.0",
+    "@google-cloud/functions-framework": "^3.0.0",
+    "@google-cloud/secret-manager": "^5.6.0",
+    "@octokit/rest": "^20.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0"
+  },
+  "scripts": {
+    "start": "functions-framework --target=webhookHandler",
+    "test": "jest index.http.test.js",
+    "test:unit": "jest --testPathPattern=unit",
+    "test:integration": "jest --testPathPattern=integration",
+    "test:coverage": "jest index.unit.test.js index.http.test.js --coverage",
+    "test:coverage-check": "jest index.unit.test.js index.http.test.js --coverage --coverageThreshold=\"{\\\"global\\\":{\\\"branches\\\":75,\\\"functions\\\":80,\\\"lines\\\":80,\\\"statements\\\":80}}\"",
+    "test:all": "jest --testPathPattern=\"test|spec\"",
+    "test:all-coverage": "jest --coverage --testPathPattern=\"test|spec\"",
+    "test:historical-unit": "jest index.unit.test.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "index.js",
+      "provisioning-state.js",
+      "!node_modules/**",
+      "!coverage/**",
+      "!test-*.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ]
+  },
+  "keywords": [
+    "github",
+    "webhook",
+    "cloud-build",
+    "runner"
+  ],
+  "author": "",
+  "license": "MIT",
+  "environment": {
+    "MAX_RUNNER_VMS": "2"
+  }
+}
