@@ -1,0 +1,42 @@
+# Restricted migration material and local databases
+restricted/
+quarantine/
+.git-source/
+*.patch
+*.bundle
+
+# Credentials and operator-specific inputs
+.env
+.env.*
+!.env.example
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+*credentials*.json
+*service-account*.json
+*.pem
+*.key
+
+# State, plans and local Terraform data
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.plan
+crash.log
+crash.*.log
+
+# Generated output and diagnostics
+node_modules/
+__pycache__/
+*.pyc
+coverage/
+dist/
+build/
+*.log
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+.DS_Store
