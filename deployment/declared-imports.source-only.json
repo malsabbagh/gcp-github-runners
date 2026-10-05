@@ -1,0 +1,235 @@
+{
+  "status": "all current literal import expressions declared as static source inventory; no parser, execution or dynamic completeness claim",
+  "descriptors": [
+    {
+      "from": "cloud-functions/cleanup-function/allocation-lifecycle.js",
+      "specifier": "../webhook-handler/actual-job-association",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/allocation-lifecycle.js",
+      "specifier": "../webhook-handler/job-identity",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/allocation-lifecycle.js",
+      "specifier": "node:crypto",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/allocation-lifecycle.js",
+      "specifier": "node:util",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
+      "specifier": "./allocation-lifecycle",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
+      "specifier": "node:crypto",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
+      "specifier": "node:util",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/retirement-controller.js",
+      "specifier": "./allocation-lifecycle",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/cleanup-function/retirement-controller.js",
+      "specifier": "node:util",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/actual-job-association.js",
+      "specifier": "./job-identity",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/allocation-bootstrap-broker.js",
+      "specifier": "./allocation-bootstrap-store",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/allocation-bootstrap-broker.js",
+      "specifier": "node:crypto",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/allocation-bootstrap-store.js",
+      "specifier": "./runner-labels",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/allocation-recovery.js",
+      "specifier": "./job-identity",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/allocation-recovery.js",
+      "specifier": "./runner-labels",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "specifier": "./allocation-bootstrap-broker",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "specifier": "./allocation-bootstrap-store",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "specifier": "./bootstrap-http",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "specifier": "./github-app-runner-adapter",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "specifier": "./managed-instance-verifier",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "specifier": "@google-cloud/secret-manager",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "../cleanup-function/lifecycle-dispatcher",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "../cleanup-function/retirement-controller",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "./actual-job-association",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "./allocation-recovery",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "./bootstrap-runtime",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "./github-app-runner-adapter",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "./scheduled-recovery",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-profile.js",
+      "specifier": "@google-cloud/secret-manager",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-runtime.js",
+      "specifier": "./bootstrap-runtime",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-runtime.js",
+      "specifier": "./controller-profile",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-runtime.js",
+      "specifier": "./invocation-auth",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/controller-runtime.js",
+      "specifier": "./management-http",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+      "specifier": "./allocation-bootstrap-store",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+      "specifier": "./runner-labels",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+      "specifier": "@octokit/auth-app",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+      "specifier": "@octokit/rest",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/job-identity.js",
+      "specifier": "node:crypto",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/managed-instance-verifier.js",
+      "specifier": "./allocation-bootstrap-store",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/managed-instance-verifier.js",
+      "specifier": "@google-cloud/compute",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/managed-instance-verifier.js",
+      "specifier": "google-auth-library",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/management-http.js",
+      "specifier": "node:util",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/provisioning-state.js",
+      "specifier": "./job-identity",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/provisioning-state.js",
+      "specifier": "node:crypto",
+      "kind": "static"
+    },
+    {
+      "from": "cloud-functions/webhook-handler/scheduled-recovery.js",
+      "specifier": "./management-http",
+      "kind": "static"
+    },
+    {
+      "from": "controller-entry.js",
+      "specifier": "./cloud-functions/webhook-handler/controller-runtime",
+      "kind": "static"
+    }
+  ]
+}

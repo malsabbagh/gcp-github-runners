@@ -1,0 +1,28 @@
+{
+  "status": "SOURCE_PREPARATION_READY_NOT_DEPLOYABLE",
+  "tests_executed": false,
+  "prepared_test_declarations": 13,
+  "sdk_initialized": false,
+  "zip_created": false,
+  "npm_install_or_resolution": false,
+  "official_public_docs_read": true,
+  "missing_current_lock": true,
+  "missing_root_runtime_and_import_pins": true,
+  "pure_root_factory_only": true,
+  "production_sdk_http_adapter_qualified": false,
+  "archive_verifier_limits": [
+    "declared static closure only",
+    "not arbitrary dynamic import parser",
+    "not transitive resolver/installability proof",
+    "not actual ZIP byte/path verifier",
+    "not action authority"
+  ],
+  "scope_files": "packaging lane only; no slice2 or root candidate edits",
+  "remaining_blockers": [
+    "root runtime composition/pins/imports",
+    "new deployment lock resolution",
+    "Node24 SDK import/API qualification",
+    "production framework/auth/readiness adapter",
+    "image/IAM/provider actor-quiescence qualification"
+  ]
+}

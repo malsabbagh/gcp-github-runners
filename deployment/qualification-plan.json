@@ -1,0 +1,93 @@
+{
+  "scope": "future qualification plan, no execution or authority",
+  "dependency_runtime": {
+    "proposed_runtime": "nodejs24 / Node24.x",
+    "current_deployment_lock": "absent/UNRUN",
+    "required_evidence": [
+      "explicit authorization for dependency resolution/install in isolated fixture",
+      "new root declaration matching resolved complete transitive lock with integrity/provenance",
+      "Node24 SDK imports and auth-app/rest authStrategy/API behavior",
+      "built-in hermetic fixture suite before actual SDK adapter qualification",
+      "licenses and exact resolved image/package inventory"
+    ],
+    "prohibited_in_this_lane": [
+      "npm install/ci/view",
+      "fabricated lock records",
+      "SDK initialization",
+      "candidate or test execution"
+    ]
+  },
+  "archive": {
+    "required_evidence": [
+      "root final controller-runtime source and imports/hash",
+      "matching deployment lock/hash",
+      "complete declared relative module/assets inventory preserving sibling directories",
+      "screened actual archive bytes inventory/modes and no symlink/escape entries before deployment"
+    ],
+    "historical_snapshot": "old workspace package and lock remain outside current archive",
+    "legacy_cleanup_deployment": false,
+    "pure_entry_is_http_target": false,
+    "production_framework_registration": "separate explicitly qualified adapter; do not initialize in QA"
+  },
+  "iam_interfaces": {
+    "controller": {
+      "ownership": "durable Firestore allocation/receipt updates, broker verification, App operations and retirement",
+      "review": [
+        "configured database/resource grants",
+        "numbered webhook/App private-key secret read and no secret payload in Terraform state/archive",
+        "exact supplied management identity and service invocation audience",
+        "controller retirement Compute authority/effective permissions scoped to selected profile"
+      ]
+    },
+    "provisioner": {
+      "ownership": "internal asynchronous Cloud Build VM provisioning",
+      "review": [
+        "build identity distinct from worker",
+        "Compute insertion/GET profile and permissions",
+        "actAs only supplied worker identity; service-account unique-ID read if retained",
+        "durable creationStarted true before insert; original allocation deadline no renewal"
+      ]
+    },
+    "cleanup": {
+      "ownership": "scheduled managed-identity controller invocation only",
+      "review": [
+        "exact scheduler/helper caller identity and audience; cleanup no App/private-key/worker credentials",
+        "no second legacy cleanup deployment",
+        "controller-owned exact runner deregistration and safe retirement"
+      ]
+    },
+    "worker": {
+      "ownership": "one job plus allocation-bound broker invocation only",
+      "review": [
+        "no Firestore authoritative writes, management PAT/App key/controller identity or Compute permissions",
+        "worker attached identity and explicit no-scopes metadata identity flow",
+        "image pull grants optional and absent by default for preinstalled runner",
+        "minimal broker service invocation resource grant; qualified actual IAM behavior"
+      ]
+    }
+  },
+  "images_and_host": {
+    "required_evidence": [
+      "immutable builder image digest and python/gcloud tool versions",
+      "immutable worker image digest/runner binary provenance",
+      "installed /opt/actions-runner and nonroot service user/state ownership",
+      "one-job systemd/startup sentinel/restart behavior and no sudo/Docker socket/shared credentials",
+      "private NIC metadata/egress reachability consistent with GitHub and broker flows"
+    ],
+    "source_assets_not_image_attestation": true,
+    "untrusted_public_job_profile_qualified": false
+  },
+  "retirement_and_provider_races": {
+    "approvedQuiescence_default": false,
+    "required_evidence": [
+      "trusted actor quiescence before name-based deletion",
+      "fresh exact incarnation and complete stable runner inventory/busy proof",
+      "controller verified actual-job completion or cancellation/expiry orphan receipt proof",
+      "post-delete exact absence before charge release; unknown preserves",
+      "scheduler/backoff/bounded fairness and cancellation/expiry interleavings"
+    ],
+    "same_user_or_cloud_privileged_actor_race_eliminated": false
+  },
+  "source_authorship": "new packaging contribution separately credited; source snapshots referenced only; no false historical authorship",
+  "qualification_flags_changed": false
+}
