@@ -32,3 +32,28 @@ variable "runner_labels" {
     error_message = "Supply one to sixteen safe metadata labels."
   }
 }
+
+# One canonical repository input set; no triggers are created.
+variable "repository_owner" {
+  type = string
+  validation {
+    condition     = can(regex("^[A-Za-z0-9][A-Za-z0-9_.-]{0,99}$", var.repository_owner))
+    error_message = "Supply a valid bounded repository owner value."
+  }
+}
+
+variable "repository_name" {
+  type = string
+  validation {
+    condition     = can(regex("^[A-Za-z0-9][A-Za-z0-9_.-]{0,99}$", var.repository_name))
+    error_message = "Supply a valid bounded repository name value."
+  }
+}
+
+variable "repository_branch" {
+  type = string
+  validation {
+    condition     = can(regex("^[A-Za-z0-9][A-Za-z0-9_.-]{0,254}$", var.repository_branch)) && length(regexall("\\.\\.", var.repository_branch)) == 0 && !can(regex("\\.lock$", var.repository_branch))
+    error_message = "Supply a valid bounded repository branch value."
+  }
+}

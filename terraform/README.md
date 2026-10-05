@@ -29,8 +29,9 @@ Native checks use only each variable's own value. They bound syntax, labels,
 canonical lowercase account emails, four-role distinctness, and numbered
 secret references. They do not prove resource existence, project ownership,
 zone-to-region consistency, module alias equality, or runtime authorization.
-Repository owner, name, and branch inputs and their validation belong to a
-later configuration change. They are absent from this tree.
+Repository owner/name are ASCII atoms of at most 100 characters. Branches are
+a deliberate single-atom subset of at most 255 characters, with no slash,
+whitespace, double dot, or lock suffix. This is not a complete Git ref parser.
 Label maps hold one to sixteen metadata entries; keys and nonempty values have
 at most 63 lowercase safe characters. They are not runtime routing arrays.
 Secret IDs have at most 255 safe characters and version numbers at most 18

@@ -39,3 +39,11 @@ variable "webhook_secret_version" {
     error_message = "Supply a valid bounded webhook secret version value."
   }
 }
+
+variable "zone" {
+  type = string
+  validation {
+    condition     = can(regex("^[a-z]+(?:-[a-z]+)+[0-9]-[a-z]$", var.zone)) && length(var.zone) <= 65
+    error_message = "Supply a valid bounded zone value."
+  }
+}
