@@ -89,7 +89,7 @@ function verifyDeclaredArchiveClosure(input) {
         else if (!actual.has(target)) fail('ARCHIVE_IMPORT_MISSING');
       } else if (row.kind === 'asset') fail('ARCHIVE_ASSET_INVALID');
       else if (row.specifier.startsWith('node:')) {
-        if (!['node:crypto', 'node:util', 'node:buffer'].includes(row.specifier)) fail('ARCHIVE_BUILTIN_UNREVIEWED');
+        if (!['node:crypto', 'node:util', 'node:buffer', 'node:fs', 'node:path'].includes(row.specifier)) fail('ARCHIVE_BUILTIN_UNREVIEWED');
       } else {
         const name = externalName(row.specifier);
         if (!name || !Object.hasOwn(pkg.dependencies, name)) fail('ARCHIVE_UNDECLARED_DEPENDENCY');

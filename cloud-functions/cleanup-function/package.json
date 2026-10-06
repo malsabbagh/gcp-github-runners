@@ -4,21 +4,19 @@
   "description": "Controller-mediated conservative cleanup for one-job Spot runners",
   "main": "index.js",
   "engines": {
-    "node": ">=24"
+    "node": "24.x"
   },
   "dependencies": {
-    "@google-cloud/cloudbuild": "^4.0.0",
-    "@google-cloud/functions-framework": "^3.0.0"
+    "google-auth-library": "9.15.1"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "jest-environment-node": "^29.7.0"
+    "jest": "29.7.0",
+    "jest-environment-node": "29.7.0"
   },
   "scripts": {
-    "start": "functions-framework --target=cleanupRunners",
     "test": "jest --runInBand",
-    "test:coverage": "jest --runInBand --coverage",
-    "test:coverage-check": "jest --runInBand --coverage --coverageThreshold=\"{\\\"global\\\":{\\\"branches\\\":22,\\\"functions\\\":33,\\\"lines\\\":37,\\\"statements\\\":37}}\""
+    "test:coverage": "npm run test:coverage --prefix ../..",
+    "test:coverage-check": "npm run test:coverage-check --prefix ../.."
   },
   "jest": {
     "testEnvironment": "node",
@@ -37,7 +35,8 @@
     "testMatch": [
       "**/__tests__/**/*.js",
       "**/?(*.)+(spec|test).js"
-    ]
+    ],
+    "transform": {}
   },
   "keywords": [
     "github",

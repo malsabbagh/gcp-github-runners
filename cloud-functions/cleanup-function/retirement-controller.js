@@ -6,7 +6,7 @@ const {knownReceipt, terminalProof, binding} = require('./allocation-lifecycle')
 // Cleanup/worker identities cannot supply their own provider or state objects.
 // All durable writes use the existing allocation pool and job record.
 function createRetirementController({firestore, compute, runnerAdapter, projectId, repositoryOwner, repositoryName,
-                                     poolDocument = 'provisioning_pools/global', approvedQuiescence = false}) {
+                                     poolDocument = 'provisioning_pools/global', approvedQuiescence = false,workerStopQualified = false}) {
   if (!projectId || !repositoryOwner || !repositoryName) throw safe('invalid_retirement_configuration');
   const poolRef = firestore.doc(poolDocument);
   const jobRef = key => firestore.doc(`job_provisioning/${key}`);
@@ -139,12 +139,74 @@ function createRetirementController({firestore, compute, runnerAdapter, projectI
   }
   const requestDrain = request => lifecycleIntent(request, 'drain');
   const prepareStop = request => lifecycleIntent(request, 'stop');
+  async function stopCompletedWorker(state,request,inspection) {
+    const entry=state.entry,receipt=knownReceipt(state);
+    if (approvedQuiescence!==true || workerStopQualified!==true || !receipt || !completed(state)) return null;
+    const bound=binding(request.key,entry,receipt);
+    function stopProof(current) {
+      if (!same(current.entry,entry) || !completed(current)) return null;
+      const life=current.entry.lifecycle,mirror=typeof current.job.lifecycle==='string'?JSON.parse(current.job.lifecycle):null;
+      const drain=life?.drain?.dispatch,stop=life?.stop?.dispatch;
+      if (!isDeepStrictEqual(life,mirror) || !drain || !stop ||
+          life.drain.version!==1 || life.stop.version!==1 || life.drain.state!=='requested' || life.stop.state!=='requested' ||
+          !isDeepStrictEqual(life.drain.binding,bound) || !isDeepStrictEqual(life.stop.binding,bound) ||
+          life.drain.actualCompletion!==(current.job.actualCompletion||current.job.completion) ||
+          life.stop.actualCompletion!==(current.job.actualCompletion||current.job.completion) ||
+          drain.state!=='acknowledged' || stop.state!=='acknowledged' ||
+          !isDeepStrictEqual(drain.binding,bound) || !isDeepStrictEqual(stop.binding,bound)) return null;
+      for (const [phase,record] of [['drain',drain],['stop',stop]]) {
+        const ack=record.acknowledgement;
+        if (record.version!==1 || !/^[a-f0-9-]{36}$/.test(record.dispatchId) || !/^[a-f0-9]{64}$/.test(record.evidenceSha256)) return null;
+        if (!ack || Object.keys(ack).length!==8 || ack.version!==1 || ack.phase!==phase || ack.dispatchId!==record.dispatchId ||
+            ack.evidenceSha256!==record.evidenceSha256 || !isDeepStrictEqual(ack.binding,bound) ||
+            ack.authenticated!==true || ack.incarnationFenced!==true || ack.state!==(phase==='drain'?'drained':'stopped')) return null;
+      }
+      return {version:1,binding:bound,dispatchId:stop.dispatchId,evidenceSha256:stop.evidenceSha256};
+    }
+    const proof=stopProof(state);
+    if (!proof || !ownedVm(inspection.vm,entry,request.key,['RUNNING','STOPPING','TERMINATED'])) return null;
+    const rows=await inventory(),exact=rows.find(r=>r.id===receipt.runnerId);
+    if (!registrationSafe(rows,entry,receipt) || exact && !labelsMatch(exact,receipt)) return null;
+    const lookup=await runnerAdapter.inspectOwnedRunner({runnerId:receipt.runnerId,expectedName:receipt.runnerName,expectedLabels:receipt.labels});
+    if (exact ? lookup?.status!=='present' || lookup.busy!==false : lookup?.status!=='absent') return null;
+    let shouldStop=false;
+    const accepted=await firestore.runTransaction(async tx=> {
+      shouldStop=false;
+      const [pool,job]=await Promise.all([tx.get(poolRef),tx.get(jobRef(request.key))]);
+      const data=pool.data(),entries=entriesFrom(data),current={key:request.key,entry:entries[request.key],job:job.data()};
+      if (!isDeepStrictEqual(stopProof(current),proof)) return false;
+      const old=current.entry.providerStop,mirror=typeof current.job.providerStop==='string'?JSON.parse(current.job.providerStop):null;
+      if (old!==undefined) return isDeepStrictEqual(old,mirror) && Object.keys(old).length===6 && Number.isSafeInteger(old.startedAtMs) && old.version===1 && old.state==='consumed' &&
+        isDeepStrictEqual(old.binding,proof.binding) && old.dispatchId===proof.dispatchId && old.evidenceSha256===proof.evidenceSha256;
+      if (inspection.vm.status!=='RUNNING') return false;
+      const record={...proof,state:'consumed',startedAtMs:Date.now()};
+      entries[request.key]={...current.entry,providerStop:record};
+      tx.set(poolRef,{...data,entries:JSON.stringify(entries)});tx.set(jobRef(request.key),{providerStop:JSON.stringify(record)},{merge:true});
+      shouldStop=true;return true;
+    });
+    if (!accepted) return null;
+    // The durable consumption precedes the named provider effect. A timeout or
+    // lost response never permits a second stop. Subsequent attempts inspect
+    // this exact incarnation only. Named mutation still requires actor quiescence.
+    if (shouldStop) {
+      const fresh=await inspectVm(entry),current=await readState(request.key);
+      if (fresh.absent || !ownedVm(fresh.vm,entry,request.key,['RUNNING']) || !isDeepStrictEqual(stopProof(current),proof)) return null;
+      try {await compute.stop({project:projectId,zone:entry.zone,instance:entry.name});}catch(_){return null;}
+    }
+    const after=await inspectVm(entry);
+    return after.absent || ownedVm(after.vm,entry,request.key) ? after : null;
+  }
   async function retireAllocation(request) {
     if (!requestShape(request)) return result('invalid_request');
     try {
       let state = await readState(request.key); const entry = state.entry;
       if (!same(entry, request) || !completed(state)) return result('missing_terminal_ownership_proof');
-      const initial = await inspectVm(entry);
+      let initial = await inspectVm(entry);
+      if (!initial.absent && ['RUNNING','STOPPING'].includes(initial.vm?.status)) {
+        const stopped=await stopCompletedWorker(state,request,initial);
+        if (!stopped) return result('provider_stop_pending_or_unqualified');
+        initial=stopped;
+      }
       if (!initial.absent && !ownedVm(initial.vm, entry, request.key)) return result('instance_running_or_changed');
       const rows = await inventory();
       const identity = entry.runnerIdentity;
@@ -202,6 +264,7 @@ function createRetirementController({firestore, compute, runnerAdapter, projectI
         // inherit this old incarnation's association. Never synthesize job.done.
         delete terminalJob.actualJob;
         delete terminalJob.actualCompletion;
+        delete terminalJob.lifecycle;delete terminalJob.workerControl;delete terminalJob.providerStop;
         terminalJob.state = terminalJob.done ? 'completed' : terminalJob.executedBy ? 'associated' : 'waiting';
         delete entries[request.key];
         tx.set(poolRef, {...data, entries: JSON.stringify(entries)});
@@ -278,6 +341,7 @@ function createRetirementController({firestore, compute, runnerAdapter, projectI
           const terminalJob = {...job, bootstrapHistory: JSON.stringify(bootstrapHistory),
             cleanup: JSON.stringify({...proof, allocation: entry, actualCompletion: job.actualCompletion || null})};
           delete terminalJob.bootstrap; delete terminalJob.actualJob; delete terminalJob.actualCompletion;
+          delete terminalJob.lifecycle;delete terminalJob.workerControl;delete terminalJob.providerStop;
           terminalJob.state = terminalJob.done ? 'completed' : terminalJob.executedBy ? 'associated' : 'waiting';
           delete entries[request.key];
           tx.set(poolRef, {...data, entries: JSON.stringify(entries)});

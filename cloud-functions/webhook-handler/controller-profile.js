@@ -15,7 +15,7 @@ function createControllerProfile({ infrastructureConfig, firestore, compute, clo
   jitProviderLifetimeQualified = false, approvedQuiescence = false,
   runnerAdapter: injectedRunnerAdapter, workerControl,
   dispatchEnabled = false, workerDrainQualified = false, workerStopQualified = false,
-  scheduledEnabled = false, authenticateInvocation = async () => null,
+  provisioning,isEligible,scheduledEnabled = false, authenticateInvocation = async () => null,
   expectedAudience, expectedCallerSubject, adminSubject = expectedCallerSubject, schedulerSubject }) {
   const appConfig = readBootstrapConfiguration(environment);
   const repositoryOwner = environment.GITHUB_REPO_OWNER;
@@ -47,7 +47,7 @@ function createControllerProfile({ infrastructureConfig, firestore, compute, clo
   };
   const retirement = createRetirementController({ firestore, compute, runnerAdapter,
     projectId: infrastructureConfig.PROJECT_ID, repositoryOwner, repositoryName,
-    approvedQuiescence });
+    approvedQuiescence,workerStopQualified });
   const association = createActualJobAssociation({ firestore, repositoryOwner, repositoryName });
   const recovery = createAllocationRecovery({ firestore, compute, cloudBuild,
     project: infrastructureConfig.PROJECT_ID, zone: infrastructureConfig.DEFAULT_ZONE,
@@ -60,7 +60,8 @@ function createControllerProfile({ infrastructureConfig, firestore, compute, clo
   const dispatcher = createLifecycleDispatcher({firestore, compute, runnerAdapter, workerControl,
     projectId: infrastructureConfig.PROJECT_ID, repositoryOwner, repositoryName,
     dispatchEnabled, workerDrainQualified, workerStopQualified, approvedQuiescence});
-  const scheduler = createScheduledRecovery({firestore, recovery, retirement, dispatcher,
+  const waitingRecovery = require('./waiting-recovery').createWaitingRecovery({firestore,provisioning,isEligible,batchSize:infrastructureConfig.RECONCILIATION_BATCH_SIZE});
+  const scheduler = createScheduledRecovery({firestore, recovery, retirement, dispatcher,waitingRecovery,
     enabled: scheduledEnabled, batchSize: infrastructureConfig.RECONCILIATION_BATCH_SIZE,
     authenticateInvocation, expectedAudience, expectedCallerSubject, adminSubject, schedulerSubject});
   return Object.freeze({ bootstrap, retirement, association, recovery, dispatcher, scheduler });

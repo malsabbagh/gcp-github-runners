@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "profile": "controller-source-archive",
+  "runtime": "nodejs24",
+  "entry": "controller-entry.js",
+  "rootPackage": "package.json",
+  "packageLock": "package-lock.json",
+  "files": [
+    {
+      "path": "cloud-functions/cleanup-function/allocation-lifecycle.js",
+      "sha256": "27f9d00514b79ab238d2ef683697743831f2053378219bb9979aa1bcb910c2d8"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
+      "sha256": "eb997ddef0a8ca927b7467a5ccac52fd5a4277ac2b2d5f4db1e6e8fd341a4419"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/retirement-controller.js",
+      "sha256": "d87716d6835ab357642442471c6f4bfaee1686eb16b6ecc8d1015f43244ba0c1"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/runner-cleanup.sh",
+      "sha256": "85969d955b34815ee073fe41d38555f3f9d0bd41a737e8acc6ba489b7f745c67"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/actual-job-association.js",
+      "sha256": "6dd80e4de707cde7b6f939307ca972295b6e3dda37e6bf4a832fb7f5d559083c"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/allocation-bootstrap-broker.js",
+      "sha256": "87eaa20e2dfebd8fbbd78a9222eb6c29cde03faa58720a0f0dcc33d45574e6ed"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/allocation-bootstrap-store.js",
+      "sha256": "c288b8826f41328be11e7ba866840ca95dcbd9fd0f6e752437c6515c0c286cfb"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/allocation-recovery.js",
+      "sha256": "5b53b533b1bd78b06b985460522e4cb5d955931a9a960f4b0d92971841668fba"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/bootstrap-http.js",
+      "sha256": "39202c6baf004b8bcfbfb059b26211d7bd59b881fcf408a0a806cce454527742"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/bootstrap-runtime.js",
+      "sha256": "ecc3b740975518b5e394fba400f67787b9853098989e832730569d582a1ce09c"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/controller-profile.js",
+      "sha256": "b0f950cb7c8e6837580f192e013b315d4d7a280971c159e5e9d30a799dc2cf96"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/controller-runtime.js",
+      "sha256": "c75c4e647d3aa0561452fa4f1d2777eee8ddd6fd72f98d950d98c821fb70cf27"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/deployment-runtime.js",
+      "sha256": "426603a9ce682b60a5b6a06b3e7ebeef779b777bb499abd600ec6fec39944734"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+      "sha256": "faf64e6855867f779f2ee39f63afc74ebd800fc5ed962b8b7c6db64dfb4ae17d"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/infrastructure-config.js",
+      "sha256": "07deb79aeda46551d7804a5f47b18a2ce21851bdb66d4369b1d4f11db04c6fef"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/invocation-auth.js",
+      "sha256": "ffdc728ffa7024b545ed7d05c6ebe407fe932af3c60a9adefd83aa62d24160e8"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/job-identity.js",
+      "sha256": "2afdeb3cdfdf8f89f0e59840abfbfe523ffd09671f91da09accdd318199502ae"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/managed-instance-verifier.js",
+      "sha256": "84badc1754fbf75b8ba3e8352be7e51e0e5e3417305bcf46665d16c3e0e25b17"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/management-http.js",
+      "sha256": "d72474c5829cb465e3e8be3da8bff52e3692ebfceec9f6c54235f3f06ae232da"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/provision-runner.py",
+      "sha256": "ddc700b8adccc6f641f3df7b63f43088dea8804f5343cb5decd922017e2e8da9"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/provisioning-state.js",
+      "sha256": "930511114f866ac79ca669c3ca18bf32f08074e16ed58e4d0cfd64376812980a"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/runner-labels.js",
+      "sha256": "3e55ec65c904bd2e11568fb6df5d22896a1f4411e3477a47d26e3f8a376e7e4a"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/scheduled-recovery.js",
+      "sha256": "f3b7a55d9a9fe489af9635f418a322d37c6e7c515513d29fb8137c9a62fcd9d1"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/waiting-recovery.js",
+      "sha256": "ae0af847413efde65c591b689fbf74c3fa9cda7871f4a8ea111d10377772c4d1"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/webhook-runtime.js",
+      "sha256": "8d49a99e94878c9734f38c32007ca7c389c9f45475e29e8eb25a30ece7561f8e"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/worker-control.js",
+      "sha256": "9cd0ee16fddaed1faf564f379f890572682b39c86f88a11dad6fb4078c2bb961"
+    },
+    {
+      "path": "controller-entry.js",
+      "sha256": "15fbc790d16a1eb169f3847078a631d691001dddfc4fae828c4fda00a6cdf48e"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b49541c694df2c94357a64f881ff43afb0c116219a449db2d78d1a2920ab73c4"
+    },
+    {
+      "path": "package.json",
+      "sha256": "d2a2df1871aa6582a468dd948dd80baf2cd74524e91d00ab87059b52b5e7bd42"
+    }
+  ]
+}

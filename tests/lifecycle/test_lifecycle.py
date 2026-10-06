@@ -15,11 +15,13 @@ class LifecyclePackagingTests(unittest.TestCase):
         self.assertNotIn('secrets', text)
         self.assertNotIn('instances\', \'delete', text)
         self.assertIn('print-identity-token', text)
-    def test_controller_capacity_release_records_both_absences(self):
-        text = (ROOT / 'cloud-functions/cleanup-function/index.js').read_text()
-        self.assertIn('runnerAbsent: true, instanceAbsent: true', text)
-        self.assertIn('idEqual(completion.runnerId, identity.id)', text)
-        self.assertIn('completion.runnerName === identity.name', text)
-        self.assertIn("vm.status === 'TERMINATED'", text)
-if __name__ == '__main__':
-    unittest.main()
+    def test_canonical_controller_owns_capacity_release_and_scheduler_has_no_cloud_build(self):
+        controller=(ROOT/'cloud-functions/cleanup-function/retirement-controller.js').read_text()
+        adapter=(ROOT/'cloud-functions/cleanup-function/index.js').read_text()
+        self.assertIn('runnerAbsent: true, instanceAbsent: true',controller)
+        self.assertIn('terminalProof',controller)
+        self.assertIn('bootstrapHistory',controller)
+        self.assertNotIn('CloudBuildClient',adapter)
+        self.assertNotIn("functions.http",adapter)
+        self.assertIn('getIdTokenClient',adapter)
+if __name__ == '__main__':unittest.main()

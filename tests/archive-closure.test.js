@@ -100,8 +100,8 @@ test('lock drift, missing auth SDK record and changed direct version fail', () =
     assert.equal(inspect(f).ok, false);
   }
 });
-test('unreviewed process/network/filesystem builtins cannot silently enter declared closure', () => {
-  for (const specifier of ['node:fs', 'node:http', 'node:child_process']) {
+test('unreviewed process/network builtins cannot silently enter declared closure', () => {
+  for (const specifier of ['node:http', 'node:child_process']) {
     const f = fixture(); f.importDescriptors.push({from: 'controller-entry.js', specifier, kind: 'static'});
     assert.ok(inspect(f).errors.includes('ARCHIVE_BUILTIN_UNREVIEWED'));
   }

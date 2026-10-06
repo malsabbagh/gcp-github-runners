@@ -1,33 +1,23 @@
 {
-  "layout": "single controller archive rooted at deployment package; cloud-functions sibling hierarchy retained",
+  "layout": "Single unified authenticated controller HTTP archive with preserved cloud-functions sibling modules",
+  "runtime": "nodejs24",
   "root_main": "controller-entry.js",
+  "http_entrypoint": "controllerHttp",
   "factory_export": "createControllerDeployment(options, {runtimeFactory?})",
-  "runtime_factory": "cloud-functions/webhook-handler/controller-runtime.js:createControllerRuntime(options)",
-  "missing_or_future_files": [
-    "package-lock.json"
-  ],
-  "assets": {
-    "build_provisioner": "cloud-functions/webhook-handler/provision-runner.py",
-    "canonical_cleanup_helper": "cloud-functions/cleanup-function/runner-cleanup.sh",
-    "worker_image_assets": [
-      "startup/one-job-worker.py",
-      "startup/shutdown-worker.py",
-      "startup/one-job-worker.service"
-    ]
-  },
-  "exclude": [
-    "original root workspace package.json",
-    "historical workspace package-lock.json",
-    "webhook-handler/index.js SDK-initializing legacy entry",
-    "cleanup-function/index.js legacy cleanup deployment",
-    "workspace package.json files",
-    "tests",
-    "terraform from controller source archive",
+  "production_factory": "cloud-functions/webhook-handler/deployment-runtime.js:createProductionDeployment",
+  "archive_command": "npm run package:controller",
+  "archive_path": "dist/controller.zip",
+  "manifest": "deployment/archive-manifest.json",
+  "verification": "npm run check:archive; physical ZIP entry/hash/mode check during assembly",
+  "excluded": [
+    ".git",
+    "ambient credentials/configuration/state",
     "node_modules",
-    "credentials/private key/session data"
+    "tests",
+    "workspace package manifests",
+    "legacy index registration",
+    "Terraform"
   ],
-  "imports_descriptor_status": "all current literal import expressions including runtime/dispatcher/auth/endpoints/scheduler inventoried for independent review",
-  "cloud_archive_created": false,
-  "manifest_pins_status": "all 27 available source files pinned; current deployment lock remains explicitly unpinned and missing",
-  "worker_assets_note": "included source is not an installed/image ownership attestation"
+  "cloud_deployment_performed": false,
+  "default_readiness_flags": false
 }

@@ -7,7 +7,7 @@ function validRequest(value) {
   return object(value) && Object.keys(value).length === fields.length && fields.every(key => Object.hasOwn(value, key)) &&
     typeof value.key === 'string' && /^[a-f0-9]{64}$/.test(value.key) && uuid(value.token) && uuid(value.claimId) &&
     typeof value.name === 'string' && /^[a-z][a-z0-9-]{0,61}[a-z0-9]$/.test(value.name) &&
-    typeof value.zone === 'string' && /^[a-z]+(?:-[a-z]+)+[0-9]-[a-z]$/.test(value.zone) &&
+    typeof value.zone === 'string' && /^[a-z]+(?:-[a-z]+)+[0-9]+-[a-z]$/.test(value.zone) &&
     typeof value.project === 'string' && /^[a-z][a-z0-9-]{4,28}[a-z0-9]$/.test(value.project) &&
     typeof value.instanceId === 'string' && /^[1-9][0-9]{0,19}$/.test(value.instanceId) &&
     typeof value.instanceCreationTimestamp === 'string' && value.instanceCreationTimestamp.length <= 40 &&

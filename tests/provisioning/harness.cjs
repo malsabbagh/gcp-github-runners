@@ -14,7 +14,7 @@ function load(options = {}, loader = null) {
     VM_CREATION_TIMEOUT_SECONDS: '600', GITHUB_WEBHOOK_SECRET_VERSION: 'projects/example-project/secrets/github-webhook-secret/versions/1',
     WORKER_SERVICE_ACCOUNT: 'worker@example-project.iam.gserviceaccount.com', WORKER_SERVICE_ACCOUNT_UNIQUE_ID: '123456789012345678901',
     ALLOCATION_BROKER_URL: 'https://broker.example.invalid', BUILDER_IMAGE: 'gcr.io/example-project/builder@sha256:'+'a'.repeat(64), ...options.env };
-  const secret = options.secret === undefined ? 'synthetic-webhook-secret' : options.secret;
+  const secret = (options.secret) === undefined ? 'synthetic-webhook-secret' : (options.secret);
   let queue = Promise.resolve();
   const firestore = {
     collection(collection) { return { doc(id) {
@@ -25,7 +25,7 @@ function load(options = {}, loader = null) {
     runTransaction(fn) {
       const pending = queue.then(async () => {
         const writes = [];
-        const value = await fn({ get: ref => ref.get(), set: (ref, data) => writes.push([ref.key, data]) });
+        const value = await fn({ get: ref => ref.get(), set: (ref, data,opts) => writes.push([ref.key, opts?.merge ? {...store.get(ref.key),...data}:data]), update: (ref,data)=>writes.push([ref.key,{...store.get(ref.key),...data}]) });
         writes.forEach(([key, data]) => store.set(key, data));
         return value;
       });
@@ -40,7 +40,7 @@ function load(options = {}, loader = null) {
       calls.builds.push(request);
       if (options.failSubmission) { const error = Error('submission rejected'); error.code = options.failSubmission; throw error; }
       const id = 'build-' + calls.builds.length;
-      builds.set(id, {id, status: 'WORKING'});
+      builds.set(id, {id,projectId:env.GOOGLE_CLOUD_PROJECT,status: 'WORKING'});
       if (options.missingBuildId) return [{name: 'operation-without-id'}];
       return [{name: 'operation-' + id, metadata: {build: {id}}}];
     },
@@ -48,7 +48,17 @@ function load(options = {}, loader = null) {
   };
   const compute = {
     async *aggregatedListAsync() { calls.inventory++; if (options.failInventory) throw Error('inventory unavailable'); yield ['zones/us-central1-a', {instances: [...live].map(name => ({name}))}]; },
-    async get() { throw Error('not found'); },
+    async get({instance}) {
+      if(options.failExactGet) throw Error('inspection unavailable');
+      if(!live.has(instance)) throw Object.assign(Error('not found'),{code:5});
+      const entries=JSON.parse(store.get('provisioning_pools/global')?.entries || '{}');
+      const [key,entry]=Object.entries(entries).find(([,e])=>e.name===instance)||[];
+      if(!entry) return [{name:instance}];
+      const event=JSON.parse(store.get('job_provisioning/'+key).event),created=entry.bootstrapExpiresAtMs-600000;
+      const base='https://www.googleapis.com/compute/v1/projects/'+env.GOOGLE_CLOUD_PROJECT+'/zones/'+env.DEFAULT_ZONE;
+      const meta={'allocation-key':key,'reservation-token':entry.token,'repo-owner':event.repo_owner,'repo-name':event.repo_name,'run-id':String(event.run_id),'job-id':String(event.job_id),'run-attempt':String(event.run_attempt||1),'vm-id':instance,'allocation-broker-url':env.ALLOCATION_BROKER_URL,'runner-count':'1','worker-profile':'trusted-private-one-job','bootstrap-expires-at-ms':String(created+600000)};
+      return [{name:instance,id:'123456',status:'RUNNING',creationTimestamp:new Date(created).toISOString(),zone:base,selfLink:base+'/instances/'+instance,scheduling:{provisioningModel:'SPOT',instanceTerminationAction:'DELETE',automaticRestart:false},serviceAccounts:[{email:env.WORKER_SERVICE_ACCOUNT,scopes:[]}],networkInterfaces:[{networkIP:'10.0.0.2',network:'private-network',subnetwork:'private-subnet',accessConfigs:[]}],metadata:{items:Object.entries(meta).map(([key,value])=>({key,value}))}}];
+    },
   };
   const factories = {
     '@google-cloud/cloudbuild': {CloudBuildClient: function() {return cloudBuild;}},
@@ -60,15 +70,8 @@ function load(options = {}, loader = null) {
   };
   let handler;
   if (loader) handler = loader({env, factories});
-  else {
-    const context = {Buffer, console: {log() {}, warn() {}, error() {}}, process: {env}, Date, Math, setTimeout, __dirname: sourceDir};
-    const cfg = {exports: {}};
-    vm.runInNewContext(`(function(module,exports){${fs.readFileSync(path.join(sourceDir, 'infrastructure-config.js'),'utf8')}\n})`, context)(cfg, cfg.exports);
-    const module = {exports: {}};
-    const requireSource = name => factories[name] || (name === './infrastructure-config' ? cfg.exports : name.startsWith('./') ? require(path.join(sourceDir, name)) : require(name));
-    vm.runInNewContext(`(function(require,module,exports){${fs.readFileSync(path.join(sourceDir,'index.js'),'utf8')}\n})`, context)(requireSource, module, module.exports);
-    handler = module.exports;
-  }
+  else handler=require(path.join(sourceDir,'webhook-runtime')).createWebhookRuntime({environment:env,clients:{firestore,cloudBuild,compute,secretManager:new factories['@google-cloud/secret-manager'].SecretManagerServiceClient()}});
+
   async function request({job = 10, delivery = 'delivery', action = 'queued', labels = ['self-hosted','trusted-private-one-job'], owner = 'example', repo = 'repo', signature, raw = true, bodyOverride} = {}) {
     const body = {action, workflow_job: {id: job, run_id: 20, run_attempt: 1, labels, head_branch: 'main'}, repository: {owner: {login: owner}, name: repo}};
     const bytes = Buffer.from(JSON.stringify(body));

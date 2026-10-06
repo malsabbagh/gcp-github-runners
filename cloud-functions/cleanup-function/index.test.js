@@ -4,14 +4,14 @@ jest.mock('@google-cloud/cloudbuild', () => ({CloudBuildClient: jest.fn(() => mo
 jest.mock('@google-cloud/functions-framework', () => ({http: jest.fn(), cloudEvent: jest.fn()}));
 const {createRetirementController, cleanupOldRunners} = require('./index');
 function fixture({status = 'TERMINATED', terminal = true, busy = false, approvedQuiescence = true} = {}) {
-  const key = 'a'.repeat(64), claimId = 'claim-one';
-  const entry = {name: 'runner-vm', token: 'allocation-' + 'x'.repeat(20), zone: 'zone-a', project: 'example-project',
+  const {key,name}=require('../webhook-handler/job-identity').identity({repo_owner:'example-owner',repo_name:'example-repository',job_id:9,run_id:12,run_attempt:1}); const claimId='22222222-2222-4222-8222-222222222222';
+  const entry = {name, token: '11111111-1111-4111-8111-111111111111', zone: 'zone-a', project: 'example-project',
     instanceId: '12345', instanceCreationTimestamp: '2000-01-01T00:00:00Z', demandDone: terminal, state: 'active',
-    runnerIdentity: {id: 7, name: 'runner-vm', labels: ['self-hosted', 'private-one-job']},
-    bootstrap: {state: 'issued', claimId, runnerId: 7, runnerName: 'runner-vm'}};
+    runnerIdentity: {id: 7, name, labels: ['self-hosted', 'private-one-job']},
+    bootstrap: {version:1,state: 'issued', claimId, runnerId: 7, runnerName: name}};
   const event = {repo_owner: 'example-owner', repo_name: 'example-repository', job_id: 9, run_id: 12, run_attempt: 1};
   const job = {done: terminal, event: JSON.stringify(event), bootstrap: JSON.stringify(entry.bootstrap),
-    completion: JSON.stringify({verifiedWebhook: true, runnerId: 7, runnerName: 'runner-vm',
+    completion: JSON.stringify({verifiedWebhook: true, runnerId: 7, runnerName: name,
       jobId: 9, runId: 12, runAttempt: 1, repositoryOwner: event.repo_owner, repositoryName: event.repo_name})};
   const pool = {entries: JSON.stringify({[key]: entry})};
   const firestore = {doc: name => ({name}), runTransaction: async work => work({
@@ -29,12 +29,13 @@ function fixture({status = 'TERMINATED', terminal = true, busy = false, approved
     delete: jest.fn(async () => {vm = undefined;})};
   const runnerAdapter = {listRunnerPage: jest.fn(async ({page, perPage}) => ({total_count: runners.length,
     runners: runners.slice((page - 1) * perPage, page * perPage)})),
+    inspectOwnedRunner:jest.fn(async()=>{const r=runners.find(r=>r.id===7);return r?{status:'present',busy:r.busy}:{status:'absent'};}),
     deregisterOwnedRunner: jest.fn(async () => {runners = []; return {status: 'absent'};})};
   const controller = createRetirementController({firestore, compute, runnerAdapter, projectId: entry.project,
     repositoryOwner: event.repo_owner, repositoryName: event.repo_name, approvedQuiescence});
   return {key, entry, job, pool, compute, runnerAdapter, controller,
     request: {key, token: entry.token, name: entry.name, zone: entry.zone, project: entry.project,
-      instanceId: entry.instanceId, instanceCreationTimestamp: entry.instanceCreationTimestamp},
+      instanceId: entry.instanceId, instanceCreationTimestamp: entry.instanceCreationTimestamp,claimId},
     changeVm: change => {vm = {...vm, ...change};}, setRunners: rows => {runners = rows;}};
 }
 test('exact terminal ownership and both provider absences release the same allocation only', async () => {
@@ -61,7 +62,7 @@ test('busy exact runner stays reserved', async () => {
 });
 test('unknown near-prefix runner on second page prevents retirement', async () => {
   const f = fixture(); f.setRunners(Array.from({length: 100}, (_, i) => ({id: i + 100, name: 'other-' + i, busy: false}))
-    .concat([{id: 7, name: 'runner-vm', busy: false}, {id: 999, name: 'runner-vm-unknown', busy: false}]));
+    .concat([{id:7,name:f.entry.name,busy:false,labels:f.entry.runnerIdentity.labels.map(name=>({name}))},{id:999,name:f.entry.name+'-unknown',busy:false,labels:[]}]));
   await f.controller.retireAllocation(f.request); expect(f.runnerAdapter.listRunnerPage).toHaveBeenCalledWith({page: 2, perPage: 100});
   expect(f.compute.delete).not.toHaveBeenCalled();
 });
@@ -80,7 +81,7 @@ test('unknown provider errors never release capacity', async () => {
 test('uncertain deletion retains retiring capacity and never stops running VMs', async () => {
   const f = fixture(); f.compute.delete.mockRejectedValue(new Error('opaque'));
   await f.controller.retireAllocation(f.request); expect(JSON.parse(f.pool.entries)[f.key].state).toBe('retiring');
-  expect(f.job.cleanup).toBeUndefined();
+  expect(JSON.parse(f.job.cleanup)).toMatchObject({state:'retiring',instanceAbsent:false});
 });
 test('completion or allocation change after deregistration prevents VM deletion', async () => {
   const f = fixture(); f.runnerAdapter.deregisterOwnedRunner.mockImplementation(async () => {

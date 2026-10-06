@@ -11,6 +11,8 @@ class OneJobMonitorBoundaryTests(unittest.TestCase):
     def test_cleanup_does_not_stop_active_runner_by_age(self):
         text = (ROOT / 'cloud-functions/cleanup-function/runner-cleanup.sh').read_text()
         self.assertNotIn("'instances', 'stop'", text)
-        self.assertIn("vm.get('status') == 'TERMINATED'", text)
+        self.assertNotIn('MAX_AGE_HOURS',text)
+        self.assertIn('/management/scheduled',text)
+        self.assertNotIn("'compute'",text)
 if __name__ == '__main__':
     unittest.main()

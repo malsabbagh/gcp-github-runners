@@ -17,6 +17,7 @@ AmbientCapabilities=
 PrivateTmp=yes
 ProtectSystem=strict
 ProtectHome=yes
+ProtectControlGroups=yes
 ReadWritePaths=/var/lib/ephemeral-runner
 InaccessiblePaths=-/run/docker.sock -/var/run/docker.sock
 RestrictSUIDSGID=yes

@@ -116,12 +116,15 @@ function createLifecycleDispatcher({firestore, compute, runnerAdapter, workerCon
         r.id <= 0 || typeof r.name !== 'string' || typeof r.busy !== 'boolean')) return false;
     const exact = rows.find(r => r.id === e.runnerId);
     const labels = exact?.labels?.map(x => x?.name);
-    if (!exact || exact.name !== e.runnerName || exact.busy !== false || !Array.isArray(labels) ||
+    if (rows.some(r => r.id !== e.runnerId && (r.name === e.name || r.name.startsWith(e.name + '-')))) return false;
+    if (exact && (exact.name !== e.runnerName || exact.busy !== false || !Array.isArray(labels) ||
       labels.some(x => typeof x !== 'string' || !x) || new Set(labels).size !== labels.length ||
-      labels.length !== e.labels.length || e.labels.some(x => !labels.includes(x)) ||
-      rows.some(r => r.id !== e.runnerId && (r.name === e.name || r.name.startsWith(e.name + '-')))) return false;
-    const inspect = await runnerAdapter.inspectOwnedRunner({runnerId: e.runnerId, expectedName: e.runnerName, expectedLabels: e.labels});
-    return inspect?.status === 'present' && inspect.busy === false;
+      labels.length !== e.labels.length || e.labels.some(x => !labels.includes(x)))) return false;
+    const inspect = await runnerAdapter.inspectOwnedRunner({runnerId:e.runnerId,expectedName:e.runnerName,expectedLabels:e.labels});
+    // An ephemeral runner may have automatically deregistered after the signed
+    // completion. validate() already bound that terminal job to this receipt;
+    // both complete inventory and exact permission-qualified lookup must agree.
+    return exact ? inspect?.status==='present' && inspect.busy===false : inspect?.status==='absent';
   }
   async function mark(request, context, record, state, ack) {
     const observedAtMs = clock();
