@@ -394,6 +394,20 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 12,
+      "pr_head": "5c9a8b80557bf77bed86976f907dccaca13488b2",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/12",
+      "before_sha256": "07074517c0496a76f2d33dea8f315e4b5d8a0abf816d72a1d3b0ddeba869088e",
+      "after_sha256": "00976eeee68a9541bc8403305314ebbcfb320257d9d5336b542016b4d9a7d617",
+      "changed_packages": {
+        "node_modules/fast-uri": {
+          "from": "3.0.6",
+          "to": "3.1.8"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }
