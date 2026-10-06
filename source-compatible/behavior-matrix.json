@@ -711,6 +711,21 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 25,
+      "pr_head": "0035d42482d208b42d8421651ea18fdbe478af5b",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/25",
+      "path": "package-lock.json",
+      "before_sha256": "22d14bf0446a3f4560acbcc1063b2657828a2564fbabfd20d064ffa2772e2475",
+      "after_sha256": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+      "changed_packages": {
+        "node_modules/ajv": {
+          "from": "8.17.1",
+          "to": "8.20.0"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ],
   "hybrid_dependency_qualification": {
