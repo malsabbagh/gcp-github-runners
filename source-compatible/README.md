@@ -36,9 +36,9 @@ bash destroy-resources.sh
 The optional test-PR helpers in Bash and PowerShell perform Git operations at
 the containing repository root, then restore the original directory. This small
 relocation adapter keeps their marker commits outside the ignored profile.
-The remaining source runtime code is retained. The root and hybrid-cleanup package locks now receive
+The remaining source runtime code is retained. The root and hybrid-cleanup package locks and hybrid dependency manifest receive
 reviewed dependency maintenance recorded in the manifest, rather than being
-described as byte-identical to the original source locks.
+described as byte-identical to the original source dependency declarations and locks.
 Qualification installs each reviewed lock independently without lifecycle scripts
 and exercises matching, schema validation, token signatures, proxy addresses,
 gRPC serialization/status and framework HTTP raw bytes using synthetic fixtures.

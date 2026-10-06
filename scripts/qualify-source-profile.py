@@ -49,7 +49,8 @@ def main():
                            cwd=where, env=environment, check=True)
             if hashlib.sha256(lock.read_bytes()).digest() != before:
                 raise RuntimeError('Installation changed a reviewed source lock.')
-        subprocess.run([node, '--test', str(ROOT / 'tests/parity/source-dependencies.cjs')],
+        subprocess.run([node, '--test', str(ROOT / 'tests/parity/source-dependencies.cjs'),
+                        str(ROOT / 'tests/parity/hybrid-compatibility.cjs')],
                        env=dict(environment, SOURCE_PROFILE_DIR=str(work)), check=True)
         inherited = []
         for entry in manifest['files']:
