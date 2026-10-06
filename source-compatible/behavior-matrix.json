@@ -338,6 +338,48 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 10,
+      "pr_head": "5fd8307073ff0e00c239215461107f23a59625ed",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/10",
+      "before_sha256": "0fc0bd62f620e0554b497b413abfbdba18068dac6f21d64915f583053f6b7b79",
+      "after_sha256": "d9df7817ff88f71e8516447e2d1341ac5925bd08e3437de904fe5a1646f9384a",
+      "changed_packages": {
+        "node_modules/@grpc/grpc-js": {
+          "from": "1.13.4",
+          "to": "1.14.5"
+        },
+        "node_modules/@grpc/grpc-js/node_modules/@grpc/proto-loader": {
+          "from": null,
+          "to": "0.8.1"
+        },
+        "node_modules/@protobufjs/codegen": {
+          "from": "2.0.4",
+          "to": "2.0.5"
+        },
+        "node_modules/@protobufjs/eventemitter": {
+          "from": "1.1.0",
+          "to": "1.1.1"
+        },
+        "node_modules/@protobufjs/fetch": {
+          "from": "1.1.0",
+          "to": "1.1.1"
+        },
+        "node_modules/@protobufjs/inquire": {
+          "from": "1.1.0",
+          "to": null
+        },
+        "node_modules/@protobufjs/utf8": {
+          "from": "1.1.0",
+          "to": "1.1.2"
+        },
+        "node_modules/protobufjs": {
+          "from": "7.5.3",
+          "to": "7.6.6"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }
