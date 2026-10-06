@@ -1,0 +1,313 @@
+{
+  "schema": 1,
+  "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
+  "selected_pr25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
+  "source_precedence": "PR25 takes precedence on every differing same path; it includes all frozen main paths.",
+  "selected_source_control_equality": "123 of125 executable/configuration files retain every nonconfiguration byte;16 private/secret bindings parameterized. Two webhook test-PR helpers adapt Git working directory to the containing repository root, with executed local Git regressions.",
+  "entrypoint": "scripts/source-profile.py materializes an independent executable working directory at original relative paths; original commands are not replaced by documentation.",
+  "capabilities": [
+    {
+      "behavior": "Source webhook events, direct GitHub API handler, Firestore transaction/provisioning state, failed creating-VM recovery",
+      "code": [
+        "cloud-functions/webhook-handler/.gcloudignore",
+        "cloud-functions/webhook-handler/cleanup-firestore.js",
+        "cloud-functions/webhook-handler/cleanup-stale-vms.js",
+        "cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
+        "cloud-functions/webhook-handler/index-github-api.js",
+        "cloud-functions/webhook-handler/index.js",
+        "cloud-functions/webhook-handler/infrastructure-config.js",
+        "cloud-functions/webhook-handler/manual-cleanup.js",
+        "cloud-functions/webhook-handler/mark-creating-vms-failed.js",
+        "cloud-functions/webhook-handler/package.json",
+        "cloud-functions/webhook-handler/provision-runner.py",
+        "cloud-functions/webhook-handler/provisioning-state.js"
+      ],
+      "evidence": "74 original canonical unit/HTTP tests and32 original provisioning tests pass without skips; exact normalized source-code comparison"
+    },
+    {
+      "behavior": "Original Cloud Build/direct/manual/stale/offline runner and VM cleanup, remote-registration matching, drain/stop/teardown completion and retry states",
+      "code": [
+        "cleanup-github-runners.ps1",
+        "cloud-functions/cleanup-function/index.extended.test.js",
+        "cloud-functions/cleanup-function/index.js",
+        "cloud-functions/cleanup-function/index.test.js",
+        "cloud-functions/cleanup-function/package.json",
+        "cloud-functions/cleanup-function/runner-cleanup.sh",
+        "cloud-functions/hybrid-cleanup-handler/.gcloudignore",
+        "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+        "cloud-functions/hybrid-cleanup-handler/package.json",
+        "cloud-functions/webhook-handler/cleanup-firestore.js",
+        "cloud-functions/webhook-handler/cleanup-stale-vms.js",
+        "cloud-functions/webhook-handler/manual-cleanup.js",
+        "cloudbuild/cloudbuild-cleanup.yaml",
+        "cloudbuild/runner-cleanup.sh",
+        "cloudbuild/runner-shutdown-docker.sh",
+        "cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
+        "cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
+        "cloudbuild/runner-shutdown-multi-user-docker.sh",
+        "cloudbuild/runner-shutdown-multi-user.sh",
+        "examples/workflow-with-cleanup.yml",
+        "quick-cleanup.ps1",
+        "scripts/cleanup-offline-runners.ps1",
+        "scripts/manual-cleanup.ps1",
+        "scripts/manual-cleanup.sh",
+        "scripts/test-hybrid-cleanup-manual.ps1",
+        "scripts/test-shutdown-execution.sh",
+        "scripts/trigger-cleanup.sh",
+        "scripts/trigger-hybrid-cleanup.ps1",
+        "shutdown-script-extract.sh",
+        "terraform/hybrid-cleanup-system.tf.disabled",
+        "test-integration-cleanup.sh",
+        "test-parallel-shutdown.sh",
+        "test-shutdown-fix.sh",
+        "tests/lifecycle/test_cleanup.py"
+      ],
+      "evidence": "23 original cleanup Jest tests and25 lifecycle command-shim tests pass without skips; native/Docker failure/retry/ownership behavior retained"
+    },
+    {
+      "behavior": "Native, shared-host multi-user, Docker, enhanced/fixed shutdown, Rust worker image and startup variants",
+      "code": [
+        "cloudbuild/cloudbuild-cleanup.yaml",
+        "cloudbuild/cloudbuild-enhanced.yaml",
+        "cloudbuild/cloudbuild-webhook.yaml",
+        "cloudbuild/cloudbuild.yaml",
+        "cloudbuild/runner-cleanup.sh",
+        "cloudbuild/runner-shutdown-docker.sh",
+        "cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
+        "cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
+        "cloudbuild/runner-shutdown-multi-user-docker.sh",
+        "cloudbuild/runner-shutdown-multi-user.sh",
+        "cloudbuild/runner-startup-docker.sh",
+        "cloudbuild/runner-startup-multi-user-docker.sh",
+        "cloudbuild/runner-startup-multi-user.sh",
+        "cloudbuild/runner-startup.sh",
+        "docker/Dockerfile.rust",
+        "docker/build-and-push-github-runner.ps1",
+        "docker/entrypoint-rust.sh"
+      ],
+      "evidence": "exact selected source control logic; JS/Bash/Python syntax and every PowerShell parser check; lifecycle command-shim scenarios for native/Docker variants"
+    },
+    {
+      "behavior": "Executable setup/apply/destroy/template/webhook/sync/list/bulk/manual/diagnostic/repair and integration utilities",
+      "code": [
+        "cleanup-github-runners.ps1",
+        "quick-cleanup.ps1",
+        "scripts/apply-glibc-fix.ps1",
+        "scripts/check-prerequisites.ps1",
+        "scripts/cleanup-offline-runners.ps1",
+        "scripts/create-instance-template.ps1",
+        "scripts/create-instance-template.sh",
+        "scripts/debug-startup.sh",
+        "scripts/destroy-resources.sh",
+        "scripts/list-all-runners.ps1",
+        "scripts/manual-cleanup.ps1",
+        "scripts/manual-cleanup.sh",
+        "scripts/setup-bloated-backup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup-github-webhook.ps1",
+        "scripts/setup-github-webhook.sh",
+        "scripts/setup-webhook.ps1",
+        "scripts/setup-webhook.sh",
+        "scripts/setup.ps1",
+        "scripts/setup.sh",
+        "scripts/sync-terraform-config.ps1",
+        "scripts/sync-terraform-config.sh",
+        "scripts/test-hybrid-cleanup-manual.ps1",
+        "scripts/test-runner-status.ps1",
+        "scripts/test-shutdown-execution.sh",
+        "scripts/trigger-cleanup.sh",
+        "scripts/trigger-hybrid-cleanup.ps1",
+        "scripts/verify-migration.sh",
+        "shutdown-script-extract.sh",
+        "test-cloudbuild-webhook.ps1",
+        "test-direct-api-deletion.sh",
+        "test-integration-cleanup.sh",
+        "test-parallel-shutdown.sh",
+        "test-shutdown-fix.sh",
+        "test-stop-then-delete.ps1",
+        "test-webhook-signed.ps1",
+        "validate-deployment.sh",
+        "validate-stop-then-delete.ps1"
+      ],
+      "evidence": "123 unchanged source files plus2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile"
+    },
+    {
+      "behavior": "Original Terraform modules/resources/outputs, examples, monitoring and source-disabled alternate routes",
+      "code": [
+        "examples/github-workflow.yml",
+        "examples/workflow-with-cleanup.yml",
+        "monitoring/alerts.yaml",
+        "terraform/.terraform.lock.hcl",
+        "terraform/github-webhook.tf.example",
+        "terraform/hybrid-cleanup-system.tf.disabled",
+        "terraform/instance-lifecycle-management.tf.disabled",
+        "terraform/main.tf",
+        "terraform/modules/cloud-function/main.tf",
+        "terraform/modules/cloud-function/outputs.tf",
+        "terraform/modules/cloud-function/variables.tf",
+        "terraform/modules/iam/main.tf",
+        "terraform/modules/iam/outputs.tf",
+        "terraform/modules/iam/variables.tf",
+        "terraform/outputs.tf",
+        "terraform/terraform.tfvars.example",
+        "terraform/variables.tf",
+        "terraform/vm-deletion-handler.tf.disabled",
+        "terraform/workflow-completion-trigger.tf",
+        "terraform/workflow-completion-trigger.tf.backup"
+      ],
+      "evidence": "source-code/configuration equality modulo explicit private inputs; no original disabled/orphan route falsely advertised as a working source handler"
+    },
+    {
+      "behavior": "ReviewSensei automatic PRs, manual reviews, authorized issue/inline mentions, commands/rescans/replies, source publication and auto-approval policy",
+      "code": [
+        ".github/workflows/review-sensei-review.yml",
+        ".reviewsensei.yml"
+      ],
+      "evidence": "root config byte-equals source; exact source trigger lists;9 executed resolver regressions including PR/issue/inline behavior and frozen-head rejection"
+    },
+    {
+      "behavior": "ReviewSensei removal branch/delete/commit/push/cleanup PR",
+      "code": [
+        ".github/workflows/review-sensei-uninstall.yml",
+        ".github/scripts/remove-review-sensei.py"
+      ],
+      "evidence": "4 offline tests perform real temporary Git removals/user commits and intercept push/gh commands; only bot-to-verified-owner attribution changes"
+    },
+    {
+      "behavior": "Source CI main/develop triggers, Node20 source test/coverage contracts, report preparation and automatic main coverage publisher",
+      "code": [
+        ".github/workflows/source-compatible-ci.yml"
+      ],
+      "evidence": "workflow actionlint; original source coverage-threshold commands pass locally; publisher action v3 pinned with user_name/user_email; no publisher executed"
+    }
+  ],
+  "source_standard_tests": {
+    "webhook_jest": 74,
+    "cleanup_jest": 23,
+    "lifecycle_python": 25,
+    "provisioning_python": 32,
+    "total": 154,
+    "skipped": 0,
+    "failed": 0
+  },
+  "root_review_tests": {
+    "resolver": 9,
+    "removal": 4,
+    "external_operations_intercepted": true
+  },
+  "inherited_source_limits": {
+    "invalid_backup_script": "scripts/setup-bloated-backup.sh contains unmatched fi in the selected source; exact source bytes retained and not represented as successful executable behavior",
+    "stale_legacy_webhook_tests": [
+      {
+        "file": "index.test.js",
+        "test": "Webhook Handler calculateRequiredVMs should calculate VMs correctly for various scenarios",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.test.js",
+        "test": "Webhook Handler calculateRequiredVMs should handle negative values",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests Signature Verification Branches should handle rawBody signature verification",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests Signature Verification Branches should handle empty payload case",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests Workflow Run Events should handle workflow_run completed event",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests Workflow Run Events should handle already processed workflow_run event",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests Workflow Run Events should process workflow_run event directly",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests Workflow Job Cancelled Branch should handle workflow_job cancelled event",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests VM Creation Race Condition should handle VM created while acquiring lock",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests VM Creation Race Condition should handle existing VM with capacity",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests VM Creation Race Condition should handle missing webhook secret branch",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests VM Creation Race Condition should handle workflow_job with no branch header",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests VM Creation Race Condition should handle VM calculation with negative job count",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.branch-coverage.test.js",
+        "test": "Webhook Handler - Branch Coverage Tests VM Creation Race Condition should handle completed workflow_job event",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.simple.test.js",
+        "test": "Webhook Handler - Simple Tests Basic Function Tests generateBranchVMId should generate correct VM IDs",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.simple.test.js",
+        "test": "Webhook Handler - Simple Tests Webhook Processing should handle POST requests",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.simple.test.js",
+        "test": "Webhook Handler - Simple Tests Webhook Processing should handle missing delivery header",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.simple.test.js",
+        "test": "Webhook Handler - Simple Tests Webhook Processing should handle non-self-hosted jobs",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      },
+      {
+        "file": "index.simple.test.js",
+        "test": "Webhook Handler - Simple Tests Error Handling should handle internal errors gracefully",
+        "classification": "stale pre-PR25 expectation or obsolete Firestore mock; source files and source test bodies retained"
+      }
+    ],
+    "missing_legacy_test_script_references": [
+      "cloud-functions/webhook-handler/test-autoscaling.js",
+      "cloud-functions/webhook-handler/test-integration-stateful.js"
+    ],
+    "missing_legacy_script_reference_note": "These filenames are referenced by the original test:legacy alias but are absent from the selected source itself; not new destination omissions."
+  },
+  "parity_scope": "Source code capabilities at the named cutoff, with private inputs externalized and explicitly requested user attribution. Exact/default source invocation paths remain within materialized profile, rather than the additional one-job root profile. No source executable capability intentionally omitted.",
+  "provider_runtime_parity_claim": false,
+  "merge_performed": false,
+  "source_history_imported": false,
+  "profile_portability_tests": {
+    "materialization": 6,
+    "optional_test_pr_git_context": 2,
+    "external_operations_intercepted": true,
+    "fresh_git_checkout_hashes_verified": true
+  }
+}

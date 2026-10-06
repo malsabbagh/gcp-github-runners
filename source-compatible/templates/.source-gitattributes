@@ -1,0 +1,40 @@
+# Set default behavior to automatically normalize line endings
+# Disable autocrlf to prevent conflicts with explicit eol settings
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout
+*.tf text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.ps1 text eol=crlf
+
+# Declare files that will always have CRLF line endings on checkout
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Denote all files that are truly binary and should not be modified
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# Linguist language detection
+*.sh linguist-language=Shell
+*.ps1 linguist-language=PowerShell
+cloudbuild/*.sh linguist-language=Shell
+scripts/*.sh linguist-language=Shell
+scripts/*.ps1 linguist-language=PowerShell

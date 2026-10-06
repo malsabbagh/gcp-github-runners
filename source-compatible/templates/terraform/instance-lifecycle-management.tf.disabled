@@ -1,0 +1,170 @@
+# VM Instance Lifecycle Management
+# This creates a Managed Instance Group with lifecycle hooks for reliable cleanup
+
+# TEMPORARILY DISABLED: Managed Instance Group for GitHub runners with lifecycle hooks
+# (SPOT instances with DELETE termination action can't be used in MIGs)
+/*
+resource "google_compute_region_instance_group_manager" "github_runners" {
+  name   = "github-runners-mig"
+  region = var.region
+  
+  base_instance_name = "github-runner"
+  target_size        = 0  # Start with 0, scale as needed
+  
+  version {
+    instance_template = google_compute_instance_template.runner_template.id
+    name              = "primary"
+  }
+  
+  # Lifecycle management
+  instance_lifecycle_policy {
+    force_update_on_repair    = "YES"
+    default_action_on_failure = "REPAIR"
+  }
+  
+  # Auto healing
+  auto_healing_policies {
+    health_check      = google_compute_health_check.runner_health.id
+    initial_delay_sec = 300
+  }
+  
+  # Update policy
+  update_policy {
+    type                         = "PROACTIVE"
+    instance_redistribution_type = "NONE"
+    minimal_action               = "REPLACE"
+    max_surge_fixed              = 0
+    max_unavailable_fixed        = 3  # Must be >= number of zones (us-central1 has 3 zones)
+    replacement_method           = "RECREATE"
+  }
+  
+  # Stateful configuration for runner persistence
+  stateful_disk {
+    device_name = "persistent-disk-0"
+    delete_rule = "ON_PERMANENT_INSTANCE_DELETION"
+  }
+}
+*/
+
+# Health check for the runners
+resource "google_compute_health_check" "runner_health" {
+  name               = "github-runner-health-check"
+  check_interval_sec = 30
+  timeout_sec        = 10
+  
+  tcp_health_check {
+    port = "22"  # SSH port as a basic health indicator
+  }
+  
+  log_config {
+    enable = true
+  }
+}
+
+# Pub/Sub topic for instance lifecycle events
+resource "google_pubsub_topic" "instance_lifecycle" {
+  name = "instance-lifecycle-events"
+  
+  labels = {
+    purpose = "github-runner-lifecycle"
+  }
+}
+
+# Cloud Function for handling instance lifecycle events
+resource "google_cloudfunctions2_function" "instance_lifecycle_handler" {
+  name        = "instance-lifecycle-handler"
+  location    = var.region
+  description = "Handles GitHub runner cleanup during instance lifecycle events"
+  
+  build_config {
+    runtime     = "nodejs18"
+    entry_point = "handleInstanceLifecycle"
+    
+    source {
+      storage_source {
+        bucket = google_storage_bucket.vm_deletion_function_bucket.name
+        object = google_storage_bucket_object.lifecycle_function_zip.name
+      }
+    }
+  }
+  
+  service_config {
+    max_instance_count = 10
+    available_memory   = "256M"
+    timeout_seconds    = 540  # Longer timeout for cleanup operations
+    
+    environment_variables = {
+      REPO_OWNER = var.github_repo_owner
+      REPO_NAME  = var.github_repo_name
+    }
+    
+    service_account_email = google_service_account.cleanup_function.email
+  }
+  
+  event_trigger {
+    trigger_region = var.region
+    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic   = google_pubsub_topic.instance_lifecycle.id
+    
+    retry_policy = "RETRY_POLICY_RETRY"
+  }
+  
+  depends_on = [
+    google_project_iam_member.cleanup_function_logs_writer,
+    google_project_iam_member.cleanup_function_secret_accessor,
+    google_project_iam_member.cleanup_function_firestore_user,
+    google_storage_bucket_object.lifecycle_function_zip
+  ]
+}
+
+# Upload the lifecycle function source
+resource "google_storage_bucket_object" "lifecycle_function_zip" {
+  name   = "lifecycle-function-${data.archive_file.lifecycle_function_source.output_md5}.zip"
+  bucket = google_storage_bucket.vm_deletion_function_bucket.name
+  source = data.archive_file.lifecycle_function_source.output_path
+}
+
+# Zip the lifecycle function source
+data "archive_file" "lifecycle_function_source" {
+  type        = "zip"
+  output_path = "${path.module}/lifecycle-function.zip"
+  
+  source_dir = "${path.module}/../cloud-functions/instance-lifecycle-handler"
+  
+  depends_on = [
+    local_file.lifecycle_function_code
+  ]
+}
+
+# Create the lifecycle function files
+resource "local_file" "lifecycle_function_code" {
+  filename = "${path.module}/../cloud-functions/instance-lifecycle-handler/index.js"
+  content  = file("${path.module}/../cloud-functions/instance-lifecycle-handler/index.js")
+}
+
+# IAM binding for Compute Engine to publish lifecycle events
+resource "google_pubsub_topic_iam_member" "compute_publisher" {
+  topic  = google_pubsub_topic.instance_lifecycle.name
+  role   = "roles/pubsub.publisher"
+  member = "serviceAccount:service-${data.google_project.current.number}@compute-system.iam.gserviceaccount.com"
+}
+
+# Data source for project number
+data "google_project" "current" {}
+
+# Note: Notification endpoints are configured automatically by the MIG
+# when lifecycle events are enabled through the grpc_endpoint configuration
+
+# Output the MIG details
+# TEMPORARILY DISABLED: (MIG is commented out)
+/*
+output "instance_group_manager_name" {
+  description = "Name of the Managed Instance Group for GitHub runners"
+  value       = google_compute_region_instance_group_manager.github_runners.name
+}
+*/
+
+output "instance_lifecycle_topic" {
+  description = "Pub/Sub topic for instance lifecycle events"
+  value       = google_pubsub_topic.instance_lifecycle.name
+}

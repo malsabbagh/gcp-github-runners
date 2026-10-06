@@ -1,0 +1,74 @@
+FROM ghcr.io/myoung34/docker-github-actions-runner:ubuntu-jammy  
+USER root
+
+# Install system dependencies commonly needed for Rust projects
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    libssl-dev \
+    build-essential \
+    cmake \
+    git \
+    curl \
+    wget \
+    libclang-dev \
+    libc6-dev \
+    ca-certificates \
+    llvm-dev \
+    libclang-15-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rust as root but configure for flexible HOME directory usage
+# This handles both /home/runner (self-hosted) and /github/home (GitHub-hosted containers)
+
+# Set Cargo environment variables for optimal CI performance (following rust-cache best practices)
+ENV CARGO_INCREMENTAL=0
+ENV CARGO_NET_RETRY=10
+ENV RUST_BACKTRACE=short
+ENV CARGO_TERM_COLOR=always
+
+# install Rust via rustup (stable toolchain) 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+    | sh -s -- -y --default-toolchain stable --profile default
+
+# Set up Rust for the runner user as well
+USER runner
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+    | sh -s -- -y --default-toolchain stable --profile default
+
+# Switch back to root to finish setup and install tools
+USER root
+
+# Install common Rust tools globally so they're available regardless of HOME
+RUN /root/.cargo/bin/cargo install cargo-audit cargo-outdated cargo-deny --locked \
+    && ln -sf /root/.cargo/bin/cargo-audit /usr/local/bin/cargo-audit \
+    && ln -sf /root/.cargo/bin/cargo-outdated /usr/local/bin/cargo-outdated \
+    && ln -sf /root/.cargo/bin/cargo-deny /usr/local/bin/cargo-deny \
+    && ln -sf /root/.cargo/bin/rustc /usr/local/bin/rustc \
+    && ln -sf /root/.cargo/bin/cargo /usr/local/bin/cargo \
+    && ln -sf /root/.cargo/bin/rustup /usr/local/bin/rustup
+
+# Ensure both cargo installations are in PATH
+ENV PATH=/root/.cargo/bin:/home/runner/.cargo/bin:${PATH}
+
+# Set optimized environment variables for disk space efficiency
+ENV CARGO_INCREMENTAL=0
+ENV CARGO_NET_RETRY=10
+ENV RUST_BACKTRACE=1
+
+# Verify Rust installation works for both users
+RUN rustc --version && cargo --version
+RUN /usr/local/bin/rustc --version && /usr/local/bin/cargo --version
+
+# Create entrypoint script directly in the Dockerfile
+COPY entrypoint-rust.sh /entrypoint-rust.sh
+RUN chmod +x /entrypoint-rust.sh
+
+# Ensure the runner user has access to Docker socket
+# The docker group GID will be set at runtime to match the host's docker group
+RUN groupadd -g 999 docker || true
+RUN usermod -aG docker runner
+
+ENTRYPOINT ["/entrypoint-rust.sh"]
+
+# switch back to the 'runner' user
+USER runner

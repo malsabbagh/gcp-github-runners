@@ -1,0 +1,20 @@
+{
+  "name": "instance-lifecycle-handler",
+  "version": "1.0.0",
+  "description": "Cloud Function to handle GitHub runner cleanup during instance lifecycle events",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0",
+    "@google-cloud/secret-manager": "^5.0.0",
+    "@google-cloud/firestore": "^7.0.0",
+    "@google-cloud/compute": "^4.0.0",
+    "node-fetch": "^2.6.7"
+  },
+  "scripts": {
+    "start": "functions-framework --target=handleInstanceLifecycle",
+    "test": "echo \"No tests specified\""
+  }
+}

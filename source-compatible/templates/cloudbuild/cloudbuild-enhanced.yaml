@@ -1,0 +1,226 @@
+steps:
+  # Enhanced webhook parser that handles multiple GitHub events
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'parse-webhook'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "🔗 Parsing GitHub webhook payload..."
+        
+        # Extract event type and action from GitHub headers/payload
+        EVENT_TYPE="${_EVENT_TYPE:-workflow_job}"
+        ACTION="${_ACTION:-queued}"
+        REPO_OWNER="${_REPO_OWNER}"
+        REPO_NAME="${_REPO_NAME}"
+        
+        echo "EVENT_TYPE=$EVENT_TYPE"
+        echo "ACTION=$ACTION"
+        echo "REPO_OWNER=$REPO_OWNER"
+        echo "REPO_NAME=$REPO_NAME"
+        
+        # Event-specific processing
+        case "$EVENT_TYPE" in
+          "pull_request")
+            # Handle PR events (opened, synchronize, reopened)
+            if [[ "$ACTION" =~ ^(opened|synchronize|reopened)$ ]]; then
+              PR_NUMBER="${_PR_NUMBER:-0}"
+              PR_SHA="${_PR_SHA:-unknown}"
+              RUN_ID="pr-$PR_NUMBER-$(date +%s)"
+              RUNNER_LABELS="pr,pull-request,pr-$PR_NUMBER"
+              echo "✅ Processing PR #$PR_NUMBER"
+            else
+              echo "⏭️  Skipping PR action: $ACTION"
+              exit 0
+            fi
+            ;;
+            
+          "workflow_job")
+            # Handle workflow job events (queued)
+            if [ "$ACTION" = "queued" ]; then
+              JOB_ID="${_JOB_ID:-unknown}"
+              WORKFLOW_RUN_ID="${_WORKFLOW_RUN_ID:-unknown}"
+              RUN_ID="job-$JOB_ID-$(date +%s)"
+              RUNNER_LABELS="workflow-job,job-$JOB_ID"
+              echo "✅ Processing queued workflow job: $JOB_ID"
+            else
+              echo "⏭️  Skipping workflow_job action: $ACTION"
+              exit 0
+            fi
+            ;;
+            
+          "workflow_run")
+            # Handle workflow run events (requested)
+            if [ "$ACTION" = "requested" ]; then
+              WORKFLOW_RUN_ID="${_WORKFLOW_RUN_ID:-unknown}"
+              RUN_ID="workflow-$WORKFLOW_RUN_ID-$(date +%s)"
+              RUNNER_LABELS="workflow-run,workflow-$WORKFLOW_RUN_ID"
+              echo "✅ Processing workflow run: $WORKFLOW_RUN_ID"
+            else
+              echo "⏭️  Skipping workflow_run action: $ACTION"
+              exit 0
+            fi
+            ;;
+            
+          "push")
+            # Handle push events (to specific branches)
+            BRANCH="${_BRANCH:-main}"
+            if [[ "$BRANCH" =~ ^(main|master|develop)$ ]]; then
+              COMMIT_SHA="${_COMMIT_SHA:-unknown}"
+              RUN_ID="push-$BRANCH-$(date +%s)"
+              RUNNER_LABELS="push,$BRANCH"
+              echo "✅ Processing push to $BRANCH"
+            else
+              echo "⏭️  Skipping push to branch: $BRANCH"
+              exit 0
+            fi
+            ;;
+            
+          *)
+            echo "❌ Unsupported event type: $EVENT_TYPE"
+            exit 0
+            ;;
+        esac
+        
+        # Store variables for next steps
+        echo "EVENT_TYPE=$EVENT_TYPE" > /workspace/webhook_vars.env
+        echo "ACTION=$ACTION" >> /workspace/webhook_vars.env
+        echo "REPO_OWNER=$REPO_OWNER" >> /workspace/webhook_vars.env
+        echo "REPO_NAME=$REPO_NAME" >> /workspace/webhook_vars.env
+        echo "RUN_ID=$RUN_ID" >> /workspace/webhook_vars.env
+        echo "RUNNER_LABELS=$RUNNER_LABELS" >> /workspace/webhook_vars.env
+
+  # Create VM instance with event-specific configuration
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'create-runner'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Load variables from previous step
+        if [ -f /workspace/webhook_vars.env ]; then
+          source /workspace/webhook_vars.env
+        else
+          echo "No webhook variables found, using defaults"
+          REPO_OWNER="${_REPO_OWNER:-default-owner}"
+          REPO_NAME="${_REPO_NAME:-default-repo}"
+          RUN_ID="${_RUN_ID:-$(date +%s)}"
+          RUNNER_LABELS="default"
+        fi
+          # Generate unique instance name (max 63 chars for GCP)
+        INSTANCE_NAME="runner"
+        [ -n "$REPO_OWNER" ] && INSTANCE_NAME="${INSTANCE_NAME}-${REPO_OWNER}"
+        [ -n "$REPO_NAME" ] && INSTANCE_NAME="${INSTANCE_NAME}-${REPO_NAME}"
+        INSTANCE_NAME="${INSTANCE_NAME}-${RUN_ID}"
+        # Truncate if too long
+        INSTANCE_NAME=$(echo "$INSTANCE_NAME" | cut -c1-63 | sed 's/-$//')
+        
+        echo "🚀 Creating runner instance: $INSTANCE_NAME"
+        echo "📝 Event: $EVENT_TYPE/$ACTION"
+        echo "🏷️  Labels: $RUNNER_LABELS"
+        
+        # Choose instance template based on event type
+        case "$EVENT_TYPE" in
+          "pull_request")
+            TEMPLATE="${_PR_INSTANCE_TEMPLATE:-${_INSTANCE_TEMPLATE}}"
+            ;;
+          *)
+            TEMPLATE="${_INSTANCE_TEMPLATE}"
+            ;;
+        esac
+        
+        # Create VM instance using the appropriate template (two-step to preserve template metadata)
+        gcloud compute instances create "$INSTANCE_NAME" \
+          --source-instance-template="$TEMPLATE" \
+          --zone="${_ZONE}" \
+          --labels="purpose=github-runner,repo-owner=$REPO_OWNER,repo-name=$REPO_NAME,event-type=$EVENT_TYPE" \
+          --quiet
+        
+        # Add repository-specific metadata without overriding template metadata
+        gcloud compute instances add-metadata "$INSTANCE_NAME" \
+          --zone="${_ZONE}" \
+          --metadata="repo-owner=$REPO_OWNER,repo-name=$REPO_NAME,run-id=$RUN_ID,event-type=$EVENT_TYPE,runner-labels=$RUNNER_LABELS" \
+          --quiet
+        
+        echo "✅ Successfully created runner: $INSTANCE_NAME"
+        
+        # Store instance info for potential cleanup
+        echo "INSTANCE_NAME=$INSTANCE_NAME" > /workspace/instance_info.env
+        echo "ZONE=${_ZONE}" >> /workspace/instance_info.env
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
+
+  # Verify runner startup (optional but recommended)
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'verify-runner'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ ! -f /workspace/instance_info.env ]; then
+          echo "No instance created, skipping verification"
+          exit 0
+        fi
+        
+        source /workspace/instance_info.env
+        echo "🔍 Verifying runner $INSTANCE_NAME..."
+        
+        # Wait for instance to be running (with timeout)
+        TIMEOUT=300  # 5 minutes
+        ELAPSED=0
+        
+        while [ $ELAPSED -lt $TIMEOUT ]; do
+          STATUS=$(gcloud compute instances describe "$INSTANCE_NAME" --zone="$ZONE" --format="value(status)" 2>/dev/null || echo "NOT_FOUND")
+          if [ "$STATUS" = "RUNNING" ]; then
+            echo "✅ Runner instance is running and ready"
+            
+            # Get instance details for logging
+            EXTERNAL_IP=$(gcloud compute instances describe "$INSTANCE_NAME" --zone="$ZONE" --format="value(networkInterfaces[0].accessConfigs[0].natIP)" 2>/dev/null || echo "none")
+            echo "🌐 External IP: $EXTERNAL_IP"
+            break
+          elif [ "$STATUS" = "NOT_FOUND" ]; then
+            echo "❌ Instance not found"
+            exit 1
+          fi
+          echo "⏳ Current status: $STATUS. Waiting... ($ELAPSED/$TIMEOUT seconds)"
+          sleep 10
+          ELAPSED=$((ELAPSED + 10))
+        done
+        
+        if [ $ELAPSED -ge $TIMEOUT ]; then
+          echo "⚠️  Timeout waiting for instance to be ready"
+          exit 1
+        fi
+
+substitutions:
+  # Event information (populated by webhook)
+  _EVENT_TYPE: 'workflow_job'
+  _ACTION: 'queued'
+  _REPO_OWNER: 'default-owner'
+  _REPO_NAME: 'default-repo'
+  
+  # Event-specific data
+  _PR_NUMBER: '0'
+  _PR_SHA: 'unknown'
+  _JOB_ID: 'unknown'
+  _WORKFLOW_RUN_ID: 'unknown'
+  _BRANCH: 'main'
+  _COMMIT_SHA: 'unknown'
+  
+  # Infrastructure configuration
+  _ZONE: 'us-central1-a'
+  _INSTANCE_TEMPLATE: 'github-runner-c2-4-16-spot'
+  _PR_INSTANCE_TEMPLATE: 'github-runner-c2-4-16-spot'  # Could be smaller for PRs
+  _RUNNER_TOKEN: 'PLACEHOLDER_TOKEN'
+  _DOCKER_RUNNER_IMAGE: 'myoung34/github-runner:v2.325.0'  # Docker image for Docker isolation mode
+  _RUNNER_ISOLATION_MODE: 'multi-user'  # Runner isolation mode: 'multi-user' or 'docker'
+  
+  # Generated values
+  _RUN_ID: 'default-run'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  substitution_option: ALLOW_LOOSE
+  dynamic_substitutions: true
+
+timeout: '600s'

@@ -1,0 +1,141 @@
+# VM Deletion Event Handler
+# This creates a Cloud Function triggered by Compute Engine audit logs when VMs are deleted
+
+# Pub/Sub topic for VM deletion events
+resource "google_pubsub_topic" "vm_deletion_events" {
+  name = "vm-deletion-events"
+  
+  labels = {
+    purpose = "github-runner-cleanup"
+  }
+}
+
+# Log sink to capture VM deletion events
+resource "google_logging_project_sink" "vm_deletion_sink" {
+  name        = "vm-deletion-sink"
+  destination = "pubsub.googleapis.com/projects/${var.project_id}/topics/${google_pubsub_topic.vm_deletion_events.name}"
+  
+  # Filter for Compute Engine VM deletion events
+  filter = <<-EOT
+    protoPayload.serviceName="compute.googleapis.com"
+    AND protoPayload.methodName="v1.compute.instances.delete"
+    AND operation.last=true
+    AND severity>=DEFAULT
+  EOT
+  
+  # Use a unique writer identity
+  unique_writer_identity = true
+}
+
+# Grant the log sink permission to publish to Pub/Sub
+resource "google_pubsub_topic_iam_member" "log_sink_publisher" {
+  topic  = google_pubsub_topic.vm_deletion_events.name
+  role   = "roles/pubsub.publisher"
+  member = google_logging_project_sink.vm_deletion_sink.writer_identity
+}
+
+# Cloud Storage bucket for the function source
+resource "google_storage_bucket" "vm_deletion_function_bucket" {
+  name     = "${var.project_id}-vm-deletion-function-source"
+  location = var.region
+  
+  # Auto-delete old versions
+  lifecycle_rule {
+    condition {
+      age = 7
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
+
+# Zip the Cloud Function source
+data "archive_file" "vm_deletion_function_source" {
+  type        = "zip"
+  output_path = "${path.module}/vm-deletion-function.zip"
+  
+  source_dir = "${path.module}/../cloud-functions/vm-deletion-handler"
+  
+  depends_on = [
+    # Ensure the function files exist
+    local_file.vm_deletion_function_code
+  ]
+}
+
+# Create the function files as local files to ensure they exist
+resource "local_file" "vm_deletion_function_code" {
+  filename = "${path.module}/../cloud-functions/vm-deletion-handler/index.js"
+  content  = file("${path.module}/../cloud-functions/vm-deletion-handler/index.js")
+}
+
+# Upload the function source to Cloud Storage
+resource "google_storage_bucket_object" "vm_deletion_function_zip" {
+  name   = "vm-deletion-function-${data.archive_file.vm_deletion_function_source.output_md5}.zip"
+  bucket = google_storage_bucket.vm_deletion_function_bucket.name
+  source = data.archive_file.vm_deletion_function_source.output_path
+}
+
+# Cloud Function for handling VM deletion events
+resource "google_cloudfunctions2_function" "vm_deletion_handler" {
+  name        = "vm-deletion-handler"
+  location    = var.region
+  description = "Handles GitHub runner deregistration when VMs are deleted"
+  
+  build_config {
+    runtime     = "nodejs18"
+    entry_point = "vmDeletionHandler"
+    
+    source {
+      storage_source {
+        bucket = google_storage_bucket.vm_deletion_function_bucket.name
+        object = google_storage_bucket_object.vm_deletion_function_zip.name
+      }
+    }
+  }
+  
+  service_config {
+    max_instance_count = 10
+    available_memory   = "256M"
+    timeout_seconds    = 300
+    
+    environment_variables = {
+      REPO_OWNER = var.github_repo_owner
+      REPO_NAME  = var.github_repo_name
+    }
+    
+    service_account_email = google_service_account.cleanup_function.email
+  }
+  
+  event_trigger {
+    trigger_region = var.region
+    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic   = google_pubsub_topic.vm_deletion_events.id
+    
+    retry_policy = "RETRY_POLICY_RETRY"
+  }
+  
+  depends_on = [
+    google_project_iam_member.cleanup_function_logs_writer,
+    google_project_iam_member.cleanup_function_secret_accessor,
+    google_storage_bucket_object.vm_deletion_function_zip
+  ]
+}
+
+# Grant the cleanup function access to Firestore (already defined in main.tf)
+# resource "google_project_iam_member" "cleanup_function_firestore_user" {
+#   project = var.project_id
+#   role    = "roles/datastore.user"
+#   member  = "serviceAccount:${google_service_account.cleanup_function.email}"
+# }
+
+# Output the function details
+output "vm_deletion_handler_function_name" {
+  description = "Name of the VM deletion handler Cloud Function"
+  value       = google_cloudfunctions2_function.vm_deletion_handler.name
+}
+
+output "vm_deletion_events_topic" {
+  description = "Pub/Sub topic for VM deletion events"
+  value       = google_pubsub_topic.vm_deletion_events.name
+}

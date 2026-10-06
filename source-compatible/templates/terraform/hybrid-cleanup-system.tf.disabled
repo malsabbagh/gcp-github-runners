@@ -1,0 +1,175 @@
+# Hybrid Runner Cleanup System
+# Combines VM shutdown scripts with Cloud Function-based cleanup for maximum reliability
+
+# Enhanced cleanup function that handles multiple trigger sources
+resource "google_cloudfunctions2_function" "hybrid_runner_cleanup" {
+  name        = "hybrid-runner-cleanup"
+  location    = var.region
+  description = "Hybrid cleanup system for GitHub runners with multiple trigger sources"
+  
+  build_config {
+    runtime     = "nodejs18"
+    entry_point = "hybridCleanup"
+    
+    source {
+      storage_source {
+        bucket = google_storage_bucket.vm_deletion_function_bucket.name
+        object = google_storage_bucket_object.hybrid_cleanup_function_zip.name
+      }
+    }
+  }
+  
+  service_config {
+    max_instance_count = 10
+    available_memory   = "512M"
+    timeout_seconds    = 540
+    
+    environment_variables = {
+      REPO_OWNER = var.github_repo_owner
+      REPO_NAME  = var.github_repo_name
+      PROJECT_ID = var.project_id
+    }
+    
+    service_account_email = google_service_account.cleanup_function.email
+  }
+  
+  # Multiple event triggers
+  event_trigger {
+    trigger_region = var.region
+    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic   = google_pubsub_topic.hybrid_cleanup_events.id
+    
+    retry_policy = "RETRY_POLICY_RETRY"
+  }
+  
+  depends_on = [
+    google_project_iam_member.cleanup_function_logs_writer,
+    google_project_iam_member.cleanup_function_secret_accessor,
+    google_project_iam_member.cleanup_function_firestore_user,
+    google_storage_bucket_object.hybrid_cleanup_function_zip
+  ]
+}
+
+# Unified Pub/Sub topic for all cleanup triggers
+resource "google_pubsub_topic" "hybrid_cleanup_events" {
+  name = "hybrid-cleanup-events"
+  
+  labels = {
+    purpose = "github-runner-hybrid-cleanup"
+  }
+  
+  # Dead letter topic for failed messages
+  message_retention_duration = "7200s"  # 2 hours
+}
+
+# Dead letter topic for cleanup failures
+resource "google_pubsub_topic" "cleanup_failures" {
+  name = "cleanup-failures"
+  
+  labels = {
+    purpose = "cleanup-failure-handling"
+  }
+}
+
+# Scheduled cleanup for stale runners (backup mechanism)
+resource "google_cloud_scheduler_job" "stale_runner_cleanup" {
+  name        = "stale-runner-cleanup"
+  description = "Scheduled cleanup for stale/offline GitHub runners"
+  schedule    = "*/15 * * * *"  # Every 15 minutes
+  time_zone   = "UTC"
+  region      = var.region
+  
+  pubsub_target {
+    topic_name = google_pubsub_topic.hybrid_cleanup_events.id
+    data = base64encode(jsonencode({
+      triggerType = "scheduled"
+      action      = "cleanup_stale_runners"
+      timestamp   = timestamp()
+    }))
+  }
+}
+
+# VM metadata for enhanced shutdown script communication
+resource "google_compute_project_metadata_item" "cleanup_pubsub_topic" {
+  key   = "cleanup-pubsub-topic"
+  value = google_pubsub_topic.hybrid_cleanup_events.name
+}
+
+# Upload the hybrid cleanup function source
+resource "google_storage_bucket_object" "hybrid_cleanup_function_zip" {
+  name   = "hybrid-cleanup-function-${data.archive_file.hybrid_cleanup_function_source.output_md5}.zip"
+  bucket = google_storage_bucket.vm_deletion_function_bucket.name
+  source = data.archive_file.hybrid_cleanup_function_source.output_path
+}
+
+# Zip the hybrid cleanup function source
+data "archive_file" "hybrid_cleanup_function_source" {
+  type        = "zip"
+  output_path = "${path.module}/hybrid-cleanup-function.zip"
+  
+  source_dir = "${path.module}/../cloud-functions/hybrid-cleanup-handler"
+  
+  depends_on = [
+    local_file.hybrid_cleanup_function_code
+  ]
+}
+
+# Create the hybrid cleanup function files
+resource "local_file" "hybrid_cleanup_function_code" {
+  filename = "${path.module}/../cloud-functions/hybrid-cleanup-handler/index.js"
+  content  = file("${path.module}/../cloud-functions/hybrid-cleanup-handler/index.js")
+}
+
+# Enhanced log sink for VM operations
+resource "google_logging_project_sink" "enhanced_vm_events" {
+  name        = "enhanced-vm-events-sink"
+  destination = "pubsub.googleapis.com/projects/${var.project_id}/topics/${google_pubsub_topic.hybrid_cleanup_events.name}"
+  
+  # Comprehensive filter for VM lifecycle events
+  filter = <<-EOT
+    (
+      protoPayload.serviceName="compute.googleapis.com"
+      AND (
+        protoPayload.methodName="v1.compute.instances.delete"
+        OR protoPayload.methodName="v1.compute.instances.stop"
+        OR protoPayload.methodName="beta.compute.instances.preempted"
+        OR protoPayload.methodName="v1.compute.instances.reset"
+      )
+      AND operation.last=true
+      AND severity>=DEFAULT
+    )
+    OR (
+      resource.type="gce_instance"
+      AND (
+        protoPayload.methodName="compute.instances.preempted"
+        OR jsonPayload.event="INSTANCE_PREEMPTED"
+        OR jsonPayload.event="INSTANCE_DELETED"
+      )
+    )
+  EOT
+  
+  unique_writer_identity = true
+}
+
+# Grant enhanced log sink permission to publish
+resource "google_pubsub_topic_iam_member" "enhanced_log_sink_publisher" {
+  topic  = google_pubsub_topic.hybrid_cleanup_events.name
+  role   = "roles/pubsub.publisher"
+  member = google_logging_project_sink.enhanced_vm_events.writer_identity
+}
+
+# Output hybrid cleanup details
+output "hybrid_cleanup_function_name" {
+  description = "Name of the hybrid cleanup Cloud Function"
+  value       = google_cloudfunctions2_function.hybrid_runner_cleanup.name
+}
+
+output "hybrid_cleanup_topic" {
+  description = "Pub/Sub topic for hybrid cleanup events"
+  value       = google_pubsub_topic.hybrid_cleanup_events.name
+}
+
+output "cleanup_scheduler_job" {
+  description = "Scheduled job for stale runner cleanup"
+  value       = google_cloud_scheduler_job.stale_runner_cleanup.name
+}

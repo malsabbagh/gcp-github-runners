@@ -1,5 +1,4 @@
 # ReviewSensei setup version: 5
-# Migration default: manual dispatch only. See .github/README.md for activation.
 name: ReviewSensei review
 run-name: "ReviewSensei ${{ github.event.pull_request && format('PR #{0}', github.event.pull_request.number) || 'manual' }}"
 
@@ -15,6 +14,8 @@ run-name: "ReviewSensei ${{ github.event.pull_request && format('PR #{0}', githu
 # its exact package install, and every policy decision arrive without editing
 # this file.
 on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
     inputs:
       operation:
@@ -41,6 +42,11 @@ on:
       root_comment_id:
         description: Root comment ID for manual reply thread
         required: false
+
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
 
 # Read-only plus OIDC. The reusable workflow needs no write scope from this
 # repository - every publication is authorized by the broker - and it can

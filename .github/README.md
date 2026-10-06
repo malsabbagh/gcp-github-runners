@@ -17,36 +17,19 @@ validation do not demonstrate a successful live deployment.
 
 ## ReviewSensei
 
-The source repository's setup-v5 caller and root configuration are restored.
-This migration keeps review invocation manual, automatic reviews and mentions
-disabled, publication disabled, advisory reviews, and non-loopback provider
-egress disabled. The retained cloud Ollama model is
-`deepseek-v4.1-flash:cloud`; that backend cannot run with the current egress
-policy. These defaults make the migrated files reviewable without activating
-the external service. The reusable workflow follows the source's
-operator-managed `malsabbagh/review-sensei` `v5` release tag.
+The setup-v5 caller now restores the source event behavior: eligible PR events,
+authorized issue/inline mentions, rescan/command/reply handling and manual
+dispatch. The root configuration matches selected source PR #25, including
+automatic reviews, publication, auto-approval and mentions. Provider data egress
+remains false, as it is in the source. The caller retains trusted default-branch
+resolution and a frozen PR identity; it follows the operator-managed v5 tag.
 
-Activation requires a separate operator decision:
+The removal workflow again creates a cleanup branch, removes setup files,
+commits, pushes and opens a PR. Both author and committer use the existing
+verified `malsabbagh <malsabbagh@users.noreply.github.com>` identity instead of
+the source's bot identity. Offline tests use a real temporary Git tree and
+intercept all push/GitHub operations. Running the workflow is a separate action;
+restoring its code does not dispatch it or change repository settings.
 
-1. Allow GitHub Actions and the reusable workflow in repository/organization
-   policy, including access to its repository if private.
-2. Install/authorize the ReviewSensei GitHub App/broker for this repository and
-   confirm its OIDC repository authorization. The caller grants read scopes and
-   OIDC; broker policy controls publication rather than a write-scoped token.
-3. Select the backend/model in `.reviewsensei.yml`. Supported optional product
-   overrides are `REVIEWSENSEI_PROVIDER` and `REVIEWSENSEI_MODEL`. For the selected
-   cloud provider, provision the appropriate repository secret (`OLLAMA_API_KEY`,
-   `OPENROUTER_API_KEY`, or `OPENAI_API_KEY`) through the approved secret channel;
-   only names occur in this repository. Cloud backends use `ubuntu-latest`.
-   Local Ollama requires a separately authorized runner with labels
-   `[self-hosted, linux, x64, ollama]` and a loopback inference service.
-4. Explicitly approve provider data egress before enabling it for a cloud backend.
-   Separately approve GitHub publication, mention handling or automatic reviews
-   before enabling those controls. Automatic reviews/mentions also require
-   restoring the corresponding event triggers in the caller.
-5. Manually dispatch a review for a selected PR and verify broker/provider
-   authorization and the intended advisory/publication policy.
-
-The removal workflow generates a patch with read-only permissions. Inspect and
-apply it locally, then commit with your verified identity; it does not generate
-bot commits or remove broker authorization, Apps, provider secrets or learnings.
+The additional source-compatible executable profile restores source operator
+commands and worker variants; see [the profile guide](../source-compatible/README.md).

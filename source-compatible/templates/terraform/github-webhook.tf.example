@@ -1,0 +1,40 @@
+# Add this to your terraform/main.tf to automate webhook creation
+
+# GitHub provider for webhook management
+terraform {
+  required_providers {
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Configure GitHub provider (requires GITHUB_TOKEN environment variable)
+provider "github" {
+  token = var.github_token  # Add this variable
+  owner = var.github_repo_owner
+}
+
+# Create GitHub webhook automatically
+resource "github_repository_webhook" "runner_webhook" {
+  repository = var.github_repo_name
+
+  configuration {
+    url          = "https://cloudbuild.googleapis.com/v1/projects/${var.project_id}/triggers/${google_cloudbuild_trigger.github_webhook.trigger_id}:webhook"
+    content_type = "json"
+    secret       = var.github_webhook_secret
+    insecure_ssl = false
+  }
+
+  active = true
+
+  events = [
+    "workflow_job",
+    "pull_request"
+  ]
+
+  depends_on = [
+    google_cloudbuild_trigger.github_webhook
+  ]
+}

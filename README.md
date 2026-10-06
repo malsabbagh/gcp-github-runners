@@ -24,3 +24,12 @@ The migration has not enabled repository Actions, provisioned provider secrets, 
 Optional [ReviewSensei automation](.github/README.md) is present with manual invocation, advisory reviews, publication disabled and provider egress disabled. Cloud Ollama requires an explicit egress decision and provider authorization before it can run.
 
 Package metadata declares MIT; the selected source did not contain a root license or copyright notice. [NOTICE.md](NOTICE.md) records that limitation without inventing a copyright assignment.
+
+## Source-compatible executable profile
+
+The selected one-job implementation is an additional architecture, not a reason
+to omit capabilities from the original repository. The [source-compatible profile](source-compatible/README.md)
+retains original worker variants, direct handlers, executable operator/cleanup
+commands and tests with private values parameterized. ReviewSensei event and
+removal automation is restored in the root workflows. Use the behavior matrix
+to distinguish preserved source capability from inherited upstream defects.

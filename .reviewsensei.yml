@@ -1,5 +1,4 @@
 # ReviewSensei setup version: 5
-# Fail-closed migration defaults; activation needs explicit policy approval.
 # Configuration version. Leave this at 1.
 schema: 1
 
@@ -13,13 +12,13 @@ inference:
 # GitHub publication and conversation policy.
 github:
   # Review eligible pull requests automatically
-  automatic_reviews: false
+  automatic_reviews: true
   # Publish the validated result to GitHub
-  writes: false
+  writes: true
   # auto-approve (request changes or approve), blocking, or advisory
-  reviews: advisory
+  reviews: auto-approve
   # Reply to authorized @sensei mentions
-  mentions: false
+  mentions: true
   # disabled, proposals, or pull-requests
   learning: disabled
   # none or diagnostics

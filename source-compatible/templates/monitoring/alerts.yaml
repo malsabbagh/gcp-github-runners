@@ -1,0 +1,89 @@
+alertPolicy:
+  displayName: "GitHub Runner Instance Failures"
+  documentation:
+    content: "Alert when GitHub runner instances fail to start or run properly"
+  conditions:
+    - displayName: "Runner Instance Down"
+      conditionThreshold:
+        filter: 'metric.type="compute.googleapis.com/instance/up" AND resource.type="gce_instance" AND resource.labels.instance_name=~"github-runner-.*"'
+        comparison: COMPARISON_LESS_THAN
+        thresholdValue: 1
+        duration: 300s
+        aggregations:
+          - alignmentPeriod: 60s
+            perSeriesAligner: ALIGN_MEAN
+            crossSeriesReducer: REDUCE_COUNT
+            groupByFields:
+              - "resource.label.instance_name"
+              - "resource.label.zone"
+      
+    - displayName: "High Runner Creation Rate"
+      conditionThreshold:
+        filter: 'resource.type="cloud_function" AND resource.labels.function_name="github-webhook-handler"'
+        comparison: COMPARISON_GREATER_THAN
+        thresholdValue: 10
+        duration: 300s
+        aggregations:
+          - alignmentPeriod: 60s
+            perSeriesAligner: ALIGN_RATE
+            crossSeriesReducer: REDUCE_SUM
+
+  notificationChannels: []
+  
+  alertStrategy:
+    autoClose: 86400s  # 24 hours
+
+---
+alertPolicy:
+  displayName: "GitHub Runner Cleanup Failures"
+  documentation:
+    content: "Alert when cleanup function fails to remove old runner instances"
+  conditions:
+    - displayName: "Cleanup Function Errors"
+      conditionThreshold:
+        filter: 'resource.type="cloud_function" AND resource.labels.function_name="runner-cleanup-function" AND severity="ERROR"'
+        comparison: COMPARISON_GREATER_THAN
+        thresholdValue: 0
+        duration: 60s
+        aggregations:
+          - alignmentPeriod: 60s
+            perSeriesAligner: ALIGN_COUNT
+            crossSeriesReducer: REDUCE_SUM
+
+    - displayName: "Old Runner Instances Present"
+      conditionThreshold:
+        filter: 'metric.type="compute.googleapis.com/instance/up" AND resource.type="gce_instance" AND resource.labels.instance_name=~"github-runner-.*"'
+        comparison: COMPARISON_GREATER_THAN
+        thresholdValue: 5
+        duration: 3600s  # 1 hour
+        aggregations:
+          - alignmentPeriod: 300s
+            perSeriesAligner: ALIGN_MEAN
+            crossSeriesReducer: REDUCE_COUNT
+
+  notificationChannels: []
+  
+  alertStrategy:
+    autoClose: 86400s  # 24 hours
+
+---
+alertPolicy:
+  displayName: "GitHub Webhook Handler Errors"
+  documentation:
+    content: "Alert when webhook handler function experiences errors"
+  conditions:
+    - displayName: "Webhook Handler Function Errors"
+      conditionThreshold:
+        filter: 'resource.type="cloud_function" AND resource.labels.function_name="github-webhook-handler" AND severity="ERROR"'
+        comparison: COMPARISON_GREATER_THAN
+        thresholdValue: 2
+        duration: 300s
+        aggregations:
+          - alignmentPeriod: 60s
+            perSeriesAligner: ALIGN_COUNT
+            crossSeriesReducer: REDUCE_SUM
+
+  notificationChannels: []
+  
+  alertStrategy:
+    autoClose: 86400s  # 24 hours

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
 
 permissions:
@@ -42,6 +42,11 @@ jobs:
       - name: Review trigger identity regressions without network access
         if: ${{ hashFiles('.github/workflows/review-sensei-review.yml') != '' }}
         run: python .github/scripts/test-review-trigger.py
+      - name: Source-compatible removal behavior without external writes
+        if: ${{ hashFiles('.github/scripts/remove-review-sensei.py') != '' }}
+        run: python .github/scripts/test-review-removal.py
+      - name: Original source executable contracts without provider operations
+        run: python scripts/qualify-source-profile.py
       - name: JavaScript, Python and Bash syntax
         run: |
           python - <<'PY'
