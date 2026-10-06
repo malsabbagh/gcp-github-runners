@@ -408,6 +408,60 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 13,
+      "pr_head": "bab5b3fbfc4ec0904036df85eacebf3b99a34a36",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/13",
+      "before_sha256": "00976eeee68a9541bc8403305314ebbcfb320257d9d5336b542016b4d9a7d617",
+      "after_sha256": "60b2b8805d85ba889b4b92d958f5f39e82aa1c7b0c107d5032664087c4d569aa",
+      "changed_packages": {
+        "node_modules/body-parser": {
+          "from": "1.20.3",
+          "to": "1.20.8"
+        },
+        "node_modules/body-parser/node_modules/http-errors": {
+          "from": null,
+          "to": "2.0.1"
+        },
+        "node_modules/body-parser/node_modules/statuses": {
+          "from": null,
+          "to": "2.0.2"
+        },
+        "node_modules/express": {
+          "from": "4.21.2",
+          "to": "4.22.3"
+        },
+        "node_modules/path-to-regexp": {
+          "from": "0.1.12",
+          "to": "0.1.13"
+        },
+        "node_modules/qs": {
+          "from": "6.13.0",
+          "to": "6.16.0"
+        },
+        "node_modules/raw-body": {
+          "from": "2.5.2",
+          "to": "2.5.3"
+        },
+        "node_modules/raw-body/node_modules/http-errors": {
+          "from": null,
+          "to": "2.0.1"
+        },
+        "node_modules/raw-body/node_modules/statuses": {
+          "from": null,
+          "to": "2.0.2"
+        },
+        "node_modules/side-channel": {
+          "from": "1.1.0",
+          "to": "1.1.1"
+        },
+        "node_modules/side-channel-list": {
+          "from": "1.0.0",
+          "to": "1.0.1"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }
