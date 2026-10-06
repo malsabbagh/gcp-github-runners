@@ -57,3 +57,45 @@ test('root minimatch rejects many-globstar near-matches within a bounded child p
   assert.equal(result.error, undefined);
   assert.equal(result.status, 0, result.stderr);
 });
+
+test('root matching consumers retain Jest test discovery and negative path exclusions', () => {
+  const picomatch = require('picomatch');
+  const micromatch = require('micromatch');
+  const anymatch = require('anymatch');
+  const {globsToMatcher} = require('jest-util');
+  for (const consumer of ['micromatch', 'anymatch', 'jest-util']) {
+    assert.equal(createRequire(require.resolve(consumer)).resolve('picomatch'), require.resolve('picomatch'));
+  }
+  const pattern = '**/?(*.)+(spec|test).js';
+  const patterns = [pattern, '!**/node_modules/**'];
+  const fixtures = ['cloud-functions/handler/index.unit.test.js', 'cloud-functions/handler/index.http.test.js',
+    'tests/fixture.spec.js', 'tests/plain.js', 'node_modules/fixture/fixture.test.js'];
+  const selected = fixtures.slice(0, 3);
+  assert.deepEqual(micromatch(fixtures, patterns), selected);
+  for (const match of [anymatch(patterns), globsToMatcher(patterns)]) {
+    assert.deepEqual(fixtures.filter(file => match(file)), selected);
+  }
+  assert.equal(picomatch(pattern)(fixtures[0]), true);
+  assert.equal(picomatch(pattern)(fixtures[3]), false);
+});
+
+test('root picomatch handles POSIX classes and inherited property names without exceptions', () => {
+  const picomatch = require('picomatch');
+  assert.equal(picomatch('[[:digit:]]')('7'), true);
+  assert.equal(picomatch('[[:digit:]]')('x'), false);
+  for (const property of ['constructor', '__proto__', 'toString']) {
+    assert.doesNotThrow(() => picomatch('[[:' + property + ':]]'));
+  }
+  assert.equal(Object.prototype.fixturePolluted, undefined);
+});
+
+test('root picomatch rejects repeated and nested extglob near-matches within a bounded process', () => {
+  const script = `const picomatch = require('picomatch');
+    for (const pattern of ['+(a|aa)', '+(+(a))', '*(+(a))']) {
+      if (picomatch(pattern)('a'.repeat(1000) + 'b') !== false) process.exit(1);
+    }`;
+  const result = spawnSync(process.execPath, ['-e', script],
+    {cwd: path.resolve(__dirname, '..'), timeout: 3000, encoding: 'utf8'});
+  assert.equal(result.error, undefined);
+  assert.equal(result.status, 0, result.stderr);
+});
