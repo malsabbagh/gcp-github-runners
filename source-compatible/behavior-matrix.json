@@ -3,7 +3,7 @@
   "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
   "selected_pr25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
   "source_precedence": "PR25 takes precedence on every differing same path; it includes all frozen main paths.",
-  "selected_source_control_equality": "123 of125 executable/configuration files retain every nonconfiguration byte;16 private/secret bindings parameterized. Two webhook test-PR helpers adapt Git working directory to the containing repository root, with executed local Git regressions.",
+  "selected_source_control_equality": "122 of125 executable/configuration files retain every nonconfiguration byte;16 private/secret bindings parameterized. Two webhook test-PR helpers adapt Git working directory. One original package lock receives explicitly recorded dependency maintenance; all source runtime/control code remains retained.",
   "entrypoint": "scripts/source-profile.py materializes an independent executable working directory at original relative paths; original commands are not replaced by documentation.",
   "capabilities": [
     {
@@ -129,7 +129,7 @@
         "validate-deployment.sh",
         "validate-stop-then-delete.ps1"
       ],
-      "evidence": "123 unchanged source files plus2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile"
+      "evidence": "122 unchanged nonconfiguration source files, one explicitly maintained dependency lock and2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile"
     },
     {
       "behavior": "Original Terraform modules/resources/outputs, examples, monitoring and source-disabled alternate routes",
@@ -309,5 +309,21 @@
     "optional_test_pr_git_context": 2,
     "external_operations_intercepted": true,
     "fresh_git_checkout_hashes_verified": true
-  }
+  },
+  "source_dependency_maintenance": [
+    {
+      "pr": 8,
+      "pr_head": "e40ac2f21f2aa8da6fb3badf3c18ea07301c9b07",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/8",
+      "before_sha256": "78702a19287f1b4c0151d32f7bdbb9a53abd5d4ef70be559ab13805b2ffd83a5",
+      "after_sha256": "e3b6fb88b590ea40401a2a460050de3c8f7c214d50839994a961be199042e1ce",
+      "changed_packages": {
+        "node_modules/proxy-addr": {
+          "from": "2.0.7",
+          "to": "2.0.8"
+        }
+      },
+      "direct_dependencies_changed": false
+    }
+  ]
 }

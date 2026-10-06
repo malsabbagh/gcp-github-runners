@@ -851,7 +851,7 @@
       "mode": "100644",
       "source_blob": "b121d7cee1a3dce794f7f15bd32bb329f970cddc",
       "source_sha256": "9d0e2cd29a5704bef0a1f88c13df11f7ab1c9a9b38c2966579152a5c76e81d09",
-      "template_sha256": "78702a19287f1b4c0151d32f7bdbb9a53abd5d4ef70be559ab13805b2ffd83a5",
+      "template_sha256": "e3b6fb88b590ea40401a2a460050de3c8f7c214d50839994a961be199042e1ce",
       "configuration_inputs": [
         {
           "input": "PARITY_INPUT_115",
@@ -859,7 +859,23 @@
         }
       ],
       "control_logic_changed": false,
-      "relocation_adapter": null
+      "relocation_adapter": null,
+      "dependency_maintenance": [
+        {
+          "pr": 8,
+          "pr_head": "e40ac2f21f2aa8da6fb3badf3c18ea07301c9b07",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/8",
+          "before_sha256": "78702a19287f1b4c0151d32f7bdbb9a53abd5d4ef70be559ab13805b2ffd83a5",
+          "after_sha256": "e3b6fb88b590ea40401a2a460050de3c8f7c214d50839994a961be199042e1ce",
+          "changed_packages": {
+            "node_modules/proxy-addr": {
+              "from": "2.0.7",
+              "to": "2.0.8"
+            }
+          },
+          "direct_dependencies_changed": false
+        }
+      ]
     },
     {
       "path": "package.json",

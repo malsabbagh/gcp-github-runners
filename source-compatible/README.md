@@ -36,7 +36,9 @@ bash destroy-resources.sh
 The optional test-PR helpers in Bash and PowerShell perform Git operations at
 the containing repository root, then restore the original directory. This small
 relocation adapter keeps their marker commits outside the ignored profile.
-All other nonconfiguration source bytes in the 125-file profile are retained.
+The remaining source runtime code is retained. The package lock now receives
+reviewed dependency maintenance recorded in the manifest, rather than being
+described as byte-identical to the original source lock.
 The source attributes file is stored under a literal template name, so Git
 checkout cannot convert PowerShell template bytes before hash verification; it
 materializes at its original `.gitattributes` path.
