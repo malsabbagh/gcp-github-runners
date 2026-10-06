@@ -604,6 +604,21 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 20,
+      "pr_head": "ad086b1a4febb0a300b96c77fc285a2d8ca3afbe",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/20",
+      "path": "package-lock.json",
+      "before_sha256": "4f9b024381830a9f58f56df50a95088400dbffbc4ee61fd7dcfdb49fdf417212",
+      "after_sha256": "27415c0bff9a67390862402ec76685ba5054cc5723cbb6bb625561ced7187e8d",
+      "changed_packages": {
+        "node_modules/picomatch": {
+          "from": "2.3.1",
+          "to": "2.3.2"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }

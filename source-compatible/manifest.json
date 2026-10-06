@@ -851,7 +851,7 @@
       "mode": "100644",
       "source_blob": "b121d7cee1a3dce794f7f15bd32bb329f970cddc",
       "source_sha256": "9d0e2cd29a5704bef0a1f88c13df11f7ab1c9a9b38c2966579152a5c76e81d09",
-      "template_sha256": "4f9b024381830a9f58f56df50a95088400dbffbc4ee61fd7dcfdb49fdf417212",
+      "template_sha256": "27415c0bff9a67390862402ec76685ba5054cc5723cbb6bb625561ced7187e8d",
       "configuration_inputs": [
         {
           "input": "PARITY_INPUT_115",
@@ -1151,6 +1151,21 @@
             "node_modules/update-browserslist-db": {
               "from": "1.1.3",
               "to": "1.3.3"
+            }
+          },
+          "direct_dependencies_changed": false
+        },
+        {
+          "pr": 20,
+          "pr_head": "ad086b1a4febb0a300b96c77fc285a2d8ca3afbe",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/20",
+          "path": "package-lock.json",
+          "before_sha256": "4f9b024381830a9f58f56df50a95088400dbffbc4ee61fd7dcfdb49fdf417212",
+          "after_sha256": "27415c0bff9a67390862402ec76685ba5054cc5723cbb6bb625561ced7187e8d",
+          "changed_packages": {
+            "node_modules/picomatch": {
+              "from": "2.3.1",
+              "to": "2.3.2"
             }
           },
           "direct_dependencies_changed": false
