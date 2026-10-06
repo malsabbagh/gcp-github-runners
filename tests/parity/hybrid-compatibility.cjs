@@ -230,3 +230,43 @@ test('hybrid nested form-data submits Unicode and buffered files with consistent
     assert.ok(result.body.includes('fixture-file'));
   } finally { await close(server); }
 });
+
+test('hybrid JWS streams reject missing secrets and complete valid signing and verification', {timeout: 5000}, async () => {
+  const jws = load('jws');
+  const {Readable} = require('node:stream');
+  const {once} = require('node:events');
+  for (const secret of [undefined, null]) {
+    assert.throws(() => jws.createSign({header: {alg: 'HS256'}, payload: 'fixture', secret}), TypeError);
+  }
+  const key = Buffer.alloc(32, 42);
+  const stream = Readable.from([key]);
+  const sign = jws.createSign({header: {alg: 'HS256'}, secret: stream,
+    payload: Readable.from([Buffer.from('{"job":42}')])});
+  const [token] = await once(sign, 'done');
+  const verify = jws.createVerify({algorithm: 'HS256', secret: key, signature: Readable.from([token])});
+  const [valid] = await once(verify, 'done');
+  assert.equal(valid, true);
+  assert.equal(jws.verify(token, 'HS256', 'wrong-fixture-key'), false);
+  const parts = token.split('.');
+  parts[1] = Buffer.from('{"job":43}').toString('base64url');
+  assert.equal(jws.verify(parts.join('.'), 'HS256', key), false);
+});
+
+test('hybrid JWS and Google Auth generate RSA audience tokens locally without provider calls', () => {
+  const jws = load('jws');
+  const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {modulusLength: 2048});
+  const key = privateKey.export({type: 'pkcs8', format: 'pem'});
+  const token = jws.sign({header: {alg: 'RS256'}, payload: {job: 42}, privateKey: key});
+  assert.equal(jws.verify(token, 'RS256', publicKey), true);
+  const {JWTAccess} = load('google-auth-library');
+  const client = new JWTAccess('fixture@example.test', key);
+  const audience = 'https://example.test/fixture';
+  const headers = client.getRequestHeaders(audience);
+  const authorization = typeof headers.get === 'function' ? headers.get('authorization') : headers.Authorization;
+  assert.ok(authorization.startsWith('Bearer '));
+  const credential = authorization.slice(7);
+  assert.equal(jws.verify(credential, 'RS256', publicKey), true);
+  assert.equal(jws.decode(credential).payload.aud, audience);
+  assert.equal(jws.decode(credential).payload.iss, 'fixture@example.test');
+  assert.ok(new (load('gtoken').GoogleToken)({email: 'fixture@example.test', key}));
+});
