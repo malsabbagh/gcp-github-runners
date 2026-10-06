@@ -109,3 +109,32 @@ test('hybrid Axios sends its installed multipart form with a matching boundary',
     assert.ok(result.data.body.endsWith('--' + boundary + '--\r\n'));
   } finally { await close(server); }
 });
+
+test('hybrid fast-uri normalizes escaped host case and resolves schema references', () => {
+  const uri = load('fast-uri');
+  assert.equal(uri.normalize('HTTP://%45xAmPlE.test/a/../job.json'), 'http://example.test/job.json');
+  assert.equal(uri.equal('http://%45xAmPlE.test/job.json', 'http://example.test/job.json'), true);
+  assert.equal(uri.resolve('https://example.test/schemas/list.json', './job.json'), 'https://example.test/schemas/job.json');
+  const ipv6 = uri.parse('https://[2001:db8::1]:8443/job');
+  assert.equal(ipv6.error, undefined);
+  assert.equal(uri.serialize(ipv6), 'https://[2001:db8::1]:8443/job');
+  const Ajv = load('ajv');
+  const ajv = new Ajv();
+  ajv.addSchema({$id: 'https://example.test/schemas/job.json', type: 'object',
+    required: ['id'], properties: {id: {type: 'integer', minimum: 1}}});
+  const validate = ajv.compile({$id: 'https://example.test/schemas/list.json',
+    type: 'array', items: {$ref: 'job.json'}});
+  assert.equal(validate([{id: 42}]), true);
+  assert.equal(validate([{id: '42'}]), false);
+});
+
+test('hybrid fast-uri rejects malformed authorities and injected serialized ports', () => {
+  const uri = load('fast-uri');
+  for (const value of ['http://[::1/path', 'http://a]b/path', 'http://example.test:abc/path']) {
+    assert.ok(uri.parse(value).error, value);
+  }
+  for (const port of ['80/other', '80@other', '80?other']) {
+    assert.throws(() => uri.serialize({scheme: 'http', host: 'example.test', port}), /port is malformed/);
+  }
+  assert.throws(() => uri.resolve('http://example.test/', 'http://a]b/path'), /malformed/);
+});
