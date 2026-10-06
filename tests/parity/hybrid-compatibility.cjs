@@ -192,3 +192,41 @@ test('hybrid Functions Framework preserves signed form bytes, repeated queries a
     assert.equal(calls, before, 'malformed JSON must fail before the handler');
   } finally { await close(server); }
 });
+
+test('hybrid nested form-data escapes names and filenames without injecting multipart headers', () => {
+  const typed = createRequire(load.resolve('@types/request/package.json'));
+  const Form = typed('form-data');
+  assert.notEqual(typed.resolve('form-data'), load.resolve('form-data'), 'qualify the independent 2.x copy');
+  const form = new Form();
+  form.append('field"\r\nX-Fixture: injected', Buffer.from('fixture-value'),
+    {filename: 'file"\r\nX-Fixture: injected.txt'});
+  const body = form.getBuffer().toString();
+  assert.ok(body.includes('name="field%22%0D%0AX-Fixture: injected"'));
+  assert.ok(body.includes('filename="file%22%0D%0AX-Fixture: injected.txt"'));
+  assert.equal(body.includes('\r\nX-Fixture:'), false);
+  assert.equal(body.split('Content-Disposition:').length, 2);
+  assert.equal(form.getLengthSync(), Buffer.byteLength(body));
+});
+
+test('hybrid nested form-data submits Unicode and buffered files with consistent lengths', {timeout: 5000}, async () => {
+  const Form = createRequire(load.resolve('@types/request/package.json'))('form-data');
+  const {server, url} = await fixture();
+  try {
+    const form = new Form();
+    form.append('message', 'caf\u00e9');
+    form.append('upload', Buffer.from('fixture-file'), {filename: 'fixture.txt'});
+    const result = await new Promise((resolve, reject) => form.submit(url + '/echo', (error, response) => {
+      if (error) return reject(error);
+      const chunks = [];
+      response.on('data', chunk => chunks.push(chunk));
+      response.on('error', reject);
+      response.on('end', () => resolve(JSON.parse(Buffer.concat(chunks).toString())));
+    }));
+    assert.equal(Number(result.headers['content-length']), Buffer.byteLength(result.body));
+    const boundary = /boundary=(.+)$/.exec(result.headers['content-type'])[1];
+    assert.ok(result.body.endsWith('--' + boundary + '--\r\n'));
+    assert.ok(result.body.includes('caf\u00e9'));
+    assert.ok(result.body.includes('filename="fixture.txt"'));
+    assert.ok(result.body.includes('fixture-file'));
+  } finally { await close(server); }
+});
