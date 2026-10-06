@@ -266,7 +266,7 @@
       "mode": "100644",
       "source_blob": "2b58ee888d2d68eb229e96507338f562af190551",
       "source_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
-      "template_sha256": "217bd8516b0759b653df7dd277ddb93d61058196aa5001c77c2d31b987a111ec",
+      "template_sha256": "f35bdf165498e4a437994106ed4bf56e0911f6f5e8e21ec9ea4f7c38dd72234d",
       "configuration_inputs": [],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -397,6 +397,86 @@
             "node_modules/fast-uri": {
               "from": "3.0.6",
               "to": "3.1.8"
+            }
+          },
+          "direct_dependencies_changed": false,
+          "direct_dependency_ranges": {}
+        },
+        {
+          "pr": 28,
+          "pr_head": "9bf65ab25d00dcc50cc3f00c504eb26710e59ec8",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/28",
+          "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+          "before_sha256": "217bd8516b0759b653df7dd277ddb93d61058196aa5001c77c2d31b987a111ec",
+          "after_sha256": "f35bdf165498e4a437994106ed4bf56e0911f6f5e8e21ec9ea4f7c38dd72234d",
+          "changed_packages": {
+            "node_modules/body-parser": {
+              "from": "1.20.3",
+              "to": "1.20.8"
+            },
+            "node_modules/body-parser/node_modules/http-errors": {
+              "from": null,
+              "to": "2.0.1"
+            },
+            "node_modules/body-parser/node_modules/statuses": {
+              "from": null,
+              "to": "2.0.2"
+            },
+            "node_modules/bytes": {
+              "from": "3.1.2",
+              "to": "3.1.2"
+            },
+            "node_modules/express": {
+              "from": "4.21.2",
+              "to": "4.22.3"
+            },
+            "node_modules/iconv-lite": {
+              "from": "0.4.24",
+              "to": "0.4.24"
+            },
+            "node_modules/object-inspect": {
+              "from": "1.13.4",
+              "to": "1.13.4"
+            },
+            "node_modules/path-to-regexp": {
+              "from": "0.1.12",
+              "to": "0.1.13"
+            },
+            "node_modules/qs": {
+              "from": "6.13.0",
+              "to": "6.16.0"
+            },
+            "node_modules/raw-body": {
+              "from": "2.5.2",
+              "to": "2.5.3"
+            },
+            "node_modules/raw-body/node_modules/http-errors": {
+              "from": null,
+              "to": "2.0.1"
+            },
+            "node_modules/raw-body/node_modules/statuses": {
+              "from": null,
+              "to": "2.0.2"
+            },
+            "node_modules/safer-buffer": {
+              "from": "2.1.2",
+              "to": "2.1.2"
+            },
+            "node_modules/side-channel": {
+              "from": "1.1.0",
+              "to": "1.1.1"
+            },
+            "node_modules/side-channel-list": {
+              "from": "1.0.0",
+              "to": "1.0.1"
+            },
+            "node_modules/side-channel-map": {
+              "from": "1.0.1",
+              "to": "1.0.1"
+            },
+            "node_modules/side-channel-weakmap": {
+              "from": "1.0.2",
+              "to": "1.0.2"
             }
           },
           "direct_dependencies_changed": false,

@@ -138,3 +138,57 @@ test('hybrid fast-uri rejects malformed authorities and injected serialized port
   }
   assert.throws(() => uri.resolve('http://example.test/', 'http://a]b/path'), /malformed/);
 });
+
+test('hybrid query parser preserves nested arrays and rejects prototype keys; routes retain boundaries', () => {
+  const qs = load('qs');
+  assert.deepEqual(qs.parse('items[0]=one&items[1]=two&filter[state]=done'),
+    {items: ['one', 'two'], filter: {state: 'done'}});
+  assert.deepEqual(qs.parse('__proto__[fixturePolluted]=yes'), {});
+  assert.equal(Object.prototype.fixturePolluted, undefined);
+  const route = load('path-to-regexp')('/:one-:two-:three', []);
+  assert.equal(route.test('/fixture-job-42'), true);
+  assert.equal(route.test('/fixture-job-42/extra'), false);
+  assert.equal(route.test('/' + 'a-'.repeat(5000) + 'a/extra'), false);
+});
+
+test('hybrid Functions Framework preserves signed form bytes, repeated queries and parser rejection', {timeout: 5000}, async () => {
+  const framework = load.resolve('@google-cloud/functions-framework');
+  const {getServer} = load(path.join(path.dirname(framework), 'server.js'));
+  const key = Buffer.alloc(32, 42);
+  let calls = 0;
+  const server = getServer((req, res) => {
+    calls++;
+    const expected = crypto.createHmac('sha256', key).update(req.rawBody).digest('hex');
+    if (expected !== req.headers['x-fixture-signature']) return res.status(401).end();
+    res.json({raw: req.rawBody.toString('hex'), body: req.body, query: req.query});
+  }, {signatureType: 'http', ignoredRoutes: null, timeoutMilliseconds: 3000});
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const request = (body, type, query, signed = true) => new Promise((resolve, reject) => {
+    const signature = signed ? crypto.createHmac('sha256', key).update(body).digest('hex') : 'invalid';
+    const req = http.request({host: '127.0.0.1', port: server.address().port,
+      path: '/fixture?' + query, method: 'POST', headers: {'content-type': type,
+        'content-length': body.length, 'x-fixture-signature': signature}}, res => {
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
+      res.on('end', () => resolve({status: res.statusCode, body: Buffer.concat(chunks).toString()}));
+    });
+    req.on('error', reject);
+    req.end(body);
+  });
+  try {
+    const values = Array.from({length: 25}, (_, index) => 'item-' + index);
+    const query = values.map(value => 'items=' + value).join('&') + '&__proto__[fixturePolluted]=yes';
+    const form = Buffer.from('items%5B0%5D=one&items%5B1%5D=two&message=caf%C3%A9');
+    const ok = await request(form, 'application/x-www-form-urlencoded', query);
+    assert.equal(ok.status, 200);
+    const result = JSON.parse(ok.body);
+    assert.equal(result.raw, form.toString('hex'));
+    assert.deepEqual(result.body, {items: ['one', 'two'], message: 'caf\u00e9'});
+    assert.deepEqual(result.query.items, values);
+    assert.equal(Object.prototype.fixturePolluted, undefined);
+    assert.equal((await request(form, 'application/x-www-form-urlencoded', '', false)).status, 401);
+    const before = calls;
+    assert.equal((await request(Buffer.from('{invalid'), 'application/json', '')).status, 400);
+    assert.equal(calls, before, 'malformed JSON must fail before the handler');
+  } finally { await close(server); }
+});
