@@ -270,3 +270,54 @@ test('hybrid JWS and Google Auth generate RSA audience tokens locally without pr
   assert.equal(jws.decode(credential).payload.iss, 'fixture@example.test');
   assert.ok(new (load('gtoken').GoogleToken)({email: 'fixture@example.test', key}));
 });
+
+test('hybrid once settles events, errors and pre/mid-wait aborts and removes its listeners', {timeout: 5000}, async () => {
+  const once = load('@tootallnate/once').default;
+  const {EventEmitter, getEventListeners} = require('node:events');
+  for (const mode of ['success', 'error', 'pre-abort', 'mid-abort']) {
+    const emitter = new EventEmitter();
+    const controller = new AbortController();
+    if (mode === 'pre-abort') controller.abort();
+    const pending = once(emitter, 'fixture', {signal: controller.signal});
+    if (mode === 'success') { emitter.emit('fixture', 'job', 42); assert.deepEqual(await pending, ['job', 42]); }
+    else if (mode === 'error') {
+      const error = new Error('fixture error');
+      emitter.emit('error', error);
+      await assert.rejects(pending, caught => caught === error);
+    } else {
+      if (mode === 'mid-abort') controller.abort();
+      await assert.rejects(pending, {name: 'AbortError'});
+    }
+    assert.equal(emitter.listenerCount('fixture'), 0);
+    assert.equal(emitter.listenerCount('error'), 0);
+    assert.equal(getEventListeners(controller.signal, 'abort').length, 0);
+  }
+});
+
+test('hybrid http-proxy-agent settles successful and aborted loopback requests', {timeout: 5000}, async () => {
+  const Agent = load('http-proxy-agent');
+  let slowReceived;
+  const arrived = new Promise(resolve => { slowReceived = resolve; });
+  const proxy = await listen((req, res) => {
+    if (req.url.endsWith('/slow')) return slowReceived();
+    res.end(req.url);
+  });
+  const agent = new Agent(proxy.url);
+  const request = (pathname, signal) => new Promise((resolve, reject) => {
+    const req = http.get('http://example.test' + pathname, {agent, signal}, res => {
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
+      res.on('error', reject);
+      res.on('end', () => resolve(Buffer.concat(chunks).toString()));
+    });
+    req.on('error', reject);
+  });
+  try {
+    assert.equal(await request('/job'), 'http://example.test/job');
+    const controller = new AbortController();
+    const pending = request('/slow', controller.signal);
+    await arrived;
+    controller.abort();
+    await assert.rejects(pending, {name: 'AbortError', code: 'ABORT_ERR'});
+  } finally { agent.destroy(); await close(proxy.server); }
+});
