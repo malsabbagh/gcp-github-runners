@@ -494,6 +494,116 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 19,
+      "pr_head": "2c73f2f42fd379896dfaba9cb8d4276f32fceb69",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/19",
+      "before_sha256": "d2dfe92d64d944123647d0063508f7080dfb02835b96c49973e6402cf0a3186f",
+      "after_sha256": "4f9b024381830a9f58f56df50a95088400dbffbc4ee61fd7dcfdb49fdf417212",
+      "changed_packages": {
+        "node_modules/@ampproject/remapping": {
+          "from": "2.3.0",
+          "to": null
+        },
+        "node_modules/@babel/code-frame": {
+          "from": "7.27.1",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/compat-data": {
+          "from": "7.28.0",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/core": {
+          "from": "7.28.0",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/generator": {
+          "from": "7.28.0",
+          "to": "7.29.8"
+        },
+        "node_modules/@babel/helper-compilation-targets": {
+          "from": "7.27.2",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helper-globals": {
+          "from": "7.28.0",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helper-module-imports": {
+          "from": "7.27.1",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helper-module-transforms": {
+          "from": "7.27.3",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helper-string-parser": {
+          "from": "7.27.1",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helper-validator-identifier": {
+          "from": "7.27.1",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helper-validator-option": {
+          "from": "7.27.1",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/helpers": {
+          "from": "7.27.6",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/parser": {
+          "from": "7.28.0",
+          "to": "7.29.9"
+        },
+        "node_modules/@babel/template": {
+          "from": "7.27.2",
+          "to": "7.29.7"
+        },
+        "node_modules/@babel/traverse": {
+          "from": "7.28.0",
+          "to": "7.29.8"
+        },
+        "node_modules/@babel/traverse/node_modules/debug": {
+          "from": "4.4.1",
+          "to": "4.4.3"
+        },
+        "node_modules/@babel/types": {
+          "from": "7.28.1",
+          "to": "7.29.8"
+        },
+        "node_modules/@jridgewell/remapping": {
+          "from": null,
+          "to": "2.3.5"
+        },
+        "node_modules/baseline-browser-mapping": {
+          "from": null,
+          "to": "2.11.27"
+        },
+        "node_modules/browserslist": {
+          "from": "4.25.1",
+          "to": "4.29.3"
+        },
+        "node_modules/caniuse-lite": {
+          "from": "1.0.30001727",
+          "to": "1.0.30001814"
+        },
+        "node_modules/electron-to-chromium": {
+          "from": "1.5.182",
+          "to": "1.5.445"
+        },
+        "node_modules/node-releases": {
+          "from": "2.0.19",
+          "to": "2.0.57"
+        },
+        "node_modules/update-browserslist-db": {
+          "from": "1.1.3",
+          "to": "1.3.3"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }
