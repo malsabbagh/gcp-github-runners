@@ -3,7 +3,7 @@
   "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
   "selected_pr25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
   "source_precedence": "PR25 takes precedence on every differing same path; it includes all frozen main paths.",
-  "selected_source_control_equality": "122 of125 executable/configuration files retain every nonconfiguration byte;16 private/secret bindings parameterized. Two webhook test-PR helpers adapt Git working directory. One original package lock receives explicitly recorded dependency maintenance; all source runtime/control code remains retained.",
+  "selected_source_control_equality": "121 of125 executable/configuration files retain every nonconfiguration byte;16 private/secret bindings parameterized. Two webhook test-PR helpers adapt Git working directory. Two original package locks receive explicitly recorded dependency maintenance; all source runtime/control code remains retained.",
   "entrypoint": "scripts/source-profile.py materializes an independent executable working directory at original relative paths; original commands are not replaced by documentation.",
   "capabilities": [
     {
@@ -129,7 +129,7 @@
         "validate-deployment.sh",
         "validate-stop-then-delete.ps1"
       ],
-      "evidence": "122 unchanged nonconfiguration source files, one explicitly maintained dependency lock and2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile"
+      "evidence": "121 unchanged nonconfiguration source files, two explicitly maintained dependency locks and2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile"
     },
     {
       "behavior": "Original Terraform modules/resources/outputs, examples, monitoring and source-disabled alternate routes",
@@ -619,6 +619,57 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 21,
+      "pr_head": "7f1a8ff939abbca28d5d13795172de506ac5ac91",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/21",
+      "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+      "before_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
+      "after_sha256": "69b7c41d7de3d6ac1f2d5c89a003ba38bf1d5d2a05b6bd1c024c1941bb08ee63",
+      "changed_packages": {
+        "node_modules/@grpc/grpc-js": {
+          "from": "1.13.4",
+          "to": "1.14.5"
+        },
+        "node_modules/@grpc/grpc-js/node_modules/@grpc/proto-loader": {
+          "from": null,
+          "to": "0.8.1"
+        },
+        "node_modules/@protobufjs/aspromise": {
+          "from": "1.1.2",
+          "to": "1.1.2"
+        },
+        "node_modules/@protobufjs/codegen": {
+          "from": "2.0.4",
+          "to": "2.0.5"
+        },
+        "node_modules/@protobufjs/eventemitter": {
+          "from": "1.1.0",
+          "to": "1.1.1"
+        },
+        "node_modules/@protobufjs/fetch": {
+          "from": "1.1.0",
+          "to": "1.1.1"
+        },
+        "node_modules/@protobufjs/inquire": {
+          "from": "1.1.0",
+          "to": null
+        },
+        "node_modules/@protobufjs/utf8": {
+          "from": "1.1.0",
+          "to": "1.1.2"
+        },
+        "node_modules/protobufjs": {
+          "from": "7.5.3",
+          "to": "7.6.6"
+        }
+      },
+      "direct_dependencies_changed": false
     }
-  ]
+  ],
+  "hybrid_dependency_qualification": {
+    "scope": "Independently installed dependency closure and local API/HTTP contracts only",
+    "inherited_limitation": "The selected source contains a hybrid package and disabled Terraform but no hybrid-cleanup-handler/index.js; no handler or provider behavior is claimed."
+  }
 }

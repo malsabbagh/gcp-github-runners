@@ -1,5 +1,10 @@
-"""Offline qualification of source-compatible executable contracts, not provider operations."""
+"""Qualify source-compatible contracts locally without provider operations.
+
+Installation fetches only registry dependencies from the reviewed locks.
+Executable tests use synthetic clients and loopback transports.
+"""
 import ast
+import hashlib
 import importlib.util
 import json
 import os
@@ -34,7 +39,18 @@ def main():
     with tempfile.TemporaryDirectory(prefix='runner-source-offline-') as directory:
         work = Path(directory).resolve() / 'source'
         PROFILE.materialize(manifest['inputs_file_example'], work)
-        (work / 'node_modules').symlink_to(ROOT / 'node_modules', target_is_directory=True)
+        # These locks have separate dependency closures. Borrowing root node_modules
+        # would hide incompatible or uninstalled source/hybrid updates.
+        for where in [work, work / 'cloud-functions/hybrid-cleanup-handler']:
+            lock = where / 'package-lock.json'
+            before = hashlib.sha256(lock.read_bytes()).digest()
+            subprocess.run(['npm', 'ci', '--ignore-scripts', '--no-audit', '--no-fund',
+                            *(['--workspaces=false'] if where != work else [])],
+                           cwd=where, env=environment, check=True)
+            if hashlib.sha256(lock.read_bytes()).digest() != before:
+                raise RuntimeError('Installation changed a reviewed source lock.')
+        subprocess.run([node, '--test', str(ROOT / 'tests/parity/source-dependencies.cjs')],
+                       env=dict(environment, SOURCE_PROFILE_DIR=str(work)), check=True)
         inherited = []
         for entry in manifest['files']:
             p = work / entry['path']
@@ -52,18 +68,17 @@ def main():
                         inherited.append(entry['path'])
                     else:
                         raise RuntimeError('Unexpected source syntax failure: ' + entry['path'])
-        for workspace, tests in [('webhook-handler', ['index.unit.test.js', 'index.http.test.js']),
-                                 ('cleanup-function', ['index.test.js', 'index.extended.test.js'])]:
-            where = work / 'cloud-functions' / workspace
-            subprocess.run([node, str(ROOT / 'node_modules/jest/bin/jest.js'), '--runInBand',
-                            '--config', str(where / 'package.json'), '--runTestsByPath',
-                            *[str(where / test) for test in tests]], cwd=where, env=environment, check=True)
+        for workspace in ['webhook-handler', 'cleanup-function']:
+            subprocess.run(['npm', 'run', 'test:coverage-check', '--workspace=' + workspace,
+                            '--', '--runInBand'], cwd=work, env=environment, check=True)
+        subprocess.run([node, '--test', str(work / 'tests/provisioning/webhook.cjs')],
+                       cwd=work, env=environment, check=True)
         for suite in ['lifecycle', 'provisioning']:
             subprocess.run([sys.executable, '-B', '-c', CHILD, str(work / 'tests' / suite)],
                            cwd=work, env=environment, check=True)
         if inherited:
             print('Inherited upstream syntax defect, unchanged from the source: ' + ', '.join(inherited))
-        print('Source standard unit/HTTP/cleanup and executable lifecycle/provisioning contracts qualified offline; no skips.')
+        print('Source coverage gates and unit/HTTP/cleanup, dependency and executable lifecycle/provisioning contracts qualified locally; no skips.')
 
 
 if __name__ == '__main__':
