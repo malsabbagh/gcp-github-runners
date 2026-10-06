@@ -321,3 +321,35 @@ test('hybrid http-proxy-agent settles successful and aborted loopback requests',
     await assert.rejects(pending, {name: 'AbortError', code: 'ABORT_ERR'});
   } finally { agent.destroy(); await close(proxy.server); }
 });
+
+test('hybrid Ajv strict schemas preserve local references and reject malformed job data', () => {
+  const Ajv = load('ajv');
+  const ajv = new Ajv({strict: true, allErrors: true});
+  ajv.addSchema({$id: 'https://example.test/jobs/job.json', type: 'object', additionalProperties: false,
+    required: ['id'], properties: {id: {type: 'integer', minimum: 1}}});
+  const validate = ajv.compile({$id: 'https://example.test/jobs/list.json', type: 'array', items: {$ref: './job.json'}});
+  assert.equal(validate([{id: 42}]), true);
+  for (const data of [[{id: '42'}], [{id: 0}], [{}], [{id: 42, extra: true}]]) {
+    assert.equal(validate(data), false);
+    assert.ok(validate.errors.length);
+  }
+  assert.throws(() => ajv.compile({type: 'object', fixtureUnknownKeyword: true}), /unknown keyword/);
+  assert.throws(() => ajv.compile({$ref: 'https://example.test/missing.json'}), /resolve reference/);
+});
+
+test('hybrid CloudEvents validation and structured HTTP round trips retain their schema contracts', () => {
+  const {CloudEvent, HTTP} = load('cloudevents');
+  const fixture = {id: 'job-42', type: 'fixture.cleanup', source: 'https://example.test/jobs',
+    time: '2026-01-01T00:00:00.000Z', data: {job: 42}};
+  const event = new CloudEvent(fixture);
+  assert.equal(event.validate(), true);
+  const message = HTTP.structured(event);
+  const decoded = HTTP.toEvent(message);
+  assert.equal(decoded.id, fixture.id);
+  assert.equal(decoded.source, fixture.source);
+  assert.deepEqual(decoded.data, fixture.data);
+  for (const invalid of [{type: ''}, {source: ''}, {time: 'not-a-date'}]) {
+    assert.throws(() => new CloudEvent({...fixture, ...invalid}));
+  }
+  assert.equal(new CloudEvent({...fixture, specversion: '9.9'}).validate(), false);
+});

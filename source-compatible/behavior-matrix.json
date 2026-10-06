@@ -939,6 +939,22 @@
       },
       "direct_dependencies_changed": false,
       "direct_dependency_ranges": {}
+    },
+    {
+      "pr": 32,
+      "pr_head": "629ba6ff6f300839d1270e072c88424cc04dd785",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/32",
+      "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+      "before_sha256": "c996365c99d7092a610567deec1cc8efb6e2cdab71d69dba4bd50be7628601e1",
+      "after_sha256": "879f6fc8db8894670a4382e467bd26e939e9fe08ff99c5b0c264567ee2fa89ce",
+      "changed_packages": {
+        "node_modules/ajv": {
+          "from": "8.17.1",
+          "to": "8.20.0"
+        }
+      },
+      "direct_dependencies_changed": false,
+      "direct_dependency_ranges": {}
     }
   ],
   "hybrid_dependency_qualification": {
