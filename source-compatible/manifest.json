@@ -851,7 +851,7 @@
       "mode": "100644",
       "source_blob": "b121d7cee1a3dce794f7f15bd32bb329f970cddc",
       "source_sha256": "9d0e2cd29a5704bef0a1f88c13df11f7ab1c9a9b38c2966579152a5c76e81d09",
-      "template_sha256": "e3b6fb88b590ea40401a2a460050de3c8f7c214d50839994a961be199042e1ce",
+      "template_sha256": "0fc0bd62f620e0554b497b413abfbdba18068dac6f21d64915f583053f6b7b79",
       "configuration_inputs": [
         {
           "input": "PARITY_INPUT_115",
@@ -871,6 +871,20 @@
             "node_modules/proxy-addr": {
               "from": "2.0.7",
               "to": "2.0.8"
+            }
+          },
+          "direct_dependencies_changed": false
+        },
+        {
+          "pr": 9,
+          "pr_head": "823fbe693448341e0b151aa84b0accee8c102b3a",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/9",
+          "before_sha256": "e3b6fb88b590ea40401a2a460050de3c8f7c214d50839994a961be199042e1ce",
+          "after_sha256": "0fc0bd62f620e0554b497b413abfbdba18068dac6f21d64915f583053f6b7b79",
+          "changed_packages": {
+            "node_modules/brace-expansion": {
+              "from": "1.1.12",
+              "to": "1.1.21"
             }
           },
           "direct_dependencies_changed": false

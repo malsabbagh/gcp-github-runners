@@ -324,6 +324,20 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 9,
+      "pr_head": "823fbe693448341e0b151aa84b0accee8c102b3a",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/9",
+      "before_sha256": "e3b6fb88b590ea40401a2a460050de3c8f7c214d50839994a961be199042e1ce",
+      "after_sha256": "0fc0bd62f620e0554b497b413abfbdba18068dac6f21d64915f583053f6b7b79",
+      "changed_packages": {
+        "node_modules/brace-expansion": {
+          "from": "1.1.12",
+          "to": "1.1.21"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }
