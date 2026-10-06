@@ -476,6 +476,24 @@
         }
       },
       "direct_dependencies_changed": false
+    },
+    {
+      "pr": 18,
+      "pr_head": "fb0dc179e6aaa0f38749f4aac79f0e3ace869803",
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/18",
+      "before_sha256": "a08bb75773629d9d8ab9339537254863db459b3e3cf010c2bd9f31112d8a1a0e",
+      "after_sha256": "d2dfe92d64d944123647d0063508f7080dfb02835b96c49973e6402cf0a3186f",
+      "changed_packages": {
+        "node_modules/form-data": {
+          "from": "2.5.5",
+          "to": "2.5.6"
+        },
+        "node_modules/hasown": {
+          "from": "2.0.2",
+          "to": "2.0.4"
+        }
+      },
+      "direct_dependencies_changed": false
     }
   ]
 }
