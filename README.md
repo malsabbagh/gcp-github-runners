@@ -1,11 +1,26 @@
-# GCP GitHub runners — private WIP
+# GCP GitHub runners
 
-This branch prepares a portable one-job Spot runner controller for Google Cloud. It is an incremental migration and implementation preview. Source changes retain separate sanitized commits and contributor credit; new controller adaptations are credited separately.
+A portable controller for one GitHub Actions job per disposable Google Cloud Spot VM. Authenticated repository webhooks create durable Firestore demand and capacity reservations; an asynchronous provisioner starts private workers, and a controller reconciles uncertain outcomes and retires exact worker incarnations.
 
-The current local controller source passed 170 built-in/injected fixture tests, 42 JavaScript syntax checks and 9 Python AST checks under OS network denial. Those results cover source behavior using synthetic inputs. They do not qualify a deployment, actual Google/GitHub adapters or a production installation.
+The repository restores the selected source functionality with sanitized portable configuration, infrastructure modules, image tooling, operator scripts, CI and optional ReviewSensei tooling. The supported architecture supersedes shared-host batching and the competing direct Cloud Build webhook route. [The migration ledger](docs/MIGRATION.md) records every compared source path and its replacement or deliberate exclusion.
 
-Management, scheduling, dispatch, JIT admission and destructive retirement qualification flags default to disabled. Busy workers, unknown incarnation and ambiguous provider outcomes retain capacity charges. Active-job graceful drain is unsupported. A worker exit does not establish VM shutdown; unresolved instances can continue accruing cost and block capacity.
+## Start here
 
-The root workspace package and lock are historical source inputs. The separate deployment package still lacks a qualified complete lock. Its Functions Framework 3.5.1 proposal fails strict Node24 engine resolution through a transitive dependency. A separately reviewed 5.0.5 compatibility proposal has not been installed or qualified and is not included in this branch's current source claim. Use the documented focused fixtures when reviewing this WIP; do not infer installation or deployment readiness from the historical workspace commands.
+Use Node 24, npm, Python 3, Bash and PowerShell for the complete local regression suite. Terraform 1.9.8 validates the infrastructure; Packer is needed only for image qualification/building.
 
-SDK/image/effective IAM/live lifecycle qualification, release license/public attribution and production adoption remain open. Private WIP review does not approve public release, cloud operations or production cutover.
+```sh
+npm ci --ignore-scripts --no-audit --no-fund
+npm test
+```
+
+CI includes the built-in Node fixtures, both full Jest suites, all Python regression directories, script syntax and Terraform validation. See [test instructions](TEST_SCRIPTS_README.md) for individual commands, coverage limits and tools. Successful fixtures and static checks are source evidence; they do not establish live IAM, images, GitHub installation or end-to-end runner qualification.
+
+For installation, read [deployment instructions](DEPLOYMENT.md), [architecture](ARCHITECTURE.md), [cleanup](CLEANUP_SCRIPTS_README.md) and [job routing](docs/JOB_USAGE.md), [native image tooling](docs/WORKER_IMAGE.md) and [monitoring](docs/MONITORING.md). Setup generates ignored operator inputs; Terraform owns infrastructure deployment. Local testing does not require cloud credentials.
+
+## Repository readiness
+
+The migration has not enabled repository Actions, provisioned provider secrets, installed a ReviewSensei broker/App, created cloud resources, built an image, archived the original repository or changed repository visibility. Those are explicit operator steps. Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
+
+Optional [ReviewSensei automation](.github/README.md) is present with manual invocation, advisory reviews, publication disabled and provider egress disabled. Cloud Ollama requires an explicit egress decision and provider authorization before it can run.
+
+Package metadata declares MIT; the selected source did not contain a root license or copyright notice. [NOTICE.md](NOTICE.md) records that limitation without inventing a copyright assignment.

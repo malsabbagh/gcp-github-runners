@@ -1,0 +1,21 @@
+# Synthetic identifiers only. Replace locally; never commit operator tfvars.
+project_id = "example-project"
+region = "us-central1"
+zone = "us-central1-a"
+repository_owner = "example"
+repository_name = "runner-workload"
+repository_branch = "main"
+worker_image = "projects/example-project/global/images/runner-qualified-image"
+builder_image = "example.invalid/build/provisioner@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+controller_archive_path = "../dist/controller.zip"
+function_build_service_account = "function-builder@example-project.iam.gserviceaccount.com"
+webhook_secret_version = "projects/example-project/secrets/github-webhook/versions/1"
+github_app_private_key_secret_version = "projects/example-project/secrets/github-app-key/versions/1"
+github_app_id = "123456"
+github_app_installation_id = "123456"
+github_repository_id = "123456"
+admin_subject = "123456789012345678901"
+max_runner_vms = 2
+# False/paused defaults are deliberate until qualification evidence is reviewed.
+scheduler_paused = true
+runtime_readiness = {}

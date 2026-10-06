@@ -29,7 +29,7 @@ class FakePool:
         self.entries.update(candidate)
         return result
 
-    def waiting(self):
+    def waiting(self, limit=20):
         return [job for job in self.jobs.values() if job.get("state") == "waiting" and not job.get("done")]
 
 
@@ -38,7 +38,12 @@ class ProvisionTests(unittest.TestCase):
         self.entries, self.live, self.calls, self.builds = {}, set(), [], {}
         self.env = dict(ACTION="queued", REPO_OWNER="example", REPO_NAME="repo", ALLOWED_OWNER="example", ALLOWED_REPO="repo",
             RUN_ID="20", JOB_ID="10", RUN_ATTEMPT="1", JOB_LABELS='["self-hosted"]', PROJECT_ID="synthetic",
-            ZONE="synthetic-a", BUILD_ID="direct-build-1", INSTANCE_TEMPLATE="synthetic-template-unique", MAX_RUNNER_VMS="2")
+            ZONE="synthetic-a", BUILD_ID="direct-build-1", INSTANCE_TEMPLATE="synthetic-template-unique", MAX_RUNNER_VMS="2",
+            FIRESTORE_DATABASE_ID="autoscaler-state", REQUIRED_LABELS='["self-hosted","synthetic-runner"]',
+            REGISTERED_LABELS='["self-hosted","synthetic-runner"]', RUNNER_ROUTING_LABEL="synthetic-runner",
+            WORKER_SERVICE_ACCOUNT="worker@synthetic.iam.gserviceaccount.com", WORKER_SERVICE_ACCOUNT_UNIQUE_ID="1234567890",
+            ALLOCATION_BROKER_URL="https://controller.example.test/bootstrap")
+        self.env['JOB_LABELS'] = self.env['REQUIRED_LABELS']
         self.pool = FakePool(self.entries)
 
     def command(self, args):
@@ -49,10 +54,25 @@ class ProvisionTests(unittest.TestCase):
             return json.dumps([{"name": name, "zone": "synthetic-a"} for name in self.live])
         if args[:3] == ["compute", "instance-templates", "describe"]:
             return json.dumps({"properties": {"metadata": {"items": [{"key": "startup-script", "value": "echo 'a,b'\ntrue"},
-                {"key": "docker-runner-image", "value": "synthetic/custom:v2"}, {"key": "runner-count", "value": "8"}]}}})
+                {"key": "enable-oslogin", "value": "TRUE"}, {"key": "block-project-ssh-keys", "value": "TRUE"},
+                {"key": "worker-profile", "value": "trusted-private-one-job"}, {"key": "runner-count", "value": "1"}]},
+                "serviceAccounts": [{"email": self.env['WORKER_SERVICE_ACCOUNT'], "scopes": []}],
+                "networkInterfaces": [{"networkIP": "10.0.0.2"}]}})
         if args[:3] == ["compute", "instances", "create"]:
             self.live.add(args[3])
             return ""
+        if args[:3] == ["compute", "instances", "describe"]:
+            create = next(c for c in reversed(self.calls) if c[:3] == ["compute", "instances", "create"] and c[3] == args[3])
+            flag = next(a.removeprefix('--metadata=') for a in create if a.startswith('--metadata='))
+            _, delimiter, values = flag.split('^', 2)
+            metadata = dict(item.split('=', 1) for item in values.split(delimiter))
+            return json.dumps(dict(id='12345678901', creationTimestamp='2026-01-01T00:00:00Z',
+                metadata={'items': [dict(key=k,value=v) for k,v in metadata.items()]},
+                serviceAccounts=[dict(email=self.env['WORKER_SERVICE_ACCOUNT'],scopes=[])],
+                networkInterfaces=[dict(networkIP='10.0.0.2')],
+                scheduling=dict(provisioningModel='SPOT',instanceTerminationAction='DELETE')))
+        if args[:3] == ['iam', 'service-accounts', 'describe']:
+            return self.env['WORKER_SERVICE_ACCOUNT_UNIQUE_ID']
         if args[:2] == ["builds", "describe"]:
             return json.dumps({"status": self.builds.get(args[2], "WORKING")})
         if args[:2] == ["builds", "list"]:
@@ -68,12 +88,19 @@ class ProvisionTests(unittest.TestCase):
             self.execute(**env)
         self.assertEqual(self.calls, [])
 
-    def test_direct_route_preserves_complete_template_metadata_before_first_boot(self):
+    def test_direct_route_inherits_template_and_overrides_exact_one_job_metadata(self):
         self.execute()
         create = next(call for call in self.calls if call[:3] == ["compute", "instances", "create"])
         metadata = next(arg for arg in create if arg.startswith("--metadata="))
+        self.assertIn('--source-instance-template=synthetic-template-unique', create)
         self.assertIn("startup-script=echo 'a,b'\ntrue", metadata)
-        self.assertIn("docker-runner-image=synthetic/custom:v2", metadata)
+        self.assertIn('enable-oslogin=TRUE', metadata)
+        self.assertIn('block-project-ssh-keys=TRUE', metadata)
+        self.assertIn('runner-count=1', metadata)
+        self.assertIn('worker-profile=trusted-private-one-job', metadata)
+        self.assertIn('--no-scopes', create)
+        self.assertIn('--no-address', create)
+        self.assertNotIn('docker-runner-image', metadata)
         self.assertIn("repo-owner=example", metadata)
         self.assertIn("job-id=10", metadata)
         self.assertEqual(next(iter(self.entries.values()))["state"], "active")
@@ -92,14 +119,15 @@ class ProvisionTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "VM capacity exhausted"):
             self.execute()
         self.assertFalse(any(call[:3] == ["compute", "instances", "create"] for call in self.calls))
-        self.assertTrue(any(entry["state"] == "waiting" for entry in self.pool.jobs.values()))
+        self.assertTrue(any(entry.get("state") == "waiting" for entry in self.pool.jobs.values()))
 
-    def test_failed_build_without_vm_releases_but_partial_insert_does_not(self):
+    def test_terminal_build_without_exact_vm_proof_stays_charged(self):
         key, name = provision.allocation("example", "repo", "20", "10")
         self.entries[key] = {"name": name, "zone": "synthetic-a", "state": "pending", "token": "old", "buildId": "failed-build"}
         self.builds["failed-build"] = "FAILURE"
         self.execute()
-        self.assertTrue(any(call[:3] == ["compute", "instances", "create"] for call in self.calls))
+        self.assertFalse(any(call[:3] == ["compute", "instances", "create"] for call in self.calls))
+        self.assertEqual(self.entries[key]['state'], 'unknown')
         self.calls.clear()
         self.entries[key]["state"] = "pending"
         self.entries[key]["buildId"] = "failed-build"
@@ -108,7 +136,7 @@ class ProvisionTests(unittest.TestCase):
 
     def test_http_reserved_build_can_execute_once_and_retains_owner(self):
         key, name = provision.allocation("example", "repo", "20", "10")
-        self.entries[key] = {"name": name, "state": "submitting", "token": "http-token", "zone": "synthetic-a"}
+        self.entries[key] = {"name": name, "state": "submitting", "token": "http-token", "zone": "synthetic-a", "creationStarted": False}
         self.execute(RESERVATION_TOKEN="other-token")
         self.assertFalse(self.live)
         self.execute(RESERVATION_TOKEN="http-token")
@@ -129,7 +157,7 @@ class ProvisionTests(unittest.TestCase):
         self.execute(ACTION="reconcile", BUILD_ID="scheduled-build")
         self.assertEqual(len(self.live), 1)
 
-    def test_scheduled_reconciler_recovers_async_direct_failure_without_redelivery(self):
+    def test_scheduled_cli_reconciler_keeps_ambiguous_insert_charged(self):
         ordinary = self.command
         def fail(args):
             if args[:3] == ["compute", "instances", "create"]:
@@ -140,14 +168,16 @@ class ProvisionTests(unittest.TestCase):
                 provision.main(self.env)
         self.builds["direct-build-1"] = "FAILURE"
         self.execute(ACTION="reconcile", BUILD_ID="scheduled-build")
-        self.assertEqual(len(self.live), 1)
+        self.assertEqual(len(self.live), 0)
+        self.assertEqual(next(iter(self.entries.values()))['state'], 'unknown')
+        self.assertTrue(next(iter(self.entries.values()))['creationStarted'])
 
-    def test_scheduled_partial_failure_continues_other_jobs_and_recovers_next_run(self):
+    def test_scheduled_partial_failure_continues_other_jobs_and_retains_uncertainty(self):
         for job_id in ["10", "11"]:
             key, _ = provision.allocation("example", "repo", "20", job_id)
             self.pool.jobs[key] = dict(state="waiting", done=False, event=json.dumps(dict(
                 repo_owner="example", repo_name="repo", run_id="20", job_id=job_id,
-                run_attempt="1", labels=["self-hosted"])))
+                run_attempt="1", labels=["self-hosted", "synthetic-runner"])))
         ordinary = self.command
         failed = False
         def fail_once(args):
@@ -166,14 +196,14 @@ class ProvisionTests(unittest.TestCase):
         self.assertEqual(len(self.live), 1)
         self.builds["scheduled-build"] = "FAILURE"
         self.execute(ACTION="reconcile", BUILD_ID="recovery-build")
-        self.assertEqual(len(self.live), 2)
-        self.assertTrue(all(entry["state"] == "active" for entry in self.entries.values()))
+        self.assertEqual(len(self.live), 1)
+        self.assertEqual(sorted(entry['state'] for entry in self.entries.values()), ['active', 'unknown'])
 
     def test_malformed_waiting_event_does_not_block_valid_jobs(self):
         self.pool.jobs["malformed"] = dict(state="waiting", done=False, event="{")
         key, _ = provision.allocation("example", "repo", "20", "10")
         self.pool.jobs[key] = dict(state="waiting", done=False, event=json.dumps(dict(
-            repo_owner="example", repo_name="repo", run_id="20", job_id="10", labels=["self-hosted"])))
+            repo_owner="example", repo_name="repo", run_id="20", job_id="10", labels=["self-hosted", "synthetic-runner"])))
         with self.assertRaisesRegex(RuntimeError, "retries deferred"):
             self.execute(ACTION="reconcile", BUILD_ID="scheduled-build")
         self.assertEqual(len(self.live), 1)
@@ -198,11 +228,12 @@ class ProvisionTests(unittest.TestCase):
             self.execute(MAX_RUNNER_VMS="1", ACTION="reconcile")
             self.assertNotEqual(self.entries["unknown"]["state"], "failed")
 
-    def test_missing_vm_without_completion_recovers_original_queued_demand(self):
+    def test_missing_vm_filtered_inventory_is_not_absence_authority(self):
         self.execute()
         self.live.clear()
         self.execute(ACTION="reconcile", BUILD_ID="spot-recovery-build")
-        self.assertEqual(len(self.live), 1)
+        self.assertEqual(len(self.live), 0)
+        self.assertEqual(next(iter(self.entries.values()))['state'], 'active')
 
     def test_same_name_vms_in_distinct_zones_count_separately(self):
         ordinary = self.command
@@ -225,6 +256,59 @@ class ProvisionTests(unittest.TestCase):
             with self.assertRaises(subprocess.CalledProcessError):
                 provision.main(self.env)
         self.assertEqual(next(iter(self.entries.values()))["state"], "pending")
+
+    def test_rejects_shared_host_or_public_template_before_insert(self):
+        ordinary = self.command
+        for drift in ('credential', 'batch', 'public', 'identity'):
+            with self.subTest(drift=drift):
+                self.entries.clear(); self.pool.jobs.clear(); self.calls.clear()
+                def altered(args):
+                    result = ordinary(args)
+                    if args[:3] != ['compute', 'instance-templates', 'describe']:
+                        return result
+                    template = json.loads(result)
+                    props = template['properties']
+                    if drift == 'credential':
+                        props['metadata']['items'].append(dict(key='github-token', value='fixture-placeholder'))
+                    elif drift == 'batch':
+                        props['metadata']['items'][-1]['value'] = '8'
+                    elif drift == 'public':
+                        props['networkInterfaces'][0]['accessConfigs'] = [dict(type='ONE_TO_ONE_NAT')]
+                    else:
+                        props['serviceAccounts'][0]['email'] = 'other@synthetic.iam.gserviceaccount.com'
+                    return json.dumps(template)
+                with patch.object(provision, 'Pool', lambda *_: self.pool), patch.object(provision, 'command', altered):
+                    with self.assertRaises(ValueError):
+                        provision.main(self.env)
+                self.assertFalse(any(call[:3] == ['compute', 'instances', 'create'] for call in self.calls))
+                self.assertFalse(next(iter(self.entries.values()))['creationStarted'])
+
+    def test_inserted_vm_drift_retains_consumed_creation_intent(self):
+        ordinary = self.command
+        for drift in ('token', 'scope', 'spot', 'unique-id'):
+            with self.subTest(drift=drift):
+                self.entries.clear(); self.pool.jobs.clear(); self.calls.clear(); self.live.clear()
+                def altered(args):
+                    result = ordinary(args)
+                    if drift == 'unique-id' and args[:3] == ['iam', 'service-accounts', 'describe']:
+                        return '9876543210'
+                    if args[:3] != ['compute', 'instances', 'describe']:
+                        return result
+                    vm = json.loads(result)
+                    if drift == 'token':
+                        next(item for item in vm['metadata']['items'] if item['key'] == 'reservation-token')['value'] = 'other'
+                    elif drift == 'scope':
+                        vm['serviceAccounts'][0]['scopes'] = ['https://www.googleapis.com/auth/cloud-platform']
+                    elif drift == 'spot':
+                        vm['scheduling']['provisioningModel'] = 'STANDARD'
+                    return json.dumps(vm)
+                with patch.object(provision, 'Pool', lambda *_: self.pool), patch.object(provision, 'command', altered):
+                    with self.assertRaises(RuntimeError):
+                        provision.main(self.env)
+                entry = next(iter(self.entries.values()))
+                self.assertEqual(entry['state'], 'pending')
+                self.assertTrue(entry['creationStarted'])
+                self.assertEqual(len(self.live), 1)
 
     def test_js_python_identity_agree_without_rounding(self):
         fields = ["a" * 39, "b" * 100, "9007199254740993", "9007199254740995", "2"]

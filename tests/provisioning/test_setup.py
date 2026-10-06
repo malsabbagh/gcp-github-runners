@@ -13,6 +13,10 @@ CONFIG = dict(project_id="synthetic", zone="synthetic-a", instance_template_name
               max_runner_vms=2, runner_count=8, webhook_handler_service_account="example-project",
               cloudbuild_service_account="example-project", github_repo_owner="example",
               github_repo_name="repo", machine_type="e2-medium", required_runner_labels=["self-hosted", "linux"])
+CONFIG.update(region="us-central1", webhook_handler_name="runner-webhook", service_accounts={"controller": "example-project"}, required_runner_labels=["self-hosted", "linux"], runtime_environment={
+    "GOOGLE_CLOUD_PROJECT": "synthetic", "DEFAULT_ZONE": "synthetic-a", "INSTANCE_TEMPLATE_NAME": "generated-template-abc",
+    "MAX_RUNNER_VMS": "2", "RUNNERS_PER_VM": "1", "GITHUB_REPO_OWNER": "example", "GITHUB_REPO_NAME": "repo",
+    "GITHUB_WEBHOOK_SECRET_VERSION": "projects/synthetic/secrets/github-webhook/versions/1", "CLOUDBUILD_SERVICE_ACCOUNT": "example-project"})
 URL = "https://example.invalid/managed-trigger?key=synthetic-key&secret=synthetic%26secret"
 
 
@@ -23,7 +27,7 @@ class SetupTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         for path in ["scripts", "terraform", "cloud-functions/webhook-handler", "bin"]:
             (self.root / path).mkdir(parents=True)
-        for name in ["setup-webhook.sh", "sync-terraform-config.sh", "setup-webhook.ps1", "sync-terraform-config.ps1"]:
+        for name in ["setup-webhook.sh", "sync-terraform-config.sh", "setup-webhook.ps1", "sync-terraform-config.ps1", "sync-terraform-config.py", "management.py"]:
             shutil.copyfile(ROOT / "scripts" / name, self.root / "scripts" / name)
         (self.root / "terraform/main.tf").touch()
         self.env = dict(os.environ, PATH=str(self.root / "bin") + ":" + os.environ["PATH"],
@@ -69,20 +73,91 @@ class SetupTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         envfile = self.root / ("cloud-functions/webhook-handler/.env.terraform" + (".ps1" if name.endswith(".ps1") else ""))
         data = envfile.read_text(encoding="utf-8-sig")
-        for expected in ["generated-template-abc", "example-project", "GITHUB_REPO_OWNER", "MAX_RUNNER_VMS", "GITHUB_WEBHOOK_SECRET_NAME"]:
+        for expected in ["generated-template-abc", "example-project", "GITHUB_REPO_OWNER", "MAX_RUNNER_VMS", "GITHUB_WEBHOOK_SECRET_VERSION"]:
             self.assertIn(expected, result.stdout + data)
         import re
-        encoded = re.search(r'REQUIRED_RUNNER_LABELS_B64="([A-Za-z0-9+/=]+)"', data).group(1)
+        encoded = re.search(r"REQUIRED_RUNNER_LABELS_B64=[\"']([A-Za-z0-9+/=]+)[\"']", data).group(1)
         self.assertEqual(json.loads(base64.b64decode(encoded)), CONFIG["required_runner_labels"])
 
     def test_shell_sync_preserves_managed_contract(self):
         self.check_sync("sync-terraform-config.sh")
 
-    def test_powershell_sync_deploy_uses_runtime_identity_and_managed_contract(self):
-        self.check_sync("sync-terraform-config.ps1", "-Deploy")
-        args = json.loads((self.root / "gcloud.json").read_text())
-        self.assertIn("--service-account=example-project", args)
-        self.assertTrue(any("REQUIRED_RUNNER_LABELS_B64=" in a and "GITHUB_REPO_OWNER=example" in a for a in args))
+    def test_sync_accepts_actual_terraform_runtime_key_contract(self):
+        import re
+        source = (ROOT / 'terraform/main.tf').read_text()
+        block = source[source.index('runtime_environment = {'):source.index('\nresource "google_project_service"')]
+        keys = re.findall(r'^\s+([A-Z][A-Z0-9_]*)\s*=', block, re.M)
+        self.assertIn('GITHUB_APP_INSTALLATION_ID', keys)
+        self.assertIn('WEBHOOK_ENABLED', keys)
+        config = json.loads(json.dumps(CONFIG))
+        config['runtime_environment'] = {key: 'synthetic' for key in keys}
+        config['runtime_environment']['RUNNERS_PER_VM'] = '1'
+        self.env['FIXTURE_CONFIG'] = json.dumps(config)
+        result = self.run_script('sync-terraform-config.sh')
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        output = json.loads((self.root / 'cloud-functions/webhook-handler/.env.terraform.yaml').read_text())
+        self.assertEqual(set(output), set(keys))
+
+    def test_sync_refuses_secret_values_and_shared_workers_before_writing(self):
+        for changes in [{"RUNNERS_PER_VM": "8"}, {"GITHUB_TOKEN": "synthetic-token"}]:
+            config = json.loads(json.dumps(CONFIG))
+            config["runtime_environment"].update(changes)
+            self.env["FIXTURE_CONFIG"] = json.dumps(config)
+            result = self.run_script("sync-terraform-config.sh")
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse((self.root / "cloud-functions/webhook-handler/.env.terraform").exists())
+            self.assertNotIn("synthetic-token", result.stdout + result.stderr)
+
+    def test_management_validation_does_not_invoke_cloud_or_authenticate(self):
+        request = self.root / "request.local.json"
+        request.write_text('{}')
+        result = subprocess.run(["python3", str(self.root / "scripts/management.py"), "scheduled", "--request", str(request)],
+                                env=self.env, text=True, capture_output=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertFalse((self.root / "gcloud.json").exists())
+        self.assertFalse((self.root / "request.json").exists())
+
+    def test_management_requires_exact_fenced_request(self):
+        request = self.root / "request.local.json"
+        request.write_text('{"request":{"name":"runner-example"}}')
+        result = subprocess.run(["python3", str(self.root / "scripts/management.py"), "retire", "--request", str(request)],
+                                env=self.env, text=True, capture_output=True, timeout=20)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse((self.root / "gcloud.json").exists())
+
+    def test_management_execute_requires_existing_identity_token(self):
+        request = self.root / "request.local.json"
+        request.write_text('{}')
+        result = subprocess.run(["python3", str(self.root / "scripts/management.py"), "scheduled", "--request", str(request),
+                                 "--execute", "--controller-url", "https://example.invalid"],
+                                env=self.env, text=True, capture_output=True, timeout=20)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse((self.root / "gcloud.json").exists())
+
+    def test_management_preserves_terraform_function_url_base(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('management', ROOT / 'scripts/management.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        url = 'https://us-central1-example-project.cloudfunctions.net/runner-controller'
+        self.assertEqual(module.endpoint(url, 'scheduled'), url + '/management/scheduled')
+        for suffix in ['/../other', '?key=synthetic', '#fragment', '/%2Fother']:
+            with self.assertRaises(ValueError):
+                module.endpoint(url + suffix, 'scheduled')
+
+    def test_powershell_sync_preserves_managed_contract_without_deployment(self):
+        self.check_sync("sync-terraform-config.ps1")
+        self.assertFalse((self.root / "gcloud.json").exists())
+        environment = json.loads((self.root / "cloud-functions/webhook-handler/.env.terraform.yaml").read_text())
+        self.assertEqual(environment["GITHUB_REPO_OWNER"], "example")
+        self.assertEqual(environment["RUNNERS_PER_VM"], "1")
+
+    def test_sync_rejects_direct_deployment(self):
+        for script, argument in [("sync-terraform-config.sh", "--deploy"), ("sync-terraform-config.ps1", "-Deploy")]:
+            result = self.run_script(script, argument)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse((self.root / "gcloud.json").exists())
+
 
     def test_powershell_changed_scripts_parse(self):
         script = """$failures = 0
@@ -99,7 +174,7 @@ exit $failures
         result = subprocess.run([self.pwsh(), "-NoLogo", "-NoProfile", "-File", str(checker), *map(str, files)], text=True, capture_output=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
-    def test_powershell_api_key_default_is_masked_and_round_trips(self):
+    def test_powershell_secret_reference_default_is_masked_and_round_trips(self):
         source = (ROOT / "scripts/setup.ps1").read_text()
         block = source[source.index('$defaults = @{}'):source.index('# Prompt for config')]
         checker = self.root / "api-key.ps1"
@@ -108,20 +183,20 @@ $tfvarsPath = Join-Path $env:FIXTURE_ROOT 'existing.tfvars'
 """ + block + """
 $tokens = $null; $errors = $null
 $ast = [System.Management.Automation.Language.Parser]::ParseFile($args[0], [ref]$tokens, [ref]$errors)
-$helper = $ast.Find({param($a) $a -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $a.Name -eq 'Read-WebhookApiKey'}, $false)
+$helper = $ast.Find({param($a) $a -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $a.Name -eq 'Read-SecretReference'}, $false)
 Invoke-Expression $helper.Extent.Text
 function Read-Host { param($Prompt, [switch]$AsSecureString)
- if ($Prompt -notmatch '\\*\\*\\*masked\\*\\*\\*' -or $Prompt.Contains($env:FIXTURE_VALUE)) { throw 'unsafe prompt' }
+ if (($Prompt -notmatch '\\*\\*\\*masked\\*\\*\\*' -and $env:FIXTURE_REQUIRE_MASK -eq '1') -or ($env:FIXTURE_REQUIRE_MASK -eq '1' -and $Prompt.Contains($env:FIXTURE_VALUE))) { throw 'unsafe prompt' }
  $secure = New-Object Security.SecureString
  foreach ($c in $env:FIXTURE_RESPONSE.ToCharArray()) { $secure.AppendChar($c) }
  return $secure
 }
-try { $value = Read-WebhookApiKey -DefaultValue $defaults['webhook_api_key']; if ($value -cne $env:FIXTURE_EXPECTED) { throw 'unexpected key' } }
+try { $value = Read-SecretReference -DefaultValue $defaults['webhook_secret_version']; if ($value -cne $env:FIXTURE_EXPECTED) { throw 'unexpected key' } }
 catch { Write-Output $_.Exception.Message; exit 2 }
 """)
         value = 'synthetic"${literal}%{literal}\\value'
-        (self.root / "existing.tfvars").write_text('webhook_api_key = ' + json.dumps(value.replace('${', '$${').replace('%{', '%%{')) + '\n')
-        self.env.update(FIXTURE_VALUE=value, FIXTURE_RESPONSE="", FIXTURE_EXPECTED=value)
+        (self.root / "existing.tfvars").write_text('webhook_secret_version = ' + json.dumps(value.replace('${', '$${').replace('%{', '%%{')) + '\n')
+        self.env.update(FIXTURE_VALUE=value, FIXTURE_RESPONSE="", FIXTURE_EXPECTED=value, FIXTURE_REQUIRE_MASK="1")
         for response in ["", "synthetic-replacement"]:
             self.env.update(FIXTURE_RESPONSE=response, FIXTURE_EXPECTED=response or value)
             result = subprocess.run([self.pwsh(), "-NoLogo", "-NoProfile", "-File", str(checker), str(ROOT / "scripts/setup.ps1")], env=self.env, text=True, capture_output=True, timeout=20)
@@ -130,12 +205,13 @@ catch { Write-Output $_.Exception.Message; exit 2 }
         self.env["FIXTURE_RESPONSE"] = " \t "
         result = subprocess.run([self.pwsh(), "-NoLogo", "-NoProfile", "-File", str(checker), str(ROOT / "scripts/setup.ps1")], env=self.env, text=True, capture_output=True, timeout=20)
         self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
-        self.assertIn("API Key cannot be whitespace", result.stdout)
+        self.assertIn("Secret reference cannot be whitespace", result.stdout)
         (self.root / "existing.tfvars").write_text('')
         self.env["FIXTURE_RESPONSE"] = ""
+        self.env["FIXTURE_REQUIRE_MASK"] = "0"
         result = subprocess.run([self.pwsh(), "-NoLogo", "-NoProfile", "-File", str(checker), str(ROOT / "scripts/setup.ps1")], env=self.env, text=True, capture_output=True, timeout=20)
         self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
-        self.assertIn("API Key is required", result.stdout)
+        self.assertIn("Secret reference is required", result.stdout)
 
     def test_shell_tfvars_quotes_special_characters_without_expansion(self):
         import re
@@ -176,7 +252,7 @@ ConvertTo-HclString $env:FIXTURE_VALUE
             result = subprocess.run(["bash", "-c", fixture], env=self.env, cwd=self.root, text=True, capture_output=True, timeout=20)
             self.assertEqual(result.returncode, 0, result.stderr)
             data = (self.root / "terraform.tfvars").read_text()
-            literal = next(line.split(" = ", 1)[1] for line in data.splitlines() if line.startswith("github_webhook_secret = "))
+            literal = next(line.split(" = ", 1)[1] for line in data.splitlines() if line.startswith("webhook_secret_version = "))
             self.assertEqual(json.loads(literal), value.replace("${", "$${").replace("%{", "%%{"))
             self.assertFalse((self.root / "sentinel").exists())
 
@@ -196,7 +272,7 @@ Invoke-Expression $helper.Extent.Text
 """ + '\n'.join('$' + v + ' = $env:FIXTURE_VALUE' for v in variables) + '\n' + block + '\nWrite-Output $tfvarsContent\n')
         result = subprocess.run([self.pwsh(), "-NoLogo", "-NoProfile", "-File", str(checker), str(ROOT / "scripts/setup.ps1")], env=self.env, text=True, capture_output=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stderr)
-        literal = next(line.split(" = ", 1)[1] for line in result.stdout.splitlines() if line.startswith("github_pat = "))
+        literal = next(line.split(" = ", 1)[1] for line in result.stdout.splitlines() if line.startswith("github_app_private_key_secret_version = "))
         self.assertEqual(json.loads(literal), value.replace("${", "$${").replace("%{", "%%{"))
 
     def test_powershell_webhook_cli_failure_is_not_reported_successfully(self):

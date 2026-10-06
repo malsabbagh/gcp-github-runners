@@ -64,7 +64,7 @@ function createAllocationRecovery({ firestore, compute, cloudBuild, project, zon
   brokerUrl, bootstrapTTLms, registeredLabels, routingLabel, identity, clock = Date.now }) {
   if (!firestore || typeof firestore.runTransaction !== 'function' ||
       !compute || typeof compute.get !== 'function' || !cloudBuild || typeof cloudBuild.getBuild !== 'function' ||
-      !/^[a-z][a-z0-9-]{4,28}[a-z0-9]$/.test(project) || !/^[a-z]+(?:-[a-z]+)+[0-9]-[a-z]$/.test(zone) ||
+      !/^[a-z][a-z0-9-]{4,28}[a-z0-9]$/.test(project) || !/^[a-z]+(?:-[a-z]+)+[0-9]+-[a-z]$/.test(zone) ||
       typeof repositoryOwner !== 'string' || typeof repositoryName !== 'string' ||
       typeof workerServiceAccountEmail !== 'string' || !/^[1-9][0-9]{5,30}$/.test(workerServiceAccountUniqueId) ||
       !Number.isSafeInteger(bootstrapTTLms) || bootstrapTTLms < 1 || bootstrapTTLms > 900000 ||

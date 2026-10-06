@@ -329,7 +329,10 @@ def main(env=None):
             if inherited.get("runner-count") != "1" or inherited.get("worker-profile") != "trusted-private-one-job":
                 raise ValueError("Template must declare trusted private one-job profile")
             expires_at_ms = claimed["bootstrapExpiresAtMs"]
-            metadata = {"repo-owner": owner, "repo-name": repo, "vm-id": name,
+            # Metadata items are a repeated field: a create override replaces
+            # the template's whole list. Preserve its validated safe fields,
+            # including OS Login/project SSH guards and startup scripts.
+            metadata = {**inherited, "repo-owner": owner, "repo-name": repo, "vm-id": name,
                 "run-id": env["RUN_ID"], "job-id": env["JOB_ID"], "run-attempt": env.get("RUN_ATTEMPT") or "1",
                 "allocation-key": key, "reservation-token": token,
                 "allocation-broker-url": broker_url, "bootstrap-expires-at-ms": str(expires_at_ms),

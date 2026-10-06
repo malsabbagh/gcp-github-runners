@@ -1,0 +1,25 @@
+# Explicit image build only, never part of job/webhook provisioning.
+# Supply every substitution. Builder image must be reviewed/pinned by digest.
+steps:
+  - name: '${_PACKER_BUILDER_IMAGE}'
+    entrypoint: /bin/sh
+    args:
+      - -ec
+      - |
+        case '${_PACKER_BUILDER_IMAGE}' in *@sha256:*) ;; *) exit 1 ;; esac
+        packer init cloudbuild/worker.pkr.hcl
+        packer validate cloudbuild/worker.pkr.hcl
+        packer build cloudbuild/worker.pkr.hcl
+    env:
+      - 'PKR_VAR_project_id=$PROJECT_ID'
+      - 'PKR_VAR_zone=${_ZONE}'
+      - 'PKR_VAR_subnetwork=${_BUILD_SUBNETWORK}'
+      - 'PKR_VAR_source_image=${_SOURCE_IMAGE}'
+      - 'PKR_VAR_image_name=${_IMAGE_NAME}'
+      - 'PKR_VAR_apt_snapshot=${_APT_SNAPSHOT}'
+serviceAccount: '${_BUILD_SERVICE_ACCOUNT}'
+options:
+  logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: '${_PRIVATE_POOL}'
+timeout: 3600s

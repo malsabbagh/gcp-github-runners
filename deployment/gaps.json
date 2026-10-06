@@ -1,28 +1,26 @@
 {
-  "status": "SOURCE_PREPARATION_READY_NOT_DEPLOYABLE",
-  "tests_executed": false,
-  "prepared_test_declarations": 13,
-  "sdk_initialized": false,
-  "zip_created": false,
-  "npm_install_or_resolution": false,
-  "official_public_docs_read": true,
-  "missing_current_lock": true,
-  "missing_root_runtime_and_import_pins": true,
-  "pure_root_factory_only": true,
-  "production_sdk_http_adapter_qualified": false,
-  "archive_verifier_limits": [
-    "declared static closure only",
-    "not arbitrary dynamic import parser",
-    "not transitive resolver/installability proof",
-    "not actual ZIP byte/path verifier",
-    "not action authority"
+  "status": "SOURCE_IMPLEMENTED_OFFLINE_VALIDATION",
+  "implemented": [
+    "Exact standalone dependency lock and Node24 framework HTTP target",
+    "Shared webhook/bootstrap/management/scheduler composition",
+    "Google signature verification plus exact audience/service-account subject roles",
+    "Controller-owned incarnation-fenced worker mailbox and durable dispatch recovery",
+    "Single-use controller Compute stop and exact post-stop readback",
+    "Bounded fair canonical waiting-demand replay",
+    "Physical controller ZIP assembly and entry/byte/mode screening"
   ],
-  "scope_files": "packaging lane only; no slice2 or root candidate edits",
-  "remaining_blockers": [
-    "root runtime composition/pins/imports",
-    "new deployment lock resolution",
-    "Node24 SDK import/API qualification",
-    "production framework/auth/readiness adapter",
-    "image/IAM/provider actor-quiescence qualification"
-  ]
+  "default_readiness_flags_enabled": false,
+  "cloud_deployment_performed": false,
+  "remaining_activation_requirements": [
+    "Operator-owned configured project/repository/numbered-secret references/App authorization",
+    "GitHub Actions enablement and ReviewSensei credentials/App setup where desired",
+    "Live service-account/IAM and Google identity-token claim qualification",
+    "Immutable installed worker/builder image provenance and supervised host attestation",
+    "Provider JIT lifetime qualification (unknown upstream expiry is never invented)",
+    "Trusted actor quiescence for named Compute mutations and local worker idle acknowledgement"
+  ],
+  "test_command": "npm test",
+  "coverage_command": "npm run test:coverage-check",
+  "archive_check_command": "npm run check:archive",
+  "archive_build_command": "npm run package:controller"
 }

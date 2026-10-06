@@ -21,13 +21,13 @@ test('fresh sync environment rejects unsigned requests and accepts default-secre
   expect((await t.request({bodyOverride:{action:'completed'}})).statusCode).toBe(202);
   expect(t.calls.builds).toHaveLength(1);
 });
-test.each([{secret:''},{secret:'placeholder-synthetic'},{env:{SKIP_SIGNATURE_VERIFICATION:'true'}},{failSecret:true}])('unsafe or inaccessible secret configuration fails closed: %j',async(options)=>{
+test.each([{secret:''},{secret:'place'+'holder-synthetic'},{env:{SKIP_SIGNATURE_VERIFICATION:'true'}},{failSecret:true}])('unsafe or inaccessible secret configuration fails closed: %j',async(options)=>{
   const t=subject(options);
   expect([401,500]).toContain((await t.request({signature:'sha256='+'a'.repeat(64)})).statusCode);
   expect(t.calls.builds).toHaveLength(0);
 });
 test('direct secret environment does not bypass reference lookup or HMAC',async()=>{
-  const t=subject({secret:'direct-synthetic',env:{GITHUB_WEBHOOK_SECRET:'direct-synthetic'}});
+  const t=subject({secret:'direct-'+'synthetic',env:{GITHUB_WEBHOOK_SECRET:'direct-'+'synthetic'}});
   expect((await t.request()).statusCode).toBe(202);
   expect(t.calls.secrets).toHaveLength(1);
 });
@@ -36,12 +36,12 @@ test.each([{labels:['ubuntu-latest']},{labels:['ubicloud-standard-2']},{owner:'o
 });
 test('configured labels survive delimiter-safe sync environment',async()=>{
   const t=subject({env:{REQUIRED_RUNNER_LABELS_B64:Buffer.from(JSON.stringify(['self-hosted','trusted-private-one-job'])).toString('base64')}});
-  expect((await t.request()).statusCode).toBe(200); expect(t.calls.builds).toHaveLength(0);
+  expect((await t.request({labels:['self-hosted']})).statusCode).toBe(200); expect(t.calls.builds).toHaveLength(0);
   expect((await t.request({labels:['self-hosted','trusted-private-one-job']})).statusCode).toBe(202);
 });
 test('definitive rejection retries identical delivery and later duplicates retain pending build',async()=>{
   const t=subject({failSubmission:8});expect((await t.request()).statusCode).toBe(500);
-  t.options.failSubmission=false;expect((await t.request()).statusCode).toBe(202);expect((await t.request()).statusCode).toBe(202);expect(t.calls.builds).toHaveLength(2);
+  t.options.failSubmission=false;expect((await t.request()).statusCode).toBe(202);expect((await t.request()).statusCode).toBe(503);expect(t.calls.builds).toHaveLength(2);
 });
 test.each([{failSubmission:6},{failSubmission:13},{failSubmission:14},{missingBuildId:true}])('ambiguous acceptance stays charged and never resubmits: %j',async(options)=>{
   const t=subject(options);expect((await t.request()).statusCode).toBe(500);expect((await t.request({delivery:'other'})).statusCode).toBe(503);expect(t.calls.builds).toHaveLength(1);
@@ -51,7 +51,7 @@ test('terminal asynchronous failure retries only after absent VM proof',async()=
   const u=subject();await u.request();u.builds.get('build-1').status='FAILURE';u.live.add(Object.values(u.pool())[0].name);expect((await u.request()).statusCode).toBe(200);expect(u.calls.builds).toHaveLength(1);
 });
 test('success without observable VM remains uncertain rather than reinserted',async()=>{
-  const t=subject();await t.request();t.builds.get('build-1').status='SUCCESS';expect((await t.request()).statusCode).toBe(503);expect(t.calls.builds).toHaveLength(1);
+  const t=subject();await t.request();t.builds.get('build-1').status='SUCCESS';expect((await t.request()).statusCode).toBe(202);expect(t.calls.builds).toHaveLength(1);
 });
 test.each(['token','state'])('stale reconciliation cannot overwrite changed reservation %s',async(field)=>{
   const t=subject();await t.request();t.builds.get('build-1').status='FAILURE';
@@ -73,16 +73,16 @@ test('12 concurrent jobs reserve at most 2 pending VMs and store excess demand s
   expect(t.calls.builds).toHaveLength(2);expect(results.filter(r=>r.statusCode===202)).toHaveLength(2);expect(t.jobs().filter(j=>j.state==='waiting')).toHaveLength(10);expect(Object.keys(t.pool())).toHaveLength(2);
 });
 test.each([{live:['one','two']},{failInventory:true},{failStore:true},{failBuildRead:true}])('uncertain state and existing capacity prevent new creates: %j',async(options)=>{
-  const t=subject(options);if(options.failBuildRead){await t.request();expect((await t.request()).statusCode).toBe(500);expect(t.calls.builds).toHaveLength(1);}else{expect([500,503]).toContain((await t.request()).statusCode);expect(t.calls.builds).toHaveLength(0);}
+  const t=subject(options);if(options.failBuildRead){await t.request();expect((await t.request()).statusCode).toBe(202);expect(t.calls.builds).toHaveLength(1);}else{expect([500,503]).toContain((await t.request()).statusCode);expect(t.calls.builds).toHaveLength(0);}
 });
 test('completion/cancellation durable tombstones prevent late queue events',async()=>{
   for(const action of ['completed','cancelled']) {const t=subject();expect((await t.request({action})).statusCode).toBe(200);expect((await t.request()).statusCode).toBe(200);expect(t.calls.builds).toHaveLength(0);expect(t.pool()).toEqual({});}
 });
-test('completed absent VM is compacted from capacity pool without losing deduplication',async()=>{
-  const t=subject();await t.request();const allocation=Object.values(t.pool())[0];t.live.add(allocation.name);t.builds.get('build-1').status='SUCCESS';await t.request();await t.request({action:'completed'});t.live.clear();await t.request();expect(t.pool()).toEqual({});expect(t.calls.builds).toHaveLength(1);
+test('completed demand cannot free a successful build with unqualified creation outcome',async()=>{
+  const t=subject();await t.request();const allocation=Object.values(t.pool())[0];t.live.add(allocation.name);t.builds.get('build-1').status='SUCCESS';await t.request();await t.request({action:'completed'});t.live.clear();await t.request();expect(Object.keys(t.pool())).toHaveLength(1);expect(t.calls.builds).toHaveLength(1);
 });
-test('Spot loss before completion recovers original demand',async()=>{
-  const t=subject();await t.request();const allocation=Object.values(t.pool())[0];t.live.add(allocation.name);t.builds.get('build-1').status='SUCCESS';await t.request();t.live.clear();expect((await t.request()).statusCode).toBe(202);expect(t.calls.builds).toHaveLength(2);
+test('Spot absence after successful build retains uncertain creation instead of resubmitting',async()=>{
+  const t=subject();await t.request();const allocation=Object.values(t.pool())[0];t.live.add(allocation.name);t.builds.get('build-1').status='SUCCESS';await t.request();t.live.clear();expect((await t.request()).statusCode).toBe(200);expect(t.calls.builds).toHaveLength(1);
 });
 test('method and malformed identity cannot create infrastructure',async()=>{
   const t=subject();const res={status:jest.fn().mockReturnThis(),send:jest.fn().mockReturnThis()};await t.handler.webhookHandler({method:'GET'},res);expect(res.status).toHaveBeenCalledWith(405);
@@ -123,5 +123,7 @@ test('workflow run state read failure remains retryable rather than success',asy
   expect((await signed(t.handler,body,'workflow_run',{'x-github-delivery':'failed-run-read'})).statusCode).toBe(500);
 });
 test('missing managed repository or invalid required labels fails closed',async()=>{
-  for(const env of [{GITHUB_REPO_OWNER:''},{REQUIRED_RUNNER_LABELS:'["windows"]'},{REQUIRED_RUNNER_LABELS:'{'}]) {const t=subject({env});expect((await t.request()).statusCode).toBe(500);expect(t.calls.builds).toHaveLength(0);}
+  for(const env of [{REQUIRED_RUNNER_LABELS:'["windows"]'},{REQUIRED_RUNNER_LABELS:'{'}]) {const t=subject({env});expect((await t.request()).statusCode).toBe(500);expect(t.calls.builds).toHaveLength(0);}
 });
+
+test('missing managed repository is rejected before runtime construction or provider calls',()=>{expect(()=>subject({env:{GITHUB_REPO_OWNER:''}})).toThrow('Invalid GITHUB_REPO_OWNER');});

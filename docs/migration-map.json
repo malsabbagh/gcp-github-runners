@@ -1,0 +1,3370 @@
+{
+  "schema_version": 1,
+  "scope": "All 195 paths in the union of frozen source main and selected PR25, compared against the attribution-corrected snapshot; replacements describe the selected one-job profile, not all unsupported legacy architectures.",
+  "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
+  "selected_source_PR25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
+  "snapshot_before_restoration": "e130e62d445a08ef4987be26fcc4538a0e3ddcd3",
+  "source_path_count": 195,
+  "disposition_counts": {
+    "portable_configuration_replacement": 3,
+    "restored_deterministic_ci": 1,
+    "restored_optional_tooling": 3,
+    "sanitized_documentation_replacement": 25,
+    "deliberate_unsupported_route_exclusion": 16,
+    "portable_operator_tooling_replacement": 38,
+    "deliberate_generated_or_operational_exclusion": 40,
+    "retained_or_sanitized_runtime": 20,
+    "deliberate_private_exclusion": 1,
+    "selected_profile_runtime_replacement": 12,
+    "replacement_supported_one_job_profile": 17,
+    "canonical_cleanup_replacement": 1,
+    "portable_usage_replacement": 2,
+    "portable_monitoring_replacement": 1,
+    "locked_runtime_replacement": 2,
+    "portable_resource_and_identity_replacement": 13
+  },
+  "source_values_copied": false,
+  "limits": [
+    "Path presence does not prove behavioral equivalence; current test/scan results are separate evidence.",
+    "Live IAM, provider JIT lifetime, images, private networking and destructive lifecycle qualification require authorized target-environment acceptance.",
+    "Generated/private/unsupported alternate routes remain deliberately excluded; no old operational success claims are inherited."
+  ],
+  "paths": [
+    {
+      "source_path": ".gcloudignore",
+      "snapshot_status": "missing",
+      "disposition": "portable_configuration_replacement",
+      "replacement_paths": [
+        ".gcloudignore"
+      ],
+      "reason": "Portable packaging/line-ending/generated-private-input exclusion rules replace source-specific filters.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".gcloudignore"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": ".gitattributes",
+      "snapshot_status": "missing",
+      "disposition": "portable_configuration_replacement",
+      "replacement_paths": [
+        ".gitattributes"
+      ],
+      "reason": "Portable packaging/line-ending/generated-private-input exclusion rules replace source-specific filters.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".gitattributes"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": ".github/workflows/ci.yml",
+      "snapshot_status": "missing",
+      "disposition": "restored_deterministic_ci",
+      "replacement_paths": [
+        ".github/workflows/ci.yml",
+        ".github/README.md"
+      ],
+      "reason": "CI restored without deployment or secrets; optional ReviewSensei manual/advisory/egress-disabled configuration and read-only removal patch preserve usable tooling without activating services.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".github/workflows/ci.yml",
+        ".github/README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": ".github/workflows/review-sensei-review.yml",
+      "snapshot_status": "missing",
+      "disposition": "restored_optional_tooling",
+      "replacement_paths": [
+        ".github/workflows/review-sensei-review.yml",
+        ".github/README.md"
+      ],
+      "reason": "CI restored without deployment or secrets; optional ReviewSensei manual/advisory/egress-disabled configuration and read-only removal patch preserve usable tooling without activating services.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".github/workflows/review-sensei-review.yml",
+        ".github/README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": ".github/workflows/review-sensei-uninstall.yml",
+      "snapshot_status": "missing",
+      "disposition": "restored_optional_tooling",
+      "replacement_paths": [
+        ".github/workflows/review-sensei-uninstall.yml",
+        ".github/README.md"
+      ],
+      "reason": "CI restored without deployment or secrets; optional ReviewSensei manual/advisory/egress-disabled configuration and read-only removal patch preserve usable tooling without activating services.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".github/workflows/review-sensei-uninstall.yml",
+        ".github/README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": ".gitignore",
+      "snapshot_status": "modified",
+      "disposition": "portable_configuration_replacement",
+      "replacement_paths": [
+        ".gitignore"
+      ],
+      "reason": "Portable packaging/line-ending/generated-private-input exclusion rules replace source-specific filters.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".gitignore"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": ".reviewsensei.yml",
+      "snapshot_status": "missing",
+      "disposition": "restored_optional_tooling",
+      "replacement_paths": [
+        ".reviewsensei.yml",
+        ".github/README.md"
+      ],
+      "reason": "CI restored without deployment or secrets; optional ReviewSensei manual/advisory/egress-disabled configuration and read-only removal patch preserve usable tooling without activating services.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".reviewsensei.yml",
+        ".github/README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "ARCHITECTURE.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "BASE_SCRIPT_SWITCH.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "CLEANUP_SCRIPTS_README.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "DEPLOYMENT.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "DEPLOYMENT_SUCCESS_REPORT.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "DEPLOYMENT_TEST_RESULTS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "DIRECT_API_OPTIMIZATION_REPORT.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "FINAL_DEPLOYMENT_STATUS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "GITHUB_RUNNER_REMOVE_TOKEN_FIX.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "GITHUB_RUNNER_REMOVE_TOKEN_FIX_COMPLETE.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "HYBRID_CLEANUP_DEPLOYMENT_STATUS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "HYBRID_CLEANUP_TEST_STATUS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "ISSUE_RESOLUTION_VERIFIED.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "README.md",
+      "snapshot_status": "modified",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "README.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "README_NEW.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "ROOT_CAUSE_ANALYSIS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "SHUTDOWN_FIX_VERIFICATION_REPORT.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "SHUTDOWN_OPTIMIZATION_REPORT.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "SHUTDOWN_SCRIPT_INVESTIGATION_COMPLETE.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "STOP_THEN_DELETE_RESTORATION_COMPLETE.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "TECHNICAL.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "TEST_SCRIPTS_README.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "VERIFICATION_RESULTS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/README.md",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/old-tests/test-remove-token-fix.sh",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/old-tests/test-remove-token.sh",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/old-tests/test-webhook-correct.ps1",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/old-tests/test-webhook-debug.ps1",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/old-tests/test-webhook-exact.ps1",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "archive/old-tests/test-webhook-final.ps1",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cleanup-github-runners.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/base.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/block-navigation.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/favicon.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/index.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/index.js.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/base.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/block-navigation.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/favicon.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/index.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/index.js.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/prettify.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/prettify.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/sort-arrow-sprite.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov-report/sorter.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/lcov.info",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/prettify.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/prettify.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/sort-arrow-sprite.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/coverage/sorter.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/index.extended.test.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/cleanup-function/index.extended.test.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/cleanup-function/index.extended.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/index.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/cleanup-function/index.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/cleanup-function/index.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/index.test.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/cleanup-function/index.test.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/cleanup-function/index.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/package.json",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/cleanup-function/package.json"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/cleanup-function/package.json"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/cleanup-function/runner-cleanup.sh",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/cleanup-function/runner-cleanup.sh"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/cleanup-function/runner-cleanup.sh"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/hybrid-cleanup-handler/.gcloudignore",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/hybrid-cleanup-handler/package.json",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/instance-lifecycle-handler/package.json",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/vm-deletion-handler/package.json",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/.env.yaml",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_private_exclusion",
+      "replacement_paths": [
+        "terraform/terraform.tfvars.example",
+        "scripts/sync-terraform-config.py"
+      ],
+      "reason": "Private environment omitted; operators generate ignored local configuration from portable non-secret references.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/terraform.tfvars.example",
+        "scripts/sync-terraform-config.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/.gcloudignore",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        ".gcloudignore",
+        "packaging/assemble-controller.js"
+      ],
+      "reason": "Single packaged controller deployment replaces independent legacy webhook directory distribution.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        ".gcloudignore",
+        "packaging/assemble-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/cleanup-firestore.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "reason": "Durable authenticated recovery/retirement replaces age-only state cleanup and direct deletion/state mutation utilities.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/cleanup-stale-vms.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "reason": "Durable authenticated recovery/retirement replaces age-only state cleanup and direct deletion/state mutation utilities.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/base.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/block-navigation.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/favicon.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/index.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/index.js.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/base.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/block-navigation.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/favicon.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/index.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/index.js.html",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/prettify.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/prettify.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/sort-arrow-sprite.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov-report/sorter.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/lcov.info",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/prettify.css",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/prettify.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/sort-arrow-sprite.png",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/coverage/sorter.js",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index-github-api.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+        "cloud-functions/webhook-handler/allocation-bootstrap-broker.js"
+      ],
+      "reason": "Allocation-bound controller App adapter replaces competing direct API route.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/github-app-runner-adapter.js",
+        "cloud-functions/webhook-handler/allocation-bootstrap-broker.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.branch-coverage.test.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "reason": "Historical duplicate/legacy test variants replaced by complete retained workspace tests and selected-profile negative/retry tests; individual legacy assertions are not automatically certified equivalent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.comprehensive.test.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "reason": "Historical duplicate/legacy test variants replaced by complete retained workspace tests and selected-profile negative/retry tests; individual legacy assertions are not automatically certified equivalent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.coverage.test.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "reason": "Historical duplicate/legacy test variants replaced by complete retained workspace tests and selected-profile negative/retry tests; individual legacy assertions are not automatically certified equivalent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.edge-cases.test.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "reason": "Historical duplicate/legacy test variants replaced by complete retained workspace tests and selected-profile negative/retry tests; individual legacy assertions are not automatically certified equivalent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.http.test.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.http.test.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.http.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.simple.test.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "reason": "Historical duplicate/legacy test variants replaced by complete retained workspace tests and selected-profile negative/retry tests; individual legacy assertions are not automatically certified equivalent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.test.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "reason": "Historical duplicate/legacy test variants replaced by complete retained workspace tests and selected-profile negative/retry tests; individual legacy assertions are not automatically certified equivalent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js",
+        "cloud-functions/webhook-handler/index.http.test.js",
+        "tests/controller-state.test.js",
+        "tests/allocation-recovery.test.js",
+        "tests/retirement-controller.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/index.unit.test.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/index.unit.test.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/index.unit.test.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/infrastructure-config.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/infrastructure-config.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/infrastructure-config.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/manual-cleanup.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "reason": "Durable authenticated recovery/retirement replaces age-only state cleanup and direct deletion/state mutation utilities.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/mark-creating-vms-failed.js",
+      "snapshot_status": "missing",
+      "disposition": "selected_profile_runtime_replacement",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "reason": "Durable authenticated recovery/retirement replaces age-only state cleanup and direct deletion/state mutation utilities.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/allocation-recovery.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "scripts/management.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/package.json",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/package.json"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/package.json"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/provision-runner.py",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/provisioning-state.js",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "cloud-functions/webhook-handler/provisioning-state.js"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/webhook-handler/provisioning-state.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloud-functions/webhook-handler/temp-state.txt",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/cloudbuild-cleanup.yaml",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/cloudbuild-enhanced.yaml",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/cloudbuild-webhook.yaml",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/cloudbuild.yaml",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-cleanup.sh",
+      "snapshot_status": "missing",
+      "disposition": "canonical_cleanup_replacement",
+      "replacement_paths": [
+        "cloud-functions/cleanup-function/runner-cleanup.sh",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Duplicate build cleanup script is represented by the canonical conservative helper and controller-owned exact retirement.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloud-functions/cleanup-function/runner-cleanup.sh",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-shutdown-docker.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-shutdown-multi-user-docker.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-shutdown-multi-user.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-startup-docker.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-startup-multi-user-docker.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-startup-multi-user.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "cloudbuild/runner-startup.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "docker/DOCKER_INSTRUCTIONS.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "TEST_SCRIPTS_README.md",
+        "docs/MIGRATION.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "docker/Dockerfile.rust",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "docker/build-and-push-github-runner.ps1",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "docker/entrypoint-rust.sh",
+      "snapshot_status": "missing",
+      "disposition": "replacement_supported_one_job_profile",
+      "replacement_paths": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "reason": "Legacy direct-build/shared-host/multi-user/Docker route is deliberately not retained; native preinstalled one-job worker, controlled provisioner and Packer image replace its supported provisioning/teardown intent.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "startup/one-job-worker.py",
+        "startup/one-job-worker.service",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py",
+        "cloudbuild/worker.pkr.hcl",
+        "cloud-functions/webhook-handler/provision-runner.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "examples/github-workflow.yml",
+      "snapshot_status": "missing",
+      "disposition": "portable_usage_replacement",
+      "replacement_paths": [
+        "examples/one-job-workflow.yml",
+        "docs/JOB_USAGE.md"
+      ],
+      "reason": "Trusted one-job label-routed workflow examples; privileged job-owned cleanup credentials removed in favor of controller-owned lifecycle.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "examples/one-job-workflow.yml",
+        "docs/JOB_USAGE.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "examples/workflow-with-cleanup.yml",
+      "snapshot_status": "missing",
+      "disposition": "portable_usage_replacement",
+      "replacement_paths": [
+        "examples/one-job-workflow.yml",
+        "docs/JOB_USAGE.md"
+      ],
+      "reason": "Trusted one-job label-routed workflow examples; privileged job-owned cleanup credentials removed in favor of controller-owned lifecycle.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "examples/one-job-workflow.yml",
+        "docs/JOB_USAGE.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "logs.txt",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_generated_or_operational_exclusion",
+      "replacement_paths": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "reason": "Generated coverage, logs and temporary operational state are not source functionality and remain ignored.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "TEST_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "monitoring/alerts.yaml",
+      "snapshot_status": "missing",
+      "disposition": "portable_monitoring_replacement",
+      "replacement_paths": [
+        "monitoring/README.md",
+        "terraform/monitoring.tf",
+        "docs/MONITORING.md"
+      ],
+      "reason": "Portable optional Terraform error metric/alert and signal guidance replace private operational monitoring; monitoring defaults disabled, existing notification channels and target thresholds require operator decisions.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "monitoring/README.md",
+        "terraform/monitoring.tf",
+        "docs/MONITORING.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "package-lock.json",
+      "snapshot_status": "modified",
+      "disposition": "locked_runtime_replacement",
+      "replacement_paths": [
+        "package-lock.json",
+        "deployment/deployment-package.json",
+        "deployment/deployment-package-lock.json"
+      ],
+      "reason": "Node24 framework/SDK dependency declaration and matching installation locks replace the historical unusable deployment-lock gap.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "package-lock.json",
+        "deployment/deployment-package.json",
+        "deployment/deployment-package-lock.json"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "package.json",
+      "snapshot_status": "modified",
+      "disposition": "locked_runtime_replacement",
+      "replacement_paths": [
+        "package.json",
+        "deployment/deployment-package.json",
+        "deployment/deployment-package-lock.json"
+      ],
+      "reason": "Node24 framework/SDK dependency declaration and matching installation locks replace the historical unusable deployment-lock gap.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "package.json",
+        "deployment/deployment-package.json",
+        "deployment/deployment-package-lock.json"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "quick-cleanup.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/apply-glibc-fix.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "cloudbuild/worker.pkr.hcl",
+        "startup/one-job-worker.py",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloudbuild/worker.pkr.hcl",
+        "startup/one-job-worker.py",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/check-prerequisites.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/cleanup-offline-runners.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/create-instance-template.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "terraform/main.tf",
+        "cloudbuild/worker.pkr.hcl"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/main.tf",
+        "cloudbuild/worker.pkr.hcl"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/create-instance-template.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "terraform/main.tf",
+        "cloudbuild/worker.pkr.hcl"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/main.tf",
+        "cloudbuild/worker.pkr.hcl"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/debug-startup.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "cloudbuild/worker.pkr.hcl",
+        "startup/one-job-worker.py",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloudbuild/worker.pkr.hcl",
+        "startup/one-job-worker.py",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/destroy-resources.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/destroy-resources.sh",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/destroy-resources.sh",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/list-all-runners.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/manual-cleanup.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/manual-cleanup.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup-bloated-backup.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup-clean.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup-github-webhook.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup-github-webhook.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup-webhook.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup-webhook.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/setup.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup.sh",
+        "scripts/setup-clean.sh",
+        "scripts/setup.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/sync-terraform-config.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/sync-terraform-config.py",
+        "scripts/sync-terraform-config.sh",
+        "scripts/sync-terraform-config.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/sync-terraform-config.py",
+        "scripts/sync-terraform-config.sh",
+        "scripts/sync-terraform-config.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/sync-terraform-config.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/sync-terraform-config.py",
+        "scripts/sync-terraform-config.sh",
+        "scripts/sync-terraform-config.ps1"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/sync-terraform-config.py",
+        "scripts/sync-terraform-config.sh",
+        "scripts/sync-terraform-config.ps1"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/test-hybrid-cleanup-manual.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/test-runner-status.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/test-shutdown-execution.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/trigger-cleanup.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/trigger-hybrid-cleanup.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/management.py",
+        "cloud-functions/cleanup-function/retirement-controller.js",
+        "CLEANUP_SCRIPTS_README.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "scripts/verify-migration.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "shutdown-script-extract.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "cloudbuild/worker.pkr.hcl",
+        "startup/one-job-worker.py",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "cloudbuild/worker.pkr.hcl",
+        "startup/one-job-worker.py",
+        "startup/shutdown-worker.py",
+        "startup/worker-control.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/.terraform.lock.hcl",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/.terraform.lock.hcl"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/.terraform.lock.hcl"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/github-webhook.tf.example",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1",
+        "terraform/outputs.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/setup-webhook.sh",
+        "scripts/setup-webhook.ps1",
+        "terraform/outputs.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/hybrid-cleanup-system.tf.disabled",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/instance-lifecycle-management.tf.disabled",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/main.tf",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/main.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/main.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/cloud-function/main.tf",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/modules/cloud-function/main.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/modules/cloud-function/main.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/cloud-function/outputs.tf",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/modules/cloud-function/main.tf",
+        "terraform/outputs.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/modules/cloud-function/main.tf",
+        "terraform/outputs.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/cloud-function/variables.tf",
+      "snapshot_status": "modified",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/modules/cloud-function/variables.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/modules/cloud-function/variables.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/iam/README.md",
+      "snapshot_status": "missing",
+      "disposition": "sanitized_documentation_replacement",
+      "replacement_paths": [
+        "terraform/README.md",
+        "terraform/modules/iam/main.tf"
+      ],
+      "reason": "Portable current architecture/setup/validation documentation replaces private operational reports and obsolete variants; historical success claims are intentionally not copied.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/README.md",
+        "terraform/modules/iam/main.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/iam/main.tf",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/modules/iam/main.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/modules/iam/main.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/iam/outputs.tf",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/modules/iam/main.tf",
+        "terraform/outputs.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/modules/iam/main.tf",
+        "terraform/outputs.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/modules/iam/variables.tf",
+      "snapshot_status": "modified",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/modules/iam/variables.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/modules/iam/variables.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/outputs.tf",
+      "snapshot_status": "modified",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/outputs.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/outputs.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/terraform.tfvars.example",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/terraform.tfvars.example"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/terraform.tfvars.example"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/variables.tf",
+      "snapshot_status": "modified",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/variables.tf"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/variables.tf"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/vm-deletion-handler.tf.disabled",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/workflow-completion-trigger.tf",
+      "snapshot_status": "missing",
+      "disposition": "portable_resource_and_identity_replacement",
+      "replacement_paths": [
+        "terraform/main.tf",
+        "cloud-functions/webhook-handler/webhook-runtime.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js"
+      ],
+      "reason": "Canonical Terraform resources and distinct identities replace historical project bindings; external secret versions/images/authorization are operator inputs, not copied private data.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "terraform/main.tf",
+        "cloud-functions/webhook-handler/webhook-runtime.js",
+        "cloud-functions/webhook-handler/scheduled-recovery.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "terraform/workflow-completion-trigger.tf.backup",
+      "snapshot_status": "missing",
+      "disposition": "deliberate_unsupported_route_exclusion",
+      "replacement_paths": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "reason": "Historical/orphan/disabled alternate routes superseded by one authoritative allocation controller and retirement path.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "ARCHITECTURE.md",
+        "cloud-functions/cleanup-function/retirement-controller.js"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-cloudbuild-webhook.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-direct-api-deletion.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-integration-cleanup.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-parallel-shutdown.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-shutdown-fix.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-stop-then-delete.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "test-webhook-signed.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/lifecycle/test_cleanup.py",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/lifecycle/test_cleanup.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/lifecycle/test_cleanup.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/lifecycle/test_lifecycle.py",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/lifecycle/test_lifecycle.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/lifecycle/test_lifecycle.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/lifecycle/test_monitor.py",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/lifecycle/test_monitor.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/lifecycle/test_monitor.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/provisioning/harness.cjs",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/provisioning/harness.cjs"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/provisioning/harness.cjs"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/provisioning/test_embedding.py",
+      "snapshot_status": "identical",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/provisioning/test_embedding.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/provisioning/test_embedding.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/provisioning/test_provision.py",
+      "snapshot_status": "identical",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/provisioning/test_provision.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/provisioning/test_provision.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/provisioning/test_setup.py",
+      "snapshot_status": "modified",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/provisioning/test_setup.py"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/provisioning/test_setup.py"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "tests/provisioning/webhook.cjs",
+      "snapshot_status": "identical",
+      "disposition": "retained_or_sanitized_runtime",
+      "replacement_paths": [
+        "tests/provisioning/webhook.cjs"
+      ],
+      "reason": "Retained source or sanitized one-job adaptation; validation applies to current source contracts rather than claiming unchanged legacy behavior.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "tests/provisioning/webhook.cjs"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "validate-deployment.sh",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    },
+    {
+      "source_path": "validate-stop-then-delete.ps1",
+      "snapshot_status": "missing",
+      "disposition": "portable_operator_tooling_replacement",
+      "replacement_paths": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "reason": "Portable selected-profile tooling replaces source-specific provisioning/live-test/direct-delete utilities; actual cloud execution remains separately authorized.",
+      "source_equivalence": "supported-profile intent; no claim of byte-for-byte legacy behavior",
+      "replacement_paths_present": [
+        "scripts/check-prerequisites.sh",
+        "scripts/check-prerequisites.ps1",
+        "TEST_SCRIPTS_README.md",
+        "DEPLOYMENT.md"
+      ],
+      "replacement_paths_missing": []
+    }
+  ]
+}

@@ -28,7 +28,7 @@ async function createGitHubAppRunnerAdapter({ appId, installationId, repositoryI
     if (typeof privateKey !== 'string' || privateKey.length > 16384) unavailable();
     if (octokitFactory) client = await octokitFactory({ appId, installationId, privateKey, repositoryId });
     else {
-      // Dependency is absent from frozen lock: declare/lock/qualify before use.
+      // Exact App-auth/rest versions are declared in the standalone deployment lock.
       const [{ Octokit }, { createAppAuth }] = await Promise.all([
         import('@octokit/rest'), import('@octokit/auth-app')]);
       client = new Octokit({ authStrategy: createAppAuth,

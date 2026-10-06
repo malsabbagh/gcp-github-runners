@@ -1,51 +1,24 @@
-"""Exercise the tracked Terraform cleanup argument without any cloud services."""
-import json
-import os
-from pathlib import Path
-import re
-import subprocess
-import tempfile
-import unittest
-
-ROOT = Path(__file__).resolve().parents[2]
-
-
+"""Offline supported provisioning embedding and direct OIDC scheduler contract."""
+import json, os, pathlib, subprocess, unittest
+ROOT=pathlib.Path(__file__).resolve().parents[2]
 class EmbeddingTests(unittest.TestCase):
-    def test_terraform_cleanup_argument_executes_with_offline_gcloud(self):
-        terraform = (ROOT / "terraform/main.tf").read_text()
-        match = re.search(r'args\s*=\s*\["-c",\s*(replace\(file\("(\$\{path.module\}/[^"\n]+runner-cleanup\.sh)"\),\s*"\$",\s*"\$\$"\))\]', terraform)
-        self.assertIsNotNone(match, "cleanup must embed the tracked shared reaper")
-        source = (ROOT / "terraform" / match[2].removeprefix("${path.module}/")).resolve()
-        self.assertEqual(source, ROOT / "cloudbuild/runner-cleanup.sh")
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            expression = match[1].replace(match[2], str(source))
-            terraform_bin = os.environ.get("TERRAFORM_BIN")
-            if terraform_bin:
-                # Pure console expression: no backend/provider/state/config.
-                result = subprocess.run([terraform_bin, f"-chdir={root}", "console"],
-                    input="jsonencode(" + expression + ")\n", text=True, capture_output=True, timeout=20)
-                self.assertEqual(result.returncode, 0, result.stderr)
-                encoded = json.loads(json.loads(result.stdout))
-            else:
-                # Terraform replace's literal arguments are asserted above.
-                encoded = source.read_text().replace("$", "$$")
-            # Cloud Build substitutes escaped dollar literals before bash runs.
-            script = encoded.replace("$$", "$")
-            self.assertEqual(script, source.read_text())
-            syntax = subprocess.run(["bash", "-n"], input=script, text=True, capture_output=True, timeout=10)
-            self.assertEqual(syntax.returncode, 0, syntax.stderr)
-            (root / "gcloud").write_text("#!/usr/bin/env python3\nimport json,os,sys\nfrom pathlib import Path\n"
-                "Path(os.environ['FIXTURE_CALL']).write_text(json.dumps(sys.argv[1:]))\n"
-                "if sys.argv[1:4] != ['compute','instances','list']: sys.exit(3)\nprint('[]')\n")
-            (root / "gcloud").chmod(0o755)
-            env = dict(os.environ, PATH=str(root) + os.pathsep + os.environ["PATH"],
-                FIXTURE_CALL=str(root / "call.json"), MAX_AGE_HOURS="2", REGION="")
-            result = subprocess.run(["bash", "-c", script], env=env, text=True, capture_output=True, timeout=10)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(json.loads((root / "call.json").read_text()),
-                ["compute", "instances", "list", "--filter=labels.purpose=github-runner", "--format=json"])
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_provisioning_build_contains_exact_tracked_python_and_safe_environment(self):
+        command="const t=require('./tests/provisioning/harness.cjs').load();t.request().then(()=>process.stdout.write(JSON.stringify(t.calls.builds[0])));"
+        result=subprocess.run(['node','-e',command],cwd=ROOT,capture_output=True,text=True,timeout=30)
+        self.assertEqual(result.returncode,0,result.stderr)
+        build=json.loads(result.stdout)['build'];step=build['steps'][0]
+        script=(ROOT/'cloud-functions/webhook-handler/provision-runner.py').read_text()
+        self.assertEqual(step['args'],['-c',"python3 - <<'RUNNER_PROVISIONER'\n"+script+"\nRUNNER_PROVISIONER"])
+        self.assertEqual(step['entrypoint'],'bash')
+        self.assertIn('WORKER_SERVICE_ACCOUNT=worker@example-project.iam.gserviceaccount.com',step['env'])
+        self.assertFalse(any(('PAT'+'=') in row or ('PRIVATE_KEY'+'=') in row for row in step['env']))
+        syntax=subprocess.run(['bash','-n'],input=step['args'][1],text=True,capture_output=True,timeout=10)
+        self.assertEqual(syntax.returncode,0,syntax.stderr)
+    def test_terraform_scheduler_invokes_unified_authenticated_management_without_cleanup_build(self):
+        source=(ROOT/'terraform/main.tf').read_text()
+        self.assertIn('/management/scheduled',source)
+        self.assertIn('oidc_token',source)
+        self.assertRegex(source,r'body\s*=\s*base64encode\("\{\}"\)')
+        self.assertNotIn('runner-cleanup.sh',source)
+        self.assertNotIn('scheduledCleanup',source)
+if __name__=='__main__':unittest.main()

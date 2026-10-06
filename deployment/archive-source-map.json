@@ -1,5 +1,5 @@
 {
-  "scope": "source-only assembly mapping, no ZIP or install produced",
+  "status": "Current standalone package and lock resolved; exact runtime source map",
   "paths": {
     "cloud-functions/cleanup-function/allocation-lifecycle.js": "cloud-functions/cleanup-function/allocation-lifecycle.js",
     "cloud-functions/cleanup-function/lifecycle-dispatcher.js": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
@@ -13,6 +13,7 @@
     "cloud-functions/webhook-handler/bootstrap-runtime.js": "cloud-functions/webhook-handler/bootstrap-runtime.js",
     "cloud-functions/webhook-handler/controller-profile.js": "cloud-functions/webhook-handler/controller-profile.js",
     "cloud-functions/webhook-handler/controller-runtime.js": "cloud-functions/webhook-handler/controller-runtime.js",
+    "cloud-functions/webhook-handler/deployment-runtime.js": "cloud-functions/webhook-handler/deployment-runtime.js",
     "cloud-functions/webhook-handler/github-app-runner-adapter.js": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
     "cloud-functions/webhook-handler/infrastructure-config.js": "cloud-functions/webhook-handler/infrastructure-config.js",
     "cloud-functions/webhook-handler/invocation-auth.js": "cloud-functions/webhook-handler/invocation-auth.js",
@@ -23,12 +24,14 @@
     "cloud-functions/webhook-handler/provisioning-state.js": "cloud-functions/webhook-handler/provisioning-state.js",
     "cloud-functions/webhook-handler/runner-labels.js": "cloud-functions/webhook-handler/runner-labels.js",
     "cloud-functions/webhook-handler/scheduled-recovery.js": "cloud-functions/webhook-handler/scheduled-recovery.js",
+    "cloud-functions/webhook-handler/waiting-recovery.js": "cloud-functions/webhook-handler/waiting-recovery.js",
+    "cloud-functions/webhook-handler/webhook-runtime.js": "cloud-functions/webhook-handler/webhook-runtime.js",
+    "cloud-functions/webhook-handler/worker-control.js": "cloud-functions/webhook-handler/worker-control.js",
     "controller-entry.js": "controller-entry.js",
-    "package-lock.json": null,
-    "package.json": "deployment/deployment-package.json",
-    "startup/one-job-worker.py": "startup/one-job-worker.py",
-    "startup/one-job-worker.service": "startup/one-job-worker.service",
-    "startup/shutdown-worker.py": "startup/shutdown-worker.py"
+    "package-lock.json": "deployment/deployment-package-lock.json",
+    "package.json": "deployment/deployment-package.json"
   },
-  "current_lock_resolution": "UNRUN; missing; original workspace lock never reused"
+  "current_lock_resolution": "Resolved from exact standalone manifest and installed with lifecycle scripts disabled; Node24 strict engine validation",
+  "zip": "dist/controller.zip",
+  "zip_verification": "Every ZIP entry is regular, declared, and matches source bytes/Unix modes; no duplicate/escape/symlink/extra entries"
 }

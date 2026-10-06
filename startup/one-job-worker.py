@@ -17,6 +17,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import importlib.util
 
 STATE = Path('/var/lib/ephemeral-runner')
 # Image provisioning installs the verified runner into this private writable
@@ -161,7 +162,10 @@ def main():
     material = None
     def stop(signum, frame):
         try:
-            os.killpg(child.pid, signal.SIGTERM)
+            if child.poll() is None:
+                os.killpg(child.pid, signal.SIGTERM)
+            else:
+                raise SystemExit(0)
         except ProcessLookupError:
             pass
     signal.signal(signal.SIGTERM, stop)
@@ -171,6 +175,16 @@ def main():
         'at_ms': int(time.time() * 1000), 'completion_proof': False})
     # No second run, deregistration, poweroff, capacity change, or retirement claim.
     # Controller must correlate signed actual-job completion with issued runner.
+    # Remain supervised for outbound control acknowledgement after the single
+    # listener exits. This never starts a replacement listener or remints a JIT.
+    module_path = Path(__file__).with_name('worker-control.py')
+    spec = importlib.util.spec_from_file_location('worker_control', module_path)
+    control = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(control)
+    worker = {**body, 'runnerId': result['runnerId'], 'runnerName': result['runnerName'],
+        'incarnation': result['incarnation']}
+    control.supervise(worker, child, attrs['allocation-broker-url'], metadata, bounded,
+        opener, private_marker)
     return 0 if code == 0 else 1
 
 

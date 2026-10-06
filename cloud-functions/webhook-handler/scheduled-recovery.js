@@ -1,7 +1,7 @@
 'use strict';
 const {authorityConfiguration, principalRole, validRequest} = require('./management-http');
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
-function createScheduledRecovery({firestore, recovery, retirement, dispatcher, enabled = false, batchSize = 20,
+function createScheduledRecovery({firestore, recovery, retirement, dispatcher, waitingRecovery, enabled = false, batchSize = 20,
                                   authenticateInvocation = async () => null, ...authority}) {
   const configuration = enabled === true ? authorityConfiguration(authority) : null;
   if (!Number.isSafeInteger(batchSize) || batchSize < 1 || batchSize > 100 ||
@@ -111,6 +111,12 @@ function createScheduledRecovery({firestore, recovery, retirement, dispatcher, e
             request = await unchangedRequest(request); if (!request) continue;
             await retirement.retireAllocation(request);
           } catch (_) {failures++;}
+        }
+        if (waitingRecovery && typeof waitingRecovery.recoverWaiting === 'function') {
+          const waiting = await waitingRecovery.recoverWaiting();
+          if (!object(waiting) || !['completed','disabled','preserved'].includes(waiting.status) ||
+              !Number.isSafeInteger(waiting.failures) || waiting.failures < 0) failures++;
+          else failures += waiting.failures;
         }
         return {status: 'completed', processed: keys.length, failures};
       } catch (_) {return preserved();}

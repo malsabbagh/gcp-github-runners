@@ -1,5 +1,5 @@
-# Independently authored candidate adaptation. No project IAM grant is created.
-# Provider schema, effective inherited IAM and module wiring remain UNQUALIFIED.
+# Resource-scoped worker broker and controller secret access.
+# Provider schema validated locally; inherited/live IAM remains operator qualification.
 variable "service_accounts" {
   type = object({
     controller  = string
@@ -12,13 +12,14 @@ variable "service_accounts" {
       for email in values(var.service_accounts) : can(regex("^[a-z][a-z0-9-]{4,28}[a-z0-9]@[a-z][a-z0-9-]{4,28}[a-z0-9]\\.iam\\.gserviceaccount\\.com$", email))
     ])
     error_message = "Supply four distinct canonical service account references."
+
   }
 }
 
 variable "worker_image_repositories" {
   # Empty for the selected preinstalled-image profile. Explicit opt-in only if
   # a later qualified worker path actually pulls from these repositories.
-  type = map(object({ project = string, location = string, repository = string }))
+  type    = map(object({ project = string, location = string, repository = string }))
   default = {}
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "portable-runner-controller",
   "version": "0.0.0",
-  "description": "Unqualified source-only one-job Spot controller deployment package",
+  "description": "Portable authenticated one-job Spot runner controller",
   "private": true,
   "type": "commonjs",
   "main": "controller-entry.js",
@@ -12,7 +12,7 @@
     "@google-cloud/cloudbuild": "4.8.1",
     "@google-cloud/compute": "4.12.0",
     "@google-cloud/firestore": "7.11.2",
-    "@google-cloud/functions-framework": "3.5.1",
+    "@google-cloud/functions-framework": "5.0.5",
     "@google-cloud/secret-manager": "5.6.0",
     "@octokit/rest": "20.1.2",
     "google-auth-library": "9.15.1",
