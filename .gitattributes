@@ -8,3 +8,4 @@
 *.hcl text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+source-compatible/templates/** -text

@@ -1,0 +1,76 @@
+name: Source-compatible CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: write
+
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: .source-profile/ci
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: source-compatible/templates/package-lock.json
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+      - name: Materialize source with inert fixture configuration
+        working-directory: .
+        run: |
+          mkdir -p .source-profile
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('source-compatible/manifest.json').read_text())
+          Path('.source-profile/ci-inputs.json').write_text(json.dumps(manifest['inputs_file_example']))
+          PY
+          python scripts/source-profile.py --configuration .source-profile/ci-inputs.json --output-name ci
+      - name: Install original source lock without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Original offline provisioning and lifecycle regressions
+        run: |
+          command -v pwsh
+          node --test tests/provisioning/webhook.cjs
+          python3 -m unittest discover -s tests/provisioning -v
+          python3 -m unittest discover -s tests/lifecycle -v
+      - name: Source webhook and cleanup coverage contracts
+        run: |
+          npm run test:coverage
+          npm run test:coverage-check
+      - name: Prepare original coverage reports
+        run: |
+          mkdir -p coverage-reports
+          cp -r cloud-functions/webhook-handler/coverage coverage-reports/webhook-handler
+          cp -r cloud-functions/cleanup-function/coverage coverage-reports/cleanup-function
+          python - <<'PY'
+          from pathlib import Path
+          Path('coverage-reports/index.html').write_text('''<!doctype html>
+          <html lang="en"><head><meta charset="utf-8"><title>Source coverage</title></head>
+          <body><h1>Source coverage</h1><ul>
+          <li><a href="webhook-handler/index.html">Webhook handler</a></li>
+          <li><a href="cleanup-function/index.html">Cleanup function</a></li>
+          </ul></body></html>''')
+          PY
+      - name: Publish source coverage on main with the verified owner's identity
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@4a2e02b36f31d8974a0d09d3bb9f3172aa2d0d0d # v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .source-profile/ci/coverage-reports
+          destination_dir: coverage
+          user_name: malsabbagh
+          user_email: malsabbagh@users.noreply.github.com

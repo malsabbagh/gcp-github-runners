@@ -1,0 +1,40 @@
+{
+  "name": "cleanup-function",
+  "version": "1.0.0",
+  "description": "Cloud Function to cleanup old runner instances",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@google-cloud/cloudbuild": "^4.0.0",
+    "@google-cloud/functions-framework": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0"
+  },
+  "scripts": {
+    "start": "functions-framework --target=cleanupRunners",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:coverage-check": "jest --coverage --coverageThreshold=\"{\\\"global\\\":{\\\"branches\\\":22,\\\"functions\\\":33,\\\"lines\\\":37,\\\"statements\\\":37}}\""
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "index.js",
+      "!node_modules/**",
+      "!coverage/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"],
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ]
+  },
+  "keywords": ["github", "cleanup", "cloud-build", "runner"],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,111 @@
+steps:
+  # Extract information from GitHub push/PR event
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'analyze-event'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "GitHub repository event detected"
+        echo "Repository: ${_GITHUB_REPO_OWNER}/${_GITHUB_REPO_NAME}"
+        echo "Branch: ${BRANCH_NAME}"
+        echo "Commit SHA: ${COMMIT_SHA}"
+        echo "Trigger: ${TRIGGER_NAME}"
+        
+        # Generate unique instance name
+        RUN_ID="$(date +%s)-$(echo $COMMIT_SHA | cut -c1-8)"
+        INSTANCE_NAME="gh-runner-${_GITHUB_REPO_OWNER}-${RUN_ID}"
+        
+        echo "Will create runner instance: $INSTANCE_NAME"
+        
+        # Store variables for next steps
+        echo "INSTANCE_NAME=$INSTANCE_NAME" > /workspace/runner_vars.env
+        echo "RUN_ID=$RUN_ID" >> /workspace/runner_vars.env
+        echo "REPO_OWNER=${_GITHUB_REPO_OWNER}" >> /workspace/runner_vars.env
+        echo "REPO_NAME=${_GITHUB_REPO_NAME}" >> /workspace/runner_vars.env
+
+  # Create VM instance for the runner
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'create-runner'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Load variables from previous step
+        source /workspace/runner_vars.env
+        
+        echo "Creating GitHub runner instance: $INSTANCE_NAME"
+        
+        # Create VM instance using gcloud compute instances create
+        gcloud compute instances create $INSTANCE_NAME \
+          --zone=${_ZONE} \
+          --machine-type=${_MACHINE_TYPE} \
+          --image-family=ubuntu-2004-lts \
+          --image-project=ubuntu-os-cloud \
+          --boot-disk-size=${_DISK_SIZE}GB \
+          --boot-disk-type=pd-standard \
+          --metadata-from-file=startup-script=cloudbuild/runner-startup.sh \
+          --metadata=repo-owner=$REPO_OWNER,repo-name=$REPO_NAME,run-id=$RUN_ID \
+          --labels=purpose=github-runner,repo-owner=$REPO_OWNER,repo-name=$REPO_NAME \
+          --scopes=cloud-platform \
+          --provisioning-model=SPOT \
+          --instance-termination-action=DELETE \
+          --quiet
+        
+        echo "✅ Created runner instance: $INSTANCE_NAME in zone ${_ZONE}"
+        
+        # Schedule cleanup notification for this runner
+        gcloud pubsub topics publish ${_PUBSUB_TOPIC} \
+          --message='{
+            "action": "track_runner",
+            "instance_name": "'$INSTANCE_NAME'",
+            "zone": "'${_ZONE}'",
+            "created_at": "'$(date -u +%Y-%m-%dT%H:%M:%S.000Z)'",
+            "repo": "'$REPO_OWNER/$REPO_NAME'",
+            "run_id": "'$RUN_ID'"
+          }' || echo "Failed to publish tracking message (non-fatal)"
+
+  # Verify the runner is starting up properly
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'verify-startup'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        source /workspace/runner_vars.env
+        
+        echo "Verifying runner $INSTANCE_NAME startup..."
+        
+        # Wait for instance to be running
+        for i in {1..30}; do
+          STATUS=$(gcloud compute instances describe $INSTANCE_NAME --zone=${_ZONE} --format="value(status)" 2>/dev/null || echo "NOT_FOUND")
+          if [ "$STATUS" = "RUNNING" ]; then
+            echo "✅ Runner instance is running"
+            break
+          fi
+          echo "Status: $STATUS, waiting... (attempt $i/30)"
+          sleep 10
+        done
+        
+        if [ "$STATUS" != "RUNNING" ]; then
+          echo "❌ Runner failed to start properly"
+          exit 1
+        fi
+        
+        echo "✅ GitHub runner deployment completed successfully"
+
+substitutions:
+  _GITHUB_REPO_OWNER: '${_GITHUB_REPO_OWNER}'
+  _GITHUB_REPO_NAME: '${_GITHUB_REPO_NAME}'
+  _REGION: '${_REGION}'
+  _ZONE: '${_ZONE}'
+  _MACHINE_TYPE: '${_MACHINE_TYPE}'
+  _DISK_SIZE: '${_DISK_SIZE}'
+  _PUBSUB_TOPIC: '${_PUBSUB_TOPIC}'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  substitution_option: ALLOW_LOOSE
+  dynamic_substitutions: true
+
+timeout: '600s'

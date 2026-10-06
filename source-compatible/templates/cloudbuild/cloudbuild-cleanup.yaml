@@ -1,0 +1,161 @@
+steps:
+  # Cleanup old GitHub runner instances
+  - name: 'PARITY_INPUT_031              echo "🛑 Stopping long-running instance: $INSTANCE (to run shutdown scripts)"sdk:latest'
+    id: 'cleanup-old-runners'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "🧹 Starting cleanup of old GitHub runner instances..."
+        
+        # Find instances older than 2 hours with github-runner label
+        CUTOFF_TIME=$(date -d '2 hours ago' -u +%Y-%m-%dT%H:%M:%S.000Z)
+        echo "Cutoff time: $CUTOFF_TIME"
+        
+        # Get all zones to search across
+        ZONES=$(gcloud compute zones list --format="value(name)" --filter="region:${_REGION}")
+        
+        TOTAL_DELETED=0
+        
+        for ZONE in $ZONES; do
+          echo "Checking zone: $ZONE"
+          
+          # Find old runner instances in this zone
+          INSTANCES=$(gcloud compute instances list \
+            --zones=$ZONE \
+            --filter="labels.purpose=github-runner AND creationTimestamp<$CUTOFF_TIME" \
+            --format="value(name)" 2>/dev/null || true)
+          
+          if [ -n "$INSTANCES" ]; then
+            echo "Found old instances in $ZONE:"
+            echo "$INSTANCES"
+            
+            # Stop instances first (triggers shutdown scripts) then delete
+            for INSTANCE in $INSTANCES; do
+              echo "🛑 Stopping instance: $INSTANCE in zone $ZONE (to run shutdown scripts)"
+              if gcloud compute instances stop $INSTANCE --zone=$ZONE --quiet 2>/dev/null; then
+                echo "✅ Successfully stopped: $INSTANCE"
+                
+                # Wait a moment for shutdown scripts to complete
+                echo "⏳ Waiting 30 seconds for shutdown scripts to complete..."
+                sleep 30
+                
+                echo "🗑️  Deleting instance: $INSTANCE in zone $ZONE"
+                if gcloud compute instances delete $INSTANCE --zone=$ZONE --quiet 2>/dev/null; then
+                  echo "✅ Successfully deleted: $INSTANCE"
+                  TOTAL_DELETED=$((TOTAL_DELETED + 1))
+                else
+                  echo "⚠️  Failed to delete: $INSTANCE (may already be deleted)"
+                fi
+              else
+                echo "⚠️  Failed to stop: $INSTANCE, attempting direct deletion"
+                if gcloud compute instances delete $INSTANCE --zone=$ZONE --quiet 2>/dev/null; then
+                  echo "✅ Successfully deleted: $INSTANCE (direct deletion)"
+                  TOTAL_DELETED=$((TOTAL_DELETED + 1))
+                else
+                  echo "⚠️  Failed to delete: $INSTANCE (may already be deleted)"
+                fi
+              fi
+            done
+          else
+            echo "No old instances found in zone: $ZONE"
+          fi
+        done
+        
+        echo "🎯 Cleanup completed. Total instances deleted: $TOTAL_DELETED"
+
+  # Cleanup based on specific criteria (optional)
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'cleanup-by-criteria'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "🔍 Additional cleanup based on specific criteria..."
+        
+        # Cleanup instances that might be stuck or orphaned
+        # Find instances that have been running for more than 6 hours
+        LONG_CUTOFF_TIME=$(date -d '6 hours ago' -u +%Y-%m-%dT%H:%M:%S.000Z)
+        
+        ZONES=$(gcloud compute zones list --format="value(name)" --filter="region:${_REGION}")
+        LONG_RUNNING_DELETED=0
+        
+        for ZONE in $ZONES; do
+          # Find long-running instances
+          LONG_INSTANCES=$(gcloud compute instances list \
+            --zones=$ZONE \
+            --filter="labels.purpose=github-runner AND creationTimestamp<$LONG_CUTOFF_TIME AND status=RUNNING" \
+            --format="value(name)" 2>/dev/null || true)
+          
+          if [ -n "$LONG_INSTANCES" ]; then
+            echo "⏰ Found long-running instances in $ZONE (>6 hours):"
+            echo "$LONG_INSTANCES"
+            
+            for INSTANCE in $LONG_INSTANCES; do
+              echo "� Stopping long-running instance: $INSTANCE (to run shutdown scripts)"
+              if gcloud compute instances stop $INSTANCE --zone=$ZONE --quiet 2>/dev/null; then
+                echo "✅ Successfully stopped: $INSTANCE"
+                
+                # Wait a moment for shutdown scripts to complete  
+                echo "⏳ Waiting 30 seconds for shutdown scripts to complete..."
+                sleep 30
+                
+                echo "🗑️  Deleting long-running instance: $INSTANCE"
+                if gcloud compute instances delete $INSTANCE --zone=$ZONE --quiet 2>/dev/null; then
+                  echo "✅ Successfully deleted long-running: $INSTANCE"
+                  LONG_RUNNING_DELETED=$((LONG_RUNNING_DELETED + 1))
+                else
+                  echo "⚠️  Failed to delete long-running: $INSTANCE"
+                fi
+              else
+                echo "⚠️  Failed to stop: $INSTANCE, attempting direct deletion"
+                if gcloud compute instances delete $INSTANCE --zone=$ZONE --quiet 2>/dev/null; then
+                  echo "✅ Successfully deleted long-running: $INSTANCE (direct deletion)"
+                  LONG_RUNNING_DELETED=$((LONG_RUNNING_DELETED + 1))
+                else
+                  echo "⚠️  Failed to delete long-running: $INSTANCE"
+                fi
+              fi
+            done
+          fi
+        done
+        
+        echo "⏰ Long-running cleanup completed. Additional instances deleted: $LONG_RUNNING_DELETED"
+
+  # Summary and reporting
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'cleanup-summary'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "📊 Cleanup Summary Report"
+        echo "========================"
+        echo "Timestamp: $(date -u)"
+        echo "Region: ${_REGION}"
+        
+        # Count remaining runner instances
+        REMAINING_INSTANCES=$(gcloud compute instances list \
+          --filter="labels.purpose=github-runner" \
+          --format="value(name,zone,creationTimestamp,status)" 2>/dev/null || true)
+        
+        if [ -n "$REMAINING_INSTANCES" ]; then
+          echo "Remaining runner instances:"
+          echo "$REMAINING_INSTANCES" | while IFS=$'\t' read -r name zone timestamp status; do
+            echo "  - $name ($zone) - $status - created: $timestamp"
+          done
+        else
+          echo "✨ No runner instances currently running"
+        fi
+        
+        echo "========================"
+        echo "🏁 Cleanup process completed successfully"
+
+substitutions:
+  _REGION: 'us-central1'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  substitution_option: ALLOW_LOOSE
+
+timeout: '1200s'  # 20 minutes for cleanup

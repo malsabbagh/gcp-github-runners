@@ -1,0 +1,18 @@
+# Example Terraform variables - copy to terraform.tfvars and update with your values
+
+project_id = "your-gcp-project-id"
+region     = "us-central1"
+zone       = "us-central1-a"
+github_repo_owner = "your-github-username"
+github_repo_name  = "your-repo-name"
+github_branch     = "main"
+github_webhook_secret = "your-webhook-secret-or-leave-empty-for-auto-generation"
+github_pat = "your-github-personal-access-token"
+instance_template_name = "github-runner-template"
+machine_type = "c2-standard-4"
+disk_size = 20
+runner_isolation_mode = "multi-user"
+docker_runner_image = "us-central1-docker.pkg.dev/your-project-id/github-runner-images/github-runner-rust:stable"
+webhook_handler_sa_email = ""  # Will be auto-generated if empty
+max_runner_vms = 2
+force_recreate_template = false

@@ -49,3 +49,6 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+
+# Materialized source profile contains operator configuration and is never published.
+.source-profile/

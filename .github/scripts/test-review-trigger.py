@@ -44,6 +44,25 @@ class ReviewTriggerTests(unittest.TestCase):
             "base_ref": "main", "base_sha": "b" * 40, "pull_request_number": "42",
         })
 
+    def test_source_automatic_pr_event_resolves_review(self):
+        result, output = self.resolve("pull_request")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("operation=review\n", output)
+
+    def test_source_issue_commands_and_conversation_resolve_distinct_operations(self):
+        for body, operation in [("@sensei review status", "command"),
+                                ("@sensei verify", "command"),
+                                ("@sensei explain this finding", "reply")]:
+            with self.subTest(body=body):
+                result, output = self.resolve("issue_comment", body)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn("operation=" + operation + "\n", output)
+
+    def test_source_inline_mention_resolves_reply(self):
+        result, output = self.resolve("pull_request_review_comment", "@sensei explain")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("operation=reply\n", output)
+
     def test_invalid_identity_cannot_inject_github_outputs(self):
         for location, field, bad in [
             ("head", "sha", "a" * 40 + "\noperation=command"),

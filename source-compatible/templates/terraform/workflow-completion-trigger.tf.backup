@@ -1,0 +1,68 @@
+# Additional Cloud Build trigger for GitHub workflow completion events
+# Add this to your main.tf file
+
+resource "google_cloudbuild_trigger" "github_workflow_completion" {
+  name        = "github-workflow-completion-trigger"
+  description = "Trigger cleanup when GitHub workflows complete"
+  
+  # Use webhook config for workflow_run events
+  webhook_config {
+    secret = "projects/${var.project_id}/secrets/${var.github_webhook_secret}/versions/latest"
+  }
+
+  # Build that processes workflow completion events
+  build {
+    step {
+      name = "PARITY_INPUT_231:latest"
+      entrypoint = "bash"
+      args = [
+        "-c",
+        <<-EOT
+        echo "Processing GitHub webhook event..."
+        
+        # Parse webhook payload for workflow_run events
+        if echo "$BODY" | jq -e '.action == "completed" and .workflow_run' > /dev/null; then
+          echo "Workflow run completed, triggering cleanup..."
+          
+          REPO_FULL_NAME=$(echo "$BODY" | jq -r '.repository.full_name')
+          WORKFLOW_CONCLUSION=$(echo "$BODY" | jq -r '.workflow_run.conclusion')
+          RUN_ID=$(echo "$BODY" | jq -r '.workflow_run.id')
+          
+          echo "Repository: $REPO_FULL_NAME"
+          echo "Conclusion: $WORKFLOW_CONCLUSION" 
+          echo "Run ID: $RUN_ID"
+            # Publish cleanup message to Pub/Sub
+          gcloud pubsub topics publish $${_PUBSUB_TOPIC} \
+            --message='{
+              "action": "cleanup_workflow_completion",
+              "repository": "'$REPO_FULL_NAME'",
+              "conclusion": "'$WORKFLOW_CONCLUSION'",
+              "run_id": "'$RUN_ID'",
+              "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%S.000Z)'"
+            }'
+          
+          echo "✅ Cleanup triggered for completed workflow"
+        else
+          echo "Not a workflow completion event, skipping cleanup"
+        fi
+        EOT
+      ]
+      env = ["BODY=$BODY"]
+    }
+
+    options {
+      logging = "CLOUD_LOGGING_ONLY"
+    }
+  }
+
+  substitutions = {
+    _PUBSUB_TOPIC = google_pubsub_topic.cleanup_trigger.name
+  }
+
+  service_account = "projects/${var.project_id}/serviceAccounts/${module.iam.cloudbuild_sa_email}"
+
+  depends_on = [
+    google_project_service.cloudbuild,
+    google_pubsub_topic.cleanup_trigger
+  ]
+}

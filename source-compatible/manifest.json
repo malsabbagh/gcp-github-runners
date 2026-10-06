@@ -1,0 +1,2064 @@
+{
+  "schema": 1,
+  "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
+  "selected_source_pr25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
+  "profile": "source-compatible",
+  "purpose": "Executable source capabilities preserved in an explicit independent profile; not archived documentation. Private configuration is supplied only when materializing an ignored working directory.",
+  "files": [
+    {
+      "path": ".gcloudignore",
+      "template_path": ".gcloudignore",
+      "mode": "100644",
+      "source_blob": "5a616cba337e9f15c837bb01fe042a7c642a1e7c",
+      "source_sha256": "c75f72cf0aa943b23e9427d2d454b765d9b74207f6cb132d68bfbcb1529b442d",
+      "template_sha256": "c75f72cf0aa943b23e9427d2d454b765d9b74207f6cb132d68bfbcb1529b442d",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": ".gitattributes",
+      "template_path": ".source-gitattributes",
+      "mode": "100644",
+      "source_blob": "b99c77849c4283ccc24d2af5b2d1cb38df05fd9d",
+      "source_sha256": "e36715813023ca649c0fde20c7705a141555c42d3703e250d490a6fac973d32a",
+      "template_sha256": "e36715813023ca649c0fde20c7705a141555c42d3703e250d490a6fac973d32a",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": ".gitignore",
+      "template_path": ".gitignore",
+      "mode": "100644",
+      "source_blob": "e926c97c1355d8fd654fa4d0841cbe257df7ce25",
+      "source_sha256": "c29195834bd4c6f0d57cf24f70e271f623b6bfd3405e99d52ea334aa92f371de",
+      "template_sha256": "c29195834bd4c6f0d57cf24f70e271f623b6bfd3405e99d52ea334aa92f371de",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": ".reviewsensei.yml",
+      "template_path": ".reviewsensei.yml",
+      "mode": "100644",
+      "source_blob": "96f69712faa90f517343bb4788f7b0737eaf12d5",
+      "source_sha256": "f061c2f141af367d2dffdf3921394cd88b601160a7a50b5cf0fc6603921a10ca",
+      "template_sha256": "f061c2f141af367d2dffdf3921394cd88b601160a7a50b5cf0fc6603921a10ca",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "archive/old-tests/test-remove-token-fix.sh",
+      "template_path": "archive/old-tests/test-remove-token-fix.sh",
+      "mode": "100644",
+      "source_blob": "edceaf091949f82baa8fd50dfc6ddb3dcceafb8a",
+      "source_sha256": "6dde7ec48de3aa6ee7cfb8176dceff6685442d5e266edb20e9b8e98e78b6a7dd",
+      "template_sha256": "6dde7ec48de3aa6ee7cfb8176dceff6685442d5e266edb20e9b8e98e78b6a7dd",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "archive/old-tests/test-remove-token.sh",
+      "template_path": "archive/old-tests/test-remove-token.sh",
+      "mode": "100644",
+      "source_blob": "a8d47f1acb69c874e859a0403c82b79bed6af24f",
+      "source_sha256": "8f426b428eb1a6406ea91686bc16818484357423106e4e8cf02d5f3193eee4a7",
+      "template_sha256": "681fc042788d5204893f1171a3a3bc72fb1b667226c853301c6738feb0852cf7",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "archive/old-tests/test-webhook-correct.ps1",
+      "template_path": "archive/old-tests/test-webhook-correct.ps1",
+      "mode": "100644",
+      "source_blob": "1a67f3b8fad144f5fe673d29e125d6db5c084e6a",
+      "source_sha256": "d61940b331ebf933303d841746b85e00959de162010933c04257f7814c08c288",
+      "template_sha256": "96ce4622664c384f1c00a45da6914edb1d5ad109edee7340f5186bf698372680",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 3
+        },
+        {
+          "input": "PARITY_INPUT_347",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "archive/old-tests/test-webhook-debug.ps1",
+      "template_path": "archive/old-tests/test-webhook-debug.ps1",
+      "mode": "100644",
+      "source_blob": "29829ba172919f420d37ec1622fa0c83b009b833",
+      "source_sha256": "092a3674fd3c141a0a673dafb239e4d6018a0aebad72c3446d6f63920d746263",
+      "template_sha256": "54aa741ab59020860b39e1be1692a09f000390eec5672460ac57ef97b0816fca",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 6
+        },
+        {
+          "input": "PARITY_INPUT_347",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "archive/old-tests/test-webhook-exact.ps1",
+      "template_path": "archive/old-tests/test-webhook-exact.ps1",
+      "mode": "100644",
+      "source_blob": "30118e4d6f9ebe1fcafabb2ebf150e9638b02447",
+      "source_sha256": "fb581ac4cf2f2bb621dcb774cc533faeb3da6f5b5bd383a9cf404dab3a402a15",
+      "template_sha256": "acdf0a646d164bfd20c28c856f0f254dee326d4f414026a97d8469f95f1d048f",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 3
+        },
+        {
+          "input": "PARITY_INPUT_347",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "archive/old-tests/test-webhook-final.ps1",
+      "template_path": "archive/old-tests/test-webhook-final.ps1",
+      "mode": "100644",
+      "source_blob": "83e8c815023d55f60fff5bbada82f18cc9cd7113",
+      "source_sha256": "5dd1c004f2e1450fd14110282cc8dc183b0788a993689e532af59a9e2888e45d",
+      "template_sha256": "e6c7473552866afc4958575443db86f6191ea441ea4b0100941715c532aa0c14",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 4
+        },
+        {
+          "input": "PARITY_INPUT_347",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cleanup-github-runners.ps1",
+      "template_path": "cleanup-github-runners.ps1",
+      "mode": "100644",
+      "source_blob": "53c886902e84b3e2e6101a3352ed0fc17cce1700",
+      "source_sha256": "af46f2046eb95e32f726725d693e6685d940dea37946f329600b4342f93341a9",
+      "template_sha256": "5132167991521b7241102cc1f78820f2156a881a730830ef0b474950d888f5e2",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 3
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/cleanup-function/index.extended.test.js",
+      "template_path": "cloud-functions/cleanup-function/index.extended.test.js",
+      "mode": "100644",
+      "source_blob": "23bcf69dc113a82f252307c0f66c570f5bed61c8",
+      "source_sha256": "61112ade00b669aaf6af4926f31aa26682f8884b0a89d37388356e1bbb793b81",
+      "template_sha256": "61112ade00b669aaf6af4926f31aa26682f8884b0a89d37388356e1bbb793b81",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/cleanup-function/index.js",
+      "template_path": "cloud-functions/cleanup-function/index.js",
+      "mode": "100644",
+      "source_blob": "27c607a6b3a7b999c7736a6b0af4aa70387ac72d",
+      "source_sha256": "15ff7101c151a41624a45b27e062e283b4e13e2df2070d7748f2063eec8bfb76",
+      "template_sha256": "4bded589da5fcbd5049f487c11631cb3a0de34ec8ce414c0363cd2f8742f3b3f",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/cleanup-function/index.test.js",
+      "template_path": "cloud-functions/cleanup-function/index.test.js",
+      "mode": "100644",
+      "source_blob": "42be128784187a690ac2dd4ac93ede6fe2205575",
+      "source_sha256": "04c72bd0a2d6ca5cddafc64bc022631b3b69fca481c847b274bf3d4d4de69485",
+      "template_sha256": "b47bcb06e2dbc976dcc0e31ae188af7121646f4610c1cf24263c89fb58032fd8",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 2
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/cleanup-function/package.json",
+      "template_path": "cloud-functions/cleanup-function/package.json",
+      "mode": "100644",
+      "source_blob": "dcaa9a4f463b706819d42f573e840cf2a8d2c57e",
+      "source_sha256": "0661d7ff51132537e38161c97ffa167b3d7a5dccae169eda0aba2f9bbf4be560",
+      "template_sha256": "0661d7ff51132537e38161c97ffa167b3d7a5dccae169eda0aba2f9bbf4be560",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/cleanup-function/runner-cleanup.sh",
+      "template_path": "cloud-functions/cleanup-function/runner-cleanup.sh",
+      "mode": "100755",
+      "source_blob": "69a3c92bb6a06aa16ebc57d1591a521a0e85e414",
+      "source_sha256": "ddeb4acf59c663219dc8cd663876784c39158cd0ed12426e130c8196bb80c375",
+      "template_sha256": "ddeb4acf59c663219dc8cd663876784c39158cd0ed12426e130c8196bb80c375",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/hybrid-cleanup-handler/.gcloudignore",
+      "template_path": "cloud-functions/hybrid-cleanup-handler/.gcloudignore",
+      "mode": "100644",
+      "source_blob": "fb252d654443a22f2d462ce4475c6157ec59ad8d",
+      "source_sha256": "9c20b803e45cd91612bcc0113d5e925422cd5c90686feaa4487e0349ae0951b2",
+      "template_sha256": "9c20b803e45cd91612bcc0113d5e925422cd5c90686feaa4487e0349ae0951b2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+      "template_path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+      "mode": "100644",
+      "source_blob": "2b58ee888d2d68eb229e96507338f562af190551",
+      "source_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
+      "template_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/hybrid-cleanup-handler/package.json",
+      "template_path": "cloud-functions/hybrid-cleanup-handler/package.json",
+      "mode": "100644",
+      "source_blob": "e0021f266dfc65be4e90c13b0c108d3954f2d509",
+      "source_sha256": "74450f500599430e832dd6dd9b4079f1ab9c838936cc524ebb7a7ab3c6885813",
+      "template_sha256": "74450f500599430e832dd6dd9b4079f1ab9c838936cc524ebb7a7ab3c6885813",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/instance-lifecycle-handler/package.json",
+      "template_path": "cloud-functions/instance-lifecycle-handler/package.json",
+      "mode": "100644",
+      "source_blob": "5876dea2207b11d3c1db4790c38246ba47605f9d",
+      "source_sha256": "930df95a02681b4262297d194a37b6c4d5b86024750e46102320ad53c41cbbe5",
+      "template_sha256": "930df95a02681b4262297d194a37b6c4d5b86024750e46102320ad53c41cbbe5",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/vm-deletion-handler/package.json",
+      "template_path": "cloud-functions/vm-deletion-handler/package.json",
+      "mode": "100644",
+      "source_blob": "473b94bceefb85972fb9415d5380dbfeb23d5501",
+      "source_sha256": "d4d5d914c871df802acf883ae9fd270842b8ca7b57e4ca98fccf1259a317d965",
+      "template_sha256": "d4d5d914c871df802acf883ae9fd270842b8ca7b57e4ca98fccf1259a317d965",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/.gcloudignore",
+      "template_path": "cloud-functions/webhook-handler/.gcloudignore",
+      "mode": "100644",
+      "source_blob": "fb252d654443a22f2d462ce4475c6157ec59ad8d",
+      "source_sha256": "9c20b803e45cd91612bcc0113d5e925422cd5c90686feaa4487e0349ae0951b2",
+      "template_sha256": "9c20b803e45cd91612bcc0113d5e925422cd5c90686feaa4487e0349ae0951b2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/cleanup-firestore.js",
+      "template_path": "cloud-functions/webhook-handler/cleanup-firestore.js",
+      "mode": "100644",
+      "source_blob": "7070478279591ceab63b7ad9fc824a3c7ed24406",
+      "source_sha256": "7b7f77e32907b743ebb2134f580a565b8bd00d9fe1484324747b659b126113b4",
+      "template_sha256": "7b7f77e32907b743ebb2134f580a565b8bd00d9fe1484324747b659b126113b4",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/cleanup-stale-vms.js",
+      "template_path": "cloud-functions/webhook-handler/cleanup-stale-vms.js",
+      "mode": "100644",
+      "source_blob": "6cd2846fd42cc5823d43c86d27e2062967d48c49",
+      "source_sha256": "92d58ff9c891ea41163be531d51ef6e75556c5646fb7c7e4c0f44a7bc74f9eed",
+      "template_sha256": "7844c2ed7c7f3b1cd4a051a26a8473ec0879e737540735059a655c010d43f23e",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
+      "template_path": "cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
+      "mode": "100644",
+      "source_blob": "085ae81e1ef1ae2d7f37b014fa3fd567fa3486c0",
+      "source_sha256": "874f8caa1497bb7daffad4d1aae4255edc7fb81b87ce83516de0cddf8947b47d",
+      "template_sha256": "207b498a9ec31c47bf8c17fe3f6761ba7b21199da290392e8003bb5150ba81e6",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index-github-api.js",
+      "template_path": "cloud-functions/webhook-handler/index-github-api.js",
+      "mode": "100644",
+      "source_blob": "45e8f33ecd3984acd555feeecc268c1bd1c851ad",
+      "source_sha256": "c072b2ada50cf0ab4d48ab7b72f3eff939511573d85458aee2780c9590323684",
+      "template_sha256": "ac3cbd3b0eeda05f3fbe91a9c70bd451eba91baaadebd973a17bb619052fff82",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_229",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.branch-coverage.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.branch-coverage.test.js",
+      "mode": "100644",
+      "source_blob": "cd2547045342903f313341a62569f86371be50f3",
+      "source_sha256": "84baec009dfb48d26878833719cf9168616669b6036934dba7028361e3b47025",
+      "template_sha256": "5230350102ebed9e92217fd6d5d35da33134a28474152a9b29d60707d6760796",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.comprehensive.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.comprehensive.test.js",
+      "mode": "100644",
+      "source_blob": "0a5a79c5a33b8181f3583a64147592685b65bf97",
+      "source_sha256": "21131e2888861d4b9419d2799175613efc582c5bdd516770e9b31440d1844533",
+      "template_sha256": "97db816a25a485d7547d11e433fc7eee26a9732f7bfae2fb95c6ce03ebc91025",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 2
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.coverage.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.coverage.test.js",
+      "mode": "100644",
+      "source_blob": "7521928c599748dd6097ff86eb363282265096e2",
+      "source_sha256": "695953f00a93dd47241dc5b4c54f8ce9955e45934a4a02f5bd6fc5738f70dd67",
+      "template_sha256": "d8ad2493ed9523e66af3fdee8b7c606cfcda608a2e87314b4cee111222b6d497",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.edge-cases.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.edge-cases.test.js",
+      "mode": "100644",
+      "source_blob": "ec0080c181b5496ac3bc4bfe59c22c2178a3ae59",
+      "source_sha256": "cc8c93327eff3fa78110672f1c2e37c650b8301c42d1a957cf6a97de9de71433",
+      "template_sha256": "f52ade9f9a145e9697844bc05500521084e346e308ce43eab1ec68d1431062fa",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.http.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.http.test.js",
+      "mode": "100644",
+      "source_blob": "8a559df7f9c0b41bd22bf33c51e28addbf0db4ea",
+      "source_sha256": "d6be4d3fa913daed2410a262eef17ccb84c70adbc3f33ba5498c9ee2fb496fdb",
+      "template_sha256": "d6be4d3fa913daed2410a262eef17ccb84c70adbc3f33ba5498c9ee2fb496fdb",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.js",
+      "template_path": "cloud-functions/webhook-handler/index.js",
+      "mode": "100644",
+      "source_blob": "b06f499de077dc7eb71af77d415d77ecfeb2bdd8",
+      "source_sha256": "fb02c11c407ce0e94cb7196640667d6df03b521aafe9151b4790b5a2c44fc58c",
+      "template_sha256": "bd1f985286dbab9433696026c1bb3cda64a8cfa1802ebdd453ca7eed9b6a7077",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_115",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.simple.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.simple.test.js",
+      "mode": "100644",
+      "source_blob": "65f08e023a98b9fc3c702a7945e74bf850573824",
+      "source_sha256": "9364a3f5268b923785507be16ac019f54b9a95b00cdad3c6644c6ae529b5b192",
+      "template_sha256": "0666059fd4ab96897d03fda899d0479a0aa18027dbd5316db5c0088125bdc506",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.test.js",
+      "mode": "100644",
+      "source_blob": "97efe50911f53d37e86513f4d9c45e5cefeeba91",
+      "source_sha256": "a3ee4e9904127a5e8fd0dc9acd818ed4ff118869376fba61e2ec758a059300f8",
+      "template_sha256": "10eea38af962704211f2ee6478e8b23cb57b9fc9180ca1c769fc6da72d8de812",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_115",
+          "occurrences": 3
+        },
+        {
+          "input": "PARITY_INPUT_168",
+          "occurrences": 9
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/index.unit.test.js",
+      "template_path": "cloud-functions/webhook-handler/index.unit.test.js",
+      "mode": "100644",
+      "source_blob": "2f4de5fe66bd2981db2ac18bd855787fc296137e",
+      "source_sha256": "b62578640a1f69702fc5f78647afba5361db985ca3631db5105c5b01365f592e",
+      "template_sha256": "54c4cdd78d633702509054f81c2b709b89679b17d0ba6c4de698cd9797a501e5",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_152",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/infrastructure-config.js",
+      "template_path": "cloud-functions/webhook-handler/infrastructure-config.js",
+      "mode": "100644",
+      "source_blob": "d12391e81084c32ed57eeba3aed3714c95a4453f",
+      "source_sha256": "b93f5aff1750059f0fbf3a5860e52222cefbe613889335f6640108728daa2054",
+      "template_sha256": "23ad40226e70f217565d48d5ef12340f3e5dd4d024470b0e840c657bd8cf321c",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/manual-cleanup.js",
+      "template_path": "cloud-functions/webhook-handler/manual-cleanup.js",
+      "mode": "100644",
+      "source_blob": "016ba725893951348d9a29f16cf17d3cb90d7630",
+      "source_sha256": "028aee687583f3625ccb62fbf0efa484ffe195b7655032117b586f0affd82152",
+      "template_sha256": "028aee687583f3625ccb62fbf0efa484ffe195b7655032117b586f0affd82152",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/mark-creating-vms-failed.js",
+      "template_path": "cloud-functions/webhook-handler/mark-creating-vms-failed.js",
+      "mode": "100644",
+      "source_blob": "48675b6add910f088f86ea19181af48f53420829",
+      "source_sha256": "7fc771166911bcd51c102af89a3df91c0c3d5395882e707f8ff238562dfc92e2",
+      "template_sha256": "7fc771166911bcd51c102af89a3df91c0c3d5395882e707f8ff238562dfc92e2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/package.json",
+      "template_path": "cloud-functions/webhook-handler/package.json",
+      "mode": "100644",
+      "source_blob": "3464172f1b6e193a2ef62b5e122182aaf4a1ec22",
+      "source_sha256": "0278a5a9393cba0eca6444637aa3a576dcbcb64bcbc8183a9c8ecfda80f09c99",
+      "template_sha256": "0278a5a9393cba0eca6444637aa3a576dcbcb64bcbc8183a9c8ecfda80f09c99",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/provision-runner.py",
+      "template_path": "cloud-functions/webhook-handler/provision-runner.py",
+      "mode": "100644",
+      "source_blob": "e5612d41475c449c590f270d0d0e8bf140e683ca",
+      "source_sha256": "f990b53fdd02f7f59d802011f45d1caeac8f315f11720a31ab7be0a80ba3c155",
+      "template_sha256": "f990b53fdd02f7f59d802011f45d1caeac8f315f11720a31ab7be0a80ba3c155",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloud-functions/webhook-handler/provisioning-state.js",
+      "template_path": "cloud-functions/webhook-handler/provisioning-state.js",
+      "mode": "100644",
+      "source_blob": "243285f0f49382b7c258197ce1fcc6847a0762b2",
+      "source_sha256": "b79b73fc548ea86f520f6db43322fa5a788bd4442c229d0f6fa5d7b54b1de7a8",
+      "template_sha256": "b79b73fc548ea86f520f6db43322fa5a788bd4442c229d0f6fa5d7b54b1de7a8",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/cloudbuild-cleanup.yaml",
+      "template_path": "cloudbuild/cloudbuild-cleanup.yaml",
+      "mode": "100644",
+      "source_blob": "1827782f0069f5fe21e6a14e30d7421737842ce1",
+      "source_sha256": "574647da2651ab588161b1d58ef78f02ac9cdd4c93e6cf623e001b6a646b0606",
+      "template_sha256": "e24236fab1e1f0d0b1c51db2f8bfb5dd93c954dbe9ecfb9140402e5f5a1dda74",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 2
+        },
+        {
+          "input": "PARITY_INPUT_031",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/cloudbuild-enhanced.yaml",
+      "template_path": "cloudbuild/cloudbuild-enhanced.yaml",
+      "mode": "100644",
+      "source_blob": "afc612286b04fd7fae748904115d101ef6c2c0f4",
+      "source_sha256": "4e2efc9acd5bb4c81de72299eedace6cdf6226c6050c090cf899c08f6ef301b0",
+      "template_sha256": "236dfc8e5e64a00abb3865971d1d52302f1a6bd4323b6ea46c411e69a02fe3a4",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 3
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/cloudbuild-webhook.yaml",
+      "template_path": "cloudbuild/cloudbuild-webhook.yaml",
+      "mode": "100644",
+      "source_blob": "085ae81e1ef1ae2d7f37b014fa3fd567fa3486c0",
+      "source_sha256": "874f8caa1497bb7daffad4d1aae4255edc7fb81b87ce83516de0cddf8947b47d",
+      "template_sha256": "207b498a9ec31c47bf8c17fe3f6761ba7b21199da290392e8003bb5150ba81e6",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/cloudbuild.yaml",
+      "template_path": "cloudbuild/cloudbuild.yaml",
+      "mode": "100644",
+      "source_blob": "49b113cf61085736a0bd99fb4b1b7c9830585295",
+      "source_sha256": "2af7c4c54cf902c8f2282c171b973a91d1b4d0de27552dd68c187131320b43de",
+      "template_sha256": "a5b021d8c86cea1f8f1de776617b0005f742cd6b4f1434d8b18af962edf89d03",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 3
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-cleanup.sh",
+      "template_path": "cloudbuild/runner-cleanup.sh",
+      "mode": "100755",
+      "source_blob": "69a3c92bb6a06aa16ebc57d1591a521a0e85e414",
+      "source_sha256": "ddeb4acf59c663219dc8cd663876784c39158cd0ed12426e130c8196bb80c375",
+      "template_sha256": "ddeb4acf59c663219dc8cd663876784c39158cd0ed12426e130c8196bb80c375",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-shutdown-docker.sh",
+      "template_path": "cloudbuild/runner-shutdown-docker.sh",
+      "mode": "100755",
+      "source_blob": "27a619c83ac3edd021da2a6d1a1b9ee4e710a10f",
+      "source_sha256": "5a278e210e18d1eaec8ca20c8a09394b5b09c366d00cab62287f1e48272618be",
+      "template_sha256": "5a278e210e18d1eaec8ca20c8a09394b5b09c366d00cab62287f1e48272618be",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
+      "template_path": "cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
+      "mode": "100644",
+      "source_blob": "dcb6929f15c203cdc3acad1fc738473d1211b84b",
+      "source_sha256": "5946c2f87db00f787bbbe328d240d70d766657e98a4314d6b077e97cf52ef5be",
+      "template_sha256": "fdafe15b243ea1ff8d0fcc284a8a214cb36bbfba0ae0515074af34e3e1faec13",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
+      "template_path": "cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
+      "mode": "100644",
+      "source_blob": "393a228d87f8f11847363d414e0560b23c64fdee",
+      "source_sha256": "1128f01c43aaeee13e510672ec6e846165ed7eddfc4acf34ddeb25f51a2761e0",
+      "template_sha256": "1128f01c43aaeee13e510672ec6e846165ed7eddfc4acf34ddeb25f51a2761e0",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-shutdown-multi-user-docker.sh",
+      "template_path": "cloudbuild/runner-shutdown-multi-user-docker.sh",
+      "mode": "100644",
+      "source_blob": "f4a6c97df9bb56abe1b9401d4526fec145ce3469",
+      "source_sha256": "a4be8db881a1ba008739f4ba7b3ddd8ef28bb478a404d1d6b2c1aa44f0b0590a",
+      "template_sha256": "a4be8db881a1ba008739f4ba7b3ddd8ef28bb478a404d1d6b2c1aa44f0b0590a",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-shutdown-multi-user.sh",
+      "template_path": "cloudbuild/runner-shutdown-multi-user.sh",
+      "mode": "100755",
+      "source_blob": "ee2a0ea49e655515d90b944c461066d81b86a530",
+      "source_sha256": "76d183f3f20629e399ea0b142b1d7a6d3b645f1f4140c59b401f244d454421bc",
+      "template_sha256": "76d183f3f20629e399ea0b142b1d7a6d3b645f1f4140c59b401f244d454421bc",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-startup-docker.sh",
+      "template_path": "cloudbuild/runner-startup-docker.sh",
+      "mode": "100755",
+      "source_blob": "c32adec8eb86639ed22ef04b7c9e4fbdb3b83c64",
+      "source_sha256": "a2f5a0ae304d4b916d828b55da7a46ae74c59e5407a4e58aef7c53ce84eb6b2b",
+      "template_sha256": "a2f5a0ae304d4b916d828b55da7a46ae74c59e5407a4e58aef7c53ce84eb6b2b",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-startup-multi-user-docker.sh",
+      "template_path": "cloudbuild/runner-startup-multi-user-docker.sh",
+      "mode": "100644",
+      "source_blob": "759b1d87c3d77208216f57098e01e4f2646eed23",
+      "source_sha256": "8b509200075eb75a82b0feaa4c4acc97bc1817e52867f809f371725cf29172a2",
+      "template_sha256": "8b509200075eb75a82b0feaa4c4acc97bc1817e52867f809f371725cf29172a2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-startup-multi-user.sh",
+      "template_path": "cloudbuild/runner-startup-multi-user.sh",
+      "mode": "100755",
+      "source_blob": "2bc42930b1ba1615655f57a96f7d7c1b175e1094",
+      "source_sha256": "15facdb6444687f186c68263b976db560f7f8bbb12672b343f8044e373304ca9",
+      "template_sha256": "15facdb6444687f186c68263b976db560f7f8bbb12672b343f8044e373304ca9",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "cloudbuild/runner-startup.sh",
+      "template_path": "cloudbuild/runner-startup.sh",
+      "mode": "100644",
+      "source_blob": "cf8a3a566fd73f93f64a5627c1e6c6a87848d451",
+      "source_sha256": "8ef80764782a97ad0f98cbb9cc643444a736529c305bd6933caa93152295ba78",
+      "template_sha256": "8ef80764782a97ad0f98cbb9cc643444a736529c305bd6933caa93152295ba78",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "docker/Dockerfile.rust",
+      "template_path": "docker/Dockerfile.rust",
+      "mode": "100644",
+      "source_blob": "56ba73c519cb750fd8c4fc5184134f628b66b1e8",
+      "source_sha256": "af27338bc71e7f8e23dbba05837d9e70e45275d385496dc8fc165cbc2fc3055f",
+      "template_sha256": "af27338bc71e7f8e23dbba05837d9e70e45275d385496dc8fc165cbc2fc3055f",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "docker/build-and-push-github-runner.ps1",
+      "template_path": "docker/build-and-push-github-runner.ps1",
+      "mode": "100644",
+      "source_blob": "8528f8d62644fe64b3b5ca53b240e830a4f698d6",
+      "source_sha256": "ecf06fa982928202e99dbcc2d2b61105dc21d7af211592079b07feac4ab6dfb2",
+      "template_sha256": "ecf06fa982928202e99dbcc2d2b61105dc21d7af211592079b07feac4ab6dfb2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "docker/entrypoint-rust.sh",
+      "template_path": "docker/entrypoint-rust.sh",
+      "mode": "100644",
+      "source_blob": "f1b7161e82b9c3e46c3958cc76e9f1be09de0672",
+      "source_sha256": "420f8d4719aebc7022c7b9bb157bc2837904ec28f805109884b5d1f37ec164bc",
+      "template_sha256": "420f8d4719aebc7022c7b9bb157bc2837904ec28f805109884b5d1f37ec164bc",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "examples/github-workflow.yml",
+      "template_path": "examples/github-workflow.yml",
+      "mode": "100644",
+      "source_blob": "8337c742cc215e9f243804443d52dafbed766cd2",
+      "source_sha256": "98f5d7c1e3baacc112690b21909ff033a526c5d1d866748f88dd396c58f07003",
+      "template_sha256": "98f5d7c1e3baacc112690b21909ff033a526c5d1d866748f88dd396c58f07003",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "examples/workflow-with-cleanup.yml",
+      "template_path": "examples/workflow-with-cleanup.yml",
+      "mode": "100644",
+      "source_blob": "8d9f0edee601481c3d289fce0ec7faca5fe7c428",
+      "source_sha256": "0a4efc6756b9092206a57a58d1902ba258b818d361e2877f2d7854e9c8b0ea78",
+      "template_sha256": "0a4efc6756b9092206a57a58d1902ba258b818d361e2877f2d7854e9c8b0ea78",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "monitoring/alerts.yaml",
+      "template_path": "monitoring/alerts.yaml",
+      "mode": "100644",
+      "source_blob": "230c5439effbb251b36de0e8acd5666e601005cc",
+      "source_sha256": "82232288c46d02ed4425898425b0d2a164cb1329448d1002460e11d41e3266c1",
+      "template_sha256": "82232288c46d02ed4425898425b0d2a164cb1329448d1002460e11d41e3266c1",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "package-lock.json",
+      "template_path": "package-lock.json",
+      "mode": "100644",
+      "source_blob": "b121d7cee1a3dce794f7f15bd32bb329f970cddc",
+      "source_sha256": "9d0e2cd29a5704bef0a1f88c13df11f7ab1c9a9b38c2966579152a5c76e81d09",
+      "template_sha256": "78702a19287f1b4c0151d32f7bdbb9a53abd5d4ef70be559ab13805b2ffd83a5",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_115",
+          "occurrences": 2
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "package.json",
+      "template_path": "package.json",
+      "mode": "100644",
+      "source_blob": "db75a419a4312b0f5e187eb8140697e369f8ddd2",
+      "source_sha256": "f00657909afaefba4981c5998c7b47437936439ca0bde96207ff0c79567b37f1",
+      "template_sha256": "a0a52bc8d8fc4fee4f226103dda7759776eceb74ba29db27505a5a175d2ecde6",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_115",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "quick-cleanup.ps1",
+      "template_path": "quick-cleanup.ps1",
+      "mode": "100644",
+      "source_blob": "4ce3952b7a3df402dfc9a7e6167f9621c2dee4e8",
+      "source_sha256": "a9782c8da1c7108490e3fbaf5faffb06db7772fff1ba6136b646041c116763f1",
+      "template_sha256": "356956e3417a26f05782a3bff11eae5fc77f29b4d18fec92aa60425744f183e7",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_115",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/apply-glibc-fix.ps1",
+      "template_path": "scripts/apply-glibc-fix.ps1",
+      "mode": "100644",
+      "source_blob": "8b12f7504b48fd1cd74637fccfc55ba7d7069995",
+      "source_sha256": "793ef0640476c52ee57a9b82568b994f0d810d8bebe256fc89f22e47b7b1e8a2",
+      "template_sha256": "bb3d955fe82ac536a9683b4874921a179ba3c3681eff1c647e27bf446e8dae1e",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/check-prerequisites.ps1",
+      "template_path": "scripts/check-prerequisites.ps1",
+      "mode": "100644",
+      "source_blob": "e3716ceea76e0ee2bfc222c8cdea16f3b338a2c5",
+      "source_sha256": "28a40b4d0f7893289f57b6c07fbfa6f969df3fc5148569934e793fc05a83cd5b",
+      "template_sha256": "28a40b4d0f7893289f57b6c07fbfa6f969df3fc5148569934e793fc05a83cd5b",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/cleanup-offline-runners.ps1",
+      "template_path": "scripts/cleanup-offline-runners.ps1",
+      "mode": "100644",
+      "source_blob": "8d20a9e0899c5794bf37663249229aa791e332a4",
+      "source_sha256": "9a4aa793efb3f91b85f6cf6aa07cca01a21be69679aa04fa1277b9abc9c32aba",
+      "template_sha256": "9a4aa793efb3f91b85f6cf6aa07cca01a21be69679aa04fa1277b9abc9c32aba",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/create-instance-template.ps1",
+      "template_path": "scripts/create-instance-template.ps1",
+      "mode": "100644",
+      "source_blob": "987d7e4c065fbdc8b792e442e2e52d6a45034b5b",
+      "source_sha256": "457da8144a9ddab093d17e7ee171aff5b45fb8dac4c689638b9ae50799560faf",
+      "template_sha256": "dc68b9790d5bf0a1d4d61d572259aca1e5d895f7b372352c1ab3bdab039eb3fc",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_337",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/create-instance-template.sh",
+      "template_path": "scripts/create-instance-template.sh",
+      "mode": "100755",
+      "source_blob": "1e325e83d45d8ff0619108d879830585d3850fb5",
+      "source_sha256": "91996a2a3da317acc0afe4d1cdf8fb86aed662fa8c3192dd58608bb74d7ae7f6",
+      "template_sha256": "cb2e2bcfb928290bd9346afaf48fb1c1ef5f067b109dabe0294fcb23fb7c1e92",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_337",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/debug-startup.sh",
+      "template_path": "scripts/debug-startup.sh",
+      "mode": "100644",
+      "source_blob": "b732a42a6bb82b1990aa181ff7c969955c15c288",
+      "source_sha256": "40ee5e297e338da4dc6ad909107f482f2bf73d9ed54caeb7bf373a095d6379d3",
+      "template_sha256": "40ee5e297e338da4dc6ad909107f482f2bf73d9ed54caeb7bf373a095d6379d3",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/destroy-resources.sh",
+      "template_path": "scripts/destroy-resources.sh",
+      "mode": "100755",
+      "source_blob": "9a53e469f317a75da13ece66fb5191a1382f2cda",
+      "source_sha256": "9ba870cc60de032e60e41a7689c43d2f3cae9410551940a869d49f1567f523a2",
+      "template_sha256": "9ba870cc60de032e60e41a7689c43d2f3cae9410551940a869d49f1567f523a2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/list-all-runners.ps1",
+      "template_path": "scripts/list-all-runners.ps1",
+      "mode": "100644",
+      "source_blob": "c776c260727d993e4f48d2ae86e135a712f952b7",
+      "source_sha256": "544a1dc6c024e70b3b2a95cc9640f171bc18a4bd18acef22bbf8b4c84b1be0cb",
+      "template_sha256": "989c63522f6386a0377c6d6ece6fffd1809f8013cb0718917bf0538833bab993",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/manual-cleanup.ps1",
+      "template_path": "scripts/manual-cleanup.ps1",
+      "mode": "100644",
+      "source_blob": "55d3e867838502332c767d1aeee08eba9ddabfd2",
+      "source_sha256": "b31c60f1ba0ecb27f4fce5f18a748e857ccc3cc2fac9fce1249c9afaec0deda9",
+      "template_sha256": "b31c60f1ba0ecb27f4fce5f18a748e857ccc3cc2fac9fce1249c9afaec0deda9",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/manual-cleanup.sh",
+      "template_path": "scripts/manual-cleanup.sh",
+      "mode": "100644",
+      "source_blob": "d392d4b07465b77db9932cfeab8de562eb4cac1c",
+      "source_sha256": "1eb3f81e38f2f967890d2f392bd385c79901fe7232f900331848f032e580d8da",
+      "template_sha256": "1eb3f81e38f2f967890d2f392bd385c79901fe7232f900331848f032e580d8da",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/setup-bloated-backup.sh",
+      "template_path": "scripts/setup-bloated-backup.sh",
+      "mode": "100644",
+      "source_blob": "1efea454b6d11ecd26d2312d45b1d4eef931925a",
+      "source_sha256": "82bfd2b9f035289c51c155278f25fe4b279c9349819363bad856d6bb98dbae6c",
+      "template_sha256": "82bfd2b9f035289c51c155278f25fe4b279c9349819363bad856d6bb98dbae6c",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/setup-clean.sh",
+      "template_path": "scripts/setup-clean.sh",
+      "mode": "100644",
+      "source_blob": "b80c44f67feb4d7cef82b421b06027de0c13d609",
+      "source_sha256": "738656e24ac661256ea59dd3255401b3c65dda483c49766540a421579f782a72",
+      "template_sha256": "738656e24ac661256ea59dd3255401b3c65dda483c49766540a421579f782a72",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/setup-github-webhook.ps1",
+      "template_path": "scripts/setup-github-webhook.ps1",
+      "mode": "100644",
+      "source_blob": "4f8d962f34d82dde44f2cdc5848db8c157fdfbe0",
+      "source_sha256": "a00347b13db900c360442069d68989107767f13aa5d491a3c2726069e9ffcebf",
+      "template_sha256": "755932e587d1b395d32e744011b287ea306ffd39c178423028bc6b6c51c29486",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_348",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/setup-github-webhook.sh",
+      "template_path": "scripts/setup-github-webhook.sh",
+      "mode": "100644",
+      "source_blob": "3b1309c10c0b39b093843238447aa457dca5c553",
+      "source_sha256": "6bbfb5c817085dafcd57f3fec50793f80e7337a7ef42f92945ca6fe920245bf7",
+      "template_sha256": "562b28d89f3e7a73926809707d15ae86b939ed87df95acf668979382908bcc1c",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_348",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/setup-webhook.ps1",
+      "template_path": "scripts/setup-webhook.ps1",
+      "mode": "100644",
+      "source_blob": "c84231b892622981e754fa20caf9a52408d4c641",
+      "source_sha256": "81a5886f7c538f8e01ae8a6019d0b28ee199de5bd4fa73e567e77bf3b89686cc",
+      "template_sha256": "36147a42eeff35d5c1ec54032a3a9ffc5b773281e9259b2787b85904e4f7a774",
+      "configuration_inputs": [],
+      "control_logic_changed": true,
+      "relocation_adapter": "Run optional test-PR Git operations at the containing repository root and restore the original location."
+    },
+    {
+      "path": "scripts/setup-webhook.sh",
+      "template_path": "scripts/setup-webhook.sh",
+      "mode": "100644",
+      "source_blob": "c599fee70dfc9183b63550532a7f6dd9da67338a",
+      "source_sha256": "fe088e4ace2af5d81d4a7006236c5c09f7b9de160fffc995e8e60fa4d08a4a3a",
+      "template_sha256": "e8af6b4bbd0596c7c4794216d7724c7b3949587473c5942c99e0330ecd4fdcd4",
+      "configuration_inputs": [],
+      "control_logic_changed": true,
+      "relocation_adapter": "Run optional test-PR Git operations at the containing repository root, rather than the ignored materialized profile directory."
+    },
+    {
+      "path": "scripts/setup.ps1",
+      "template_path": "scripts/setup.ps1",
+      "mode": "100644",
+      "source_blob": "2a50eed88ea18824c6d1f7cad38db63cff1ef17a",
+      "source_sha256": "ad94a5f934aa73a4ef5bf7664f12fa1ddd8be863ad74df0789d9657968f32a66",
+      "template_sha256": "ad94a5f934aa73a4ef5bf7664f12fa1ddd8be863ad74df0789d9657968f32a66",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/setup.sh",
+      "template_path": "scripts/setup.sh",
+      "mode": "100755",
+      "source_blob": "780b2b9f5f59a80a39b6e8acf003d5814d44c7f5",
+      "source_sha256": "51ce7c1803de2ca6c4f614ca4483fcb3e39e8804ff6b76a92a3680322b2df153",
+      "template_sha256": "51ce7c1803de2ca6c4f614ca4483fcb3e39e8804ff6b76a92a3680322b2df153",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/sync-terraform-config.ps1",
+      "template_path": "scripts/sync-terraform-config.ps1",
+      "mode": "100644",
+      "source_blob": "95ae809f64633e25e9e7375188cfa62da30a8759",
+      "source_sha256": "8232f05b00cf9b35e966af06b902036ba1864f78b26a26748e1b24f927fc3762",
+      "template_sha256": "8232f05b00cf9b35e966af06b902036ba1864f78b26a26748e1b24f927fc3762",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/sync-terraform-config.sh",
+      "template_path": "scripts/sync-terraform-config.sh",
+      "mode": "100644",
+      "source_blob": "862be135e52a83e211d9a6d7ba33dba0f68da3df",
+      "source_sha256": "cc57df291bf80b71b35fd054079bbcc5a47d909703de877c11c7d89bcf5a4039",
+      "template_sha256": "cc57df291bf80b71b35fd054079bbcc5a47d909703de877c11c7d89bcf5a4039",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/test-hybrid-cleanup-manual.ps1",
+      "template_path": "scripts/test-hybrid-cleanup-manual.ps1",
+      "mode": "100644",
+      "source_blob": "12c6813a87da2ce4ff2817b29b13f8238840cb25",
+      "source_sha256": "fa2d6eebe9a33fc7159b64b303d1a860d5e62ea4389260a44cca1efc741ab1f0",
+      "template_sha256": "0ddfaea719d0ac9cf2b1c9f4ba43c287f8c99ac91ff48c9c64409a89d9365780",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/test-runner-status.ps1",
+      "template_path": "scripts/test-runner-status.ps1",
+      "mode": "100644",
+      "source_blob": "e2b509d600d5baf4ee1fb94c7166b39c2953f021",
+      "source_sha256": "cd6ab69d786b034a24735be5c6ce2c9f3d59cb70a182c763024157c13c7651a5",
+      "template_sha256": "88b9aca00eb9fd99582cac17836c8d0c71ce774bd88605b812e94c7883eb0e36",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 2
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/test-shutdown-execution.sh",
+      "template_path": "scripts/test-shutdown-execution.sh",
+      "mode": "100644",
+      "source_blob": "d2709c4cbb9d019c8a143c20b6fc03f6c9767ca8",
+      "source_sha256": "2506cf17fb09cdb558ad3abdc6c17ef354b9bc6d7867ad0b1f9d335446d7180c",
+      "template_sha256": "52aad56315e7adcea5464dd6408aceb81c9c6383cdcc05406a330eea87823bad",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_337",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/trigger-cleanup.sh",
+      "template_path": "scripts/trigger-cleanup.sh",
+      "mode": "100644",
+      "source_blob": "0e76441576c848b38e064d23a65f646361f88e74",
+      "source_sha256": "13a406a006c6dc18e0ca034643423a18512dd308cb82fef942ce798f43cd4ace",
+      "template_sha256": "13a406a006c6dc18e0ca034643423a18512dd308cb82fef942ce798f43cd4ace",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/trigger-hybrid-cleanup.ps1",
+      "template_path": "scripts/trigger-hybrid-cleanup.ps1",
+      "mode": "100644",
+      "source_blob": "ce21c15002ce068f408d2e1c6db5770821d9a000",
+      "source_sha256": "23e9fc73814be912790a6fb64a95c76e6606b7d276365ecb7209d08bcbc820ff",
+      "template_sha256": "23e9fc73814be912790a6fb64a95c76e6606b7d276365ecb7209d08bcbc820ff",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "scripts/verify-migration.sh",
+      "template_path": "scripts/verify-migration.sh",
+      "mode": "100644",
+      "source_blob": "3a8b2e53dbd3a268fc0f24faae471d1951439327",
+      "source_sha256": "97beba14cb3d4bbf1e6967719aead1f45b5e0a2e3db827f97ecb962351076a29",
+      "template_sha256": "dca3e02336bfd01ce75da93014f175e4244b28993cc2e62eca7f3d3e80ef2be4",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_167",
+          "occurrences": 2
+        },
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 3
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "shutdown-script-extract.sh",
+      "template_path": "shutdown-script-extract.sh",
+      "mode": "100644",
+      "source_blob": "d591c05a8c508d06de4bb0303fdfa49d89c09654",
+      "source_sha256": "08606ebdd9581aa26549420799808d07dadcf90a1248780ef74c483f57e2c198",
+      "template_sha256": "08606ebdd9581aa26549420799808d07dadcf90a1248780ef74c483f57e2c198",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/.terraform.lock.hcl",
+      "template_path": "terraform/.terraform.lock.hcl",
+      "mode": "100644",
+      "source_blob": "e875376d1b030d30022e1cafd48f1b393dd5c230",
+      "source_sha256": "43bb9bc528cc1098eea2b05eef25c10b4b301246ca0e4ebf0a03a16cbe9f4ee5",
+      "template_sha256": "43bb9bc528cc1098eea2b05eef25c10b4b301246ca0e4ebf0a03a16cbe9f4ee5",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/github-webhook.tf.example",
+      "template_path": "terraform/github-webhook.tf.example",
+      "mode": "100644",
+      "source_blob": "442451a4654722f61cd619f0c9764b9712e05751",
+      "source_sha256": "10f4ad55e4e5e9c8e69ec01da3f5b6e46961640b04c4674a3cfaebde714d23e2",
+      "template_sha256": "10f4ad55e4e5e9c8e69ec01da3f5b6e46961640b04c4674a3cfaebde714d23e2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/hybrid-cleanup-system.tf.disabled",
+      "template_path": "terraform/hybrid-cleanup-system.tf.disabled",
+      "mode": "100644",
+      "source_blob": "6c0038fc60bca8121a8b8fac7f970bb9a848a3fa",
+      "source_sha256": "6ae471419fa3bcef4a309b1d56718dbe62febf56865f4af27a552e62cbd7a184",
+      "template_sha256": "6ae471419fa3bcef4a309b1d56718dbe62febf56865f4af27a552e62cbd7a184",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/instance-lifecycle-management.tf.disabled",
+      "template_path": "terraform/instance-lifecycle-management.tf.disabled",
+      "mode": "100644",
+      "source_blob": "9c226afb208e4cabeb1d773b6d408fe3687d7da4",
+      "source_sha256": "bdc0c2b4daf80507a1815ec6d0b9cf5e689cdbfb67a4bc7749218036b8af8699",
+      "template_sha256": "bdc0c2b4daf80507a1815ec6d0b9cf5e689cdbfb67a4bc7749218036b8af8699",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/main.tf",
+      "template_path": "terraform/main.tf",
+      "mode": "100644",
+      "source_blob": "f9a1cc7c15f7d93fad38f0c0175491c5b8eb2462",
+      "source_sha256": "96f1961641676a519fbab48014d23990bed1c544a904dd2a7bdc5a7676843f4a",
+      "template_sha256": "47ce4e7d1d3af52c553c2d0d298eab2dabab558ecb87ac2d3860b20e1954c8a6",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 3
+        },
+        {
+          "input": "PARITY_INPUT_337",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/modules/cloud-function/main.tf",
+      "template_path": "terraform/modules/cloud-function/main.tf",
+      "mode": "100644",
+      "source_blob": "b8e843d28420c60b8df9fce05f94b8e854a11d65",
+      "source_sha256": "a55cd3c7c5e2e83b5dafe2fdbf005086c2370c58ec283b3f7accaa12feac1fd7",
+      "template_sha256": "a55cd3c7c5e2e83b5dafe2fdbf005086c2370c58ec283b3f7accaa12feac1fd7",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/modules/cloud-function/outputs.tf",
+      "template_path": "terraform/modules/cloud-function/outputs.tf",
+      "mode": "100644",
+      "source_blob": "c959b43f2316984307127d8b94c55e5da08d1503",
+      "source_sha256": "f80955e3e8dc7a8a84f8890acadf2130ea34e9f7acd7b76a5833d23b95002f2c",
+      "template_sha256": "f80955e3e8dc7a8a84f8890acadf2130ea34e9f7acd7b76a5833d23b95002f2c",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/modules/cloud-function/variables.tf",
+      "template_path": "terraform/modules/cloud-function/variables.tf",
+      "mode": "100644",
+      "source_blob": "1085717e63112b7edd19abab4ac3787c295a563e",
+      "source_sha256": "ef4061764ee58f6ec3f2f45ddf1acd51458c79e6dffac5f185b579dae04deeb1",
+      "template_sha256": "ef4061764ee58f6ec3f2f45ddf1acd51458c79e6dffac5f185b579dae04deeb1",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/modules/iam/main.tf",
+      "template_path": "terraform/modules/iam/main.tf",
+      "mode": "100644",
+      "source_blob": "423eb73fd0e1c4392b13c77a40627027573cc0c5",
+      "source_sha256": "f0f3cf7cb83fe59e058ac192cd117da25e69a7a5b2ad46b403bde40cf6b0ad98",
+      "template_sha256": "f0f3cf7cb83fe59e058ac192cd117da25e69a7a5b2ad46b403bde40cf6b0ad98",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/modules/iam/outputs.tf",
+      "template_path": "terraform/modules/iam/outputs.tf",
+      "mode": "100644",
+      "source_blob": "a94d7be1f6d599e515a36dec5754814680421ead",
+      "source_sha256": "d9343c311921f2f34a3c90da8b1e55c5be6aed6fc697cb7de4ad65f9d3671882",
+      "template_sha256": "d9343c311921f2f34a3c90da8b1e55c5be6aed6fc697cb7de4ad65f9d3671882",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/modules/iam/variables.tf",
+      "template_path": "terraform/modules/iam/variables.tf",
+      "mode": "100644",
+      "source_blob": "046b4ad7cccb1d3410c3bb8e492ba240c2da648f",
+      "source_sha256": "48a9738d9c59a187e05758252947d8185486d16f54232a8237c0c9492467651a",
+      "template_sha256": "48a9738d9c59a187e05758252947d8185486d16f54232a8237c0c9492467651a",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/outputs.tf",
+      "template_path": "terraform/outputs.tf",
+      "mode": "100644",
+      "source_blob": "7cadde3ed4c0d9bb37bbc2ce34e1475b668764ab",
+      "source_sha256": "d1abd4e2478bc85f317515db9c4b39f6efeca0ef645ab4548a2f2f26e180231c",
+      "template_sha256": "d1abd4e2478bc85f317515db9c4b39f6efeca0ef645ab4548a2f2f26e180231c",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/terraform.tfvars.example",
+      "template_path": "terraform/terraform.tfvars.example",
+      "mode": "100644",
+      "source_blob": "393bea962a5e2ca1c65e9ce8f77c8f71b1f2d031",
+      "source_sha256": "f4d32a44df17289c3b541ca41dd8d2b432473f26208b741f9dada75309f3c54a",
+      "template_sha256": "f4d32a44df17289c3b541ca41dd8d2b432473f26208b741f9dada75309f3c54a",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/variables.tf",
+      "template_path": "terraform/variables.tf",
+      "mode": "100644",
+      "source_blob": "3a883d2073da9958324faf94e14606cb5e06bd8d",
+      "source_sha256": "dec437e1b2f14ac9ba22931f4e60645ff3e4946c219b5579e87c4ccd597bc417",
+      "template_sha256": "0bdb303b17fee640b5e9a016cd12489994ac4283c232c63117b222ff44b284b8",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_073",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/vm-deletion-handler.tf.disabled",
+      "template_path": "terraform/vm-deletion-handler.tf.disabled",
+      "mode": "100644",
+      "source_blob": "39ad76b1c574f344865dbe644426fba91e7fe312",
+      "source_sha256": "b46c57833e600c00078a1639283a3a24c8c9a1c94a05de68c394e4df36812cbe",
+      "template_sha256": "b46c57833e600c00078a1639283a3a24c8c9a1c94a05de68c394e4df36812cbe",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/workflow-completion-trigger.tf",
+      "template_path": "terraform/workflow-completion-trigger.tf",
+      "mode": "100644",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "template_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "terraform/workflow-completion-trigger.tf.backup",
+      "template_path": "terraform/workflow-completion-trigger.tf.backup",
+      "mode": "100644",
+      "source_blob": "ee68d8e50f3cd38db6880221e089ecd976b1e70c",
+      "source_sha256": "0ff75a33f7cb3a173f0a65da0da0dd841a9fe04220e661f6861738ebd45454f6",
+      "template_sha256": "9a2021bf009cd9bf32c03cd28e1242408de3109503e4085b6c09d9fb4d15ef3f",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_231",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-cloudbuild-webhook.ps1",
+      "template_path": "test-cloudbuild-webhook.ps1",
+      "mode": "100644",
+      "source_blob": "f6682daf99ea17e72e1e778e2e9a0aa4cccf2c6a",
+      "source_sha256": "068d12c9b0e41347b2a50c2f95181e81950f700d4822537a84cb2d39e3c2b784",
+      "template_sha256": "b687a3656c67bff4cd7916bd40e840046cb2a62358ed93b0c57ce8aab71db875",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 3
+        },
+        {
+          "input": "PARITY_INPUT_347",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-direct-api-deletion.sh",
+      "template_path": "test-direct-api-deletion.sh",
+      "mode": "100644",
+      "source_blob": "88664332e9cf49659674dc5b4ddf6b512e3f7700",
+      "source_sha256": "1adb4a0419cbb8c1967f7afc022cf367194a5ebf6338bd819cc71dc4eb0e1ea8",
+      "template_sha256": "5a67e2338e089d9bd530f7f9bb545c22ea33d943de6eb0da2fdc3d23c97b1a61",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-integration-cleanup.sh",
+      "template_path": "test-integration-cleanup.sh",
+      "mode": "100644",
+      "source_blob": "37f37e513a2b8397ee931cd81091ea82ccf70764",
+      "source_sha256": "a5fc040f1d59f060b4cd570f400f2e8235c92c6e2f8ac6f98b74ccdb974f9327",
+      "template_sha256": "63790a29e4c681fe6c519f89cc4ca14339a131fdcc27adc0c172fb925f6115e6",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-parallel-shutdown.sh",
+      "template_path": "test-parallel-shutdown.sh",
+      "mode": "100644",
+      "source_blob": "1dedc2c02e0c926245abc4550c58d5a630cf7c23",
+      "source_sha256": "3627987c96a05dbde7ef6bfb40143ca1a1614bae28d13f96aaf594e27d5de729",
+      "template_sha256": "3627987c96a05dbde7ef6bfb40143ca1a1614bae28d13f96aaf594e27d5de729",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-shutdown-fix.sh",
+      "template_path": "test-shutdown-fix.sh",
+      "mode": "100644",
+      "source_blob": "80983cc19913ceb517495fa0bf08e0e97b27f134",
+      "source_sha256": "b87247b1234de5555d3593decc0bf9023275fd323256ac074123a2e87aa7a1ef",
+      "template_sha256": "3b5edd0ac0346293195bf0677aef9cd089e6b6112f1255eb9fafb158a41744fc",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-stop-then-delete.ps1",
+      "template_path": "test-stop-then-delete.ps1",
+      "mode": "100644",
+      "source_blob": "be699866420eed568f41dfa1cbea17e9422c9f63",
+      "source_sha256": "0674c00e9e3c9cab625c4e102cc9c890d878aa067028e13e60a086d4ce25601d",
+      "template_sha256": "20ce67104feb9738b661de1b1b07b4c44f0d6dfbd9ce04ff0ede1467d4246148",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_337",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "test-webhook-signed.ps1",
+      "template_path": "test-webhook-signed.ps1",
+      "mode": "100644",
+      "source_blob": "8a76b0a59e3c7c4881f3423506fc8435a7b66a29",
+      "source_sha256": "57c29d27468f1aa958e1848fc52373fdeac230b53d9ae7f9bd46f5da5e30ffd8",
+      "template_sha256": "d60193d324bae0ad7651efb47093f4657125239cc44a534544512ead6c073e4a",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 3
+        },
+        {
+          "input": "PARITY_INPUT_347",
+          "occurrences": 1,
+          "kind": "literal_secret_default_parameterization"
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/lifecycle/test_cleanup.py",
+      "template_path": "tests/lifecycle/test_cleanup.py",
+      "mode": "100644",
+      "source_blob": "f8b9f88dcf4d5e3ee920efde1f67e670e5219971",
+      "source_sha256": "952bc22196b373ea6ef956ee26e9c76e132b12f42d7ce099762a360b5056e63a",
+      "template_sha256": "952bc22196b373ea6ef956ee26e9c76e132b12f42d7ce099762a360b5056e63a",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/lifecycle/test_lifecycle.py",
+      "template_path": "tests/lifecycle/test_lifecycle.py",
+      "mode": "100644",
+      "source_blob": "977be31cf8f00c2388f1dc1dbe29f1c5e58b61a1",
+      "source_sha256": "711c8b1a854bd7b7de9c8b975f87e652982295801b0f0cc815fddb9bc60418ff",
+      "template_sha256": "711c8b1a854bd7b7de9c8b975f87e652982295801b0f0cc815fddb9bc60418ff",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/lifecycle/test_monitor.py",
+      "template_path": "tests/lifecycle/test_monitor.py",
+      "mode": "100644",
+      "source_blob": "95e06b0a40ecb1f75390f202f2d3f855f6817814",
+      "source_sha256": "b269a493cef247bd4f1dc2ab458de380600930f4dd27fcb5152e7a207836d975",
+      "template_sha256": "b269a493cef247bd4f1dc2ab458de380600930f4dd27fcb5152e7a207836d975",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/provisioning/harness.cjs",
+      "template_path": "tests/provisioning/harness.cjs",
+      "mode": "100644",
+      "source_blob": "9b1131092bfd696faf7b73271c7128f453be7cb9",
+      "source_sha256": "6a5c7d1bd0d230cc4bff29c22701e56cf33fb3959e6a06103aeadaa877a681b1",
+      "template_sha256": "c2b02564ef4e98988222a898be766fc0b12d3d635d2743034d8efdcf22b7375c",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_338",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_152",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/provisioning/test_embedding.py",
+      "template_path": "tests/provisioning/test_embedding.py",
+      "mode": "100644",
+      "source_blob": "ba3e7b0ed7b7011d8f9e8c1b2e89fa0c6803df8c",
+      "source_sha256": "d1fe5eee21204a561fb877811155f8dfede155e9370cbf80769e04f91eafb90e",
+      "template_sha256": "d1fe5eee21204a561fb877811155f8dfede155e9370cbf80769e04f91eafb90e",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/provisioning/test_provision.py",
+      "template_path": "tests/provisioning/test_provision.py",
+      "mode": "100644",
+      "source_blob": "69eeab44707c80db71afcdfc41bc95e529b7a0fe",
+      "source_sha256": "452a5cdb07c38a228f7bf35eee9a8a2ee0328b5c4266913b5f0152bdb8697559",
+      "template_sha256": "452a5cdb07c38a228f7bf35eee9a8a2ee0328b5c4266913b5f0152bdb8697559",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/provisioning/test_setup.py",
+      "template_path": "tests/provisioning/test_setup.py",
+      "mode": "100644",
+      "source_blob": "2104175ac78e60ae8e49841fb6f1c6ee7e15542d",
+      "source_sha256": "88d20e108031036b002a8073a2b12e36b3f7008c653835df9ddd4ac9d526cf36",
+      "template_sha256": "d37986ab8647b4b8a1f15d876821568fa167c48a948d7c829f99c9c2fb653fc6",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_116",
+          "occurrences": 2
+        },
+        {
+          "input": "PARITY_INPUT_186",
+          "occurrences": 2
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "tests/provisioning/webhook.cjs",
+      "template_path": "tests/provisioning/webhook.cjs",
+      "mode": "100644",
+      "source_blob": "519dca183c4af93d448eccdae5c731ea493d3ad8",
+      "source_sha256": "60b04b6f28c4a61ba627369c4bd52cb14c6252910a55f87dee0445bd9ba71f32",
+      "template_sha256": "60b04b6f28c4a61ba627369c4bd52cb14c6252910a55f87dee0445bd9ba71f32",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "validate-deployment.sh",
+      "template_path": "validate-deployment.sh",
+      "mode": "100644",
+      "source_blob": "16e4f7049223c00a89cd399cb175e72d03113806",
+      "source_sha256": "63f1c62db3c0b5749ae7b1d15006e07048278ec4bae0cc2394c07041d677b5f2",
+      "template_sha256": "63f1c62db3c0b5749ae7b1d15006e07048278ec4bae0cc2394c07041d677b5f2",
+      "configuration_inputs": [],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    },
+    {
+      "path": "validate-stop-then-delete.ps1",
+      "template_path": "validate-stop-then-delete.ps1",
+      "mode": "100644",
+      "source_blob": "5fc2acbb1acb4129c5599e9a5064741a1b089287",
+      "source_sha256": "d20f84472470376d56657237a204074493cceb7fac0dff793ee505305140a461",
+      "template_sha256": "aab23e6471559f0a9cdb7ff0120e6b87cc731f5d4fce7262444795a0cffb3d05",
+      "configuration_inputs": [
+        {
+          "input": "PARITY_INPUT_064",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_337",
+          "occurrences": 1
+        },
+        {
+          "input": "PARITY_INPUT_010",
+          "occurrences": 1
+        }
+      ],
+      "control_logic_changed": false,
+      "relocation_adapter": null
+    }
+  ],
+  "inputs": [
+    "PARITY_INPUT_010",
+    "PARITY_INPUT_031",
+    "PARITY_INPUT_064",
+    "PARITY_INPUT_073",
+    "PARITY_INPUT_115",
+    "PARITY_INPUT_116",
+    "PARITY_INPUT_152",
+    "PARITY_INPUT_167",
+    "PARITY_INPUT_168",
+    "PARITY_INPUT_186",
+    "PARITY_INPUT_229",
+    "PARITY_INPUT_231",
+    "PARITY_INPUT_337",
+    "PARITY_INPUT_338",
+    "PARITY_INPUT_347",
+    "PARITY_INPUT_348"
+  ],
+  "excluded": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "reason": "root automation preserves this capability; owner-attributed removal replaces bot attribution"
+    },
+    {
+      "path": ".github/workflows/review-sensei-review.yml",
+      "reason": "root automation preserves this capability; owner-attributed removal replaces bot attribution"
+    },
+    {
+      "path": ".github/workflows/review-sensei-uninstall.yml",
+      "reason": "root automation preserves this capability; owner-attributed removal replaces bot attribution"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "BASE_SCRIPT_SWITCH.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "CLEANUP_SCRIPTS_README.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "DEPLOYMENT.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "DEPLOYMENT_SUCCESS_REPORT.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "DEPLOYMENT_TEST_RESULTS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "DIRECT_API_OPTIMIZATION_REPORT.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "FINAL_DEPLOYMENT_STATUS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "GITHUB_RUNNER_REMOVE_TOKEN_FIX.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "GITHUB_RUNNER_REMOVE_TOKEN_FIX_COMPLETE.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "HYBRID_CLEANUP_DEPLOYMENT_STATUS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "HYBRID_CLEANUP_TEST_STATUS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "ISSUE_RESOLUTION_VERIFIED.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "README.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "README_NEW.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "ROOT_CAUSE_ANALYSIS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "SHUTDOWN_FIX_VERIFICATION_REPORT.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "SHUTDOWN_OPTIMIZATION_REPORT.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "SHUTDOWN_SCRIPT_INVESTIGATION_COMPLETE.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "STOP_THEN_DELETE_RESTORATION_COMPLETE.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "TECHNICAL.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "TEST_SCRIPTS_README.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "VERIFICATION_RESULTS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "archive/README.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/base.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/block-navigation.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/favicon.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/index.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/index.js.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/base.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/block-navigation.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/favicon.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/index.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/index.js.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/prettify.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/prettify.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/sort-arrow-sprite.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov-report/sorter.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/lcov.info",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/prettify.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/prettify.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/sort-arrow-sprite.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/cleanup-function/coverage/sorter.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/.env.yaml",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/base.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/block-navigation.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/favicon.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/index.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/index.js.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/base.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/block-navigation.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/favicon.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/index.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/index.js.html",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/prettify.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/prettify.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/sort-arrow-sprite.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov-report/sorter.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/lcov.info",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/prettify.css",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/prettify.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/sort-arrow-sprite.png",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/coverage/sorter.js",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "cloud-functions/webhook-handler/temp-state.txt",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "docker/DOCKER_INSTRUCTIONS.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "logs.txt",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    },
+    {
+      "path": "terraform/modules/iam/README.md",
+      "reason": "private/generated/documentation data; no executable runtime omitted"
+    }
+  ],
+  "supplemental_secret_defaults_parameterized": 2,
+  "private_values_present": false,
+  "source_history_imported": false,
+  "external_operations_performed": false,
+  "inputs_file_example": {
+    "PARITY_INPUT_010": "sample-config-000",
+    "PARITY_INPUT_031": "sample-config-001",
+    "PARITY_INPUT_064": "sample-config-002",
+    "PARITY_INPUT_073": "sample-config-003",
+    "PARITY_INPUT_115": "sample-config-004",
+    "PARITY_INPUT_116": "sample-config-005",
+    "PARITY_INPUT_152": "sample-config-006",
+    "PARITY_INPUT_167": "sample-config-007",
+    "PARITY_INPUT_168": "sample-config-008",
+    "PARITY_INPUT_186": "sample-config-009",
+    "PARITY_INPUT_229": "sample-config-010",
+    "PARITY_INPUT_231": "sample-config-011",
+    "PARITY_INPUT_337": "sample-config-012",
+    "PARITY_INPUT_338": "sample-config-013",
+    "PARITY_INPUT_347": "sample-config-014",
+    "PARITY_INPUT_348": "sample-config-015"
+  }
+}

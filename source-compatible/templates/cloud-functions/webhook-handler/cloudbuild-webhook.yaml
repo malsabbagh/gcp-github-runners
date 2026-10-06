@@ -1,0 +1,50 @@
+steps:
+  # Create GitHub runner VM instance
+  - name: 'PARITY_INPUT_231:latest'
+    id: 'create-runner-vm'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "🚀 Creating GitHub runner VM for webhook event"
+        echo "Repository: ${_REPO_OWNER}/${_REPO_NAME}"
+        echo "Job ID: ${_JOB_ID}"
+        echo "Event: ${_EVENT_TYPE}/${_ACTION}"
+        echo "Zone: ${_ZONE}"
+        
+        # Create VM instance with simple naming
+        gcloud compute instances create gh-runner-${_JOB_ID} \
+          --zone=${_ZONE} \
+          --machine-type=e2-medium \
+          --image-family=ubuntu-2004-lts \
+          --image-project=ubuntu-os-cloud \
+          --boot-disk-size=50GB \
+          --boot-disk-type=pd-standard \
+          --metadata-from-file=startup-script=cloudbuild/runner-startup.sh \
+          --metadata=repo-owner=${_REPO_OWNER},repo-name=${_REPO_NAME},job-id=${_JOB_ID} \
+          --labels=purpose=github-runner,repo-owner=${_REPO_OWNER},repo-name=${_REPO_NAME},job-id=${_JOB_ID} \
+          --scopes=cloud-platform \
+          --tags=github-runner \
+          --preemptible
+        
+        echo "✅ VM instance gh-runner-${_JOB_ID} created successfully"
+        echo "Repository: ${_REPO_OWNER}/${_REPO_NAME}"
+        echo "Job ID: ${_JOB_ID}"
+
+substitutions:
+  # Event information (populated by webhook)
+  _EVENT_TYPE: 'workflow_job'
+  _ACTION: 'queued'
+  _REPO_OWNER: 'default-owner'
+  _REPO_NAME: 'default-repo'
+  _JOB_ID: 'unknown'
+  _WORKFLOW_RUN_ID: 'unknown'
+  
+  # Infrastructure configuration
+  _ZONE: 'us-central1-a'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  substitution_option: ALLOW_LOOSE
+
+timeout: '600s'
