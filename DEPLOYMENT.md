@@ -1,6 +1,6 @@
 # Deployment and operator setup
 
-This guide describes the supported installation path. The migration work did not execute cloud deployment, live IAM changes, image creation, webhook registration, App installation or repository Actions activation.
+This guide describes the supported installation path. Cloud deployment, live IAM changes, image creation, webhook registration, App installation and repository Actions activation require separate operator authorization. The compatibility references are not a deployment path.
 
 ## Required operator inputs
 
@@ -49,7 +49,7 @@ bash scripts/setup-webhook.sh
 pwsh -File scripts/setup-webhook.ps1
 ```
 
-These scripts read Terraform's webhook URL, prompt for the existing HMAC secret and use authenticated GitHub tooling to configure a `workflow_job` webhook. They do not create/copy a cloud secret. Before registration, verify that public webhook ingress accepts only the intended signed payload route and that bootstrap/management requests independently enforce their identity and audience checks. Preserve the configured controller audience/base path: the default broker URL is `<controller-url>/bootstrap`, and outbound worker control uses that broker base plus `/worker-control/poll` or `/worker-control/ack`. The deployment adapter validates broker/controller origin and base-path consistency; do not rewrite the broker to an unrelated root URL.
+These scripts read Terraform's webhook URL, prompt for the existing HMAC secret and use authenticated GitHub tooling to configure a `workflow_job` webhook. They do not create/copy a cloud secret. Use a trusted private workload repository. The controller requires its configured numeric repository ID and private status in signed queued events and rechecks current repository identity/privacy through the GitHub App before demand, builds and JIT. Public/unproven queued events are ignored; unavailable authority is retryable. Earlier waiting records without that context are preserved for operator reconciliation. Before registration, verify that public webhook ingress accepts only the intended signed payload route and that bootstrap/management requests independently enforce their identity and audience checks. Preserve the configured controller audience/base path: the default broker URL is `<controller-url>/bootstrap`, and outbound worker control uses that broker base plus `/worker-control/poll` or `/worker-control/ack`. The deployment adapter validates broker/controller origin and base-path consistency; do not rewrite the broker to an unrelated root URL.
 
 ## Acceptance before enabling lifecycle controls
 
@@ -57,8 +57,14 @@ Use a disposable trusted-repository test job with the exact required labels. Rec
 
 Prove that the worker cannot read management secrets, mutate authoritative Firestore allocation state or invoke Compute management APIs. Verify the actual private networking, GitHub App/JIT behavior and lifetime, IAM impersonation boundaries, shutdown/control transport and post-delete cloud absence. Enable qualification controls only for properties the target environment has demonstrated. Busy workers and ambiguous instances must remain charged.
 
-Enable GitHub Actions separately if wanted; the restored CI itself has no deployment authority. ReviewSensei additionally requires approved broker/App/OIDC authorization and provider policy/key configuration; [automation instructions](.github/README.md) document its manual, advisory defaults.
+Enable GitHub Actions separately if wanted; the restored CI itself has no deployment authority. ReviewSensei additionally requires approved broker/App/OIDC authorization and provider policy/key configuration; [automation instructions](.github/README.md) document its automatic review/publication policy and disabled provider egress.
 
 ## Removal
 
 Stop admission and scheduler invocation deliberately, retain state needed to reconcile active/uncertain workers, and retire exact owned instances through the controller. Confirm no charged allocations or managed workers remain before preparing and inspecting a Terraform destroy plan with `bash scripts/destroy-resources.sh`. This helper creates ignored `terraform/destroy.tfplan` and never applies it. Do not delete state records to manufacture capacity or use age-only runner/VM deletion. Remove the independently installed GitHub webhook/App and external credentials through the authorized operator channels after verifying no active dependency remains.
+
+## Repository trust and visibility
+
+Do not attach this controller to a public source repository or run public-fork jobs on it. All writers and workflows of the configured private workload repository must be trusted. Labels, HMAC signatures and queue identity do not establish the trust of the job GitHub ultimately dispatches. Use hosted runners for untrusted PR validation.
+
+Before changing a workload repository's visibility, stop new demand, drain/reconcile the deployment and verify absence of registered runners and cloud workers. The App adapter refuses public repositories even for runner cleanup; changing visibility first can leave work that requires explicit operator reconciliation. Preserve uncertain capacity and incarnation evidence rather than deleting it. Publishing this project's source requires no cloud deployment or Actions activation.

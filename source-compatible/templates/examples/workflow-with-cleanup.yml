@@ -1,68 +1,29 @@
-# Example GitHub Actions workflow with automatic cleanup
-name: CI/CD with Auto-Cleanup
-
+# Hosted runners are disposed of by GitHub; job code needs no cloud cleanup authority.
+name: Hosted checks with automatic runner cleanup
 on:
+  pull_request:
+    branches: [main, develop]
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-
+  workflow_dispatch:
+permissions:
+  contents: read
 jobs:
-  build:
-    runs-on: self-hosted
-    
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Run tests
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Display PR title as data
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+      - name: Run project checks
         run: |
-          echo "Running tests..."
-          # Your actual test commands here
-      
-      - name: Build application
-        run: |
-          echo "Building application..."
-          # Your actual build commands here
-      
-      # Always run cleanup, even if previous steps fail
-      - name: Trigger runner cleanup
-        if: always()
-        run: |
-          echo "Job completed, triggering runner cleanup..."
-          
-          # Publish cleanup message to Pub/Sub topic
-          gcloud pubsub topics publish runner-cleanup-trigger \
-            --message='{
-              "action": "cleanup_immediate",
-              "trigger": "workflow_completion", 
-              "repository": "${{ github.repository }}",
-              "run_id": "${{ github.run_id }}",
-              "workflow": "${{ github.workflow }}",
-              "runner_name": "'$(hostname)'",
-              "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%S.000Z)'"
-            }'
-          
-          echo "✅ Cleanup request sent to Pub/Sub topic"
-          PROJECT_ID=$(curl -s "http://169.254.169.254/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
-          
-          echo "Scheduling self-destruction of $INSTANCE_NAME in $ZONE"
-          
-          # Schedule deletion in 2 minutes (allows job to complete)
-          nohup bash -c "sleep 120 && gcloud compute instances delete $INSTANCE_NAME --zone=$ZONE --quiet" > /dev/null 2>&1 &
-          
-  # Cleanup job that runs when workflows complete
-  cleanup:
-    runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion != 'skipped'
-    needs: [build]
-    
-    steps:
-      - name: Cleanup old runners
-        run: |
-          echo "Cleaning up old GitHub runner instances..."
-          
-          # This would typically use a service account with proper permissions
-          # gcloud compute instances list --filter="labels.purpose=github-runner AND creationTimestamp<$(date -d '1 hour ago' -u +%Y-%m-%dT%H:%M:%S.000Z)" --format="value(name,zone)" | while read name zone; do
-          #   gcloud compute instances delete "$name" --zone="$zone" --quiet
-          # done
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test

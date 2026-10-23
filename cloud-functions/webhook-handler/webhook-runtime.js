@@ -4,11 +4,13 @@ const { Firestore } = require("@google-cloud/firestore");
 const { InstancesClient } = require("@google-cloud/compute");
 const crypto = require("node:crypto");
 const fs = require("node:fs");
-const { coordinator, identity } = require("./provisioning-state");
+const { coordinator, identity, BuildNotSubmitted } = require("./provisioning-state");
 const { validRoutingLabels } = require("./runner-labels");
 const { createActualJobAssociation } = require("./actual-job-association");
 const { createAllocationRecovery } = require("./allocation-recovery");
 const { readInfrastructureConfiguration, validateConfiguration } = require("./infrastructure-config");
+const { readBootstrapConfiguration } = require("./bootstrap-runtime");
+const { createGitHubAppRunnerAdapter, createSecretManagerPrivateKeyProvider } = require("./github-app-runner-adapter");
 
 
 function createWebhookRuntime({environment = process.env, infrastructureConfig, clients = {}} = {}) {
@@ -134,6 +136,11 @@ function verifySignature(payload, signature, secret) {
 // Management-only asynchronous provisioning; worker bootstrap is allocation-bound.
 async function createVMInstance(owner, repo, branch = null, allocation = null, token = null, event = null) {
   if (!event || !allocation || !token) throw new Error("Durable reservation required");
+  try {
+    if (!await authorizeDemand(event)) {
+      const error = Error('Private repository admission denied'); error.code = 'REPOSITORY_DENIED'; throw error;
+    }
+  } catch (error) { throw new BuildNotSubmitted(error); }
   const script = fs.readFileSync(`${__dirname}/provision-runner.py`, "utf8");
   const build = {
     serviceAccount: `projects/${PROJECT_ID}/serviceAccounts/${environment.CLOUDBUILD_SERVICE_ACCOUNT}`,
@@ -189,6 +196,28 @@ function eligible(event) {
     Array.isArray(event.labels) && event.labels.every(label => registered.includes(label)) &&
     requiredLabels().every(label => event.labels.includes(label));
 }
+let repositoryAdapter;
+async function verifyPrivateRepository() {
+  if (clients.verifyPrivateRepository) return clients.verifyPrivateRepository();
+  try {
+    if (!repositoryAdapter) {
+      const appConfig = readBootstrapConfiguration(environment);
+      if (!appConfig.privateKeyVersion.startsWith(`projects/${PROJECT_ID}/`)) throw Error('Repository configuration invalid');
+      repositoryAdapter = createGitHubAppRunnerAdapter({...appConfig,
+        repositoryOwner: environment.GITHUB_REPO_OWNER, repositoryName: environment.GITHUB_REPO_NAME,
+        privateKeyProvider: createSecretManagerPrivateKeyProvider({secretVersion: appConfig.privateKeyVersion, secretManagerClient: secretManager})});
+    }
+    return (await repositoryAdapter).verifyPrivateRepository();
+  } catch (_) { repositoryAdapter = undefined; throw Error('Repository verification unavailable'); }
+}
+async function authorizeDemand(event) {
+  const repositoryId = environment.GITHUB_REPOSITORY_ID;
+  if (!eligible(event) || event.verifiedWebhook !== true || event.repo_private !== true ||
+      typeof repositoryId !== 'string' || !/^[1-9][0-9]{0,15}$/.test(repositoryId) ||
+      !Number.isSafeInteger(Number(repositoryId)) || event.repo_id !== Number(repositoryId)) return false;
+  try { return await verifyPrivateRepository() === true; }
+  catch (_) { const error = Error('Repository verification unavailable'); error.code = 'REPOSITORY_UNAVAILABLE'; throw error; }
+}
 const actualAssociations = createActualJobAssociation({ firestore,
   repositoryOwner: environment.GITHUB_REPO_OWNER, repositoryName: environment.GITHUB_REPO_NAME });
 const recovery = createAllocationRecovery({ firestore, compute: computeClient, cloudBuild,
@@ -199,7 +228,7 @@ const recovery = createAllocationRecovery({ firestore, compute: computeClient, c
   brokerUrl: INFRASTRUCTURE_CONFIG.ALLOCATION_BROKER_URL,
   bootstrapTTLms: INFRASTRUCTURE_CONFIG.BOOTSTRAP_TTL_MS,
   registeredLabels: registeredLabels(), routingLabel: environment.RUNNER_ROUTING_LABEL });
-const provisioning = coordinator({ firestore, cloudBuild, compute: computeClient, recovery,
+const coreProvisioning = coordinator({ firestore, cloudBuild, compute: computeClient, recovery,
   project: PROJECT_ID, zone: DEFAULT_ZONE, limit: MAX_RUNNER_VMS,
   workerServiceAccountEmail: INFRASTRUCTURE_CONFIG.WORKER_SERVICE_ACCOUNT,
   workerServiceAccountUniqueId: INFRASTRUCTURE_CONFIG.WORKER_SERVICE_ACCOUNT_UNIQUE_ID,
@@ -207,6 +236,10 @@ const provisioning = coordinator({ firestore, cloudBuild, compute: computeClient
   bootstrapTTLms: INFRASTRUCTURE_CONFIG.BOOTSTRAP_TTL_MS,
   recoveryBatchSize: INFRASTRUCTURE_CONFIG.RECONCILIATION_BATCH_SIZE,
   createBuild: (event, allocation, token) => createVMInstance(event.repo_owner, event.repo_name, event.head_branch, allocation, token, event),
+});
+
+const provisioning = Object.freeze({...coreProvisioning,
+  async provision(event) { return await authorizeDemand(event) ? coreProvisioning.provision(event) : 'denied'; }
 });
 
 /**
@@ -292,6 +325,8 @@ async function webhookHandler(req, res) {
         run_attempt: eventData.workflow_job?.run_attempt || "1",
         repo_owner: eventData.repository?.owner?.login,
         repo_name: eventData.repository?.name,
+        repo_id: eventData.repository?.id,
+        repo_private: eventData.repository?.private,
         runner_name: eventData.workflow_job?.runner_name,
         runner_id: eventData.workflow_job?.runner_id,
         verifiedWebhook: true,
@@ -299,7 +334,7 @@ async function webhookHandler(req, res) {
         head_branch: eventData.workflow_job?.head_branch || "main",
         workflow_name: eventData.workflow_job?.workflow_name,
         trigger_actor: eventData.sender?.login,
-        trigger_event: eventData.workflow_job?.head_sha ? "push" : "unknown",
+        trigger_event: "unknown",
       };
 
       // Actual dispatch can differ from reserved demand and routing labels.
@@ -316,6 +351,7 @@ async function webhookHandler(req, res) {
         processedEventData.action
       ) {
         const state = await processWorkflowJobEvent(processedEventData);
+        if (state === "denied") return res.status(200).send("Repository not eligible for new demand");
         if (state === "capacity") return res.status(503).send("Capacity unavailable; durable demand awaits scheduler");
         if (["submitting", "unknown"].includes(state)) return res.status(503).send("Provisioning outcome awaiting reconciliation");
         if (state === "pending") return res.status(202).send("Provisioning pending");
@@ -350,6 +386,8 @@ async function webhookHandler(req, res) {
         run_id: eventData.workflow_run?.id,
         repo_owner: eventData.repository?.owner?.login,
         repo_name: eventData.repository?.name,
+        repo_id: eventData.repository?.id,
+        repo_private: eventData.repository?.private,
         conclusion: eventData.workflow_run?.conclusion,
       };
 
@@ -367,12 +405,14 @@ async function webhookHandler(req, res) {
       return res.status(200).send("Event received but no action required");
     }
   } catch (error) {
+    if (error.code === 'REPOSITORY_DENIED') return res.status(200).send('Repository not eligible for new demand');
+    if (error.code === 'REPOSITORY_UNAVAILABLE') return res.status(503).send('Repository verification requires retry');
     console.error("Error processing webhook:");
     return res.status(500).send("Internal Server Error");
   }
 }
 
 
-return {webhookHandler, verifySignature, createVMInstance, isEventProcessed, markEventProcessed, processWorkflowJobEvent, processWorkflowRunEvent, clients: {cloudBuild, compute: computeClient, secretManager, firestore}, infrastructureConfig: INFRASTRUCTURE_CONFIG, registeredLabels: registeredLabels(),provisioning,eligible};
+return {webhookHandler, verifySignature, createVMInstance, isEventProcessed, markEventProcessed, processWorkflowJobEvent, processWorkflowRunEvent, clients: {cloudBuild, compute: computeClient, secretManager, firestore}, infrastructureConfig: INFRASTRUCTURE_CONFIG, registeredLabels: registeredLabels(),provisioning,eligible,authorizeDemand};
 }
 module.exports = {createWebhookRuntime};

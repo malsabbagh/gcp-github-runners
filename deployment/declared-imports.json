@@ -320,6 +320,16 @@
     "kind": "static"
   },
   {
+    "from": "cloud-functions/webhook-handler/webhook-runtime.js",
+    "specifier": "./bootstrap-runtime",
+    "kind": "static"
+  },
+  {
+    "from": "cloud-functions/webhook-handler/webhook-runtime.js",
+    "specifier": "./github-app-runner-adapter",
+    "kind": "static"
+  },
+  {
     "from": "cloud-functions/webhook-handler/worker-control.js",
     "specifier": "node:util",
     "kind": "static"

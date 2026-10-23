@@ -28,13 +28,22 @@
       "!coverage/**"
     ],
     "coverageDirectory": "coverage",
-    "coverageReporters": ["text", "lcov", "html"],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
     "testMatch": [
       "**/__tests__/**/*.js",
       "**/?(*.)+(spec|test).js"
     ]
   },
-  "keywords": ["github", "cleanup", "cloud-build", "runner"],
-  "author": "",
+  "keywords": [
+    "github",
+    "cleanup",
+    "cloud-build",
+    "runner"
+  ],
+  "author": "Mohamad Alsabbagh",
   "license": "MIT"
 }

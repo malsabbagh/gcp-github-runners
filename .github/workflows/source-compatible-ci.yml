@@ -7,7 +7,7 @@ on:
     branches: [main, develop]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   source:
@@ -37,8 +37,12 @@ jobs:
           from pathlib import Path
           manifest = json.loads(Path('source-compatible/manifest.json').read_text())
           Path('.source-profile/ci-inputs.json').write_text(json.dumps(manifest['inputs_file_example']))
+          import importlib.util
+          spec = importlib.util.spec_from_file_location('source_profile', 'scripts/source-profile.py')
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          module.materialize(manifest['inputs_file_example'], Path('.source-profile/ci'), purpose='offline-qualification')
           PY
-          python scripts/source-profile.py --configuration .source-profile/ci-inputs.json --output-name ci
       - name: Install original source lock without lifecycle scripts
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Original offline provisioning and lifecycle regressions
@@ -65,12 +69,32 @@ jobs:
           <li><a href="cleanup-function/index.html">Cleanup function</a></li>
           </ul></body></html>''')
           PY
-      - name: Publish source coverage on main with the verified owner's identity
-        if: github.ref == 'refs/heads/main'
+      - name: Retain coverage only for the trusted main publisher
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: source-coverage
+          path: .source-profile/ci/coverage-reports
+          retention-days: 1
+          if-no-files-found: error
+
+  publish-coverage:
+    needs: source
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: source-coverage
+          path: coverage-reports
+      - name: Publish validated coverage from this main run
         uses: peaceiris/actions-gh-pages@4a2e02b36f31d8974a0d09d3bb9f3172aa2d0d0d # v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .source-profile/ci/coverage-reports
+          publish_dir: coverage-reports
           destination_dir: coverage
           user_name: malsabbagh
           user_email: malsabbagh@users.noreply.github.com

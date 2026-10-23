@@ -2,8 +2,8 @@
   "schema": 1,
   "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
   "selected_source_pr25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
-  "profile": "source-compatible",
-  "purpose": "Executable source capabilities preserved in an explicit independent profile; not archived documentation. Private configuration is supplied only when materializing an ignored working directory.",
+  "profile": "offline-compatibility-reference",
+  "purpose": "Offline compatibility reference and isolated qualification only; not a deployment profile.",
   "files": [
     {
       "path": ".gcloudignore",
@@ -68,14 +68,8 @@
       "source_sha256": "8f426b428eb1a6406ea91686bc16818484357423106e4e8cf02d5f3193eee4a7",
       "template_sha256": "681fc042788d5204893f1171a3a3bc72fb1b667226c853301c6738feb0852cf7",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -86,20 +80,14 @@
       "mode": "100644",
       "source_blob": "1a67f3b8fad144f5fe673d29e125d6db5c084e6a",
       "source_sha256": "d61940b331ebf933303d841746b85e00959de162010933c04257f7814c08c288",
-      "template_sha256": "96ce4622664c384f1c00a45da6914edb1d5ad109edee7340f5186bf698372680",
+      "template_sha256": "784d1b2ca4474b6c938aa2fe1677e9cd4f750a9ad7f79c1434ef3259286d929b",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 3
-        },
-        {
-          "input": "PARITY_INPUT_347",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_347"
       ],
-      "control_logic_changed": false,
-      "relocation_adapter": null
+      "control_logic_changed": true,
+      "relocation_adapter": null,
+      "publication_adaptation": "Explicit validated endpoint, repository inputs and signed synthetic payload; no operational default or signature logging."
     },
     {
       "path": "archive/old-tests/test-webhook-debug.ps1",
@@ -107,20 +95,14 @@
       "mode": "100644",
       "source_blob": "29829ba172919f420d37ec1622fa0c83b009b833",
       "source_sha256": "092a3674fd3c141a0a673dafb239e4d6018a0aebad72c3446d6f63920d746263",
-      "template_sha256": "54aa741ab59020860b39e1be1692a09f000390eec5672460ac57ef97b0816fca",
+      "template_sha256": "784d1b2ca4474b6c938aa2fe1677e9cd4f750a9ad7f79c1434ef3259286d929b",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 6
-        },
-        {
-          "input": "PARITY_INPUT_347",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_347"
       ],
-      "control_logic_changed": false,
-      "relocation_adapter": null
+      "control_logic_changed": true,
+      "relocation_adapter": null,
+      "publication_adaptation": "Explicit validated endpoint, repository inputs and signed synthetic payload; no operational default or signature logging."
     },
     {
       "path": "archive/old-tests/test-webhook-exact.ps1",
@@ -128,20 +110,14 @@
       "mode": "100644",
       "source_blob": "30118e4d6f9ebe1fcafabb2ebf150e9638b02447",
       "source_sha256": "fb581ac4cf2f2bb621dcb774cc533faeb3da6f5b5bd383a9cf404dab3a402a15",
-      "template_sha256": "acdf0a646d164bfd20c28c856f0f254dee326d4f414026a97d8469f95f1d048f",
+      "template_sha256": "784d1b2ca4474b6c938aa2fe1677e9cd4f750a9ad7f79c1434ef3259286d929b",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 3
-        },
-        {
-          "input": "PARITY_INPUT_347",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_347"
       ],
-      "control_logic_changed": false,
-      "relocation_adapter": null
+      "control_logic_changed": true,
+      "relocation_adapter": null,
+      "publication_adaptation": "Explicit validated endpoint, repository inputs and signed synthetic payload; no operational default or signature logging."
     },
     {
       "path": "archive/old-tests/test-webhook-final.ps1",
@@ -151,19 +127,9 @@
       "source_sha256": "5dd1c004f2e1450fd14110282cc8dc183b0788a993689e532af59a9e2888e45d",
       "template_sha256": "e6c7473552866afc4958575443db86f6191ea441ea4b0100941715c532aa0c14",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 4
-        },
-        {
-          "input": "PARITY_INPUT_347",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_347"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -176,10 +142,7 @@
       "source_sha256": "af46f2046eb95e32f726725d693e6685d940dea37946f329600b4342f93341a9",
       "template_sha256": "5132167991521b7241102cc1f78820f2156a881a730830ef0b474950d888f5e2",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 3
-        }
+        "PARITY_INPUT_010"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -203,10 +166,7 @@
       "source_sha256": "15ff7101c151a41624a45b27e062e283b4e13e2df2070d7748f2063eec8bfb76",
       "template_sha256": "4bded589da5fcbd5049f487c11631cb3a0de34ec8ce414c0363cd2f8742f3b3f",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -219,10 +179,7 @@
       "source_sha256": "04c72bd0a2d6ca5cddafc64bc022631b3b69fca481c847b274bf3d4d4de69485",
       "template_sha256": "b47bcb06e2dbc976dcc0e31ae188af7121646f4610c1cf24263c89fb58032fd8",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 2
-        }
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -233,10 +190,11 @@
       "mode": "100644",
       "source_blob": "dcaa9a4f463b706819d42f573e840cf2a8d2c57e",
       "source_sha256": "0661d7ff51132537e38161c97ffa167b3d7a5dccae169eda0aba2f9bbf4be560",
-      "template_sha256": "0661d7ff51132537e38161c97ffa167b3d7a5dccae169eda0aba2f9bbf4be560",
+      "template_sha256": "72970a05e30828c21eb77126896fe3d544177371e982d2c97f1ead801b7b443c",
       "configuration_inputs": [],
       "control_logic_changed": false,
-      "relocation_adapter": null
+      "relocation_adapter": null,
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "cloud-functions/cleanup-function/runner-cleanup.sh",
@@ -266,7 +224,7 @@
       "mode": "100644",
       "source_blob": "2b58ee888d2d68eb229e96507338f562af190551",
       "source_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
-      "template_sha256": "879f6fc8db8894670a4382e467bd26e939e9fe08ff99c5b0c264567ee2fa89ce",
+      "template_sha256": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915",
       "configuration_inputs": [],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -546,7 +504,8 @@
           "direct_dependencies_changed": false,
           "direct_dependency_ranges": {}
         }
-      ]
+      ],
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "cloud-functions/hybrid-cleanup-handler/package.json",
@@ -554,7 +513,7 @@
       "mode": "100644",
       "source_blob": "e0021f266dfc65be4e90c13b0c108d3954f2d509",
       "source_sha256": "74450f500599430e832dd6dd9b4079f1ab9c838936cc524ebb7a7ab3c6885813",
-      "template_sha256": "517d600775f2df21aa0860a7fca140bfa463105be2dea2c698b028d0fbec50fd",
+      "template_sha256": "54c5c121ad70b98594e16c29df2701576ed0cf1494e440e9560c4e82608ec3e7",
       "configuration_inputs": [],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -575,7 +534,8 @@
             }
           }
         }
-      ]
+      ],
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "cloud-functions/instance-lifecycle-handler/package.json",
@@ -583,10 +543,11 @@
       "mode": "100644",
       "source_blob": "5876dea2207b11d3c1db4790c38246ba47605f9d",
       "source_sha256": "930df95a02681b4262297d194a37b6c4d5b86024750e46102320ad53c41cbbe5",
-      "template_sha256": "930df95a02681b4262297d194a37b6c4d5b86024750e46102320ad53c41cbbe5",
+      "template_sha256": "d7e01b6bdf0dd8fa1da517765f9cc0a052f45f9bc72ee219932be7a36f752d75",
       "configuration_inputs": [],
       "control_logic_changed": false,
-      "relocation_adapter": null
+      "relocation_adapter": null,
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "cloud-functions/vm-deletion-handler/package.json",
@@ -594,10 +555,11 @@
       "mode": "100644",
       "source_blob": "473b94bceefb85972fb9415d5380dbfeb23d5501",
       "source_sha256": "d4d5d914c871df802acf883ae9fd270842b8ca7b57e4ca98fccf1259a317d965",
-      "template_sha256": "d4d5d914c871df802acf883ae9fd270842b8ca7b57e4ca98fccf1259a317d965",
+      "template_sha256": "cd0150dd9d91e0c8453cc81ce54c1df137bf9631a1ef98fdb6840b20b3f0325d",
       "configuration_inputs": [],
       "control_logic_changed": false,
-      "relocation_adapter": null
+      "relocation_adapter": null,
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "cloud-functions/webhook-handler/.gcloudignore",
@@ -629,10 +591,7 @@
       "source_sha256": "92d58ff9c891ea41163be531d51ef6e75556c5646fb7c7e4c0f44a7bc74f9eed",
       "template_sha256": "7844c2ed7c7f3b1cd4a051a26a8473ec0879e737540735059a655c010d43f23e",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -645,10 +604,7 @@
       "source_sha256": "874f8caa1497bb7daffad4d1aae4255edc7fb81b87ce83516de0cddf8947b47d",
       "template_sha256": "207b498a9ec31c47bf8c17fe3f6761ba7b21199da290392e8003bb5150ba81e6",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -661,10 +617,7 @@
       "source_sha256": "c072b2ada50cf0ab4d48ab7b72f3eff939511573d85458aee2780c9590323684",
       "template_sha256": "ac3cbd3b0eeda05f3fbe91a9c70bd451eba91baaadebd973a17bb619052fff82",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_229",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_229"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -677,10 +630,7 @@
       "source_sha256": "84baec009dfb48d26878833719cf9168616669b6036934dba7028361e3b47025",
       "template_sha256": "5230350102ebed9e92217fd6d5d35da33134a28474152a9b29d60707d6760796",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -693,10 +643,7 @@
       "source_sha256": "21131e2888861d4b9419d2799175613efc582c5bdd516770e9b31440d1844533",
       "template_sha256": "97db816a25a485d7547d11e433fc7eee26a9732f7bfae2fb95c6ce03ebc91025",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 2
-        }
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -709,10 +656,7 @@
       "source_sha256": "695953f00a93dd47241dc5b4c54f8ce9955e45934a4a02f5bd6fc5738f70dd67",
       "template_sha256": "d8ad2493ed9523e66af3fdee8b7c606cfcda608a2e87314b4cee111222b6d497",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -725,10 +669,7 @@
       "source_sha256": "cc8c93327eff3fa78110672f1c2e37c650b8301c42d1a957cf6a97de9de71433",
       "template_sha256": "f52ade9f9a145e9697844bc05500521084e346e308ce43eab1ec68d1431062fa",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -752,18 +693,9 @@
       "source_sha256": "fb02c11c407ce0e94cb7196640667d6df03b521aafe9151b4790b5a2c44fc58c",
       "template_sha256": "bd1f985286dbab9433696026c1bb3cda64a8cfa1802ebdd453ca7eed9b6a7077",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_115",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_115",
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -776,10 +708,7 @@
       "source_sha256": "9364a3f5268b923785507be16ac019f54b9a95b00cdad3c6644c6ae529b5b192",
       "template_sha256": "0666059fd4ab96897d03fda899d0479a0aa18027dbd5316db5c0088125bdc506",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -792,14 +721,8 @@
       "source_sha256": "a3ee4e9904127a5e8fd0dc9acd818ed4ff118869376fba61e2ec758a059300f8",
       "template_sha256": "10eea38af962704211f2ee6478e8b23cb57b9fc9180ca1c769fc6da72d8de812",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_115",
-          "occurrences": 3
-        },
-        {
-          "input": "PARITY_INPUT_168",
-          "occurrences": 9
-        }
+        "PARITY_INPUT_115",
+        "PARITY_INPUT_168"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -812,10 +735,7 @@
       "source_sha256": "b62578640a1f69702fc5f78647afba5361db985ca3631db5105c5b01365f592e",
       "template_sha256": "54c4cdd78d633702509054f81c2b709b89679b17d0ba6c4de698cd9797a501e5",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_152",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_152"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -828,10 +748,7 @@
       "source_sha256": "b93f5aff1750059f0fbf3a5860e52222cefbe613889335f6640108728daa2054",
       "template_sha256": "23ad40226e70f217565d48d5ef12340f3e5dd4d024470b0e840c657bd8cf321c",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -864,10 +781,11 @@
       "mode": "100644",
       "source_blob": "3464172f1b6e193a2ef62b5e122182aaf4a1ec22",
       "source_sha256": "0278a5a9393cba0eca6444637aa3a576dcbcb64bcbc8183a9c8ecfda80f09c99",
-      "template_sha256": "0278a5a9393cba0eca6444637aa3a576dcbcb64bcbc8183a9c8ecfda80f09c99",
+      "template_sha256": "27cbef8459ab87f154963f64d73f17c8ee063a4a5628d51497cc87ffc01ee10b",
       "configuration_inputs": [],
       "control_logic_changed": false,
-      "relocation_adapter": null
+      "relocation_adapter": null,
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "cloud-functions/webhook-handler/provision-runner.py",
@@ -899,14 +817,8 @@
       "source_sha256": "574647da2651ab588161b1d58ef78f02ac9cdd4c93e6cf623e001b6a646b0606",
       "template_sha256": "e24236fab1e1f0d0b1c51db2f8bfb5dd93c954dbe9ecfb9140402e5f5a1dda74",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 2
-        },
-        {
-          "input": "PARITY_INPUT_031",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_031",
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -919,10 +831,7 @@
       "source_sha256": "4e2efc9acd5bb4c81de72299eedace6cdf6226c6050c090cf899c08f6ef301b0",
       "template_sha256": "236dfc8e5e64a00abb3865971d1d52302f1a6bd4323b6ea46c411e69a02fe3a4",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 3
-        }
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -935,10 +844,7 @@
       "source_sha256": "874f8caa1497bb7daffad4d1aae4255edc7fb81b87ce83516de0cddf8947b47d",
       "template_sha256": "207b498a9ec31c47bf8c17fe3f6761ba7b21199da290392e8003bb5150ba81e6",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -951,10 +857,7 @@
       "source_sha256": "2af7c4c54cf902c8f2282c171b973a91d1b4d0de27552dd68c187131320b43de",
       "template_sha256": "a5b021d8c86cea1f8f1de776617b0005f742cd6b4f1434d8b18af962edf89d03",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 3
-        }
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -989,10 +892,7 @@
       "source_sha256": "5946c2f87db00f787bbbe328d240d70d766657e98a4314d6b077e97cf52ef5be",
       "template_sha256": "fdafe15b243ea1ff8d0fcc284a8a214cb36bbfba0ae0515074af34e3e1faec13",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_010"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1113,10 +1013,11 @@
       "mode": "100644",
       "source_blob": "8337c742cc215e9f243804443d52dafbed766cd2",
       "source_sha256": "98f5d7c1e3baacc112690b21909ff033a526c5d1d866748f88dd396c58f07003",
-      "template_sha256": "98f5d7c1e3baacc112690b21909ff033a526c5d1d866748f88dd396c58f07003",
+      "template_sha256": "3519e1e0053c5a49d55e05e6607942348e65bbec7fd4588c9d6d3eee47676688",
       "configuration_inputs": [],
-      "control_logic_changed": false,
-      "relocation_adapter": null
+      "control_logic_changed": true,
+      "relocation_adapter": null,
+      "publication_adaptation": "Hosted read-only PR example; removes self-hosted untrusted code and job-owned cloud cleanup."
     },
     {
       "path": "examples/workflow-with-cleanup.yml",
@@ -1124,10 +1025,11 @@
       "mode": "100644",
       "source_blob": "8d9f0edee601481c3d289fce0ec7faca5fe7c428",
       "source_sha256": "0a4efc6756b9092206a57a58d1902ba258b818d361e2877f2d7854e9c8b0ea78",
-      "template_sha256": "0a4efc6756b9092206a57a58d1902ba258b818d361e2877f2d7854e9c8b0ea78",
+      "template_sha256": "95931d5054ebfbf70d251bd003300c56f5f85987379fe009a197640aa636a725",
       "configuration_inputs": [],
-      "control_logic_changed": false,
-      "relocation_adapter": null
+      "control_logic_changed": true,
+      "relocation_adapter": null,
+      "publication_adaptation": "Hosted read-only PR example; removes self-hosted untrusted code and job-owned cloud cleanup."
     },
     {
       "path": "monitoring/alerts.yaml",
@@ -1148,10 +1050,7 @@
       "source_sha256": "9d0e2cd29a5704bef0a1f88c13df11f7ab1c9a9b38c2966579152a5c76e81d09",
       "template_sha256": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_115",
-          "occurrences": 2
-        }
+        "PARITY_INPUT_115"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -1518,15 +1417,13 @@
       "mode": "100644",
       "source_blob": "db75a419a4312b0f5e187eb8140697e369f8ddd2",
       "source_sha256": "f00657909afaefba4981c5998c7b47437936439ca0bde96207ff0c79567b37f1",
-      "template_sha256": "a0a52bc8d8fc4fee4f226103dda7759776eceb74ba29db27505a5a175d2ecde6",
+      "template_sha256": "61e4fbb5503fe52b85d698d7a6787c906b35bd566bcf118122f3417a208e8957",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_115",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_115"
       ],
       "control_logic_changed": false,
-      "relocation_adapter": null
+      "relocation_adapter": null,
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
     },
     {
       "path": "quick-cleanup.ps1",
@@ -1536,14 +1433,8 @@
       "source_sha256": "a9782c8da1c7108490e3fbaf5faffb06db7772fff1ba6136b646041c116763f1",
       "template_sha256": "356956e3417a26f05782a3bff11eae5fc77f29b4d18fec92aa60425744f183e7",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_115",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_115"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1556,10 +1447,7 @@
       "source_sha256": "793ef0640476c52ee57a9b82568b994f0d810d8bebe256fc89f22e47b7b1e8a2",
       "template_sha256": "bb3d955fe82ac536a9683b4874921a179ba3c3681eff1c647e27bf446e8dae1e",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1594,10 +1482,7 @@
       "source_sha256": "457da8144a9ddab093d17e7ee171aff5b45fb8dac4c689638b9ae50799560faf",
       "template_sha256": "dc68b9790d5bf0a1d4d61d572259aca1e5d895f7b372352c1ab3bdab039eb3fc",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_337",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_337"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1610,10 +1495,7 @@
       "source_sha256": "91996a2a3da317acc0afe4d1cdf8fb86aed662fa8c3192dd58608bb74d7ae7f6",
       "template_sha256": "cb2e2bcfb928290bd9346afaf48fb1c1ef5f067b109dabe0294fcb23fb7c1e92",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_337",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_337"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1648,10 +1530,7 @@
       "source_sha256": "544a1dc6c024e70b3b2a95cc9640f171bc18a4bd18acef22bbf8b4c84b1be0cb",
       "template_sha256": "989c63522f6386a0377c6d6ece6fffd1809f8013cb0718917bf0538833bab993",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_010"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1708,19 +1587,9 @@
       "source_sha256": "a00347b13db900c360442069d68989107767f13aa5d491a3c2726069e9ffcebf",
       "template_sha256": "755932e587d1b395d32e744011b287ea306ffd39c178423028bc6b6c51c29486",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_348",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_348"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1733,19 +1602,9 @@
       "source_sha256": "6bbfb5c817085dafcd57f3fec50793f80e7337a7ef42f92945ca6fe920245bf7",
       "template_sha256": "562b28d89f3e7a73926809707d15ae86b939ed87df95acf668979382908bcc1c",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_348",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_348"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1824,10 +1683,7 @@
       "source_sha256": "fa2d6eebe9a33fc7159b64b303d1a860d5e62ea4389260a44cca1efc741ab1f0",
       "template_sha256": "0ddfaea719d0ac9cf2b1c9f4ba43c287f8c99ac91ff48c9c64409a89d9365780",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1840,10 +1696,7 @@
       "source_sha256": "cd6ab69d786b034a24735be5c6ce2c9f3d59cb70a182c763024157c13c7651a5",
       "template_sha256": "88b9aca00eb9fd99582cac17836c8d0c71ce774bd88605b812e94c7883eb0e36",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 2
-        }
+        "PARITY_INPUT_010"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1856,10 +1709,7 @@
       "source_sha256": "2506cf17fb09cdb558ad3abdc6c17ef354b9bc6d7867ad0b1f9d335446d7180c",
       "template_sha256": "52aad56315e7adcea5464dd6408aceb81c9c6383cdcc05406a330eea87823bad",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_337",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_337"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1894,14 +1744,8 @@
       "source_sha256": "97beba14cb3d4bbf1e6967719aead1f45b5e0a2e3db827f97ecb962351076a29",
       "template_sha256": "dca3e02336bfd01ce75da93014f175e4244b28993cc2e62eca7f3d3e80ef2be4",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_167",
-          "occurrences": 2
-        },
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 3
-        }
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_167"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -1969,14 +1813,8 @@
       "source_sha256": "96f1961641676a519fbab48014d23990bed1c544a904dd2a7bdc5a7676843f4a",
       "template_sha256": "47ce4e7d1d3af52c553c2d0d298eab2dabab558ecb87ac2d3860b20e1954c8a6",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 3
-        },
-        {
-          "input": "PARITY_INPUT_337",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_231",
+        "PARITY_INPUT_337"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2077,10 +1915,7 @@
       "source_sha256": "dec437e1b2f14ac9ba22931f4e60645ff3e4946c219b5579e87c4ccd597bc417",
       "template_sha256": "0bdb303b17fee640b5e9a016cd12489994ac4283c232c63117b222ff44b284b8",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_073",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_073"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2115,10 +1950,7 @@
       "source_sha256": "0ff75a33f7cb3a173f0a65da0da0dd841a9fe04220e661f6861738ebd45454f6",
       "template_sha256": "9a2021bf009cd9bf32c03cd28e1242408de3109503e4085b6c09d9fb4d15ef3f",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_231",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_231"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2131,19 +1963,9 @@
       "source_sha256": "068d12c9b0e41347b2a50c2f95181e81950f700d4822537a84cb2d39e3c2b784",
       "template_sha256": "b687a3656c67bff4cd7916bd40e840046cb2a62358ed93b0c57ce8aab71db875",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 3
-        },
-        {
-          "input": "PARITY_INPUT_347",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_347"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2156,10 +1978,7 @@
       "source_sha256": "1adb4a0419cbb8c1967f7afc022cf367194a5ebf6338bd819cc71dc4eb0e1ea8",
       "template_sha256": "5a67e2338e089d9bd530f7f9bb545c22ea33d943de6eb0da2fdc3d23c97b1a61",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_010"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2172,10 +1991,7 @@
       "source_sha256": "a5fc040f1d59f060b4cd570f400f2e8235c92c6e2f8ac6f98b74ccdb974f9327",
       "template_sha256": "63790a29e4c681fe6c519f89cc4ca14339a131fdcc27adc0c172fb925f6115e6",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2199,10 +2015,7 @@
       "source_sha256": "b87247b1234de5555d3593decc0bf9023275fd323256ac074123a2e87aa7a1ef",
       "template_sha256": "3b5edd0ac0346293195bf0677aef9cd089e6b6112f1255eb9fafb158a41744fc",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2215,14 +2028,8 @@
       "source_sha256": "0674c00e9e3c9cab625c4e102cc9c890d878aa067028e13e60a086d4ce25601d",
       "template_sha256": "20ce67104feb9738b661de1b1b07b4c44f0d6dfbd9ce04ff0ede1467d4246148",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_337",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_337"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2233,20 +2040,14 @@
       "mode": "100644",
       "source_blob": "8a76b0a59e3c7c4881f3423506fc8435a7b66a29",
       "source_sha256": "57c29d27468f1aa958e1848fc52373fdeac230b53d9ae7f9bd46f5da5e30ffd8",
-      "template_sha256": "d60193d324bae0ad7651efb47093f4657125239cc44a534544512ead6c073e4a",
+      "template_sha256": "921dbc3f79e521febbb531e11c31208456bb41e64e3adb52b9462f6130b692c6",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 3
-        },
-        {
-          "input": "PARITY_INPUT_347",
-          "occurrences": 1,
-          "kind": "literal_secret_default_parameterization"
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_347"
       ],
-      "control_logic_changed": false,
-      "relocation_adapter": null
+      "control_logic_changed": true,
+      "relocation_adapter": null,
+      "publication_adaptation": "Explicit validated endpoint, repository inputs and signed synthetic payload; no operational default or signature logging."
     },
     {
       "path": "tests/lifecycle/test_cleanup.py",
@@ -2289,14 +2090,8 @@
       "source_sha256": "6a5c7d1bd0d230cc4bff29c22701e56cf33fb3959e6a06103aeadaa877a681b1",
       "template_sha256": "c2b02564ef4e98988222a898be766fc0b12d3d635d2743034d8efdcf22b7375c",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_338",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_152",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_152",
+        "PARITY_INPUT_338"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2331,14 +2126,8 @@
       "source_sha256": "88d20e108031036b002a8073a2b12e36b3f7008c653835df9ddd4ac9d526cf36",
       "template_sha256": "d37986ab8647b4b8a1f15d876821568fa167c48a948d7c829f99c9c2fb653fc6",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_116",
-          "occurrences": 2
-        },
-        {
-          "input": "PARITY_INPUT_186",
-          "occurrences": 2
-        }
+        "PARITY_INPUT_116",
+        "PARITY_INPUT_186"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
@@ -2373,21 +2162,23 @@
       "source_sha256": "d20f84472470376d56657237a204074493cceb7fac0dff793ee505305140a461",
       "template_sha256": "aab23e6471559f0a9cdb7ff0120e6b87cc731f5d4fce7262444795a0cffb3d05",
       "configuration_inputs": [
-        {
-          "input": "PARITY_INPUT_064",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_337",
-          "occurrences": 1
-        },
-        {
-          "input": "PARITY_INPUT_010",
-          "occurrences": 1
-        }
+        "PARITY_INPUT_010",
+        "PARITY_INPUT_064",
+        "PARITY_INPUT_337"
       ],
       "control_logic_changed": false,
       "relocation_adapter": null
+    },
+    {
+      "path": "scripts/webhook-inputs.ps1",
+      "template_path": "scripts/webhook-inputs.ps1",
+      "mode": "100644",
+      "source_blob": null,
+      "source_sha256": null,
+      "template_sha256": "265d4dfd4159e50665ff7612ba3b07907a943e01418e3204b1c74c1eedb52d09",
+      "configuration_inputs": [],
+      "control_logic_changed": true,
+      "publication_adaptation": "New project helper validating explicit HTTPS endpoints and sending bounded signed synthetic requests."
     }
   ],
   "inputs": [
@@ -2711,5 +2502,19 @@
     "PARITY_INPUT_338": "sample-config-013",
     "PARITY_INPUT_347": "sample-config-014",
     "PARITY_INPUT_348": "sample-config-015"
-  }
+  },
+  "supplemental_files": [
+    {
+      "path": "LICENSE",
+      "sha256": "eebd1b34e94e652cda6426b07244e2f851896f40e8a3831e5a678be256ac746b"
+    },
+    {
+      "path": "NOTICE.md",
+      "sha256": "9fa2c7fa04d9c8e4caa7a450d3ce3d5f571e651dbeab4c9a2f25de0c3ac6781b"
+    }
+  ],
+  "materialization_purposes": [
+    "reference",
+    "offline-qualification"
+  ]
 }

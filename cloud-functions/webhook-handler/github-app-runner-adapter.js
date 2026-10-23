@@ -47,10 +47,11 @@ async function createGitHubAppRunnerAdapter({ appId, installationId, repositoryI
     if (!response.data || response.data.id !== repositoryId ||
         typeof response.data.full_name !== 'string' ||
         response.data.full_name.toLowerCase() !== `${repositoryOwner}/${repositoryName}`.toLowerCase() ||
-        response.data.private !== true) unavailable();
+        response.data.private !== true) return false;
+    return true;
   }
   const safe = method => async args => {
-    try { await repo(); return await method(args); }
+    try { if (!await repo()) unavailable(); return await method(args); }
     catch (error) { if (error instanceof BootstrapMintFailure) throw error; unavailable(); }
   };
   async function inspectOwnedRunner({ runnerId, expectedName, expectedLabels }) {
@@ -70,6 +71,7 @@ async function createGitHubAppRunnerAdapter({ appId, installationId, repositoryI
     return { status: 'present', busy: runner.busy };
   }
   return {
+    verifyPrivateRepository: repo,
     inspectOwnedRunner: safe(inspectOwnedRunner),
     mintRegistration: safe(async () => {
       const response = await client.request('POST /repos/{owner}/{repo}/actions/runners/registration-token', repoArgs);

@@ -56,11 +56,11 @@
     },
     {
       "path": "cloud-functions/webhook-handler/deployment-runtime.js",
-      "sha256": "426603a9ce682b60a5b6a06b3e7ebeef779b777bb499abd600ec6fec39944734"
+      "sha256": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
     },
     {
       "path": "cloud-functions/webhook-handler/github-app-runner-adapter.js",
-      "sha256": "faf64e6855867f779f2ee39f63afc74ebd800fc5ed962b8b7c6db64dfb4ae17d"
+      "sha256": "daa9f7a383857c971654758bfb1f115b4385955d652501551cfdb919eb4c8cec"
     },
     {
       "path": "cloud-functions/webhook-handler/infrastructure-config.js",
@@ -88,7 +88,7 @@
     },
     {
       "path": "cloud-functions/webhook-handler/provisioning-state.js",
-      "sha256": "930511114f866ac79ca669c3ca18bf32f08074e16ed58e4d0cfd64376812980a"
+      "sha256": "76f07d616622e549d0d526244795c33b2eaf65a94fb394938f4541be7ca412ca"
     },
     {
       "path": "cloud-functions/webhook-handler/runner-labels.js",
@@ -104,7 +104,7 @@
     },
     {
       "path": "cloud-functions/webhook-handler/webhook-runtime.js",
-      "sha256": "8d49a99e94878c9734f38c32007ca7c389c9f45475e29e8eb25a30ece7561f8e"
+      "sha256": "4f9bf4ba1646551b12923e188ea9579122b9614cf6c024e73db75250481e4de5"
     },
     {
       "path": "cloud-functions/webhook-handler/worker-control.js",
@@ -115,12 +115,20 @@
       "sha256": "15fbc790d16a1eb169f3847078a631d691001dddfc4fae828c4fda00a6cdf48e"
     },
     {
+      "path": "LICENSE",
+      "sha256": "eebd1b34e94e652cda6426b07244e2f851896f40e8a3831e5a678be256ac746b"
+    },
+    {
+      "path": "NOTICE.md",
+      "sha256": "9fa2c7fa04d9c8e4caa7a450d3ce3d5f571e651dbeab4c9a2f25de0c3ac6781b"
+    },
+    {
       "path": "package-lock.json",
-      "sha256": "b49541c694df2c94357a64f881ff43afb0c116219a449db2d78d1a2920ab73c4"
+      "sha256": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44"
     },
     {
       "path": "package.json",
-      "sha256": "d2a2df1871aa6582a468dd948dd80baf2cd74524e91d00ab87059b52b5e7bd42"
+      "sha256": "ae2b2c98de563eb4c8bd54f3ebc9d7330648bb21659ad6648ccdadeb8283b5f8"
     }
   ]
 }

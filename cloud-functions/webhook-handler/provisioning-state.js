@@ -1,6 +1,15 @@
 const crypto = require("node:crypto");
 const { identity } = require("./job-identity");
 
+// Only a local caller that has not invoked the build API may construct this.
+// Service/RPC errors after submission retain their existing ambiguity rules.
+class BuildNotSubmitted extends Error {
+  constructor(cause) {
+    super('Build submission was not attempted', {cause});
+    this.code = cause.code;
+  }
+}
+
 function readPool(doc) {
   if (!doc.exists) return {};
   const entries = JSON.parse(doc.data().entries);
@@ -144,7 +153,7 @@ function coordinator({ firestore, cloudBuild, compute, project, zone, limit, cre
       // FAILED_PRECONDITION and UNAUTHENTICATED are definitive rejections here.
       // Other codes (including ALREADY_EXISTS, DEADLINE_EXCEEDED and INTERNAL),
       // missing build identity and persistence failures retain ambiguous acceptance.
-      if ([3, 7, 8, 9, 16].includes(error.code)) await transition(allocation.key, { token, state: "submitting" }, "released");
+      if (error instanceof BuildNotSubmitted || [3, 7, 8, 9, 16].includes(error.code)) await transition(allocation.key, { token, state: "submitting" }, "released");
       throw error;
     }
     // A persistence error after accepted submission is NOT a build rejection.
@@ -162,4 +171,4 @@ function coordinator({ firestore, cloudBuild, compute, project, zone, limit, cre
   }
   return { provision, reconcile, complete };
 }
-module.exports = { identity, coordinator, readPool };
+module.exports = { identity, coordinator, readPool, BuildNotSubmitted };

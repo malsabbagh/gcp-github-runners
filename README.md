@@ -2,7 +2,7 @@
 
 A portable controller for one GitHub Actions job per disposable Google Cloud Spot VM. Authenticated repository webhooks create durable Firestore demand and capacity reservations; an asynchronous provisioner starts private workers, and a controller reconciles uncertain outcomes and retires exact worker incarnations.
 
-The repository restores the selected source functionality with sanitized portable configuration, infrastructure modules, image tooling, operator scripts, CI and optional ReviewSensei tooling. The supported architecture supersedes shared-host batching and the competing direct Cloud Build webhook route. [The migration ledger](docs/MIGRATION.md) records every compared source path and its replacement or deliberate exclusion.
+The supported deployment uses trusted private workload repositories. Public pull-request validation uses GitHub-hosted runners. Infrastructure modules, image tooling, operator scripts and optional ReviewSensei tooling have separate activation requirements. [Compatibility boundaries](docs/MIGRATION.md) distinguish the supported controller from retained offline reference material.
 
 ## Start here
 
@@ -19,17 +19,12 @@ For installation, read [deployment instructions](DEPLOYMENT.md), [architecture](
 
 ## Repository readiness
 
-The migration has not enabled repository Actions, provisioned provider secrets, installed a ReviewSensei broker/App, created cloud resources, built an image, archived the original repository or changed repository visibility. Those are explicit operator steps. Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
+Repository visibility, Actions activation, provider authorization, App installation, image building and cloud deployment are separate operator steps. The presence of workflow files does not establish that automation is enabled. Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
 
-Optional [ReviewSensei automation](.github/README.md) is present with manual invocation, advisory reviews, publication disabled and provider egress disabled. Cloud Ollama requires an explicit egress decision and provider authorization before it can run.
+The optional [ReviewSensei policy](.github/README.md) enables automatic reviews, publication, auto-approval and authorized mentions. Provider egress is disabled. Review the external reusable workflow, App/broker authorization and provider policy before enabling it. Test CI is read-only; the separate trusted-main coverage publisher has repository write permission.
 
-Package metadata declares MIT; the selected source did not contain a root license or copyright notice. [NOTICE.md](NOTICE.md) records that limitation without inventing a copyright assignment.
+Copyright (c) 2026 Mohamad Alsabbagh. This project is licensed under [MIT](LICENSE); [third-party notices](NOTICE.md) continue to apply. Seven known dependency alerts remain deferred for follow-up; this release does not claim that they are fixed.
 
-## Source-compatible executable profile
+## Offline compatibility references
 
-The selected one-job implementation is an additional architecture, not a reason
-to omit capabilities from the original repository. The [source-compatible profile](source-compatible/README.md)
-retains original worker variants, direct handlers, executable operator/cleanup
-commands and tests with private values parameterized. ReviewSensei event and
-removal automation is restored in the root workflows. Use the behavior matrix
-to distinguish preserved source capability from inherited upstream defects.
+The [compatibility reference](source-compatible/README.md) retains older handlers, worker variants and operator tools for inspection and isolated regression qualification. It is not a supported deployment profile. Privileged, shared-host and worker-credential variants must not run public PRs or hostile jobs. Use the root one-job deployment for trusted private workloads.

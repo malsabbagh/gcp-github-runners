@@ -6,9 +6,14 @@ const sourceDir = path.resolve(__dirname, '../../cloud-functions/webhook-handler
 
 function load(options = {}, loader = null) {
   const store = new Map();
-  const calls = { builds: [], secrets: [], inventory: 0 };
+  const calls = { builds: [], secrets: [], inventory: 0, repository: 0 };
+  const verifyPrivateRepository = async () => {
+    calls.repository++;
+    if (options.failRepositoryRead || calls.repository === options.failRepositoryReadAt) throw Error('private provider detail');
+    return options.repositoryAllowed !== false && calls.repository !== options.denyRepositoryAt;
+  };
   const env = { GOOGLE_CLOUD_PROJECT: 'example-project', DEFAULT_ZONE: 'us-central1-a', MAX_RUNNER_VMS: '2',
-    GITHUB_REPO_OWNER: 'example', GITHUB_REPO_NAME: 'repo', CLOUDBUILD_SERVICE_ACCOUNT: 'provisioner@example-project.iam.gserviceaccount.com',
+    GITHUB_REPO_OWNER: 'example', GITHUB_REPO_NAME: 'repo', GITHUB_REPOSITORY_ID: '123456', GITHUB_APP_ID:'1',GITHUB_APP_INSTALLATION_ID:'2',RUNNER_GROUP_ID:'3',JIT_RELEASE_WINDOW_MS:'1000',GITHUB_APP_PRIVATE_KEY_VERSION:'projects/example-project/secrets/app-key/versions/1', CLOUDBUILD_SERVICE_ACCOUNT: 'provisioner@example-project.iam.gserviceaccount.com',
     RUNNER_LABELS_JSON: JSON.stringify(['self-hosted','trusted-private-one-job']), RUNNER_ROUTING_LABEL: 'trusted-private-one-job',
     REQUIRED_RUNNER_LABELS: JSON.stringify(['self-hosted','trusted-private-one-job']), INSTANCE_TEMPLATE_NAME: 'one-job-template', FIRESTORE_DATABASE_ID: 'autoscaler-state',
     VM_CREATION_TIMEOUT_SECONDS: '600', GITHUB_WEBHOOK_SECRET_VERSION: 'projects/example-project/secrets/github-webhook-secret/versions/1',
@@ -61,6 +66,7 @@ function load(options = {}, loader = null) {
     },
   };
   const factories = {
+    './github-app-runner-adapter': {createSecretManagerPrivateKeyProvider:()=>async()=> 'synthetic',createGitHubAppRunnerAdapter:async()=>({verifyPrivateRepository})},
     '@google-cloud/cloudbuild': {CloudBuildClient: function() {return cloudBuild;}},
     '@google-cloud/compute': {InstancesClient: function() {return compute;}},
     '@google-cloud/firestore': {Firestore: function() {return firestore;}},
@@ -70,10 +76,10 @@ function load(options = {}, loader = null) {
   };
   let handler;
   if (loader) handler = loader({env, factories});
-  else handler=require(path.join(sourceDir,'webhook-runtime')).createWebhookRuntime({environment:env,clients:{firestore,cloudBuild,compute,secretManager:new factories['@google-cloud/secret-manager'].SecretManagerServiceClient()}});
+  else handler=require(path.join(sourceDir,'webhook-runtime')).createWebhookRuntime({environment:env,clients:{firestore,cloudBuild,compute,verifyPrivateRepository,secretManager:new factories['@google-cloud/secret-manager'].SecretManagerServiceClient()}});
 
-  async function request({job = 10, delivery = 'delivery', action = 'queued', labels = ['self-hosted','trusted-private-one-job'], owner = 'example', repo = 'repo', signature, raw = true, bodyOverride} = {}) {
-    const body = {action, workflow_job: {id: job, run_id: 20, run_attempt: 1, labels, head_branch: 'main'}, repository: {owner: {login: owner}, name: repo}};
+  async function request({job = 10, delivery = 'delivery', action = 'queued', labels = ['self-hosted','trusted-private-one-job'], owner = 'example', repo = 'repo', repositoryPrivate = true, repositoryId = 123456, signature, raw = true, bodyOverride} = {}) {
+    const body = {action, workflow_job: {id: job, run_id: 20, run_attempt: 1, labels, head_branch: 'main'}, repository: {id:repositoryId,private:repositoryPrivate,owner: {login: owner}, name: repo}};
     const bytes = Buffer.from(JSON.stringify(body));
     const headers = {'x-github-event': 'workflow_job', 'x-github-delivery': delivery,
       'x-hub-signature-256': signature === undefined ? 'sha256=' + crypto.createHmac('sha256', secret).update(bytes).digest('hex') : signature};

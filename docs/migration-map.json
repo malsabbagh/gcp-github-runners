@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "scope": "Full-code-parity remediation across195 source paths, selected PR25 precedence;125 executable/configuration source files retained in an independent active profile; private/generated data excluded.",
+  "scope": "Compatibility path inventory with offline references and supported root one-job replacements; no live legacy deployment support.",
   "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
   "selected_source_PR25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
   "snapshot_before_restoration": "e130e62d445a08ef4987be26fcc4538a0e3ddcd3",
   "source_path_count": 195,
   "disposition_counts": {
-    "executable_source_compatible_profile": 125,
     "restored_deterministic_ci": 1,
     "restored_optional_tooling": 2,
     "sanitized_documentation_replacement": 25,
     "deliberate_unsupported_route_exclusion": 1,
     "deliberate_generated_or_operational_exclusion": 40,
-    "deliberate_private_exclusion": 1
+    "deliberate_private_exclusion": 1,
+    "retained_offline_reference": 125
   },
   "source_values_copied": false,
   "limits": [
@@ -24,13 +24,13 @@
     {
       "source_path": ".gcloudignore",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/.gcloudignore",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/.gcloudignore",
         "scripts/source-profile.py"
@@ -39,18 +39,19 @@
       "earlier_selected_profile_disposition": "portable_configuration_replacement",
       "earlier_replacement_paths": [
         ".gcloudignore"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": ".gitattributes",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/.gitattributes",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/.gitattributes",
         "scripts/source-profile.py"
@@ -59,7 +60,8 @@
       "earlier_selected_profile_disposition": "portable_configuration_replacement",
       "earlier_replacement_paths": [
         ".gitattributes"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": ".github/workflows/ci.yml",
@@ -112,13 +114,13 @@
     {
       "source_path": ".gitignore",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/.gitignore",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/.gitignore",
         "scripts/source-profile.py"
@@ -127,18 +129,19 @@
       "earlier_selected_profile_disposition": "portable_configuration_replacement",
       "earlier_replacement_paths": [
         ".gitignore"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": ".reviewsensei.yml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/.reviewsensei.yml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/.reviewsensei.yml",
         "scripts/source-profile.py"
@@ -148,7 +151,8 @@
       "earlier_replacement_paths": [
         ".reviewsensei.yml",
         ".github/README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "ARCHITECTURE.md",
@@ -599,13 +603,13 @@
     {
       "source_path": "archive/old-tests/test-remove-token-fix.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/archive/old-tests/test-remove-token-fix.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/archive/old-tests/test-remove-token-fix.sh",
         "scripts/source-profile.py"
@@ -615,18 +619,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "archive/old-tests/test-remove-token.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/archive/old-tests/test-remove-token.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/archive/old-tests/test-remove-token.sh",
         "scripts/source-profile.py"
@@ -636,18 +641,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "archive/old-tests/test-webhook-correct.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/archive/old-tests/test-webhook-correct.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/archive/old-tests/test-webhook-correct.ps1",
         "scripts/source-profile.py"
@@ -657,18 +663,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "archive/old-tests/test-webhook-debug.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/archive/old-tests/test-webhook-debug.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/archive/old-tests/test-webhook-debug.ps1",
         "scripts/source-profile.py"
@@ -678,18 +685,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "archive/old-tests/test-webhook-exact.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/archive/old-tests/test-webhook-exact.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/archive/old-tests/test-webhook-exact.ps1",
         "scripts/source-profile.py"
@@ -699,18 +707,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "archive/old-tests/test-webhook-final.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/archive/old-tests/test-webhook-final.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/archive/old-tests/test-webhook-final.ps1",
         "scripts/source-profile.py"
@@ -720,18 +729,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cleanup-github-runners.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cleanup-github-runners.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cleanup-github-runners.ps1",
         "scripts/source-profile.py"
@@ -742,7 +752,8 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/cleanup-function/coverage/base.css",
@@ -1013,13 +1024,13 @@
     {
       "source_path": "cloud-functions/cleanup-function/index.extended.test.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/cleanup-function/index.extended.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/cleanup-function/index.extended.test.js",
         "scripts/source-profile.py"
@@ -1028,18 +1039,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/cleanup-function/index.extended.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/cleanup-function/index.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/cleanup-function/index.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/cleanup-function/index.js",
         "scripts/source-profile.py"
@@ -1048,18 +1060,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/cleanup-function/index.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/cleanup-function/index.test.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/cleanup-function/index.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/cleanup-function/index.test.js",
         "scripts/source-profile.py"
@@ -1068,18 +1081,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/cleanup-function/index.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/cleanup-function/package.json",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/cleanup-function/package.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/cleanup-function/package.json",
         "scripts/source-profile.py"
@@ -1088,18 +1102,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/cleanup-function/package.json"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/cleanup-function/runner-cleanup.sh",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/cleanup-function/runner-cleanup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/cleanup-function/runner-cleanup.sh",
         "scripts/source-profile.py"
@@ -1108,18 +1123,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/cleanup-function/runner-cleanup.sh"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/hybrid-cleanup-handler/.gcloudignore",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/.gcloudignore",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/.gcloudignore",
         "scripts/source-profile.py"
@@ -1129,18 +1145,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
         "scripts/source-profile.py"
@@ -1150,18 +1167,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/hybrid-cleanup-handler/package.json",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package.json",
         "scripts/source-profile.py"
@@ -1171,18 +1189,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/instance-lifecycle-handler/package.json",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/instance-lifecycle-handler/package.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/instance-lifecycle-handler/package.json",
         "scripts/source-profile.py"
@@ -1192,18 +1211,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/vm-deletion-handler/package.json",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/vm-deletion-handler/package.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/vm-deletion-handler/package.json",
         "scripts/source-profile.py"
@@ -1213,7 +1233,8 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/.env.yaml",
@@ -1234,13 +1255,13 @@
     {
       "source_path": "cloud-functions/webhook-handler/.gcloudignore",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/.gcloudignore",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/.gcloudignore",
         "scripts/source-profile.py"
@@ -1250,18 +1271,19 @@
       "earlier_replacement_paths": [
         ".gcloudignore",
         "packaging/assemble-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/cleanup-firestore.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/cleanup-firestore.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/cleanup-firestore.js",
         "scripts/source-profile.py"
@@ -1273,18 +1295,19 @@
         "cloud-functions/webhook-handler/scheduled-recovery.js",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "scripts/management.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/cleanup-stale-vms.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/cleanup-stale-vms.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/cleanup-stale-vms.js",
         "scripts/source-profile.py"
@@ -1296,18 +1319,19 @@
         "cloud-functions/webhook-handler/scheduled-recovery.js",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "scripts/management.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/cloudbuild-webhook.yaml",
         "scripts/source-profile.py"
@@ -1321,7 +1345,8 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/coverage/base.css",
@@ -1592,13 +1617,13 @@
     {
       "source_path": "cloud-functions/webhook-handler/index-github-api.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index-github-api.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index-github-api.js",
         "scripts/source-profile.py"
@@ -1608,18 +1633,19 @@
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/github-app-runner-adapter.js",
         "cloud-functions/webhook-handler/allocation-bootstrap-broker.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.branch-coverage.test.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.branch-coverage.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.branch-coverage.test.js",
         "scripts/source-profile.py"
@@ -1632,18 +1658,19 @@
         "tests/controller-state.test.js",
         "tests/allocation-recovery.test.js",
         "tests/retirement-controller.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.comprehensive.test.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.comprehensive.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.comprehensive.test.js",
         "scripts/source-profile.py"
@@ -1656,18 +1683,19 @@
         "tests/controller-state.test.js",
         "tests/allocation-recovery.test.js",
         "tests/retirement-controller.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.coverage.test.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.coverage.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.coverage.test.js",
         "scripts/source-profile.py"
@@ -1680,18 +1708,19 @@
         "tests/controller-state.test.js",
         "tests/allocation-recovery.test.js",
         "tests/retirement-controller.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.edge-cases.test.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.edge-cases.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.edge-cases.test.js",
         "scripts/source-profile.py"
@@ -1704,18 +1733,19 @@
         "tests/controller-state.test.js",
         "tests/allocation-recovery.test.js",
         "tests/retirement-controller.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.http.test.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.http.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.http.test.js",
         "scripts/source-profile.py"
@@ -1724,18 +1754,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/index.http.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.js",
         "scripts/source-profile.py"
@@ -1744,18 +1775,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/index.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.simple.test.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.simple.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.simple.test.js",
         "scripts/source-profile.py"
@@ -1768,18 +1800,19 @@
         "tests/controller-state.test.js",
         "tests/allocation-recovery.test.js",
         "tests/retirement-controller.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.test.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.test.js",
         "scripts/source-profile.py"
@@ -1792,18 +1825,19 @@
         "tests/controller-state.test.js",
         "tests/allocation-recovery.test.js",
         "tests/retirement-controller.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/index.unit.test.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.unit.test.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/index.unit.test.js",
         "scripts/source-profile.py"
@@ -1812,18 +1846,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/index.unit.test.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/infrastructure-config.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/infrastructure-config.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/infrastructure-config.js",
         "scripts/source-profile.py"
@@ -1832,18 +1867,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/infrastructure-config.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/manual-cleanup.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/manual-cleanup.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/manual-cleanup.js",
         "scripts/source-profile.py"
@@ -1855,18 +1891,19 @@
         "cloud-functions/webhook-handler/scheduled-recovery.js",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "scripts/management.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/mark-creating-vms-failed.js",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/mark-creating-vms-failed.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/mark-creating-vms-failed.js",
         "scripts/source-profile.py"
@@ -1878,18 +1915,19 @@
         "cloud-functions/webhook-handler/scheduled-recovery.js",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "scripts/management.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/package.json",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/package.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/package.json",
         "scripts/source-profile.py"
@@ -1898,18 +1936,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/package.json"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/provision-runner.py",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/provision-runner.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/provision-runner.py",
         "scripts/source-profile.py"
@@ -1918,18 +1957,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/provisioning-state.js",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloud-functions/webhook-handler/provisioning-state.js",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloud-functions/webhook-handler/provisioning-state.js",
         "scripts/source-profile.py"
@@ -1938,7 +1978,8 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "cloud-functions/webhook-handler/provisioning-state.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloud-functions/webhook-handler/temp-state.txt",
@@ -1957,13 +1998,13 @@
     {
       "source_path": "cloudbuild/cloudbuild-cleanup.yaml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/cloudbuild-cleanup.yaml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/cloudbuild-cleanup.yaml",
         "scripts/source-profile.py"
@@ -1977,18 +2018,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/cloudbuild-enhanced.yaml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/cloudbuild-enhanced.yaml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/cloudbuild-enhanced.yaml",
         "scripts/source-profile.py"
@@ -2002,18 +2044,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/cloudbuild-webhook.yaml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/cloudbuild-webhook.yaml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/cloudbuild-webhook.yaml",
         "scripts/source-profile.py"
@@ -2027,18 +2070,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/cloudbuild.yaml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/cloudbuild.yaml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/cloudbuild.yaml",
         "scripts/source-profile.py"
@@ -2052,18 +2096,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-cleanup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-cleanup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-cleanup.sh",
         "scripts/source-profile.py"
@@ -2073,18 +2118,19 @@
       "earlier_replacement_paths": [
         "cloud-functions/cleanup-function/runner-cleanup.sh",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-shutdown-docker.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-shutdown-docker.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-shutdown-docker.sh",
         "scripts/source-profile.py"
@@ -2098,18 +2144,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user-docker-enhanced.sh",
         "scripts/source-profile.py"
@@ -2123,18 +2170,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user-docker-fixed.sh",
         "scripts/source-profile.py"
@@ -2148,18 +2196,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-shutdown-multi-user-docker.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user-docker.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user-docker.sh",
         "scripts/source-profile.py"
@@ -2173,18 +2222,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-shutdown-multi-user.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-shutdown-multi-user.sh",
         "scripts/source-profile.py"
@@ -2198,18 +2248,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-startup-docker.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-startup-docker.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-startup-docker.sh",
         "scripts/source-profile.py"
@@ -2223,18 +2274,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-startup-multi-user-docker.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-startup-multi-user-docker.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-startup-multi-user-docker.sh",
         "scripts/source-profile.py"
@@ -2248,18 +2300,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-startup-multi-user.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-startup-multi-user.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-startup-multi-user.sh",
         "scripts/source-profile.py"
@@ -2273,18 +2326,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "cloudbuild/runner-startup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/cloudbuild/runner-startup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/cloudbuild/runner-startup.sh",
         "scripts/source-profile.py"
@@ -2298,7 +2352,8 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "docker/DOCKER_INSTRUCTIONS.md",
@@ -2323,13 +2378,13 @@
     {
       "source_path": "docker/Dockerfile.rust",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/docker/Dockerfile.rust",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/docker/Dockerfile.rust",
         "scripts/source-profile.py"
@@ -2343,18 +2398,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "docker/build-and-push-github-runner.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/docker/build-and-push-github-runner.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/docker/build-and-push-github-runner.ps1",
         "scripts/source-profile.py"
@@ -2368,18 +2424,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "docker/entrypoint-rust.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/docker/entrypoint-rust.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/docker/entrypoint-rust.sh",
         "scripts/source-profile.py"
@@ -2393,18 +2450,19 @@
         "startup/worker-control.py",
         "cloudbuild/worker.pkr.hcl",
         "cloud-functions/webhook-handler/provision-runner.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "examples/github-workflow.yml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/examples/github-workflow.yml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/examples/github-workflow.yml",
         "scripts/source-profile.py"
@@ -2414,18 +2472,19 @@
       "earlier_replacement_paths": [
         "examples/one-job-workflow.yml",
         "docs/JOB_USAGE.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "examples/workflow-with-cleanup.yml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/examples/workflow-with-cleanup.yml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/examples/workflow-with-cleanup.yml",
         "scripts/source-profile.py"
@@ -2435,7 +2494,8 @@
       "earlier_replacement_paths": [
         "examples/one-job-workflow.yml",
         "docs/JOB_USAGE.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "logs.txt",
@@ -2454,13 +2514,13 @@
     {
       "source_path": "monitoring/alerts.yaml",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/monitoring/alerts.yaml",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/monitoring/alerts.yaml",
         "scripts/source-profile.py"
@@ -2471,18 +2531,19 @@
         "monitoring/README.md",
         "terraform/monitoring.tf",
         "docs/MONITORING.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "package-lock.json",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/package-lock.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/package-lock.json",
         "scripts/source-profile.py"
@@ -2493,18 +2554,19 @@
         "package-lock.json",
         "deployment/deployment-package.json",
         "deployment/deployment-package-lock.json"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "package.json",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/package.json",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/package.json",
         "scripts/source-profile.py"
@@ -2515,18 +2577,19 @@
         "package.json",
         "deployment/deployment-package.json",
         "deployment/deployment-package-lock.json"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "quick-cleanup.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/quick-cleanup.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/quick-cleanup.ps1",
         "scripts/source-profile.py"
@@ -2537,18 +2600,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/apply-glibc-fix.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/apply-glibc-fix.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/apply-glibc-fix.ps1",
         "scripts/source-profile.py"
@@ -2560,18 +2624,19 @@
         "startup/one-job-worker.py",
         "startup/shutdown-worker.py",
         "startup/worker-control.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/check-prerequisites.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/check-prerequisites.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/check-prerequisites.ps1",
         "scripts/source-profile.py"
@@ -2583,18 +2648,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/cleanup-offline-runners.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/cleanup-offline-runners.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/cleanup-offline-runners.ps1",
         "scripts/source-profile.py"
@@ -2605,18 +2671,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/create-instance-template.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/create-instance-template.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/create-instance-template.ps1",
         "scripts/source-profile.py"
@@ -2626,18 +2693,19 @@
       "earlier_replacement_paths": [
         "terraform/main.tf",
         "cloudbuild/worker.pkr.hcl"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/create-instance-template.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/create-instance-template.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/create-instance-template.sh",
         "scripts/source-profile.py"
@@ -2647,18 +2715,19 @@
       "earlier_replacement_paths": [
         "terraform/main.tf",
         "cloudbuild/worker.pkr.hcl"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/debug-startup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/debug-startup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/debug-startup.sh",
         "scripts/source-profile.py"
@@ -2670,18 +2739,19 @@
         "startup/one-job-worker.py",
         "startup/shutdown-worker.py",
         "startup/worker-control.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/destroy-resources.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/destroy-resources.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/destroy-resources.sh",
         "scripts/source-profile.py"
@@ -2691,18 +2761,19 @@
       "earlier_replacement_paths": [
         "scripts/destroy-resources.sh",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/list-all-runners.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/list-all-runners.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/list-all-runners.ps1",
         "scripts/source-profile.py"
@@ -2713,18 +2784,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/manual-cleanup.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/manual-cleanup.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/manual-cleanup.ps1",
         "scripts/source-profile.py"
@@ -2735,18 +2807,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/manual-cleanup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/manual-cleanup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/manual-cleanup.sh",
         "scripts/source-profile.py"
@@ -2757,18 +2830,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup-bloated-backup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup-bloated-backup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup-bloated-backup.sh",
         "scripts/source-profile.py"
@@ -2779,18 +2853,19 @@
         "scripts/setup.sh",
         "scripts/setup-clean.sh",
         "scripts/setup.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup-clean.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup-clean.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup-clean.sh",
         "scripts/source-profile.py"
@@ -2801,18 +2876,19 @@
         "scripts/setup.sh",
         "scripts/setup-clean.sh",
         "scripts/setup.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup-github-webhook.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup-github-webhook.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup-github-webhook.ps1",
         "scripts/source-profile.py"
@@ -2822,18 +2898,19 @@
       "earlier_replacement_paths": [
         "scripts/setup-webhook.sh",
         "scripts/setup-webhook.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup-github-webhook.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup-github-webhook.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup-github-webhook.sh",
         "scripts/source-profile.py"
@@ -2843,18 +2920,19 @@
       "earlier_replacement_paths": [
         "scripts/setup-webhook.sh",
         "scripts/setup-webhook.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup-webhook.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup-webhook.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup-webhook.ps1",
         "scripts/source-profile.py"
@@ -2864,18 +2942,19 @@
       "earlier_replacement_paths": [
         "scripts/setup-webhook.sh",
         "scripts/setup-webhook.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup-webhook.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup-webhook.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup-webhook.sh",
         "scripts/source-profile.py"
@@ -2885,18 +2964,19 @@
       "earlier_replacement_paths": [
         "scripts/setup-webhook.sh",
         "scripts/setup-webhook.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup.ps1",
         "scripts/source-profile.py"
@@ -2907,18 +2987,19 @@
         "scripts/setup.sh",
         "scripts/setup-clean.sh",
         "scripts/setup.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/setup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/setup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/setup.sh",
         "scripts/source-profile.py"
@@ -2929,18 +3010,19 @@
         "scripts/setup.sh",
         "scripts/setup-clean.sh",
         "scripts/setup.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/sync-terraform-config.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/sync-terraform-config.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/sync-terraform-config.ps1",
         "scripts/source-profile.py"
@@ -2951,18 +3033,19 @@
         "scripts/sync-terraform-config.py",
         "scripts/sync-terraform-config.sh",
         "scripts/sync-terraform-config.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/sync-terraform-config.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/sync-terraform-config.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/sync-terraform-config.sh",
         "scripts/source-profile.py"
@@ -2973,18 +3056,19 @@
         "scripts/sync-terraform-config.py",
         "scripts/sync-terraform-config.sh",
         "scripts/sync-terraform-config.ps1"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/test-hybrid-cleanup-manual.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/test-hybrid-cleanup-manual.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/test-hybrid-cleanup-manual.ps1",
         "scripts/source-profile.py"
@@ -2996,18 +3080,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/test-runner-status.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/test-runner-status.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/test-runner-status.ps1",
         "scripts/source-profile.py"
@@ -3019,18 +3104,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/test-shutdown-execution.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/test-shutdown-execution.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/test-shutdown-execution.sh",
         "scripts/source-profile.py"
@@ -3042,18 +3128,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/trigger-cleanup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/trigger-cleanup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/trigger-cleanup.sh",
         "scripts/source-profile.py"
@@ -3064,18 +3151,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/trigger-hybrid-cleanup.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/trigger-hybrid-cleanup.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/trigger-hybrid-cleanup.ps1",
         "scripts/source-profile.py"
@@ -3086,18 +3174,19 @@
         "scripts/management.py",
         "cloud-functions/cleanup-function/retirement-controller.js",
         "CLEANUP_SCRIPTS_README.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "scripts/verify-migration.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/scripts/verify-migration.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/scripts/verify-migration.sh",
         "scripts/source-profile.py"
@@ -3109,18 +3198,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "shutdown-script-extract.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/shutdown-script-extract.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/shutdown-script-extract.sh",
         "scripts/source-profile.py"
@@ -3132,18 +3222,19 @@
         "startup/one-job-worker.py",
         "startup/shutdown-worker.py",
         "startup/worker-control.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/.terraform.lock.hcl",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/.terraform.lock.hcl",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/.terraform.lock.hcl",
         "scripts/source-profile.py"
@@ -3152,18 +3243,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/.terraform.lock.hcl"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/github-webhook.tf.example",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/github-webhook.tf.example",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/github-webhook.tf.example",
         "scripts/source-profile.py"
@@ -3174,18 +3266,19 @@
         "scripts/setup-webhook.sh",
         "scripts/setup-webhook.ps1",
         "terraform/outputs.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/hybrid-cleanup-system.tf.disabled",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/hybrid-cleanup-system.tf.disabled",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/hybrid-cleanup-system.tf.disabled",
         "scripts/source-profile.py"
@@ -3195,18 +3288,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/instance-lifecycle-management.tf.disabled",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/instance-lifecycle-management.tf.disabled",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/instance-lifecycle-management.tf.disabled",
         "scripts/source-profile.py"
@@ -3216,18 +3310,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/main.tf",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/main.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/main.tf",
         "scripts/source-profile.py"
@@ -3236,18 +3331,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/main.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/modules/cloud-function/main.tf",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/modules/cloud-function/main.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/modules/cloud-function/main.tf",
         "scripts/source-profile.py"
@@ -3256,18 +3352,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/modules/cloud-function/main.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/modules/cloud-function/outputs.tf",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/modules/cloud-function/outputs.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/modules/cloud-function/outputs.tf",
         "scripts/source-profile.py"
@@ -3277,18 +3374,19 @@
       "earlier_replacement_paths": [
         "terraform/modules/cloud-function/main.tf",
         "terraform/outputs.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/modules/cloud-function/variables.tf",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/modules/cloud-function/variables.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/modules/cloud-function/variables.tf",
         "scripts/source-profile.py"
@@ -3297,7 +3395,8 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/modules/cloud-function/variables.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/modules/iam/README.md",
@@ -3318,13 +3417,13 @@
     {
       "source_path": "terraform/modules/iam/main.tf",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/modules/iam/main.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/modules/iam/main.tf",
         "scripts/source-profile.py"
@@ -3333,18 +3432,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/modules/iam/main.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/modules/iam/outputs.tf",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/modules/iam/outputs.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/modules/iam/outputs.tf",
         "scripts/source-profile.py"
@@ -3354,18 +3454,19 @@
       "earlier_replacement_paths": [
         "terraform/modules/iam/main.tf",
         "terraform/outputs.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/modules/iam/variables.tf",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/modules/iam/variables.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/modules/iam/variables.tf",
         "scripts/source-profile.py"
@@ -3374,18 +3475,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/modules/iam/variables.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/outputs.tf",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/outputs.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/outputs.tf",
         "scripts/source-profile.py"
@@ -3394,18 +3496,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/outputs.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/terraform.tfvars.example",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/terraform.tfvars.example",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/terraform.tfvars.example",
         "scripts/source-profile.py"
@@ -3414,18 +3517,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/terraform.tfvars.example"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/variables.tf",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/variables.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/variables.tf",
         "scripts/source-profile.py"
@@ -3434,18 +3538,19 @@
       "earlier_selected_profile_disposition": "portable_resource_and_identity_replacement",
       "earlier_replacement_paths": [
         "terraform/variables.tf"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/vm-deletion-handler.tf.disabled",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/vm-deletion-handler.tf.disabled",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/vm-deletion-handler.tf.disabled",
         "scripts/source-profile.py"
@@ -3455,18 +3560,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/workflow-completion-trigger.tf",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/workflow-completion-trigger.tf",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/workflow-completion-trigger.tf",
         "scripts/source-profile.py"
@@ -3477,18 +3583,19 @@
         "terraform/main.tf",
         "cloud-functions/webhook-handler/webhook-runtime.js",
         "cloud-functions/webhook-handler/scheduled-recovery.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "terraform/workflow-completion-trigger.tf.backup",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/terraform/workflow-completion-trigger.tf.backup",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/terraform/workflow-completion-trigger.tf.backup",
         "scripts/source-profile.py"
@@ -3498,18 +3605,19 @@
       "earlier_replacement_paths": [
         "ARCHITECTURE.md",
         "cloud-functions/cleanup-function/retirement-controller.js"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-cloudbuild-webhook.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-cloudbuild-webhook.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-cloudbuild-webhook.ps1",
         "scripts/source-profile.py"
@@ -3521,18 +3629,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-direct-api-deletion.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-direct-api-deletion.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-direct-api-deletion.sh",
         "scripts/source-profile.py"
@@ -3544,18 +3653,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-integration-cleanup.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-integration-cleanup.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-integration-cleanup.sh",
         "scripts/source-profile.py"
@@ -3567,18 +3677,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-parallel-shutdown.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-parallel-shutdown.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-parallel-shutdown.sh",
         "scripts/source-profile.py"
@@ -3590,18 +3701,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-shutdown-fix.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-shutdown-fix.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-shutdown-fix.sh",
         "scripts/source-profile.py"
@@ -3613,18 +3725,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-stop-then-delete.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-stop-then-delete.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-stop-then-delete.ps1",
         "scripts/source-profile.py"
@@ -3636,18 +3749,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "test-webhook-signed.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/test-webhook-signed.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/test-webhook-signed.ps1",
         "scripts/source-profile.py"
@@ -3659,18 +3773,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/lifecycle/test_cleanup.py",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/lifecycle/test_cleanup.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/lifecycle/test_cleanup.py",
         "scripts/source-profile.py"
@@ -3679,18 +3794,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/lifecycle/test_cleanup.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/lifecycle/test_lifecycle.py",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/lifecycle/test_lifecycle.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/lifecycle/test_lifecycle.py",
         "scripts/source-profile.py"
@@ -3699,18 +3815,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/lifecycle/test_lifecycle.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/lifecycle/test_monitor.py",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/lifecycle/test_monitor.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/lifecycle/test_monitor.py",
         "scripts/source-profile.py"
@@ -3719,18 +3836,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/lifecycle/test_monitor.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/provisioning/harness.cjs",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/provisioning/harness.cjs",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/provisioning/harness.cjs",
         "scripts/source-profile.py"
@@ -3739,18 +3857,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/provisioning/harness.cjs"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/provisioning/test_embedding.py",
       "snapshot_status": "identical",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/provisioning/test_embedding.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/provisioning/test_embedding.py",
         "scripts/source-profile.py"
@@ -3759,18 +3878,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/provisioning/test_embedding.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/provisioning/test_provision.py",
       "snapshot_status": "identical",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/provisioning/test_provision.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/provisioning/test_provision.py",
         "scripts/source-profile.py"
@@ -3779,18 +3899,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/provisioning/test_provision.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/provisioning/test_setup.py",
       "snapshot_status": "modified",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/provisioning/test_setup.py",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/provisioning/test_setup.py",
         "scripts/source-profile.py"
@@ -3799,18 +3920,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/provisioning/test_setup.py"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "tests/provisioning/webhook.cjs",
       "snapshot_status": "identical",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/tests/provisioning/webhook.cjs",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/tests/provisioning/webhook.cjs",
         "scripts/source-profile.py"
@@ -3819,18 +3941,19 @@
       "earlier_selected_profile_disposition": "retained_or_sanitized_runtime",
       "earlier_replacement_paths": [
         "tests/provisioning/webhook.cjs"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "validate-deployment.sh",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/validate-deployment.sh",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/validate-deployment.sh",
         "scripts/source-profile.py"
@@ -3842,18 +3965,19 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     },
     {
       "source_path": "validate-stop-then-delete.ps1",
       "snapshot_status": "missing",
-      "disposition": "executable_source_compatible_profile",
+      "disposition": "retained_offline_reference",
       "replacement_paths": [
         "source-compatible/templates/validate-stop-then-delete.ps1",
         "scripts/source-profile.py"
       ],
-      "reason": "Latest full-code-parity instruction supersedes unsupported architecture/tool exclusions; exact source control logic retained as executable profile, with private inputs parameterized.",
-      "source_equivalence": "Exact nonconfiguration source-byte equality, plus source semantic regressions; see source-compatible/behavior-matrix.json.",
+      "reason": "Retained for offline reference and isolated qualification; not a supported deployment route.",
+      "source_equivalence": "Historical digests are retained separately from current template adaptations; consult the current manifest and behavior matrix.",
       "replacement_paths_present": [
         "source-compatible/templates/validate-stop-then-delete.ps1",
         "scripts/source-profile.py"
@@ -3865,7 +3989,9 @@
         "scripts/check-prerequisites.ps1",
         "TEST_SCRIPTS_README.md",
         "DEPLOYMENT.md"
-      ]
+      ],
+      "support_boundary": "offline-reference-only"
     }
-  ]
+  ],
+  "publication_contract": "Root one-job controller is the supported trusted-private deployment. Compatibility template replacements are offline references, not executable operator parity."
 }

@@ -55,7 +55,7 @@
     "cloud-build",
     "runner"
   ],
-  "author": "",
+  "author": "Mohamad Alsabbagh",
   "license": "MIT",
   "environment": {
     "MAX_RUNNER_VMS": "2"

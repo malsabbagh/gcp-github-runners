@@ -1,7 +1,7 @@
-"""Materialize the executable source profile with explicit local configuration.
+"""Materialize non-executable compatibility references with explicit configuration.
 
 No installation, provider call, workflow dispatch or command execution occurs.
-Run a restored command deliberately from the generated working directory.
+Use the root one-job deployment for trusted private workloads.
 """
 import argparse
 import hashlib
@@ -13,7 +13,9 @@ PROFILE = Path(__file__).resolve().parents[1] / "source-compatible"
 SAFE_VALUE = re.compile(r"[A-Za-z0-9._:/@+=,-]+\Z")
 
 
-def materialize(configuration, output, profile=PROFILE):
+def materialize(configuration, output, profile=PROFILE, *, purpose):
+    if purpose not in ('reference', 'offline-qualification'):
+        raise ValueError('Only reference or isolated offline qualification is supported.')
     manifest = json.loads((profile / "manifest.json").read_text())
     if not isinstance(configuration, dict) or set(configuration) != set(manifest["inputs"]):
         raise ValueError("Supply exactly the configuration inputs listed in the manifest.")
@@ -43,17 +45,31 @@ def materialize(configuration, output, profile=PROFILE):
         if re.search(r"PARITY_INPUT_[0-9]{3}", text):
             raise ValueError("Unresolved configuration input.")
         files.append((relative, text.encode("utf-8"), entry["mode"]))
+    for entry in manifest['supplemental_files']:
+        relative = Path(entry['path'])
+        if relative.name not in ('LICENSE', 'NOTICE.md') or relative != Path(relative.name):
+            raise ValueError('Invalid supplemental path.')
+        source = profile.parent / relative
+        if source.is_symlink():
+            raise ValueError('Supplemental notices cannot be symlinks.')
+        data = source.read_bytes()
+        if hashlib.sha256(data).hexdigest() != entry['sha256']:
+            raise ValueError('A project notice differs from the reviewed manifest.')
+        files.append((relative, data, '100644'))
+    files.append((Path('REFERENCE.md'), b'# Offline compatibility reference\n\nThis tree is not a deployment package. Legacy variants include privileged, shared-host and worker-credential behavior. Use the root supported one-job deployment for trusted private workloads. File permissions are not a sandbox; do not execute reference scripts against provider resources.\n', '100644'))
     output.mkdir(parents=True, mode=0o700)
     for relative, data, mode in files:
         destination = output / relative
         destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         destination.write_bytes(data)
-        destination.chmod(0o700 if mode == "100755" else 0o600)
+        destination.chmod(0o700 if purpose == 'offline-qualification' and mode == "100755" else 0o600)
     return len(files)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--purpose', choices=['reference'], required=True,
+                        help='Only non-executable references are available through the operator CLI.')
     parser.add_argument("--configuration", type=Path, required=True,
                         help="Ignored local JSON with the inputs in source-compatible/manifest.json.")
     parser.add_argument("--output-name", required=True,
@@ -63,5 +79,5 @@ if __name__ == "__main__":
         parser.error("Invalid output name.")
     config = json.loads(args.configuration.read_text())
     root = PROFILE.parent / ".source-profile" / args.output_name
-    count = materialize(config, root)
-    print(f"Materialized {count} executable/configuration files in {root}. Nothing was executed.")
+    count = materialize(config, root, purpose=args.purpose)
+    print(f"Materialized {count} non-executable reference files in {root}. Nothing was executed.")
