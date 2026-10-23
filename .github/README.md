@@ -1,35 +1,17 @@
 # Repository automation
 
-CI qualifies the portable source with Node 24, `npm run check:archive`, and
-`npm run test:coverage-check`: all built-in Node fixtures, both complete workspace
-Jest suites, and every available Python regression suite (currently
-provisioning, lifecycle and worker). Coverage converts Node/Python subprocess
-and Jest VM coverage to source locations before merging, includes unloaded
-production files, and enforces 81% lines/branches/functions/statements for each
-production JavaScript file. CI also checks Bash/PowerShell syntax and Terraform formatting/provider
-validation plus mocked infrastructure/IAM tests. Python qualification requires
-PowerShell. CI uses
-hosted Ubuntu runners and a read-only repository token; it has no cloud
-credentials, deployment step, Pages publishing, or provider inference call.
-`terraform init -backend=false` installs the checked-in provider lock without
-accessing state; `validate` does not deploy. Installation, fixtures and static
-validation do not demonstrate a successful live deployment.
+Public pull-request validation uses GitHub-hosted Ubuntu runners and read-only repository tokens. Checkout credentials are not persisted. Tests receive no cloud/provider secret or OIDC deployment authority. Root CI runs the Node 24 fixture/Jest/Python suites, the per-production-JavaScript-file 81% coverage gate, syntax checks, archive checks, and Terraform validation/mocked tests. Python qualification requires PowerShell and treats skipped suites as failures.
 
-## ReviewSensei
+Source-compatible CI materializes an isolated offline qualification tree with synthetic inputs. Its tests retain the separate checked-in dependency locks. A separate `publish-coverage` job receives `contents: write` only after successful validation on a push to `main`. It downloads coverage from that same run and publishes it to the coverage branch without executing the report contents. PR runs cannot invoke this publisher or provide its input artifact. Coverage publication does not enable a Pages site by itself.
 
-The setup-v5 caller now restores the source event behavior: eligible PR events,
-authorized issue/inline mentions, rescan/command/reply handling and manual
-dispatch. The root configuration matches selected source PR #25, including
-automatic reviews, publication, auto-approval and mentions. Provider data egress
-remains false, as it is in the source. The caller retains trusted default-branch
-resolution and a frozen PR identity; it follows the operator-managed v5 tag.
+`terraform init -backend=false` installs pinned providers without accessing backend state; validation and mocked tests do not deploy. A green test result does not qualify live IAM, images, networking, JIT lifetime or hostile-workload isolation. Repository visibility does not require enabling Actions.
 
-The removal workflow again creates a cleanup branch, removes setup files,
-commits, pushes and opens a PR. Both author and committer use the existing
-verified `malsabbagh <malsabbagh@users.noreply.github.com>` identity instead of
-the source's bot identity. Offline tests use a real temporary Git tree and
-intercept all push/GitHub operations. Running the workflow is a separate action;
-restoring its code does not dispatch it or change repository settings.
+## ReviewSensei policy and activation
 
-The additional source-compatible executable profile restores source operator
-commands and worker variants; see [the profile guide](../source-compatible/README.md).
+The checked-in `.reviewsensei.yml` enables automatic reviews, GitHub publication, auto-approval and authorized mentions. It disables provider data egress, learning and review artifacts. It is not a manual-only or advisory-only configuration. The workflow handles eligible PR events, authorized issue/inline mentions, commands, replies and manual dispatch while resolving a frozen PR identity from the trusted default branch.
+
+The caller grants a read-only repository token plus OIDC authority to its external reusable workflow, and explicitly maps provider secret names. Publication depends on the broker/App's independent authorization. Before activating this automation, review and pin the external reusable workflow currently referenced by `@v5`, approve the App/broker/OIDC policy and decide provider egress separately. Do not infer those guarantees from this repository's local resolver tests. No test or source change installs the App, retrieves a provider secret or authorizes egress.
+
+The manual removal workflow creates a cleanup branch, removes setup files, commits, pushes and opens a PR when deliberately invoked. It uses the existing public `malsabbagh` noreply Git identity. Its offline regressions use a temporary Git tree and intercept remote operations.
+
+Enabling repository Actions can activate checked-in automatic workflows. Keep it disabled until these activation requirements and the public-fork policy are reviewed; disabled status is a repository setting, not a permanent code property.

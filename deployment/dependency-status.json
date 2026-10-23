@@ -2,7 +2,7 @@
   "status": "EXACT_STANDALONE_LOCK_RESOLVED",
   "runtime": "Node24.x (offline tests use24.18.0)",
   "deployment_lock": "deployment/deployment-package-lock.json",
-  "deployment_lock_sha256": "b49541c694df2c94357a64f881ff43afb0c116219a449db2d78d1a2920ab73c4",
+  "deployment_lock_sha256": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
   "dependencies": {
     "@google-cloud/cloudbuild": {
       "version": "4.8.1",

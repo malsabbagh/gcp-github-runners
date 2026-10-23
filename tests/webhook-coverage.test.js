@@ -24,7 +24,7 @@ const queued={action:'queued',verifiedWebhook:true,repo_owner:'example',repo_nam
 const env=()=>({GOOGLE_CLOUD_PROJECT:'example-project',DEFAULT_ZONE:'us-central1-a',INSTANCE_TEMPLATE_NAME:'fixture-template',MAX_RUNNER_VMS:'2',
   FIRESTORE_DATABASE_ID:'runner-state',VM_CREATION_TIMEOUT_SECONDS:'600',GITHUB_WEBHOOK_SECRET_VERSION:'projects/example-project/secrets/fixture-hook/versions/1',
   BUILDER_IMAGE:'registry.example.invalid/builder@sha256:'+'a'.repeat(64),WORKER_SERVICE_ACCOUNT:'worker@example-project.iam.gserviceaccount.com',WORKER_SERVICE_ACCOUNT_UNIQUE_ID:'123456',
-  ALLOCATION_BROKER_URL:'https://controller.example.invalid/bootstrap',GITHUB_REPO_OWNER:'example',GITHUB_REPO_NAME:'repository',CLOUDBUILD_SERVICE_ACCOUNT:'builder@example-project.iam.gserviceaccount.com',
+  ALLOCATION_BROKER_URL:'https://controller.example.invalid/bootstrap',GITHUB_REPOSITORY_ID:'1',GITHUB_REPO_OWNER:'example',GITHUB_REPO_NAME:'repository',CLOUDBUILD_SERVICE_ACCOUNT:'builder@example-project.iam.gserviceaccount.com',
   RUNNER_ROUTING_LABEL:'gcp-one-job',RUNNER_LABELS_JSON:JSON.stringify(['self-hosted','linux','x64','gcp-one-job']),REQUIRED_RUNNER_LABELS:JSON.stringify(['self-hosted','gcp-one-job'])});
 function webhookFixture({environment=env(),initial={},scopes=[]}={}) {
   const db=store(initial),calls={builds:[],reads:0},options={hmac:'fixture-only-hmac'};
@@ -32,9 +32,9 @@ function webhookFixture({environment=env(),initial={},scopes=[]}={}) {
     async listBuilds(){return [[]];},async getBuild(){return [{status:'WORKING'}];}};
   const compute={async *aggregatedListAsync(){for(const scope of scopes)yield scope;},async get(){throw Object.assign(Error('fixture-provider-detail'),{code:5});}};
   const secretManager={async accessSecretVersion(){calls.reads++;if(options.secretError)throw Error('fixture-provider-detail');return [{payload:{data:Buffer.from(options.hmac)}}];}};
-  const runtime=createWebhookRuntime({environment,clients:{cloudBuild,compute,secretManager,firestore:db.firestore}});
+  const runtime=createWebhookRuntime({environment,clients:{cloudBuild,compute,secretManager,firestore:db.firestore,verifyPrivateRepository:async()=>options.privateRepository!==false}});
   async function request({body,raw,headers={},method='POST',delivery='fixture-delivery',event='workflow_job'}={}) {
-    const payload=body===undefined?{action:'queued',repository:{owner:{login:'example'},name:'repository',id:1},workflow_job:{id:200,run_id:100,run_attempt:1,labels:['self-hosted','gcp-one-job']}}:body;
+    const payload=body===undefined?{action:'queued',repository:{owner:{login:'example'},name:'repository',id:1,private:true},workflow_job:{id:200,run_id:100,run_attempt:1,labels:['self-hosted','gcp-one-job']}}:body;
     const bytes=raw===undefined?Buffer.from(JSON.stringify(payload)):raw;
     const signature=Buffer.isBuffer(bytes)?'sha256='+crypto.createHmac('sha256',options.hmac).update(bytes).digest('hex'):undefined;
     const req={method,rawBody:bytes,body:payload,headers:{'x-hub-signature-256':signature,'x-github-event':event,'x-github-delivery':delivery,...headers}};
@@ -50,6 +50,21 @@ function provisionFixture({initial={},scopes=[],createBuild,overrides={}}={}) {
     brokerUrl:'https://controller.example.invalid/bootstrap',clock:()=>100000,createBuild:async(...args)=>{calls.push(args);return createBuild?createBuild(db,...args):{metadata:{build:{id:'fixture-build'}}};},...overrides};
   return {db,calls,controller:coordinator(cfg)};
 }
+
+test('every exposed new-demand route rejects missing provenance and current public repository status',async()=>{
+  const f=webhookFixture();
+  for (const event of [queued,{...queued,repo_id:1,repo_private:'true'},{...queued,repo_id:2,repo_private:true}]) {
+    assert.equal(await f.runtime.provisioning.provision(event),'denied');
+    assert.equal(await f.runtime.processWorkflowJobEvent(event),'denied');
+  }
+  assert.deepEqual(f.db.data,{});assert.equal(f.calls.builds.length,0);
+  const trusted={...queued,repo_id:1,repo_private:true};
+  assert.equal(await f.runtime.authorizeDemand(trusted),true);
+  f.options.privateRepository=false;
+  assert.equal(await f.runtime.authorizeDemand(trusted),false);
+  assert.equal(await f.runtime.provisioning.provision(trusted),'denied');
+  assert.deepEqual(f.db.data,{});
+});
 
 test('public webhook rejects transport/signature/JSON errors before any reservation and hides provider details',async t=>{
   t.mock.method(console,'error',()=>{});

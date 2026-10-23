@@ -34,7 +34,7 @@ function createProductionDeployment({environment:suppliedEnvironment=process.env
       repositoryOwner:environment.GITHUB_REPO_OWNER,repositoryName:environment.GITHUB_REPO_NAME,
       enabled:readiness.dispatchEnabled && readiness.workerDrainQualified && readiness.workerStopQualified && readiness.approvedQuiescence});
     const controller=controllerFactory({...readiness,infrastructureConfig:cfg,...webhook.clients,environment,
-      registeredLabels:webhook.registeredLabels,transportGuard:tokenShape,workerControl,provisioning:webhook.provisioning,isEligible:webhook.eligible,
+      registeredLabels:webhook.registeredLabels,transportGuard:tokenShape,workerControl,provisioning:webhook.provisioning,isEligible:webhook.authorizeDemand,
       invocationVerifier:invocationVerifier || createGoogleInvocationVerifier(),invocationVerifierQualified:true,
       expectedAudience:environment.CONTROLLER_AUDIENCE,adminSubject:environment.ADMIN_SERVICE_ACCOUNT_UNIQUE_ID,
       schedulerSubject:environment.SCHEDULER_SERVICE_ACCOUNT_UNIQUE_ID});

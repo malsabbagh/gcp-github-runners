@@ -41,7 +41,7 @@ class GitContextTests(unittest.TestCase):
             git('commit', '-m', 'Fixture')
             manifest = json.loads((PROFILE.PROFILE / 'manifest.json').read_text())
             work = root / '.materialized' / 'source'
-            PROFILE.materialize(manifest['inputs_file_example'], work)
+            PROFILE.materialize(manifest['inputs_file_example'], work, purpose='offline-qualification')
             bins = root / 'bin'; bins.mkdir()
             for command in ['git', 'gh']:
                 shim = bins / command

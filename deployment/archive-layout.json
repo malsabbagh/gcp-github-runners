@@ -19,5 +19,9 @@
     "Terraform"
   ],
   "cloud_deployment_performed": false,
-  "default_readiness_flags": false
+  "default_readiness_flags": false,
+  "project_notices": [
+    "LICENSE",
+    "NOTICE.md"
+  ]
 }

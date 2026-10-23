@@ -21,6 +21,35 @@ test('fresh sync environment rejects unsigned requests and accepts default-secre
   expect((await t.request({bodyOverride:{action:'completed'}})).statusCode).toBe(202);
   expect(t.calls.builds).toHaveLength(1);
 });
+
+test.each([false,null,'true',1])('signed nonprivate or unproven repository %j never creates demand',async(repositoryPrivate)=>{
+  const t=subject();expect((await t.request({repositoryPrivate})).statusCode).toBe(200);
+  expect(t.calls.builds).toHaveLength(0);expect(t.store.size).toBe(0);
+});
+test('API repository privacy overrides webhook metadata and unavailable verification is retryable',async()=>{
+  const denied=subject({repositoryAllowed:false});expect((await denied.request()).statusCode).toBe(200);expect(denied.store.size).toBe(0);
+  const failed=subject({failRepositoryRead:true});expect((await failed.request()).statusCode).toBe(503);expect(failed.store.size).toBe(0);
+  const wrong=subject();expect((await wrong.request({repositoryId:987654})).statusCode).toBe(200);expect(wrong.store.size).toBe(0);
+});
+test('visibility drift before build submission releases only the unsubmitted attempt',async()=>{
+  const t=subject({denyRepositoryAt:2});expect((await t.request()).statusCode).toBe(200);
+  expect(t.calls.builds).toHaveLength(0);expect(Object.keys(t.pool())).toHaveLength(0);
+});
+test('a failed final authority read requeues the unsubmitted attempt and recovers without capacity leakage',async()=>{
+  const t=subject({failRepositoryReadAt:2});expect((await t.request()).statusCode).toBe(503);
+  expect(t.calls.builds).toHaveLength(0);expect(Object.keys(t.pool())).toHaveLength(0);
+  expect(t.jobs()[0].state).toBe('waiting');
+  expect((await t.request()).statusCode).toBe(202);expect(t.calls.builds).toHaveLength(1);
+  expect(Object.keys(t.pool())).toHaveLength(1);
+});
+test('completion still records an issued demand after privacy changes, and public demand stays closed',async()=>{
+  const t=subject();expect((await t.request()).statusCode).toBe(202);
+  t.options.repositoryAllowed=false;
+  expect((await t.request({action:'completed',repositoryPrivate:false})).statusCode).toBe(200);
+  expect(t.jobs()[0].done).toBe(true);
+  expect((await t.request({repositoryPrivate:false})).statusCode).toBe(200);
+  expect(t.calls.builds).toHaveLength(1);
+});
 test.each([{secret:''},{secret:'place'+'holder-synthetic'},{env:{SKIP_SIGNATURE_VERIFICATION:'true'}},{failSecret:true}])('unsafe or inaccessible secret configuration fails closed: %j',async(options)=>{
   const t=subject(options);
   expect([401,500]).toContain((await t.request({signature:'sha256='+'a'.repeat(64)})).statusCode);

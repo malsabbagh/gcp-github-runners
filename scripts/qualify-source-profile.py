@@ -38,7 +38,7 @@ def main():
     environment = dict(os.environ, POWERSHELL_BIN=powershell)
     with tempfile.TemporaryDirectory(prefix='runner-source-offline-') as directory:
         work = Path(directory).resolve() / 'source'
-        PROFILE.materialize(manifest['inputs_file_example'], work)
+        PROFILE.materialize(manifest['inputs_file_example'], work, purpose='offline-qualification')
         # These locks have separate dependency closures. Borrowing root node_modules
         # would hide incompatible or uninstalled source/hybrid updates.
         for where in [work, work / 'cloud-functions/hybrid-cleanup-handler']:

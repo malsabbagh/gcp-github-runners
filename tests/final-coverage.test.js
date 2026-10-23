@@ -50,6 +50,9 @@ test('assembled source preserves reviewed paths, bytes, permissions and dependen
     assert.throws(() => assemble(target), /ARCHIVE_DESTINATION_INVALID/);
     assert.ok(declared.every(file => !file.path.includes('node_modules') && !file.path.endsWith('.test.js')));
     assert.ok(declared.some(file => file.path === 'package-lock.json'));
+    for (const name of ['LICENSE', 'NOTICE.md']) {
+      assert.equal(fs.readFileSync(path.join(target, name), 'utf8'), fs.readFileSync(path.join(root, name), 'utf8'));
+    }
   } finally { fs.rmSync(parent, { recursive: true, force: true }); }
 });
 
@@ -232,6 +235,18 @@ test('App repository authority and registration lifetimes are checked on every o
   }
   const f = appFixture(); assert.deepEqual(await (await f.create()).mintRegistration(),
     { token: 'fixture', providerExpiresAtMs: 200000 });
+});
+
+test('read-only repository verification observes visibility changes without permitting runner operations',async()=>{
+  const f=appFixture(),adapter=await f.create();
+  assert.equal(await adapter.verifyPrivateRepository(),true);
+  f.repository.private=false;
+  assert.equal(await adapter.verifyPrivateRepository(),false);
+  await assert.rejects(adapter.mintRegistration());
+  await assert.rejects(adapter.mintJit({}));
+  await assert.rejects(adapter.listRunnerPage({page:1}));
+  await assert.rejects(adapter.deregisterOwnedRunner(f.input));
+  assert.equal(f.calls.some(route=>/^(POST|DELETE)/.test(route)),false);
 });
 
 test('App runner observations require exact labels and paginated inventory integrity', async () => {

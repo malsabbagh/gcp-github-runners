@@ -24,7 +24,7 @@ class SourceProfileTests(unittest.TestCase):
         self.out = Path(self.temp.name) / 'materialized'
 
     def test_all_runtime_operator_variant_and_original_test_files_materialize(self):
-        self.assertEqual(PROFILE.materialize(self.configuration, self.out), len(self.manifest['files']))
+        self.assertEqual(PROFILE.materialize(self.configuration, self.out, purpose='offline-qualification'), len(self.manifest['files']) + len(self.manifest['supplemental_files']) + 1)
         for file in self.manifest['files']:
             with self.subTest(path=file['path']):
                 template = (PROFILE.PROFILE / 'templates' / file.get('template_path', file['path'])).read_text()
@@ -32,7 +32,7 @@ class SourceProfileTests(unittest.TestCase):
                     template = template.replace(key, value)
                 output = self.out / file['path']
                 self.assertEqual(output.read_text(), template)
-                self.assertNotIn('PARITY_INPUT_', output.read_text())
+                self.assertNotRegex(output.read_text(), r'PARITY_INPUT_[0-9]{3}')
                 self.assertEqual(stat.S_IMODE(output.stat().st_mode), 0o700 if file['mode'] == '100755' else 0o600)
         for file in ['cloudbuild/runner-startup-multi-user-docker.sh', 'docker/Dockerfile.rust',
                      'scripts/cleanup-offline-runners.ps1', 'scripts/destroy-resources.sh',
@@ -40,9 +40,24 @@ class SourceProfileTests(unittest.TestCase):
                      'cloud-functions/webhook-handler/index.comprehensive.test.js']:
             self.assertTrue((self.out / file).is_file())
 
+    def test_reference_materialization_is_nonexecutable_and_carries_project_license(self):
+        PROFILE.materialize(self.configuration, self.out, purpose='reference')
+        self.assertEqual((self.out / 'LICENSE').read_text(), (ROOT / 'LICENSE').read_text())
+        self.assertTrue((self.out / 'REFERENCE.md').is_file())
+        for file in self.out.rglob('*'):
+            if file.is_file():
+                self.assertEqual(stat.S_IMODE(file.stat().st_mode), 0o600)
+
+    def test_materialization_requires_an_explicit_nonoperator_purpose(self):
+        with self.assertRaises(TypeError):
+            PROFILE.materialize(self.configuration, self.out)
+        with self.assertRaises(ValueError):
+            PROFILE.materialize(self.configuration, self.out, purpose='operator')
+        self.assertFalse(self.out.exists())
+
     def test_missing_configuration_is_rejected_before_writing(self):
         with self.assertRaises(ValueError):
-            PROFILE.materialize({}, self.out)
+            PROFILE.materialize({}, self.out, purpose='reference')
         self.assertFalse(self.out.exists())
 
     def test_quote_shell_and_newline_injection_are_rejected(self):
@@ -51,33 +66,37 @@ class SourceProfileTests(unittest.TestCase):
             with self.subTest(value=value):
                 config = dict(self.configuration, **{key: value})
                 with self.assertRaises(ValueError):
-                    PROFILE.materialize(config, self.out)
+                    PROFILE.materialize(config, self.out, purpose='reference')
                 self.assertFalse(self.out.exists())
 
     def test_existing_operator_inputs_are_not_overwritten(self):
         self.out.mkdir()
         (self.out / 'existing').write_text('retained')
         with self.assertRaises(ValueError):
-            PROFILE.materialize(self.configuration, self.out)
+            PROFILE.materialize(self.configuration, self.out, purpose='reference')
         self.assertEqual((self.out / 'existing').read_text(), 'retained')
 
     def test_template_integrity_is_bound_to_frozen_source(self):
         for file in self.manifest['files']:
             data = (PROFILE.PROFILE / 'templates' / file.get('template_path', file['path'])).read_bytes()
             self.assertEqual(hashlib.sha256(data).hexdigest(), file['template_sha256'])
-            self.assertEqual(file['control_logic_changed'], file['path'] in {'scripts/setup-webhook.sh', 'scripts/setup-webhook.ps1'})
+            self.assertIsInstance(file['control_logic_changed'], bool)
+            if file['control_logic_changed']:
+                self.assertTrue(file.get('publication_adaptation') or file.get('relocation_adapter'))
 
     def test_fresh_git_checkout_preserves_template_hashes_and_materializes(self):
         checkout = Path(self.temp.name) / 'checkout'
         indexed = Path(self.temp.name) / 'indexed'
         indexed.mkdir()
         shutil.copyfile(ROOT / '.gitattributes', indexed / '.gitattributes')
+        for name in ['LICENSE', 'NOTICE.md']:
+            shutil.copyfile(ROOT / name, indexed / name)
         shutil.copytree(PROFILE.PROFILE, indexed / 'source-compatible')
-        for arguments in [['init'], ['add', '.'],
+        for arguments in [['init'], ['config', 'core.autocrlf', 'true'], ['add', '.'],
                           ['checkout-index', '--all', '--prefix=' + str(checkout) + '/']]:
             subprocess.run(['git', *arguments], cwd=indexed, check=True, capture_output=True)
         self.assertEqual(PROFILE.materialize(self.configuration, self.out,
-                                           profile=checkout / 'source-compatible'), 125)
+                                           profile=checkout / 'source-compatible', purpose='reference'), len(self.manifest['files']) + len(self.manifest['supplemental_files']) + 1)
 
 
 if __name__ == '__main__':

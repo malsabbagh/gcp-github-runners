@@ -1,6 +1,6 @@
 # Worker image preparation
 
-The native image supports a trusted one-job Linux x64 workload without Docker/container actions or sudo. The [image source guide](../docker/README.md) describes pinned runner provenance, archive safety and offline qualification limits.
+The native image supports a trusted private one-job Linux x64 workload without Docker/container actions or sudo. The [image source guide](../docker/README.md) describes pinned runner provenance, archive safety and offline qualification limits.
 
 Choose these approved build inputs; none is embedded in the repository:
 
@@ -36,3 +36,5 @@ gcloud builds submit \
 Alternatively, `packer build cloudbuild/worker.pkr.hcl` performs an authorized direct build. Do not use both as competing deployment routes. The image contains a single unprivileged runner installation and the one-job service/control code; no consumed startup marker, token, JIT material or management credential may be baked in.
 
 After building, supply the exact resulting image resource to Terraform. Qualify boot behavior, guest-agent metadata, private GitHub/broker reachability, checksum/provenance, no second boot/remint/listener, cgroup containment, and shutdown/retirement with a disposable trusted job. Worker-control polling is outbound and allocation/incarnation bound; a child exit or acknowledgement is not proof of signed completion or VM absence. No image build or publication is performed by CI.
+
+Legacy privileged/shared-host/Docker image recipes are retained only as offline references. They are not safe substitutes for the supported one-job image or a boundary for hostile public jobs.

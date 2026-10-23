@@ -17,7 +17,7 @@ const sha=text=>createHash('sha256').update(text).digest('hex');
 // Assemble only reviewed runtime paths. Never copy .git, ambient configuration,
 // tests, node_modules, state or credentials; reject symlinks at every leaf.
 function inputs() {
-  const mappings={'package.json':'deployment/deployment-package.json','package-lock.json':'deployment/deployment-package-lock.json','controller-entry.js':'controller-entry.js'};
+  const mappings={'LICENSE':'LICENSE','NOTICE.md':'NOTICE.md','package.json':'deployment/deployment-package.json','package-lock.json':'deployment/deployment-package-lock.json','controller-entry.js':'controller-entry.js'};
   for (const dir of ['cloud-functions/webhook-handler','cloud-functions/cleanup-function']) {
     guardPath(path.join(root,dir),'ARCHIVE_FILE_INVALID');
     for (const name of fs.readdirSync(path.join(root,dir)).sort())

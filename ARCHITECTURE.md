@@ -1,10 +1,10 @@
 # Architecture
 
-The supported unit is one managed VM, one ephemeral runner and one job. A trusted, explicitly configured repository and a dedicated routing label own admission. Multi-user batching, Docker shared-host isolation, public-fork jobs and arbitrary hostile workloads are outside this profile.
+The supported unit is one managed VM, one ephemeral runner and one job. A trusted, explicitly configured private repository and a dedicated routing label own admission. Multi-user batching, Docker shared-host isolation, public-fork jobs and arbitrary hostile workloads are outside this profile.
 
 ## Allocation lifecycle
 
-1. The webhook verifies the HMAC signature over the exact raw request body before parsing or changing durable state. Repository and requested/registered labels must match the configured allowlist.
+1. The webhook verifies the HMAC signature over the exact raw request body before parsing or changing durable state. Repository name, numeric ID, strict private status and requested/registered labels must match the configured allowlist. Current GitHub App authority is checked before new demand/reservations and again before build submission; JIT retains its independent private-repository check. Waiting replay uses the same guarded provisioning facade.
 2. Firestore identifies an allocation by repository, run, job and attempt. Transactions reserve capacity before asynchronous provisioning. Duplicate deliveries and ambiguous submissions cannot bypass the capacity limit.
 3. A distinct provisioning identity submits a private Spot VM from the configured template. A build acceptance response does not prove a VM exists or a job ran.
 4. The worker proves its managed-instance identity to an allocation-bound bootstrap broker. The controller holds GitHub App credentials and releases the JIT configuration to the matching claim/incarnation. The worker never receives the App key, a management PAT or controller credentials.
@@ -40,3 +40,5 @@ The worker service runs without restart, sudo privileges or a shared Docker sock
 `cloud-functions/webhook-handler/` contains signature admission, durable allocation, managed-identity verification, App runner adapters and controller composition. `cloud-functions/cleanup-function/` contains retirement and lifecycle dispatch plus the canonical conservative cleanup helper. `startup/` contains the one-job bootstrap/control service. `packaging/` assembles the runtime closure. `terraform/` supplies resources, IAM and non-secret environment outputs.
 
 Tests inject clients and transport seams to exercise negative identity, retry, cancellation, association and retirement paths. They do not prove effective live IAM, provider JIT lifetime, actor quiescence, network reachability or a production isolation boundary. Qualification controls are deliberately explicit; deployment must not infer them from a green CI run.
+
+The retained compatibility templates are offline reference/qualification material. Privileged shared-host variants are not part of supported deployment. Repository visibility and label checks do not identify the job GitHub will dispatch; the workload repository and its writers remain trusted.

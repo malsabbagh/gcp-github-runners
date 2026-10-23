@@ -3,8 +3,8 @@
   "source_main": "acbf72d91108fa6c2c4e911129e60fe7912b5c1b",
   "selected_pr25": "301ff51b8cb6493b2bb2c60b55b04586200c73eb",
   "source_precedence": "PR25 takes precedence on every differing same path; it includes all frozen main paths.",
-  "selected_source_control_equality": "120 of125 executable/configuration files retain every nonconfiguration byte;16 private/secret bindings parameterized. Two webhook test-PR helpers adapt Git working directory. Two original package locks and the hybrid package manifest receive explicitly recorded dependency maintenance; all source runtime/control code remains retained.",
-  "entrypoint": "scripts/source-profile.py materializes an independent executable working directory at original relative paths; original commands are not replaced by documentation.",
+  "selected_source_control_equality": "Historical digests retained; current templates include explicit endpoint, hosted-example and MIT metadata adaptations. Equality is not a security qualification.",
+  "entrypoint": "CLI --purpose reference writes non-executable references; internal Python offline-qualification purpose is restricted to reviewed synthetic harnesses.",
   "capabilities": [
     {
       "behavior": "Source webhook events, direct GitHub API handler, Firestore transaction/provisioning state, failed creating-VM recovery",
@@ -22,7 +22,8 @@
         "cloud-functions/webhook-handler/provision-runner.py",
         "cloud-functions/webhook-handler/provisioning-state.js"
       ],
-      "evidence": "74 original canonical unit/HTTP tests and32 original provisioning tests pass without skips; exact normalized source-code comparison"
+      "evidence": "74 original canonical unit/HTTP tests and32 original provisioning tests pass without skips; exact normalized source-code comparison",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
       "behavior": "Original Cloud Build/direct/manual/stale/offline runner and VM cleanup, remote-registration matching, drain/stop/teardown completion and retry states",
@@ -62,7 +63,8 @@
         "test-shutdown-fix.sh",
         "tests/lifecycle/test_cleanup.py"
       ],
-      "evidence": "23 original cleanup Jest tests and25 lifecycle command-shim tests pass without skips; native/Docker failure/retry/ownership behavior retained"
+      "evidence": "23 original cleanup Jest tests and25 lifecycle command-shim tests pass without skips; native/Docker failure/retry/ownership behavior retained",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
       "behavior": "Native, shared-host multi-user, Docker, enhanced/fixed shutdown, Rust worker image and startup variants",
@@ -85,10 +87,11 @@
         "docker/build-and-push-github-runner.ps1",
         "docker/entrypoint-rust.sh"
       ],
-      "evidence": "exact selected source control logic; JS/Bash/Python syntax and every PowerShell parser check; lifecycle command-shim scenarios for native/Docker variants"
+      "evidence": "exact selected source control logic; JS/Bash/Python syntax and every PowerShell parser check; lifecycle command-shim scenarios for native/Docker variants",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
-      "behavior": "Executable setup/apply/destroy/template/webhook/sync/list/bulk/manual/diagnostic/repair and integration utilities",
+      "behavior": "Retained setup and operator-program source for offline reference; no supported live legacy deployment.",
       "code": [
         "cleanup-github-runners.ps1",
         "quick-cleanup.ps1",
@@ -129,7 +132,8 @@
         "validate-deployment.sh",
         "validate-stop-then-delete.ps1"
       ],
-      "evidence": "120 unchanged nonconfiguration source files, two explicitly maintained dependency locks, the hybrid dependency manifest and2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile"
+      "evidence": "120 unchanged nonconfiguration source files, two explicitly maintained dependency locks, the hybrid dependency manifest and2 documented Git working-directory adapters;32 source provisioning regressions and2 real local Git test-PR regressions; original runtime commands remain executable in materialized profile",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
       "behavior": "Original Terraform modules/resources/outputs, examples, monitoring and source-disabled alternate routes",
@@ -155,7 +159,8 @@
         "terraform/workflow-completion-trigger.tf",
         "terraform/workflow-completion-trigger.tf.backup"
       ],
-      "evidence": "source-code/configuration equality modulo explicit private inputs; no original disabled/orphan route falsely advertised as a working source handler"
+      "evidence": "source-code/configuration equality modulo explicit private inputs; no original disabled/orphan route falsely advertised as a working source handler",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
       "behavior": "ReviewSensei automatic PRs, manual reviews, authorized issue/inline mentions, commands/rescans/replies, source publication and auto-approval policy",
@@ -163,7 +168,8 @@
         ".github/workflows/review-sensei-review.yml",
         ".reviewsensei.yml"
       ],
-      "evidence": "root config byte-equals source; exact source trigger lists;9 executed resolver regressions including PR/issue/inline behavior and frozen-head rejection"
+      "evidence": "root config byte-equals source; exact source trigger lists;9 executed resolver regressions including PR/issue/inline behavior and frozen-head rejection",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
       "behavior": "ReviewSensei removal branch/delete/commit/push/cleanup PR",
@@ -171,14 +177,16 @@
         ".github/workflows/review-sensei-uninstall.yml",
         ".github/scripts/remove-review-sensei.py"
       ],
-      "evidence": "4 offline tests perform real temporary Git removals/user commits and intercept push/gh commands; only bot-to-verified-owner attribution changes"
+      "evidence": "4 offline tests perform real temporary Git removals/user commits and intercept push/gh commands; only bot-to-verified-owner attribution changes",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
-      "behavior": "Source CI main/develop triggers, Node20 source test/coverage contracts, report preparation and automatic main coverage publisher",
+      "behavior": "Hosted read-only compatibility validation with separate successful-main-push coverage publisher.",
       "code": [
         ".github/workflows/source-compatible-ci.yml"
       ],
-      "evidence": "workflow actionlint; original source coverage-threshold commands pass locally; publisher action v3 pinned with user_name/user_email; no publisher executed"
+      "evidence": "Publication policy regressions cover PR denial, main push, failed validation and same-run artifact input; no publisher executed locally.",
+      "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     }
   ],
   "source_standard_tests": {
@@ -960,5 +968,13 @@
   "hybrid_dependency_qualification": {
     "scope": "Independently installed dependency closure and local API/HTTP contracts only",
     "inherited_limitation": "The selected source contains a hybrid package and disabled Terraform but no hybrid-cleanup-handler/index.js; no handler or provider behavior is claimed."
+  },
+  "publication_contract": {
+    "license": "MIT; Copyright (c) 2026 Mohamad Alsabbagh; third-party licenses retained",
+    "reference_files_executable": false,
+    "qualification_mode": "Internal Python API using synthetic inputs and command shims",
+    "public_pr_runner": "GitHub-hosted",
+    "endpoint_defaults": null,
+    "dependencies": "Seven known alerts deferred; dependency versions unchanged"
   }
 }

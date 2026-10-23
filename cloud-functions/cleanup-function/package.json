@@ -42,5 +42,7 @@
     "github",
     "cleanup",
     "runner"
-  ]
+  ],
+  "license": "MIT",
+  "author": "Mohamad Alsabbagh"
 }
