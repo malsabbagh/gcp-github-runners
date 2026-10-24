@@ -60,11 +60,12 @@ function packageController(destination=path.join(root,'dist','controller')) {
   const checkArgv=[process.execPath,path.join(__dirname,'check-controller.js')];
   const checked=JSON.parse(execFileSync(checkArgv[0],checkArgv.slice(1),{encoding:'utf8',cwd:root}));
   if (!checked.ok) throw Error('ARCHIVE_INVENTORY_STALE');
-  const toolFiles=['packaging/assemble-controller.js','packaging/check-controller.js','packaging/archive-closure.js','packaging/controller-zip.py'];
+  const toolFiles=['packaging/assemble-controller.js','packaging/check-controller.js','packaging/archive-closure.js','packaging/controller-zip.py','packaging/dependency-contract.js'];
   const lockFiles=['package-lock.json','deployment/deployment-package-lock.json','source-compatible/templates/package-lock.json','source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json','terraform/.terraform.lock.hcl'];
   const inventoryFiles=['deployment/archive-manifest.json','deployment/declared-imports.json','deployment/archive-source-map.json'];
+  const dependencyManifests=['package.json','cloud-functions/webhook-handler/package.json','cloud-functions/cleanup-function/package.json'];
   const selected=inputs();
-  const bindingFiles=[...new Set([...selected.map(f=>f.source),...toolFiles,...lockFiles,...inventoryFiles])].sort();
+  const bindingFiles=[...new Set([...selected.map(f=>f.source),...toolFiles,...lockFiles,...inventoryFiles,...dependencyManifests])].sort();
   const committed=new Map(git('ls-tree','-r','--full-tree',revision.commit).split('\n').map(line=>{
     const [metadata,name]=line.split('\t');return [name,metadata.split(' ')[0]];
   }));
@@ -89,6 +90,7 @@ function packageController(destination=path.join(root,'dist','controller')) {
   const receipt={version:1,scope:'local-controller-packaging-only',revision,startedAt,
     tools:{node:process.version,python:execFileSync('python3',['--version'],{encoding:'utf8'}).trim(),npm:execFileSync('npm',['--version'],{encoding:'utf8'}).trim()},
     toolSourceSha256:hashes(toolFiles),lockSha256:hashes(lockFiles),inventorySha256:hashes(inventoryFiles),
+    dependencyManifestSha256:hashes(dependencyManifests),
     sourceInputs:sourceSnapshot,
     archive:{sha256:zip.archiveSha256,fileCount:zip.fileCount,manifestSha256:sha(fs.readFileSync(manifestPath))},
     commands:[{argv:checkArgv,exitCode:0,result:checked},

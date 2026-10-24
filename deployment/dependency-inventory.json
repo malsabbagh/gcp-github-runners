@@ -1,0 +1,1482 @@
+{
+  "schemaVersion": 1,
+  "scope": "locked-source-facts-not-execution-or-advisory-clearance",
+  "locks": [
+    {
+      "path": "package-lock.json",
+      "sha256": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
+      "role": "maintainer-and-runtime",
+      "directRuntimeDeclarations": [
+        {
+          "from": "<root>",
+          "name": "@google-cloud/cloudbuild",
+          "requested": "4.8.1",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/cloudbuild",
+          "version": "4.8.1",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/compute",
+          "requested": "4.12.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/compute",
+          "version": "4.12.0",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/firestore",
+          "requested": "7.11.2",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/firestore",
+          "version": "7.11.2",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/functions-framework",
+          "requested": "5.0.5",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/functions-framework",
+          "version": "5.0.5",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/secret-manager",
+          "requested": "5.6.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/secret-manager",
+          "version": "5.6.0",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@octokit/auth-app",
+          "requested": "6.1.3",
+          "kind": "runtime",
+          "location": "node_modules/@octokit/auth-app",
+          "version": "6.1.3",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@octokit/rest",
+          "requested": "20.1.2",
+          "kind": "runtime",
+          "location": "node_modules/@octokit/rest",
+          "version": "20.1.2",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "google-auth-library",
+          "requested": "9.15.1",
+          "kind": "runtime",
+          "location": "node_modules/google-auth-library",
+          "version": "9.15.1",
+          "context": "production"
+        },
+        {
+          "from": "cloud-functions/cleanup-function",
+          "name": "google-auth-library",
+          "requested": "9.15.1",
+          "kind": "runtime",
+          "location": "node_modules/google-auth-library",
+          "version": "9.15.1",
+          "context": "workspace-compatibility"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/cloudbuild",
+          "requested": "4.8.1",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/cloudbuild",
+          "version": "4.8.1",
+          "context": "workspace-compatibility"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/compute",
+          "requested": "4.12.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/compute",
+          "version": "4.12.0",
+          "context": "workspace-compatibility"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/firestore",
+          "requested": "7.11.2",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/firestore",
+          "version": "7.11.2",
+          "context": "workspace-compatibility"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/functions-framework",
+          "requested": "5.0.5",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/functions-framework",
+          "version": "5.0.5",
+          "context": "workspace-compatibility"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/secret-manager",
+          "requested": "5.6.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/secret-manager",
+          "version": "5.6.0",
+          "context": "workspace-compatibility"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@octokit/rest",
+          "requested": "20.1.2",
+          "kind": "runtime",
+          "location": "node_modules/@octokit/rest",
+          "version": "20.1.2",
+          "context": "workspace-compatibility"
+        }
+      ],
+      "occurrences": [
+        {
+          "package": "@tootallnate/once",
+          "version": "2.0.1",
+          "location": "node_modules/@tootallnate/once",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "http-proxy-agent@5.0.0",
+              "@tootallnate/once@2.0.1"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "http-proxy-agent@5.0.0",
+              "@tootallnate/once@2.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "http-proxy-agent",
+              "version": "5.0.0",
+              "location": "node_modules/http-proxy-agent",
+              "kind": "runtime",
+              "requested": "2"
+            }
+          ]
+        },
+        {
+          "package": "body-parser",
+          "version": "2.3.0",
+          "location": "node_modules/body-parser",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "body-parser@2.3.0"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/functions-framework@5.0.5",
+              "body-parser@2.3.0"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@google-cloud/functions-framework",
+              "version": "5.0.5",
+              "location": "node_modules/@google-cloud/functions-framework",
+              "kind": "runtime",
+              "requested": "^2.2.2"
+            },
+            {
+              "package": "express",
+              "version": "5.2.1",
+              "location": "node_modules/express",
+              "kind": "runtime",
+              "requested": "^2.2.1"
+            }
+          ]
+        },
+        {
+          "package": "fast-uri",
+          "version": "3.1.8",
+          "location": "node_modules/fast-uri",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "cloudevents@10.0.0",
+              "ajv@8.20.0",
+              "fast-uri@3.1.8"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/functions-framework@5.0.5",
+              "cloudevents@10.0.0",
+              "ajv@8.20.0",
+              "fast-uri@3.1.8"
+            ]
+          },
+          "owners": [
+            {
+              "package": "ajv",
+              "version": "8.20.0",
+              "location": "node_modules/ajv",
+              "kind": "runtime",
+              "requested": "^3.0.1"
+            }
+          ]
+        },
+        {
+          "package": "form-data",
+          "version": "2.5.6",
+          "location": "node_modules/form-data",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "@types/request@2.48.12",
+              "form-data@2.5.6"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "@types/request@2.48.12",
+              "form-data@2.5.6"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@types/request",
+              "version": "2.48.12",
+              "location": "node_modules/@types/request",
+              "kind": "runtime",
+              "requested": "^2.5.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/gaxios/node_modules/uuid",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "google-auth-library@9.15.1",
+              "gaxios@6.7.1",
+              "uuid@9.0.1"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "google-auth-library@9.15.1",
+              "gaxios@6.7.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "gaxios",
+              "version": "6.7.1",
+              "location": "node_modules/gaxios",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/google-gax/node_modules/uuid",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "uuid@9.0.1"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "google-gax",
+              "version": "4.6.1",
+              "location": "node_modules/google-gax",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "once",
+          "version": "1.4.0",
+          "location": "node_modules/once",
+          "reachability": [
+            "production",
+            "tooling",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "express@5.2.1",
+              "once@1.4.0"
+            ],
+            "tooling": [
+              "jest@29.7.0",
+              "@jest/core@29.7.0",
+              "@jest/reporters@29.7.0",
+              "glob@7.2.3",
+              "once@1.4.0"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/functions-framework@5.0.5",
+              "express@5.2.1",
+              "once@1.4.0"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@octokit/request-error",
+              "version": "5.1.1",
+              "location": "node_modules/@octokit/request-error",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "end-of-stream",
+              "version": "1.4.5",
+              "location": "node_modules/end-of-stream",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "express",
+              "version": "5.2.1",
+              "location": "node_modules/express",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "glob",
+              "version": "7.2.3",
+              "location": "node_modules/glob",
+              "kind": "runtime",
+              "requested": "^1.3.0"
+            },
+            {
+              "package": "inflight",
+              "version": "1.0.6",
+              "location": "node_modules/inflight",
+              "kind": "runtime",
+              "requested": "^1.3.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/teeny-request/node_modules/uuid",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "uuid@9.0.1"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "teeny-request",
+              "version": "9.0.0",
+              "location": "node_modules/teeny-request",
+              "kind": "runtime",
+              "requested": "^9.0.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "8.3.2",
+          "location": "node_modules/uuid",
+          "reachability": [
+            "production",
+            "workspace-compatibility"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "cloudevents@10.0.0",
+              "uuid@8.3.2"
+            ],
+            "workspace-compatibility": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@google-cloud/functions-framework@5.0.5",
+              "cloudevents@10.0.0",
+              "uuid@8.3.2"
+            ]
+          },
+          "owners": [
+            {
+              "package": "cloudevents",
+              "version": "10.0.0",
+              "location": "node_modules/cloudevents",
+              "kind": "runtime",
+              "requested": "^8.3.2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "deployment/deployment-package-lock.json",
+      "sha256": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
+      "role": "standalone-production",
+      "directRuntimeDeclarations": [
+        {
+          "from": "<root>",
+          "name": "@google-cloud/cloudbuild",
+          "requested": "4.8.1",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/cloudbuild",
+          "version": "4.8.1",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/compute",
+          "requested": "4.12.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/compute",
+          "version": "4.12.0",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/firestore",
+          "requested": "7.11.2",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/firestore",
+          "version": "7.11.2",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/functions-framework",
+          "requested": "5.0.5",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/functions-framework",
+          "version": "5.0.5",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/secret-manager",
+          "requested": "5.6.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/secret-manager",
+          "version": "5.6.0",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@octokit/auth-app",
+          "requested": "6.1.3",
+          "kind": "runtime",
+          "location": "node_modules/@octokit/auth-app",
+          "version": "6.1.3",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "@octokit/rest",
+          "requested": "20.1.2",
+          "kind": "runtime",
+          "location": "node_modules/@octokit/rest",
+          "version": "20.1.2",
+          "context": "production"
+        },
+        {
+          "from": "<root>",
+          "name": "google-auth-library",
+          "requested": "9.15.1",
+          "kind": "runtime",
+          "location": "node_modules/google-auth-library",
+          "version": "9.15.1",
+          "context": "production"
+        }
+      ],
+      "occurrences": [
+        {
+          "package": "@tootallnate/once",
+          "version": "2.0.1",
+          "location": "node_modules/@tootallnate/once",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "http-proxy-agent@5.0.0",
+              "@tootallnate/once@2.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "http-proxy-agent",
+              "version": "5.0.0",
+              "location": "node_modules/http-proxy-agent",
+              "kind": "runtime",
+              "requested": "2"
+            }
+          ]
+        },
+        {
+          "package": "body-parser",
+          "version": "2.3.0",
+          "location": "node_modules/body-parser",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "body-parser@2.3.0"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@google-cloud/functions-framework",
+              "version": "5.0.5",
+              "location": "node_modules/@google-cloud/functions-framework",
+              "kind": "runtime",
+              "requested": "^2.2.2"
+            },
+            {
+              "package": "express",
+              "version": "5.2.1",
+              "location": "node_modules/express",
+              "kind": "runtime",
+              "requested": "^2.2.1"
+            }
+          ]
+        },
+        {
+          "package": "fast-uri",
+          "version": "3.1.8",
+          "location": "node_modules/fast-uri",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "cloudevents@10.0.0",
+              "ajv@8.20.0",
+              "fast-uri@3.1.8"
+            ]
+          },
+          "owners": [
+            {
+              "package": "ajv",
+              "version": "8.20.0",
+              "location": "node_modules/ajv",
+              "kind": "runtime",
+              "requested": "^3.0.1"
+            }
+          ]
+        },
+        {
+          "package": "form-data",
+          "version": "2.5.6",
+          "location": "node_modules/form-data",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "@types/request@2.48.13",
+              "form-data@2.5.6"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@types/request",
+              "version": "2.48.13",
+              "location": "node_modules/@types/request",
+              "kind": "runtime",
+              "requested": "^2.5.5"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/gaxios/node_modules/uuid",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "google-auth-library@9.15.1",
+              "gaxios@6.7.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "gaxios",
+              "version": "6.7.1",
+              "location": "node_modules/gaxios",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/google-gax/node_modules/uuid",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "google-gax",
+              "version": "4.6.1",
+              "location": "node_modules/google-gax",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "once",
+          "version": "1.4.0",
+          "location": "node_modules/once",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "express@5.2.1",
+              "once@1.4.0"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@octokit/request-error",
+              "version": "5.1.1",
+              "location": "node_modules/@octokit/request-error",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "end-of-stream",
+              "version": "1.4.5",
+              "location": "node_modules/end-of-stream",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "express",
+              "version": "5.2.1",
+              "location": "node_modules/express",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/teeny-request/node_modules/uuid",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "teeny-request",
+              "version": "9.0.0",
+              "location": "node_modules/teeny-request",
+              "kind": "runtime",
+              "requested": "^9.0.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "8.3.2",
+          "location": "node_modules/uuid",
+          "reachability": [
+            "production"
+          ],
+          "representativePaths": {
+            "production": [
+              "@google-cloud/functions-framework@5.0.5",
+              "cloudevents@10.0.0",
+              "uuid@8.3.2"
+            ]
+          },
+          "owners": [
+            {
+              "package": "cloudevents",
+              "version": "10.0.0",
+              "location": "node_modules/cloudevents",
+              "kind": "runtime",
+              "requested": "^8.3.2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "source-compatible/templates/package-lock.json",
+      "sha256": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+      "role": "reference-only",
+      "directRuntimeDeclarations": [
+        {
+          "from": "cloud-functions/cleanup-function",
+          "name": "@google-cloud/cloudbuild",
+          "requested": "^4.0.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/cloudbuild",
+          "version": "4.8.1",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/cleanup-function",
+          "name": "@google-cloud/functions-framework",
+          "requested": "^3.0.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/functions-framework",
+          "version": "3.5.1",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/cloudbuild",
+          "requested": "^4.0.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/cloudbuild",
+          "version": "4.8.1",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/compute",
+          "requested": "^4.0.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/compute",
+          "version": "4.12.0",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/firestore",
+          "requested": "^7.0.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/firestore",
+          "version": "7.11.2",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/functions-framework",
+          "requested": "^3.0.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/functions-framework",
+          "version": "3.5.1",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@google-cloud/secret-manager",
+          "requested": "^5.6.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/secret-manager",
+          "version": "5.6.0",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "cloud-functions/webhook-handler",
+          "name": "@octokit/rest",
+          "requested": "^20.0.2",
+          "kind": "runtime",
+          "location": "node_modules/@octokit/rest",
+          "version": "20.1.2",
+          "context": "reference-runtime"
+        }
+      ],
+      "occurrences": [
+        {
+          "package": "@tootallnate/once",
+          "version": "2.0.1",
+          "location": "node_modules/@tootallnate/once",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "http-proxy-agent@5.0.0",
+              "@tootallnate/once@2.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "http-proxy-agent",
+              "version": "5.0.0",
+              "location": "node_modules/http-proxy-agent",
+              "kind": "runtime",
+              "requested": "2"
+            }
+          ]
+        },
+        {
+          "package": "body-parser",
+          "version": "1.20.8",
+          "location": "node_modules/body-parser",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/functions-framework@3.5.1",
+              "body-parser@1.20.8"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@google-cloud/functions-framework",
+              "version": "3.5.1",
+              "location": "node_modules/@google-cloud/functions-framework",
+              "kind": "runtime",
+              "requested": "^1.18.3"
+            },
+            {
+              "package": "express",
+              "version": "4.22.3",
+              "location": "node_modules/express",
+              "kind": "runtime",
+              "requested": "~1.20.5"
+            }
+          ]
+        },
+        {
+          "package": "fast-uri",
+          "version": "3.1.8",
+          "location": "node_modules/fast-uri",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/functions-framework@3.5.1",
+              "cloudevents@8.0.3",
+              "ajv@8.20.0",
+              "fast-uri@3.1.8"
+            ]
+          },
+          "owners": [
+            {
+              "package": "ajv",
+              "version": "8.20.0",
+              "location": "node_modules/ajv",
+              "kind": "runtime",
+              "requested": "^3.0.1"
+            }
+          ]
+        },
+        {
+          "package": "form-data",
+          "version": "2.5.6",
+          "location": "node_modules/form-data",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "@types/request@2.48.12",
+              "form-data@2.5.6"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@types/request",
+              "version": "2.48.12",
+              "location": "node_modules/@types/request",
+              "kind": "runtime",
+              "requested": "^2.5.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/gaxios/node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "google-auth-library@9.15.1",
+              "gaxios@6.7.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "gaxios",
+              "version": "6.7.1",
+              "location": "node_modules/gaxios",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/google-gax/node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "google-gax",
+              "version": "4.6.1",
+              "location": "node_modules/google-gax",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "once",
+          "version": "1.4.0",
+          "location": "node_modules/once",
+          "reachability": [
+            "reference-runtime",
+            "reference-tooling"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/webhook-handler@1.0.0",
+              "@octokit/rest@20.1.2",
+              "@octokit/core@5.2.2",
+              "@octokit/request-error@5.1.1",
+              "once@1.4.0"
+            ],
+            "reference-tooling": [
+              "jest@29.7.0",
+              "@jest/core@29.7.0",
+              "@jest/reporters@29.7.0",
+              "glob@7.2.3",
+              "once@1.4.0"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@octokit/request-error",
+              "version": "5.1.1",
+              "location": "node_modules/@octokit/request-error",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "end-of-stream",
+              "version": "1.4.5",
+              "location": "node_modules/end-of-stream",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            },
+            {
+              "package": "glob",
+              "version": "7.2.3",
+              "location": "node_modules/glob",
+              "kind": "runtime",
+              "requested": "^1.3.0"
+            },
+            {
+              "package": "inflight",
+              "version": "1.0.6",
+              "location": "node_modules/inflight",
+              "kind": "runtime",
+              "requested": "^1.3.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/teeny-request/node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/cloudbuild@4.8.1",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "teeny-request",
+              "version": "9.0.0",
+              "location": "node_modules/teeny-request",
+              "kind": "runtime",
+              "requested": "^9.0.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "8.3.2",
+          "location": "node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "cloud-functions/cleanup-function@1.0.0",
+              "@google-cloud/functions-framework@3.5.1",
+              "cloudevents@8.0.3",
+              "uuid@8.3.2"
+            ]
+          },
+          "owners": [
+            {
+              "package": "cloudevents",
+              "version": "8.0.3",
+              "location": "node_modules/cloudevents",
+              "kind": "runtime",
+              "requested": "^8.3.2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
+      "sha256": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915",
+      "role": "reference-only",
+      "directRuntimeDeclarations": [
+        {
+          "from": "<root>",
+          "name": "@google-cloud/compute",
+          "requested": "^4.7.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/compute",
+          "version": "4.12.0",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/firestore",
+          "requested": "^7.9.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/firestore",
+          "version": "7.11.3",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/functions-framework",
+          "requested": "^3.4.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/functions-framework",
+          "version": "3.5.1",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/pubsub",
+          "requested": "^4.7.2",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/pubsub",
+          "version": "4.11.0",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "<root>",
+          "name": "@google-cloud/secret-manager",
+          "requested": "^5.6.0",
+          "kind": "runtime",
+          "location": "node_modules/@google-cloud/secret-manager",
+          "version": "5.6.0",
+          "context": "reference-runtime"
+        },
+        {
+          "from": "<root>",
+          "name": "axios",
+          "requested": "^1.20.0",
+          "kind": "runtime",
+          "location": "node_modules/axios",
+          "version": "1.20.0",
+          "context": "reference-runtime"
+        }
+      ],
+      "occurrences": [
+        {
+          "package": "@tootallnate/once",
+          "version": "2.0.1",
+          "location": "node_modules/@tootallnate/once",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/compute@4.12.0",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "http-proxy-agent@5.0.0",
+              "@tootallnate/once@2.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "http-proxy-agent",
+              "version": "5.0.0",
+              "location": "node_modules/http-proxy-agent",
+              "kind": "runtime",
+              "requested": "2"
+            }
+          ]
+        },
+        {
+          "package": "form-data",
+          "version": "2.5.6",
+          "location": "node_modules/@types/request/node_modules/form-data",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/compute@4.12.0",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "@types/request@2.48.13",
+              "form-data@2.5.6"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@types/request",
+              "version": "2.48.13",
+              "location": "node_modules/@types/request",
+              "kind": "runtime",
+              "requested": "^2.5.5"
+            }
+          ]
+        },
+        {
+          "package": "body-parser",
+          "version": "1.20.8",
+          "location": "node_modules/body-parser",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/functions-framework@3.5.1",
+              "body-parser@1.20.8"
+            ]
+          },
+          "owners": [
+            {
+              "package": "@google-cloud/functions-framework",
+              "version": "3.5.1",
+              "location": "node_modules/@google-cloud/functions-framework",
+              "kind": "runtime",
+              "requested": "^1.18.3"
+            },
+            {
+              "package": "express",
+              "version": "4.22.3",
+              "location": "node_modules/express",
+              "kind": "runtime",
+              "requested": "~1.20.5"
+            }
+          ]
+        },
+        {
+          "package": "fast-uri",
+          "version": "3.1.8",
+          "location": "node_modules/fast-uri",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/functions-framework@3.5.1",
+              "cloudevents@8.0.3",
+              "ajv@8.20.0",
+              "fast-uri@3.1.8"
+            ]
+          },
+          "owners": [
+            {
+              "package": "ajv",
+              "version": "8.20.0",
+              "location": "node_modules/ajv",
+              "kind": "runtime",
+              "requested": "^3.0.1"
+            }
+          ]
+        },
+        {
+          "package": "form-data",
+          "version": "4.0.6",
+          "location": "node_modules/form-data",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "axios@1.20.0",
+              "form-data@4.0.6"
+            ]
+          },
+          "owners": [
+            {
+              "package": "axios",
+              "version": "1.20.0",
+              "location": "node_modules/axios",
+              "kind": "runtime",
+              "requested": "^4.0.6"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/gaxios/node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/pubsub@4.11.0",
+              "google-auth-library@9.15.1",
+              "gaxios@6.7.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "gaxios",
+              "version": "6.7.1",
+              "location": "node_modules/gaxios",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/google-gax/node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/compute@4.12.0",
+              "google-gax@4.6.1",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "google-gax",
+              "version": "4.6.1",
+              "location": "node_modules/google-gax",
+              "kind": "runtime",
+              "requested": "^9.0.1"
+            }
+          ]
+        },
+        {
+          "package": "once",
+          "version": "1.4.0",
+          "location": "node_modules/once",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/compute@4.12.0",
+              "google-gax@4.6.1",
+              "duplexify@4.1.3",
+              "end-of-stream@1.4.5",
+              "once@1.4.0"
+            ]
+          },
+          "owners": [
+            {
+              "package": "end-of-stream",
+              "version": "1.4.5",
+              "location": "node_modules/end-of-stream",
+              "kind": "runtime",
+              "requested": "^1.4.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "9.0.1",
+          "location": "node_modules/teeny-request/node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/compute@4.12.0",
+              "google-gax@4.6.1",
+              "retry-request@7.0.2",
+              "teeny-request@9.0.0",
+              "uuid@9.0.1"
+            ]
+          },
+          "owners": [
+            {
+              "package": "teeny-request",
+              "version": "9.0.0",
+              "location": "node_modules/teeny-request",
+              "kind": "runtime",
+              "requested": "^9.0.0"
+            }
+          ]
+        },
+        {
+          "package": "uuid",
+          "version": "8.3.2",
+          "location": "node_modules/uuid",
+          "reachability": [
+            "reference-runtime"
+          ],
+          "representativePaths": {
+            "reference-runtime": [
+              "@google-cloud/functions-framework@3.5.1",
+              "cloudevents@8.0.3",
+              "uuid@8.3.2"
+            ]
+          },
+          "owners": [
+            {
+              "package": "cloudevents",
+              "version": "8.0.3",
+              "location": "node_modules/cloudevents",
+              "kind": "runtime",
+              "requested": "^8.3.2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

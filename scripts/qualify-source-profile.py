@@ -36,6 +36,9 @@ def main():
         raise RuntimeError('PowerShell is required; qualification cannot skip its source contracts.')
     manifest = json.loads((PROFILE.PROFILE / 'manifest.json').read_text())
     environment = dict(os.environ, POWERSHELL_BIN=powershell)
+    # The supported deployment and the reference locks must each stand alone.
+    subprocess.run([sys.executable, str(ROOT / 'scripts/qualify-standalone.py')],
+                   cwd=ROOT, env=environment, check=True)
     with tempfile.TemporaryDirectory(prefix='runner-source-offline-') as directory:
         work = Path(directory).resolve() / 'source'
         PROFILE.materialize(manifest['inputs_file_example'], work, purpose='offline-qualification')

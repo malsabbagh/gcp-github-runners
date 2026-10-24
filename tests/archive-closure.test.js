@@ -139,7 +139,7 @@ function packagingFixture(t) {
     fs.cpSync(path.join(root,name),path.join(dir,name),{recursive:true,
       filter:source=>!source.split(path.sep).some(part=>['node_modules','coverage','__pycache__'].includes(part))});
   }
-  for (const name of ['controller-entry.js','LICENSE','NOTICE.md','.gitignore','package-lock.json',
+  for (const name of ['controller-entry.js','LICENSE','NOTICE.md','.gitignore','package.json','package-lock.json',
     'source-compatible/templates/package-lock.json','source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json','terraform/.terraform.lock.hcl']) {
     fs.mkdirSync(path.dirname(path.join(dir,name)),{recursive:true});fs.copyFileSync(path.join(root,name),path.join(dir,name));
   }
