@@ -24,11 +24,12 @@ function injectedModule(relative, dependencies, globals = {}) {
   compiled.require = name => Object.hasOwn(dependencies, name) ? dependencies[name] : ordinaryRequire(name);
   const originalArgv = process.argv;
   const originalMain = process.mainModule;
+  const originalExitCode = process.exitCode;
   try {
     if (globals.argv) process.argv = globals.argv;
     if (globals.main) process.mainModule = compiled;
     compiled._compile(fs.readFileSync(filename, 'utf8'), filename);
-  } finally { process.argv = originalArgv; process.mainModule = originalMain; }
+  } finally { process.argv = originalArgv; process.mainModule = originalMain; process.exitCode=originalExitCode; }
   return compiled.exports;
 }
 
@@ -70,29 +71,62 @@ test('assembly rejects outside destinations, checkout overwrite and nonregular s
 
 test('archive checker writes only explicit inventories and leaves runtime inputs untouched', () => {
   const writes = [];
-  injectedModule('packaging/check-controller.js', {
-    'node:fs': { writeFileSync: (destination, content) => writes.push([destination, JSON.parse(content)]) },
-  }, { argv: ['node', path.join(root, 'packaging/check-controller.js'), '--write-inventory'] });
+  const checker=injectedModule('packaging/check-controller.js', {
+    'node:fs': { ...fs, writeFileSync: (destination, content) => writes.push([destination, JSON.parse(content)]) },
+  });
+  assert.equal(checker.check({writeInventory:true}).ok,true);
   assert.deepEqual(writes.map(([destination]) => destination),
-    ['deployment/archive-manifest.json', 'deployment/declared-imports.json']);
+    ['archive-manifest.json','declared-imports.json','archive-source-map.json'].map(name=>path.join(root,'deployment',name)));
   assert.equal(writes[0][1].runtime, 'nodejs24');
   assert.ok(writes[0][1].files.every(file => /^[a-f0-9]{64}$/.test(file.sha256)));
   assert.ok(writes[1][1].some(descriptor => descriptor.from === 'controller-entry.js'));
 });
 
+test('archive checker reports malformed tracked inventory and refuses to regenerate invalid source modes/imports',()=>{
+  const writes=[];
+  const checker=injectedModule('packaging/check-controller.js',{'node:fs':{...fs,
+    readFileSync:(filename,...args)=>filename===path.join(root,'deployment/archive-manifest.json')?'{broken':fs.readFileSync(filename,...args),
+    writeFileSync:(...args)=>writes.push(args)}});
+  assert.ok(checker.check().errors.includes('ARCHIVE_INVENTORY_STALE'));assert.deepEqual(writes,[]);
+  const changed=inputs().map(f=>f.path==='controller-entry.js'?{...f,mode:0o600,content:f.content+"\nrequire('node:child_process');\n"}:f);
+  const result=injectedModule('packaging/check-controller.js',{
+    './assemble-controller':{inputs:()=>changed,guardPath(){}},
+    'node:fs':{...fs,writeFileSync:(...args)=>writes.push(args)}}).check({writeInventory:true});
+  assert.ok(result.errors.includes('ARCHIVE_MODE_INVALID'));assert.ok(result.errors.includes('ARCHIVE_BUILTIN_UNREVIEWED'));
+  assert.deepEqual(writes,[]);
+  injectedModule('packaging/check-controller.js',{'./assemble-controller':{inputs:()=>changed,guardPath(){}}},
+    {argv:['node',path.join(root,'packaging/check-controller.js')],main:true});
+});
+
 test('assembly CLI creates its manifest for both explicit and default destinations', () => {
   for (const destination of [undefined, path.join(root, 'dist', 'synthetic-cli', 'controller')]) {
     const writes = [];
+    const executed=[];
     const argv = ['node', path.join(root, 'packaging/assemble-controller.js')];
     if (destination) argv.push(destination);
     injectedModule('packaging/assemble-controller.js', { 'node:fs': { ...fs,
-      existsSync: () => false, mkdirSync() {},
+      existsSync: () => false, mkdirSync() {}, chmodSync() {},
+      readFileSync: (filename,...args)=>writes.find(([name])=>name===filename)?.[1] ?? fs.readFileSync(filename,...args),
       writeFileSync: (filename, content) => writes.push([filename, content]),
-    }, 'node:child_process': {execFileSync:()=>JSON.stringify({ok:true,fileCount:writes.length-1,archiveSha256:'a'.repeat(64)})} }, { argv, main: true });
+    }, 'node:child_process': {execFileSync:(command,args)=>{
+      executed.push([command,...args]);
+      if(command==='git') {
+        if(args.includes('status'))return args.includes('--untracked-files=all')?writes.map(([name])=>'?? '+path.relative(root,name)+'\0').join(''):'';
+        if(args.includes('ls-tree'))return [...new Set([...inputs().map(f=>f.source),'packaging/assemble-controller.js','packaging/check-controller.js','packaging/archive-closure.js','packaging/controller-zip.py','package-lock.json','source-compatible/templates/package-lock.json','source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json','terraform/.terraform.lock.hcl','deployment/archive-manifest.json','deployment/declared-imports.json','deployment/archive-source-map.json'])].map(name=>`${fs.statSync(path.join(root,name)).mode&0o111?'100755':'100644'} blob ${'c'.repeat(40)}\t${name}`).join('\n');
+        if(args.includes('show'))return fs.readFileSync(path.join(root,args.at(-1).split(':').slice(1).join(':')));
+        return args.includes('HEAD^{tree}')?'b'.repeat(40):'a'.repeat(40);
+      }
+      if(command===process.execPath)return JSON.stringify({ok:true,inventoryConsistent:true});
+      if(command==='npm')return '11.6.2';
+      if(args[0]==='--version')return 'Python 3.14.6';
+      return JSON.stringify({ok:true,fileCount:writes.length-1,archiveSha256:'a'.repeat(64)});
+    }} }, { argv, main: true });
     const directory = destination || path.join(root, 'dist', 'controller');
     const manifest = JSON.parse(writes.find(([filename]) => filename === path.join(directory, '..', 'controller-manifest.json'))[1]);
     assert.equal(manifest.entry, 'controller-entry.js');
-    assert.equal(writes.length, manifest.files.length + 1);
+    assert.equal(writes.length, manifest.files.length + 2);
+    const receipt=JSON.parse(writes.find(([filename])=>filename===path.join(directory,'..','controller-receipt.json'))[1]);
+    assert.deepEqual(receipt.commands[1].argv,executed.find(argv=>argv[0]==='python3' && argv[1].endsWith('controller-zip.py')));
   }
 });
 
@@ -104,6 +138,8 @@ test('actual ZIP entries match source bytes and Unix modes, and repeated destina
     const receipt=writeZip(result,archive,manifestPath);assert.equal(receipt.ok,true);assert.equal(receipt.fileCount,result.files.length);assert.match(receipt.archiveSha256,/^[a-f0-9]{64}$/);
     assert.equal(receipt.archiveSha256,createHash('sha256').update(fs.readFileSync(archive)).digest('hex'));
     assert.throws(()=>writeZip(result,archive,manifestPath));
+    fs.chmodSync(path.join(result.directory,'controller-entry.js'),0o600);
+    assert.throws(()=>writeZip(result,path.join(parent,'wrong-mode.zip'),manifestPath),/ARCHIVE_MODE_MISMATCH/);
   }finally{fs.rmSync(parent,{recursive:true,force:true});}
 });
 

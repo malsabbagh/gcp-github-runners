@@ -1,5 +1,6 @@
 {
-  "status": "Current standalone package and lock resolved; exact runtime source map",
+  "version": 1,
+  "profile": "controller-source-archive",
   "paths": {
     "cloud-functions/cleanup-function/allocation-lifecycle.js": "cloud-functions/cleanup-function/allocation-lifecycle.js",
     "cloud-functions/cleanup-function/lifecycle-dispatcher.js": "cloud-functions/cleanup-function/lifecycle-dispatcher.js",
@@ -28,10 +29,42 @@
     "cloud-functions/webhook-handler/webhook-runtime.js": "cloud-functions/webhook-handler/webhook-runtime.js",
     "cloud-functions/webhook-handler/worker-control.js": "cloud-functions/webhook-handler/worker-control.js",
     "controller-entry.js": "controller-entry.js",
+    "LICENSE": "LICENSE",
+    "NOTICE.md": "NOTICE.md",
     "package-lock.json": "deployment/deployment-package-lock.json",
     "package.json": "deployment/deployment-package.json"
   },
-  "current_lock_resolution": "Resolved from exact standalone manifest and installed with lifecycle scripts disabled; Node24 strict engine validation",
-  "zip": "dist/controller.zip",
-  "zip_verification": "Every ZIP entry is regular, declared, and matches source bytes/Unix modes; no duplicate/escape/symlink/extra entries"
+  "modes": {
+    "cloud-functions/cleanup-function/allocation-lifecycle.js": "0644",
+    "cloud-functions/cleanup-function/lifecycle-dispatcher.js": "0644",
+    "cloud-functions/cleanup-function/retirement-controller.js": "0644",
+    "cloud-functions/cleanup-function/runner-cleanup.sh": "0644",
+    "cloud-functions/webhook-handler/actual-job-association.js": "0644",
+    "cloud-functions/webhook-handler/allocation-bootstrap-broker.js": "0644",
+    "cloud-functions/webhook-handler/allocation-bootstrap-store.js": "0644",
+    "cloud-functions/webhook-handler/allocation-recovery.js": "0644",
+    "cloud-functions/webhook-handler/bootstrap-http.js": "0644",
+    "cloud-functions/webhook-handler/bootstrap-runtime.js": "0644",
+    "cloud-functions/webhook-handler/controller-profile.js": "0644",
+    "cloud-functions/webhook-handler/controller-runtime.js": "0644",
+    "cloud-functions/webhook-handler/deployment-runtime.js": "0644",
+    "cloud-functions/webhook-handler/github-app-runner-adapter.js": "0644",
+    "cloud-functions/webhook-handler/infrastructure-config.js": "0644",
+    "cloud-functions/webhook-handler/invocation-auth.js": "0644",
+    "cloud-functions/webhook-handler/job-identity.js": "0644",
+    "cloud-functions/webhook-handler/managed-instance-verifier.js": "0644",
+    "cloud-functions/webhook-handler/management-http.js": "0644",
+    "cloud-functions/webhook-handler/provision-runner.py": "0644",
+    "cloud-functions/webhook-handler/provisioning-state.js": "0644",
+    "cloud-functions/webhook-handler/runner-labels.js": "0644",
+    "cloud-functions/webhook-handler/scheduled-recovery.js": "0644",
+    "cloud-functions/webhook-handler/waiting-recovery.js": "0644",
+    "cloud-functions/webhook-handler/webhook-runtime.js": "0644",
+    "cloud-functions/webhook-handler/worker-control.js": "0644",
+    "controller-entry.js": "0644",
+    "LICENSE": "0644",
+    "NOTICE.md": "0644",
+    "package-lock.json": "0644",
+    "package.json": "0644"
+  }
 }

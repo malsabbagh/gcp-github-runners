@@ -8,7 +8,7 @@
   "archive_command": "npm run package:controller",
   "archive_path": "dist/controller.zip",
   "manifest": "deployment/archive-manifest.json",
-  "verification": "npm run check:archive; physical ZIP entry/hash/mode check during assembly",
+  "verification": "npm run check:archive compares current source/imports/paths/modes/lock with tracked contracts; assembly reopens and verifies the actual ZIP",
   "excluded": [
     ".git",
     "ambient credentials/configuration/state",
@@ -23,5 +23,9 @@
   "project_notices": [
     "LICENSE",
     "NOTICE.md"
-  ]
+  ],
+  "source_map_and_modes": "deployment/archive-source-map.json",
+  "local_receipt": "dist/controller-receipt.json",
+  "receipt_scope": "Clean revision-bound local packaging only; full source and live qualification remain separate",
+  "inventory_regeneration": "node packaging/check-controller.js --write-inventory"
 }

@@ -1,5 +1,5 @@
 {
-  "status": "SOURCE_IMPLEMENTED_OFFLINE_VALIDATION",
+  "status": "SOURCE_CONTRACT_WITH_SEPARATE_EXECUTION_EVIDENCE",
   "implemented": [
     "Exact standalone dependency lock and Node24 framework HTTP target",
     "Shared webhook/bootstrap/management/scheduler composition",
@@ -13,7 +13,6 @@
   "cloud_deployment_performed": false,
   "remaining_activation_requirements": [
     "Operator-owned configured project/repository/numbered-secret references/App authorization",
-    "GitHub Actions enablement and ReviewSensei credentials/App setup where desired",
     "Live service-account/IAM and Google identity-token claim qualification",
     "Immutable installed worker/builder image provenance and supervised host attestation",
     "Provider JIT lifetime qualification (unknown upstream expiry is never invented)",
@@ -22,5 +21,13 @@
   "test_command": "npm test",
   "coverage_command": "npm run test:coverage-check",
   "archive_check_command": "npm run check:archive",
-  "archive_build_command": "npm run package:controller"
+  "archive_build_command": "npm run package:controller",
+  "repository_validation_observation": {
+    "date": "2026-10-24",
+    "commit": "a5ea987dd857c8c10eeb54ffb578286f1cd83d9d",
+    "core_ci": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40070795178",
+    "result": "Core qualification and mocked Terraform passed on this exact historical candidate; not a claim about subsequent revisions.",
+    "remaining_workflow_limit": "The separate source-compatible workflow failed at startup; core CI independently runs source-profile qualification."
+  },
+  "packaging_receipt": "dist/<fresh-run>/controller-receipt.json; local packaging checks only, separate from full source and live qualification"
 }
