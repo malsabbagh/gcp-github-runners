@@ -66,3 +66,78 @@ test('a malicious PR title remains data in the hosted example', () => {
     assert.equal(fs.existsSync(path.join(directory, 'injected')), false);
   } finally {fs.rmSync(directory,{recursive:true,force:true});}
 });
+
+test('ReviewSensei preserves its bounded external automation contract', () => {
+  const workflow = read('.github/workflows/review-sensei-review.yml');
+  assert.deepEqual(Object.keys(workflow.on).sort(),
+    ['issue_comment', 'pull_request', 'pull_request_review_comment', 'workflow_dispatch']);
+  assert.deepEqual(workflow.on.pull_request.types, ['opened','reopened','synchronize','ready_for_review']);
+  assert.deepEqual(workflow.on.issue_comment.types, ['created']);
+  assert.deepEqual(workflow.on.pull_request_review_comment.types, ['created']);
+  assert.deepEqual(workflow.permissions, {contents:'read','pull-requests':'read',issues:'read','id-token':'write'});
+  assert.deepEqual(Object.keys(workflow.jobs).sort(), ['resolve-trigger','review-or-reply']);
+  const resolver = workflow.jobs['resolve-trigger'], runner = workflow.jobs['review-or-reply'];
+  assert.equal(resolver['runs-on'], 'ubuntu-latest');
+  assert.deepEqual(resolver.permissions, {contents:'read','pull-requests':'read',issues:'read'});
+  const checkout = resolver.steps[0];
+  assert.equal(checkout.uses, 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683');
+  assert.deepEqual(checkout.with, {'persist-credentials':false,ref:'${{ github.event.repository.default_branch }}'});
+  assert.equal(fs.existsSync(path.join(__dirname,'../src/review_sensei/hosting/github/trigger.py')), false,
+    'A local override would bypass the tested embedded resolver');
+  assert.equal(runner.uses, 'malsabbagh/review-sensei/.github/workflows/review-sensei-run.yml@v5');
+  assert.equal(runner.needs, 'resolve-trigger');
+  assert.equal(runner.permissions, undefined);
+  assert.equal(runner.if, undefined);
+  assert.deepEqual(runner.secrets, {
+    OLLAMA_API_KEY:'${{ secrets.OLLAMA_API_KEY }}',
+    OPENROUTER_API_KEY:'${{ secrets.OPENROUTER_API_KEY }}',
+    OPENAI_API_KEY:'${{ secrets.OPENAI_API_KEY }}',
+  });
+  const inputs = workflow.on.workflow_dispatch.inputs;
+  assert.deepEqual(Object.keys(inputs).sort(), ['operation','review_remaining','pull_request_number','head_repository',
+    'source_kind','source_comment_id','source_updated_at','root_comment_id'].sort());
+  assert.deepEqual(inputs.review_remaining, {description:'Continue exact retained partial coverage with one bounded window',
+    required:false,default:false,type:'boolean'});
+  assert.deepEqual(inputs.operation.options, ['review']);
+  assert.equal(/recover_publication|recovery_policy_commit|recovery_expected_head/.test(JSON.stringify(workflow)), false);
+  assert.deepEqual(Object.keys(runner.with).sort(), ['mode','operation','repository','repository_id','pull_request_number',
+    'base_ref','base_sha','head_ref','head_repository','head_sha','source_kind','source_comment_id','source_updated_at',
+    'root_comment_id','comment_body','comment_actor','comment_actor_type','comment_association'].sort());
+  for (const field of ['operation','base_ref','base_sha','head_ref','head_sha'])
+    assert.equal(runner.with[field], '${{ needs.resolve-trigger.outputs.' + field + ' }}');
+  assert.equal(runner.with.repository_id, '${{ github.repository_id }}');
+  const step = resolver.steps.find(s=>s.id === 'resolve');
+  assert.equal(/\$\{\{/.test(step.run), false, 'Event bodies must enter through environment data');
+  assert.equal(step.env.COMMENT_BODY, '${{ github.event.comment.body }}');
+  const config = read('.reviewsensei.yml');
+  assert.deepEqual(config, {
+    schema:1, inference:{backend:'cloud-ollama',model:'deepseek-v4.1-flash:cloud'},
+    github:{automatic_reviews:true,writes:true,reviews:'auto-approve',mentions:true,
+      operation_entry:'enabled',learning:'disabled',artifacts:'none'},
+    advanced:{endpoint:{allow_custom_endpoint:false},context:{symbol_context:{enabled:false,max_files:16,max_bytes:131072,max_depth:1}},
+      egress:{allow_data_egress:false},large_changes:{orchestrate:false},resources:{timeout_seconds:900,max_provider_calls:8}},
+  });
+});
+
+test('ReviewSensei event guard excludes bots, outsiders, non-PR issues and edited comments', () => {
+  const workflow = read('.github/workflows/review-sensei-review.yml');
+  const condition = workflow.jobs['resolve-trigger'].if;
+  // Execute this checked-in expression with GitHub contains()'s case-insensitive string semantics.
+  const evaluate = new Function('github', 'contains', 'return Boolean(' + condition + ');');
+  for (const eventName of ['issue_comment','pull_request_review_comment'])
+    for (const association of ['OWNER','MEMBER','COLLABORATOR','CONTRIBUTOR','FIRST_TIMER','NONE'])
+      for (const actorType of ['User','Bot'])
+        for (const action of ['created','edited','deleted'])
+          for (const isPR of [true,false])
+            for (const body of ['@reviewsensei verify','@ReviewSensei explain','@REVIEWSENSEI rescan','@sensei explain','ordinary text']) {
+              const github = {event_name:eventName,event:{action,issue:{pull_request:isPR ? {} : null},
+                comment:{body,author_association:association,user:{type:actorType}}}};
+              const expected = action === 'created' && actorType === 'User' &&
+                ['OWNER','MEMBER','COLLABORATOR'].includes(association) && body !== 'ordinary text' &&
+                (eventName !== 'issue_comment' || isPR);
+              assert.equal(evaluate(github,(a,b)=>a.toLowerCase().includes(b.toLowerCase())), expected,
+                JSON.stringify({eventName,association,actorType,action,isPR,body}));
+            }
+  for (const eventName of ['pull_request','workflow_dispatch','push','pull_request_target','workflow_run'])
+    assert.equal(evaluate({event_name:eventName,event:{}},()=>false), ['pull_request','workflow_dispatch'].includes(eventName));
+});

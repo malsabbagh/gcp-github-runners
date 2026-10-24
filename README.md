@@ -2,7 +2,7 @@
 
 A portable controller for one GitHub Actions job per disposable Google Cloud Spot VM. Authenticated repository webhooks create durable Firestore demand and capacity reservations; an asynchronous provisioner starts private workers, and a controller reconciles uncertain outcomes and retires exact worker incarnations.
 
-The supported deployment uses trusted private workload repositories. Public pull-request validation uses GitHub-hosted runners. Infrastructure modules, image tooling, operator scripts and optional ReviewSensei tooling have separate activation requirements. [Compatibility boundaries](docs/MIGRATION.md) distinguish the supported controller from retained offline reference material.
+The supported deployment uses trusted private workload repositories. Public pull-request validation uses GitHub-hosted runners. Infrastructure modules, image tooling and operator scripts have separate activation requirements. [Compatibility boundaries](docs/MIGRATION.md) distinguish the supported controller from retained offline reference material.
 
 ## Start here
 
@@ -21,7 +21,7 @@ For installation, read [deployment instructions](DEPLOYMENT.md), [architecture](
 
 Repository visibility, Actions activation, provider authorization, App installation, image building and cloud deployment are separate operator steps. The presence of workflow files does not establish that automation is enabled. Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
 
-The optional [ReviewSensei policy](.github/README.md) enables automatic reviews, publication, auto-approval and authorized mentions. Provider egress is disabled. Review the external reusable workflow, App/broker authorization and provider policy before enabling it. Test CI is read-only; the separate trusted-main coverage publisher has repository write permission.
+Maintainer automation, including optional ReviewSensei reviews and coverage publication, is documented in [repository automation](.github/README.md). It is separate from the runner controller and cloud deployment.
 
 Copyright (c) 2026 Mohamad Alsabbagh. This project is licensed under [MIT](LICENSE); [third-party notices](NOTICE.md) continue to apply. Seven known dependency alerts remain deferred for follow-up; this release does not claim that they are fixed.
 

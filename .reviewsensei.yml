@@ -17,8 +17,10 @@ github:
   writes: true
   # auto-approve (request changes or approve), blocking, or advisory
   reviews: auto-approve
-  # Reply to authorized @sensei mentions
+  # Reply to authorized @reviewsensei (canonical) or @sensei (legacy) mentions
   mentions: true
+  # Shared operation routing; explicit packaged default
+  operation_entry: enabled
   # disabled, proposals, or pull-requests
   learning: disabled
   # none or diagnostics
