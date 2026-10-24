@@ -9,14 +9,13 @@ const yaml = require('js-yaml');
 const read = name => yaml.safeLoad(fs.readFileSync(path.join(__dirname, '..', name), 'utf8'));
 
 test('public validation and examples run contributed code only on hosted read-only jobs', () => {
-  for (const name of ['.github/workflows/ci.yml', '.github/workflows/source-compatible-ci.yml',
+  for (const name of ['.github/workflows/ci.yml',
     'source-compatible/templates/examples/github-workflow.yml', 'source-compatible/templates/examples/workflow-with-cleanup.yml']) {
     const workflow = read(name);
     assert.ok(workflow.on.pull_request, name);
     assert.equal(workflow.on.pull_request_target, undefined);
     assert.deepEqual(workflow.permissions, {contents:'read'});
     for (const [id, job] of Object.entries(workflow.jobs)) {
-      if (id === 'publish-coverage') continue;
       assert.equal(job['runs-on'], 'ubuntu-24.04', name + ':' + id);
       assert.ok(!job.permissions || Object.values(job.permissions).every(v=>v==='read'));
       const encoded = JSON.stringify(job);
@@ -30,28 +29,23 @@ test('public validation and examples run contributed code only on hosted read-on
   }
 });
 
-test('coverage publication accepts only successful trusted-main push artifacts from the same run', () => {
-  const workflow = read('.github/workflows/source-compatible-ci.yml'), job = workflow.jobs['publish-coverage'];
-  assert.ok(job);
-  assert.equal(job.needs, 'source');
-  assert.deepEqual(job.permissions, {contents:'write'});
-  const condition = job.if.replace(/\$\{\{|\}\}/g, '').trim();
-  function admitted(event, ref, success) {
-    return success && condition.split('&&').every(clause => {
-      const m = clause.trim().match(/^github\.(event_name|ref) == '([^']+)'$/);
-      assert.ok(m, 'Publisher conditions require an explicit audited scope');
-      return ({event_name:event,ref})[m[1]] === m[2];
-    });
+test('core CI retains supported reference qualification without the retired publisher', () => {
+  const workflow = read('.github/workflows/ci.yml');
+  assert.equal(fs.existsSync(path.join(__dirname, '../.github/workflows/source-compatible-ci.yml')), false);
+  assert.deepEqual(workflow.on.push.branches, ['main', 'develop']);
+  assert.deepEqual(workflow.on.pull_request.branches, ['main', 'develop']);
+  const steps = workflow.jobs.qualification.steps;
+  const node = steps.find(step => (step.uses || '').startsWith('actions/setup-node@'));
+  const python = steps.find(step => (step.uses || '').startsWith('actions/setup-python@'));
+  assert.equal(node.with['node-version'], '24');
+  assert.equal(python.with['python-version'], '3.12');
+  assert.ok(steps.some(step => /^python(?:3)? scripts\/qualify-source-profile\.py$/.test(step.run || '')));
+  assert.ok(steps.some(step => step.run === 'command -v pwsh'));
+  assert.equal(workflow.jobs['publish-coverage'], undefined);
+  for (const job of Object.values(workflow.jobs)) {
+    for (const step of job.steps || [])
+      assert.equal(/^(?:actions\/(?:upload|download)-artifact|peaceiris\/actions-gh-pages)@/.test(step.uses || ''), false);
   }
-  for (const [event,ref,success,expected] of [['pull_request','refs/pull/1/merge',true,false],
-    ['pull_request','refs/heads/main',true,false],['push','refs/heads/develop',true,false],
-    ['push','refs/heads/main',false,false],['workflow_dispatch','refs/heads/main',true,false],['push','refs/heads/main',true,true]])
-    assert.equal(admitted(event,ref,success), expected);
-  const download = job.steps.find(s=>(s.uses || '').startsWith('actions/download-artifact@'));
-  assert.ok(download);
-  assert.equal(download.with['run-id'], undefined);
-  assert.equal(download.with['github-token'], undefined);
-  assert.equal(job.steps.some(s=>s.run), false, 'Downloaded reports must never be executed');
 });
 
 test('a malicious PR title remains data in the hosted example', () => {
