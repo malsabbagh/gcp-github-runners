@@ -14,11 +14,26 @@ Choose these approved build inputs; none is embedded in the repository:
 | `PACKER_BUILDER_IMAGE` | Approved Packer/tooling image pinned to `@sha256` |
 | `BUILD_SERVICE_ACCOUNT` | Separate authorized image-build identity with reviewed image/VM permissions |
 
-From the repository root, an operator can export the corresponding `PKR_VAR_project_id`, `PKR_VAR_zone`, `PKR_VAR_subnetwork`, `PKR_VAR_source_image`, `PKR_VAR_image_name` and `PKR_VAR_apt_snapshot` values, then validate:
+From the repository root, first create and verify a local source stage. These commands do not access GCP or download dependencies:
 
 ```sh
-packer init cloudbuild/worker.pkr.hcl
-packer validate cloudbuild/worker.pkr.hcl
+python3 packaging/worker-image-source.py stage --output dist/worker-image-source
+python3 packaging/worker-image-source.py verify --output dist/worker-image-source
+IMAGE_SOURCE="$(pwd -P)/dist/worker-image-source"
+```
+
+The [source contract](../packaging/worker-image-source.json) includes the Packer definition, Cloud Build configuration, bake script, pinned runner manifest/installer, worker supervisor/control/service and license notices. The stage preserves their paths, bytes and modes and adds `worker-image-source-manifest.json` with SHA-256 hashes plus an image-specific `.gcloudignore`. It excludes ambient configuration, credentials, state, tests, coverage and unrelated files. Missing inputs, symlinks, unsafe paths/modes and an existing destination fail closed. Choose a new destination when restaging; do not mix files into an old stage.
+
+Retain the stage manifest with the reviewed revision and build inputs. Verification compares the exact stage inventory and contents to the current checkout, including the generated manifest and ignore rules; it is not a signed provenance claim or live qualification. Reverify immediately before an authorized build and do not modify the stage afterward. The root `.gcloudignore` intentionally excludes image inputs and is unsuitable for this upload; do not submit the repository root or disable ignore handling globally. The staged allowlist also excludes unexpected files if added later. The [gcloud ignore reference](https://docs.cloud.google.com/sdk/gcloud/reference/topic/gcloudignore) explains the upload selection rules.
+
+An operator can export the corresponding `PKR_VAR_project_id`, `PKR_VAR_zone`, `PKR_VAR_subnetwork`, `PKR_VAR_source_image`, `PKR_VAR_image_name` and `PKR_VAR_apt_snapshot` values, then validate from the stage:
+
+```sh
+(
+  cd "$IMAGE_SOURCE"
+  packer init cloudbuild/worker.pkr.hcl
+  packer validate cloudbuild/worker.pkr.hcl
+)
 ```
 
 `init` fetches the fixed Packer plugin; `validate` checks the build definition and inputs. Neither demonstrates a successful image boot. Preserve plugin/tool versions and the exact source/runner/package input inventory.
@@ -27,13 +42,14 @@ The following command creates cloud build resources and an image and must be use
 
 ```sh
 gcloud builds submit \
-  --config=cloudbuild/cloudbuild-worker-image.yaml \
+  --config="$IMAGE_SOURCE/cloudbuild/cloudbuild-worker-image.yaml" \
+  --ignore-file="$IMAGE_SOURCE/.gcloudignore" \
   --project="$PROJECT_ID" \
   --substitutions=_PACKER_BUILDER_IMAGE="$PACKER_BUILDER_IMAGE",_ZONE="$ZONE",_BUILD_SUBNETWORK="$BUILD_SUBNETWORK",_SOURCE_IMAGE="$SOURCE_IMAGE",_IMAGE_NAME="$IMAGE_NAME",_APT_SNAPSHOT="$APT_SNAPSHOT",_BUILD_SERVICE_ACCOUNT="$BUILD_SERVICE_ACCOUNT",_PRIVATE_POOL="$PRIVATE_POOL" \
-  .
+  "$IMAGE_SOURCE"
 ```
 
-Alternatively, `packer build cloudbuild/worker.pkr.hcl` performs an authorized direct build. Do not use both as competing deployment routes. The image contains a single unprivileged runner installation and the one-job service/control code; no consumed startup marker, token, JIT material or management credential may be baked in.
+Alternatively, `(cd "$IMAGE_SOURCE" && packer build cloudbuild/worker.pkr.hcl)` performs an authorized direct build from the same verified inputs. Do not use both as competing deployment routes. The image contains a single unprivileged runner installation and the one-job service/control code; no consumed startup marker, token, JIT material or management credential may be baked in.
 
 After building, supply the exact resulting image resource to Terraform. Qualify boot behavior, guest-agent metadata, private GitHub/broker reachability, checksum/provenance, no second boot/remint/listener, cgroup containment, and shutdown/retirement with a disposable trusted job. Worker-control polling is outbound and allocation/incarnation bound; a child exit or acknowledgement is not proof of signed completion or VM absence. No image build or publication is performed by CI.
 
