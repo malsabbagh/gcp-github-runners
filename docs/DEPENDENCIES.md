@@ -8,6 +8,14 @@ The inventory contains fixed lock paths/hashes, roles, all direct runtime declar
 
 After an intended lock change, run `node scripts/dependency-inventory.cjs --write`, review the source facts, and run `npm run check:dependencies`. Generation is offline and does not install, dismiss alerts or produce advisory judgments. Refresh the separately authored [dated assessment](../deployment/dependency-status.json) against the new lock hashes and current public advisories; checks reject an assessment bound to different locks. Do not replace historical observations with claims that a new revision was tested.
 
+## Current maintenance acceptance
+
+[Issue #48](https://github.com/malsabbagh/gcp-github-runners/issues/48) limits dependency maintenance to compatible Node 24/CommonJS updates, existing SDK and framework contracts, normal raw-body/signature behavior and accurate dependency records. Reuse PR43 and PR44 for their reference-lock scopes. Broad framework or SDK migrations require a separate decision.
+
+The standalone dependency suite now checks a normal signed JSON request through its installed Functions Framework, retaining whitespace and Unicode bytes and rejecting a signature made from reserialized JSON. The two reference installations retain their existing HTTP/signature tests. `scripts/qualify-source-profile.py` already invokes these suites after their separate lock installations.
+
+New vulnerability investigations, crash reproducers and adversarial payload campaigns remain deferred. The earlier body-parser review condition is retained as `historicalReviewCondition` in the dated assessment; its current `reviewCondition` follows #48. Deferred checks remain incomplete, and this alignment does not clear the recorded execution hold or change the dated exposure findings, dependency versions or lock hashes.
+
 ## Dated assessment: 24 October 2026
 
 The authorized GitHub API observation at 07:36 UTC reported 18 open alert records across three detected manifests: UUID (3), body-parser (3) and four fast-uri advisories (12). These are records rather than distinct advisories or locked occurrences. The custom standalone lock also contains affected versions even though it contributes no detected-manifest alert records. The machine-readable assessment records this observation and its limitations; it is not a live badge or security clearance.

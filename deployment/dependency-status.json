@@ -280,7 +280,8 @@
       "consumedApi": "Functions Framework installs JSON, text, URL-encoded and raw parsers with inflation enabled before the application handler.",
       "exposure": "Malformed compressed bodies reach parsing before controller HMAC/body-size checks. Code establishes a pre-handler exposure path; deployed ingress behavior has not been qualified.",
       "disposition": "Prioritize compatible 2.4.0 root/standalone and 1.20.9 reference updates in #48. Reuse PR43 for its existing reference change.",
-      "reviewCondition": "Require real-middleware malformed-compression/process-survival and raw-body/signature regressions plus independent installs before merge."
+      "historicalReviewCondition": "Require real-middleware malformed-compression/process-survival and raw-body/signature regressions plus independent installs before merge.",
+      "reviewCondition": "Under issue #48, require existing SDK/framework registration, normal raw-body/signature and controller behavior tests plus independent installs before merge. New malformed-compression/process-survival reproducers are deferred; this does not mark them passed or clear the execution hold."
     },
     {
       "package": "fast-uri",
