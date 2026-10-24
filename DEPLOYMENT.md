@@ -57,7 +57,7 @@ Use a disposable trusted-repository test job with the exact required labels. Rec
 
 Prove that the worker cannot read management secrets, mutate authoritative Firestore allocation state or invoke Compute management APIs. Verify the actual private networking, GitHub App/JIT behavior and lifetime, IAM impersonation boundaries, shutdown/control transport and post-delete cloud absence. Enable qualification controls only for properties the target environment has demonstrated. Busy workers and ambiguous instances must remain charged.
 
-Enable GitHub Actions separately if wanted; the restored CI itself has no deployment authority. ReviewSensei additionally requires approved broker/App/OIDC authorization and provider policy/key configuration; [automation instructions](.github/README.md) document its automatic review/publication policy and disabled provider egress.
+Repository CI has no cloud deployment authority; see [repository automation](.github/README.md).
 
 ## Removal
 
