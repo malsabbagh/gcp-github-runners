@@ -14,7 +14,13 @@ python3 scripts/management.py recover --request /tmp/request.json
 
 Supported operations are `requestDrain`, `prepareStop`, `dispatchDrain`, `dispatchStop`, `retire`, `reconcileOrphan`, `recover` and `scheduled`. The request must contain the complete allocation key, token, name, zone, project, numeric instance ID, creation timestamp and claim ID; `scheduled` instead requires `{}`. Do not guess fences from a runner name.
 
-An authorized operator can add `--execute --controller-url HTTPS_ORIGIN --identity-token-file /tmp/token` using an independently obtained short-lived administrator token for the configured audience. The client rejects redirects, hides token/response details, and performs no direct provider deletion. Inspect durable records afterward; confirmation does not establish completed retirement. A direct `gcloud delete`, raw GitHub runner deletion or Firestore allocation removal bypasses the controller's consistency guarantees and is not a supported cleanup procedure.
+An authorized operator can add `--execute --controller-url HTTPS_ORIGIN --identity-token-file /tmp/token` using an independently obtained short-lived administrator token for the configured audience. The client rejects redirects, hides tokens and arbitrary response fields, and performs no direct provider deletion.
+
+The client prints the controller-reported status with a fixed explanation. `intent_recorded`, `dispatched` and `acknowledged` leave lifecycle completion pending confirmation; `preserved`, `disabled` and `denied` remain distinct. `completed` refers to the requested controller operation, including a scheduled pass, and does not establish retirement of every allocation. Inspect durable records afterward.
+
+A direct `gcloud delete`, raw GitHub runner deletion or Firestore allocation removal bypasses the controller's consistency guarantees and is not a supported cleanup procedure.
+
+With `--execute`, exit code 0 means the controller handled the request and returned a known outcome, including `preserved` or `denied`; it does not establish lifecycle success. Missing, malformed or unknown outcomes and transport failures return exit code 1 with a generic message. Only the recognized status and fixed explanation are printed; arbitrary response fields, reason strings and credentials are not echoed. Local validation remains the default.
 
 The legacy cleanup function source is retained for regression and canonical script packaging compatibility. It is not a second authoritative deployment route. Terraform deploys the selected controller and authenticated scheduled recovery path.
 
