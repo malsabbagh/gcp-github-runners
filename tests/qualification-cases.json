@@ -2,12 +2,274 @@
   "status": "prepared-not-executed",
   "authorship": "new-independent-adaptation",
   "cases": [
-    {"id": "google-token-bindings", "requires": "real Google auth SDK and synthetic captured public claim fixtures", "reject": ["wrong issuer", "wrong exact audience", "expired token", "wrong email/sub", "same service account without Compute claims", "wrong instance ID/project/zone/name", "nonverified email", "clock rollback"]},
-    {"id": "live-compute-binding", "requires": "InstancesClient response fixture and disposable-project scope later", "reject": ["missing/stopped instance", "new numeric ID under reused name", "creation timestamp drift", "wrong attached identity", "non-Spot/non-DELETE schedule", "external access config", "allocation nonce or metadata mismatch"]},
-    {"id": "durable-transaction", "requires": "actual Firestore emulator or approved isolated project later", "assert": ["pool and job JSON-string receipt mutate atomically", "concurrent claims mint at most once", "SDK retry callback preserves claim ownership", "cancel/completion/expiry/incarnation drift during mint prevents release", "uncertain mint or commit never resets claim or frees capacity", "known provider orphan ID survives cancellation", "Python codec preserves every string/bool field"]},
-    {"id": "github-app-sdk", "requires": "qualified auth-app declaration/lock and API fixtures", "assert": ["installation auth administration permission exact", "stable repository ID and private repository", "operator name case comparison does not rehash stored event", "JIT runner ID/name/labels match", "JIT provider lifetime evidenced independently from release deadline", "pagination changes/errors are unknown", "only exact permission-qualified 404 means absent", "delete outcome is re-read", "raw SDK error/private key/material never logged"]},
-    {"id": "worker-image", "requires": "qualified exact image/runner digest and systemd environment", "assert": ["unprivileged private directory and verified fresh runner installation", "no management secret in image/env/argv", "no Docker socket/sudo/management IAM", "readiness retries but one exchange only", "lost exchange response does not remint", "restart/preemption/power-loss consumed-startup persists where VM remains", "no second job or automatic registration", "upstream JIT argv exposure documented", "local exit/stop never counts as job completion"]},
-    {"id": "actual-job-association", "requires": "controller signed workflow_job evidence and cleanup integration", "assert": ["actual runner ID/name and repository/run/job/attempt match issued identity", "different eligible job picked through shared labels is not claimed as reserved job", "busy/unknown/missing completion preserved", "orphan created during unissued mint reconciled by controller", "external actor/restart boundary explicit"]},
-    {"id": "declared-vs-effective-iam", "requires": "provider parse/plan and later explicitly approved live negative cases", "assert": ["worker can invoke exact bootstrap and pull only required image repo", "worker cannot read management secret/backend/state or actAs/manage Compute", "old broad and inherited grants removed or identified", "controller secret binding version-vs-resource limitation recorded", "worker cannot invoke retirement", "private network egress/control-plane reachability qualified"]}
-  ]
+    {
+      "id": "google-token-bindings",
+      "requires": "real Google auth SDK and synthetic captured public claim fixtures",
+      "reject": [
+        "wrong issuer",
+        "wrong exact audience",
+        "expired token",
+        "wrong email/sub",
+        "same service account without Compute claims",
+        "wrong instance ID/project/zone/name",
+        "nonverified email",
+        "clock rollback"
+      ],
+      "operations": [
+        "controller-install",
+        "job"
+      ],
+      "prerequisites": [
+        "target-and-identities",
+        "effective-iam"
+      ],
+      "status": "pending",
+      "action": "Review qualified Google identity and audience evidence for the selected target.",
+      "expected_observations": [
+        "Verified signature, audience, service-account subject and Compute incarnation agree."
+      ],
+      "evidence_required": [
+        "Token-claim summary with secret material redacted."
+      ],
+      "stop_conditions": [
+        "Stop if identity or exact audience cannot be established."
+      ]
+    },
+    {
+      "id": "live-compute-binding",
+      "requires": "InstancesClient response fixture and disposable-project scope later",
+      "reject": [
+        "missing/stopped instance",
+        "new numeric ID under reused name",
+        "creation timestamp drift",
+        "wrong attached identity",
+        "non-Spot/non-DELETE schedule",
+        "external access config",
+        "allocation nonce or metadata mismatch"
+      ],
+      "operations": [
+        "job",
+        "cancellation-recovery",
+        "cleanup"
+      ],
+      "prerequisites": [
+        "target-and-identities",
+        "image-boot",
+        "effective-iam"
+      ],
+      "status": "pending",
+      "action": "Inspect selected immutable VM/image identities and private Spot configuration from existing approved evidence.",
+      "expected_observations": [
+        "Numeric instance ID and creation timestamp match the owned allocation.",
+        "Provider acceptance alone does not establish exact absence."
+      ],
+      "evidence_required": [
+        "Exact instance/image identity and authoritative provider readback."
+      ],
+      "stop_conditions": [
+        "Stop and preserve charged capacity on unknown identity or state."
+      ]
+    },
+    {
+      "id": "durable-transaction",
+      "requires": "actual Firestore emulator or approved isolated project later",
+      "assert": [
+        "pool and job JSON-string receipt mutate atomically",
+        "concurrent claims mint at most once",
+        "SDK retry callback preserves claim ownership",
+        "cancel/completion/expiry/incarnation drift during mint prevents release",
+        "uncertain mint or commit never resets claim or frees capacity",
+        "known provider orphan ID survives cancellation",
+        "Python codec preserves every string/bool field"
+      ],
+      "operations": [
+        "job",
+        "cancellation-recovery",
+        "cleanup"
+      ],
+      "prerequisites": [
+        "firestore-transactions"
+      ],
+      "status": "held",
+      "action": "Record the held transaction prerequisite; do not install or invoke an emulator from this packet.",
+      "expected_observations": [
+        "Atomicity and SDK retry observations remain unestablished while issue 49 is held."
+      ],
+      "evidence_required": [
+        "Separately authorized revision-bound transaction result when available."
+      ],
+      "stop_conditions": [
+        "Stop: this prerequisite is held and must not be retried by another route."
+      ]
+    },
+    {
+      "id": "github-app-sdk",
+      "requires": "qualified auth-app declaration/lock and API fixtures",
+      "assert": [
+        "installation auth administration permission exact",
+        "stable repository ID and private repository",
+        "operator name case comparison does not rehash stored event",
+        "JIT runner ID/name/labels match",
+        "JIT provider lifetime evidenced independently from release deadline",
+        "pagination changes/errors are unknown",
+        "only exact permission-qualified 404 means absent",
+        "delete outcome is re-read",
+        "raw SDK error/private key/material never logged"
+      ],
+      "operations": [
+        "job",
+        "cancellation-recovery",
+        "cleanup"
+      ],
+      "prerequisites": [
+        "dependency-disposition",
+        "job-association",
+        "jit-provider-lifetime"
+      ],
+      "status": "pending",
+      "action": "Review existing App authority, JIT lifetime and runner-identity evidence for the single trusted repository.",
+      "expected_observations": [
+        "Broker releaseBeforeMs and upstream providerExpiresAtMs are recorded separately.",
+        "Unknown upstream expiry remains unknown; shared labels do not prove job association."
+      ],
+      "evidence_required": [
+        "Authority summary, runner ID and independent upstream JIT expiry observation."
+      ],
+      "stop_conditions": [
+        "Stop on unknown JIT expiry, authority or job identity; never print JIT material."
+      ]
+    },
+    {
+      "id": "worker-image",
+      "requires": "qualified exact image/runner digest and systemd environment",
+      "assert": [
+        "unprivileged private directory and verified fresh runner installation",
+        "no management secret in image/env/argv",
+        "no Docker socket/sudo/management IAM",
+        "readiness retries but one exchange only",
+        "lost exchange response does not remint",
+        "restart/preemption/power-loss consumed-startup persists where VM remains",
+        "no second job or automatic registration",
+        "upstream JIT argv exposure documented",
+        "local exit/stop never counts as job completion"
+      ],
+      "operations": [
+        "image-build",
+        "job"
+      ],
+      "prerequisites": [
+        "source-contracts"
+      ],
+      "status": "pending",
+      "action": "Trace the allowlisted source and verified runner release to the selected build and observed worker.",
+      "expected_observations": [
+        "Pin and install checksum are distinct from the observed post-start version and executable hash.",
+        "No second registration, remint or privileged shared host is assumed."
+      ],
+      "evidence_required": [
+        "Source-stage manifest, build/image identities, effective version and update observations."
+      ],
+      "stop_conditions": [
+        "Stop if provenance, post-start update behavior or one-job containment is unknown."
+      ]
+    },
+    {
+      "id": "actual-job-association",
+      "requires": "controller signed workflow_job evidence and cleanup integration",
+      "assert": [
+        "actual runner ID/name and repository/run/job/attempt match issued identity",
+        "different eligible job picked through shared labels is not claimed as reserved job",
+        "busy/unknown/missing completion preserved",
+        "orphan created during unissued mint reconciled by controller",
+        "external actor/restart boundary explicit"
+      ],
+      "operations": [
+        "job",
+        "cancellation-recovery",
+        "cleanup"
+      ],
+      "prerequisites": [
+        "job-association",
+        "worker-quiescence",
+        "worker-drain",
+        "worker-stop"
+      ],
+      "status": "pending",
+      "action": "Correlate the ordinary trusted job and any cancellation with issued runner and allocation identities.",
+      "expected_observations": [
+        "Signed completion matches repository/run/job/attempt and issued runner.",
+        "Worker acknowledgement and process exit do not establish job completion."
+      ],
+      "evidence_required": [
+        "Redacted signed event summary and durable allocation/runner correlation."
+      ],
+      "stop_conditions": [
+        "Stop and retain state for busy workers, lost callbacks or ambiguous completion."
+      ]
+    },
+    {
+      "id": "declared-vs-effective-iam",
+      "requires": "provider parse/plan and later explicitly approved live negative cases",
+      "assert": [
+        "worker can invoke exact bootstrap and pull only required image repo",
+        "worker cannot read management secret/backend/state or actAs/manage Compute",
+        "old broad and inherited grants removed or identified",
+        "controller secret binding version-vs-resource limitation recorded",
+        "worker cannot invoke retirement",
+        "private network egress/control-plane reachability qualified"
+      ],
+      "operations": [
+        "controller-install",
+        "job",
+        "cancellation-recovery",
+        "cleanup"
+      ],
+      "prerequisites": [
+        "effective-iam"
+      ],
+      "status": "pending",
+      "action": "Trace the reviewed Terraform and identities to separately authorized effective-IAM observations.",
+      "expected_observations": [
+        "Worker has no management secrets, authoritative state writes or Compute management authority.",
+        "Private egress and broker reachability are observations, not consequences of Terraform syntax passing."
+      ],
+      "evidence_required": [
+        "Reviewed plan/identity summary and effective-IAM/network observations."
+      ],
+      "stop_conditions": [
+        "Stop when inherited or effective authority is unknown or broader than reviewed."
+      ]
+    },
+    {
+      "id": "bounded-lifecycle",
+      "operations": [
+        "job",
+        "cancellation-recovery",
+        "cleanup"
+      ],
+      "prerequisites": [
+        "operation-approval",
+        "cleanup-controls",
+        "retention-plan"
+      ],
+      "status": "pending",
+      "action": "Prepare one ordinary job at capacity one, then capacity two only after the first trial and cleanup are evidenced; describe cancellation/recovery and cleanup without executing them.",
+      "expected_observations": [
+        "One job per disposable VM within reviewed job/build/time/cost bounds.",
+        "Acceptance of stop/delete is followed by exact instance and runner absence readback.",
+        "Uncertain resources remain charged; never delete state to manufacture capacity."
+      ],
+      "evidence_required": [
+        "Capacity-one result before capacity two, actual job identity, cancellation/recovery result and exact cleanup receipt."
+      ],
+      "stop_conditions": [
+        "Stop at a limit, lost ownership or unknown cleanup; retain evidence and involve the cleanup owner."
+      ]
+    }
+  ],
+  "schema_version": 2,
+  "source_revision": {
+    "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+    "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "status": "Current source qualification contract; execution evidence must identify its tested revision, and live checks remain unverified",
+  "status": "preparation-only; operations unqualified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -23,5 +23,368 @@
     "local_packaging_receipt": "npm run package:controller -- dist/<fresh-run>/controller; requires clean Git commit/tree; records tool, lock, inventory and archive hashes plus packaging command results",
     "scope": "Packaging-only receipts do not claim the full source gate, an independent install, live IAM/image/JIT/network behavior or deployment readiness. Retain full source/hosted evidence separately for the same revision.",
     "historical_receipts": "deployment/offline-qualification.json and source-only unresolved fixtures are historical observations, not current successful runs."
+  },
+  "schema_version": 2,
+  "selected_source": {
+    "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+    "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa",
+    "sha256": {
+      "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+      "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
+      "deployment/dependency-inventory.json": "d31edf30ec6496f0558f0c899490737207a9c22fb7e9f9c19be05465528a38d9",
+      "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
+      "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
+      "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
+    }
+  },
+  "flag_requirements": {
+    "WEBHOOK_ENABLED": [
+      "source-contracts",
+      "dependency-disposition",
+      "firestore-transactions",
+      "target-and-identities",
+      "effective-iam",
+      "job-association",
+      "cleanup-controls"
+    ],
+    "MANAGEMENT_ENABLED": [
+      "source-contracts",
+      "target-and-identities",
+      "effective-iam",
+      "firestore-transactions"
+    ],
+    "SCHEDULED_ENABLED": [
+      "source-contracts",
+      "firestore-transactions",
+      "job-association",
+      "cleanup-controls"
+    ],
+    "JIT_PROVIDER_LIFETIME_QUALIFIED": [
+      "source-contracts",
+      "dependency-disposition",
+      "image-boot",
+      "jit-provider-lifetime"
+    ],
+    "APPROVED_QUIESCENCE": [
+      "image-boot",
+      "effective-iam",
+      "worker-quiescence"
+    ],
+    "DISPATCH_ENABLED": [
+      "source-contracts",
+      "firestore-transactions",
+      "worker-quiescence",
+      "worker-drain",
+      "worker-stop"
+    ],
+    "WORKER_DRAIN_QUALIFIED": [
+      "image-boot",
+      "worker-quiescence",
+      "worker-drain"
+    ],
+    "WORKER_STOP_QUALIFIED": [
+      "image-boot",
+      "worker-quiescence",
+      "worker-stop"
+    ]
+  },
+  "operations": {
+    "image-build": {
+      "flags": [],
+      "requires": [
+        "source-contracts",
+        "build-approval",
+        "target-and-identities",
+        "retention-plan"
+      ]
+    },
+    "controller-install": {
+      "flags": [],
+      "requires": [
+        "source-contracts",
+        "operation-approval",
+        "target-and-identities",
+        "effective-iam",
+        "dependency-disposition"
+      ]
+    },
+    "job": {
+      "flags": [
+        "WEBHOOK_ENABLED",
+        "JIT_PROVIDER_LIFETIME_QUALIFIED"
+      ],
+      "requires": [
+        "source-contracts",
+        "operation-approval",
+        "image-boot",
+        "runner-maintenance",
+        "retention-plan"
+      ]
+    },
+    "cancellation-recovery": {
+      "flags": [
+        "MANAGEMENT_ENABLED",
+        "SCHEDULED_ENABLED",
+        "DISPATCH_ENABLED",
+        "APPROVED_QUIESCENCE",
+        "WORKER_DRAIN_QUALIFIED",
+        "WORKER_STOP_QUALIFIED"
+      ],
+      "requires": [
+        "source-contracts",
+        "operation-approval",
+        "cleanup-controls",
+        "retention-plan"
+      ]
+    },
+    "cleanup": {
+      "flags": [
+        "MANAGEMENT_ENABLED",
+        "DISPATCH_ENABLED",
+        "APPROVED_QUIESCENCE",
+        "WORKER_DRAIN_QUALIFIED",
+        "WORKER_STOP_QUALIFIED"
+      ],
+      "requires": [
+        "source-contracts",
+        "operation-approval",
+        "cleanup-controls",
+        "retention-plan"
+      ]
+    }
+  },
+  "prerequisites": {
+    "source-contracts": {
+      "status": "satisfied",
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40123716645"
+        }
+      ],
+      "consequence": "Source/package/mock assurance only; live properties need their own observations."
+    },
+    "dependency-disposition": {
+      "status": "held",
+      "evidence": [
+        {
+          "scope": "decision",
+          "source_revision": {
+            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/48"
+        }
+      ],
+      "consequence": "Dependency-version execution remains held under issue 48; no affected version is described as patched."
+    },
+    "firestore-transactions": {
+      "status": "held",
+      "evidence": [
+        {
+          "scope": "decision",
+          "source_revision": {
+            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/49"
+        }
+      ],
+      "consequence": "Issue 49 execution remains held; source mocks cannot establish transaction or contention behavior."
+    },
+    "operation-approval": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "No live operation may proceed without a separately scoped operator decision under issue 55."
+    },
+    "build-approval": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "No image build may proceed without approved project, spending ceiling and separate build authority."
+    },
+    "target-and-identities": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "No project, target or immutable identity has been selected or authorized for live use."
+    },
+    "effective-iam": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "Declared Terraform grants do not establish effective roles, inherited grants or worker isolation."
+    },
+    "image-boot": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "A source allowlist and runner pin do not establish a booted image or private network behavior."
+    },
+    "jit-provider-lifetime": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "A broker release deadline does not establish upstream JIT expiry."
+    },
+    "worker-quiescence": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "Local worker reports do not establish all actors quiescent or permit name-based deletion."
+    },
+    "worker-drain": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "An acknowledgement is not signed job completion; preserve busy and uncertain allocations."
+    },
+    "worker-stop": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "A local exit or acknowledged stop is not provider absence; retain incarnation and capacity evidence."
+    },
+    "job-association": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "Shared labels do not prove the reserved job ran; retain actual repository/run/job/attempt and runner identity."
+    },
+    "cleanup-controls": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "Provider acceptance is not exact absence; require authoritative instance and runner readback."
+    },
+    "runner-maintenance": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "The baked runner pin does not prove the effective version or post-start update behavior."
+    },
+    "retention-plan": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "No log-export authority is granted; an operator must approve redaction, access and retention."
+    },
+    "capacity-one-trial": {
+      "status": "pending",
+      "evidence": [],
+      "consequence": "Capacity two is unavailable until the capacity-one trial and cleanup have revision-bound evidence."
+    },
+    "broad-fault-campaign": {
+      "status": "deferred",
+      "evidence": [],
+      "consequence": "A broad fault-injection campaign is explicitly deferred and supplies no readiness evidence."
+    }
+  },
+  "worksheet": {
+    "project_id": null,
+    "region": null,
+    "zone": null,
+    "build_subnetwork": null,
+    "private_pool": null,
+    "capacity_stages": [
+      1,
+      2
+    ],
+    "capacity_stage": 1,
+    "one_job_per_vm": 1,
+    "repository": {
+      "owner": null,
+      "name": null,
+      "id": null,
+      "private": null,
+      "all_writers_trusted": null,
+      "branch": null
+    },
+    "routing": {
+      "route_label": null,
+      "registered_labels": null,
+      "required_labels": null
+    },
+    "identities": {
+      "image_build_service_account": null,
+      "function_build_service_account": null,
+      "controller_service_account": null,
+      "worker_service_account": null,
+      "worker_unique_id": null,
+      "admin_subject": null,
+      "scheduler_subject": null,
+      "provisioner_service_account": null,
+      "scheduler_service_account": null
+    },
+    "artifacts": {
+      "source_image_resource": null,
+      "apt_snapshot": null,
+      "packer_builder_image": null,
+      "provisioner_builder_image": null,
+      "worker_image_name": null,
+      "worker_image_resource": null,
+      "worker_image_numeric_id": null,
+      "controller_archive_sha256": null,
+      "controller_receipt_sha256": null,
+      "worker_source_manifest_sha256": null
+    },
+    "limits": {
+      "duration_minutes": null,
+      "build_timeout_minutes": null,
+      "max_jobs": null,
+      "max_builds": null,
+      "cost_ceiling": null,
+      "currency": null
+    },
+    "cleanup": {
+      "owner": null,
+      "deadline_utc": null,
+      "evidence_location": null
+    },
+    "retention": {
+      "owner": null,
+      "approved_location": null,
+      "days": null,
+      "redaction_policy": null,
+      "no_new_export_authority": true
+    },
+    "runner_maintenance": {
+      "owner": null,
+      "post_start_version": null,
+      "post_start_binary_sha256": null,
+      "update_behavior": null,
+      "observations_reference": null
+    },
+    "runtime_flags": {
+      "WEBHOOK_ENABLED": false,
+      "MANAGEMENT_ENABLED": false,
+      "SCHEDULED_ENABLED": false,
+      "JIT_PROVIDER_LIFETIME_QUALIFIED": false,
+      "APPROVED_QUIESCENCE": false,
+      "DISPATCH_ENABLED": false,
+      "WORKER_DRAIN_QUALIFIED": false,
+      "WORKER_STOP_QUALIFIED": false
+    },
+    "references": {
+      "webhook_secret_version": null,
+      "github_app_private_key_version": null
+    }
+  },
+  "unmerged_evidence": [
+    {
+      "pull_request": 61,
+      "head": "a220f5567bfbbca86f582fdb5b13d48a6d0d6200",
+      "state": "ready; natively approved; unmerged",
+      "included_in_selected_source": false
+    },
+    {
+      "pull_request": 62,
+      "head": "c05d00bbf502a17edc5d156fe3f0cf7cd1a48bad",
+      "state": "ready; natively approved; App check absent; unmerged",
+      "included_in_selected_source": false
+    }
+  ],
+  "runner_release": {
+    "version": "2.337.0",
+    "architecture": "linux-x64",
+    "url": "https://github.com/actions/runner/releases/download/v2.337.0/actions-runner-linux-x64-2.337.0.tar.gz",
+    "sha256": "70920811a4f8ad4328818682bca5c6469c1c942fab52448868071d0063816613",
+    "provenance": "https://github.com/actions/runner/releases/tag/v2.337.0",
+    "metadata_verified_on": "2026-10-24",
+    "metadata_source": "https://api.github.com/repos/actions/runner/releases/tags/v2.337.0",
+    "verification_scope": "Official release asset digest matches the checked-in SHA-256; no archive downloaded, image built or effective runner observed.",
+    "rebuild_contract": "The operator must select a named rebuild owner, review supported release/version and checksum before each build, retain exact build/image identities, and record post-start binary version/hash plus update behavior. No automatic-update setting changes in this packet."
   }
 }
