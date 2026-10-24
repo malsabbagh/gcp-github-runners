@@ -1,0 +1,98 @@
+{
+  "project_id": "fixture-project",
+  "region": "us-central1",
+  "zone": "us-central1-a",
+  "build_subnetwork": "projects/fixture-project/regions/us-central1/subnetworks/build",
+  "private_pool": "projects/fixture-project/locations/us-central1/workerPools/build",
+  "capacity_stages": [
+    1,
+    2
+  ],
+  "capacity_stage": 1,
+  "one_job_per_vm": 1,
+  "repository": {
+    "owner": "fixture-org",
+    "name": "private-jobs",
+    "id": 123,
+    "private": true,
+    "all_writers_trusted": true,
+    "branch": "main"
+  },
+  "routing": {
+    "route_label": "fixture-route",
+    "registered_labels": [
+      "self-hosted",
+      "linux",
+      "x64",
+      "fixture-route"
+    ],
+    "required_labels": [
+      "self-hosted",
+      "fixture-route"
+    ]
+  },
+  "identities": {
+    "image_build_service_account": "image-build-service-account@fixture-project.iam.gserviceaccount.com",
+    "function_build_service_account": "function-build-service-account@fixture-project.iam.gserviceaccount.com",
+    "controller_service_account": "controller-service-account@fixture-project.iam.gserviceaccount.com",
+    "worker_service_account": "worker-service-account@fixture-project.iam.gserviceaccount.com",
+    "worker_unique_id": "1001",
+    "admin_subject": "1002",
+    "scheduler_subject": "1003",
+    "provisioner_service_account": "provisioner-service-account@fixture-project.iam.gserviceaccount.com",
+    "scheduler_service_account": "scheduler-service-account@fixture-project.iam.gserviceaccount.com"
+  },
+  "artifacts": {
+    "source_image_resource": "projects/fixture-project/global/images/debian-12-fixed",
+    "apt_snapshot": "20261001T000000Z",
+    "packer_builder_image": "us-docker.pkg.dev/fixture-project/build/packer@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "provisioner_builder_image": "us-docker.pkg.dev/fixture-project/build/provisioner@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "worker_image_name": "fixture-worker-20261024",
+    "worker_image_resource": "projects/fixture-project/global/images/fixture-worker-20261024",
+    "worker_image_numeric_id": "1004",
+    "controller_archive_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "controller_receipt_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "worker_source_manifest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  "limits": {
+    "duration_minutes": 30,
+    "build_timeout_minutes": 10,
+    "max_jobs": 1,
+    "max_builds": 1,
+    "cost_ceiling": 5,
+    "currency": "USD"
+  },
+  "cleanup": {
+    "owner": "fixture-cleanup-owner",
+    "deadline_utc": "2026-10-25T00:00:00Z",
+    "evidence_location": "records/fixture-cleanup"
+  },
+  "retention": {
+    "owner": "fixture-retention-owner",
+    "approved_location": "records/fixture-retention",
+    "days": 7,
+    "redaction_policy": "Remove tokens, JIT, keys, payloads and private identifiers; restrict operator evidence access.",
+    "no_new_export_authority": true
+  },
+  "runner_maintenance": {
+    "owner": "fixture-image-owner",
+    "post_start_version": "2.337.0",
+    "post_start_binary_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "update_behavior": "unchanged",
+    "observations_reference": "records/fixture-post-start"
+  },
+  "runtime_flags": {
+    "WEBHOOK_ENABLED": true,
+    "MANAGEMENT_ENABLED": true,
+    "SCHEDULED_ENABLED": true,
+    "JIT_PROVIDER_LIFETIME_QUALIFIED": true,
+    "APPROVED_QUIESCENCE": true,
+    "DISPATCH_ENABLED": true,
+    "WORKER_DRAIN_QUALIFIED": true,
+    "WORKER_STOP_QUALIFIED": true
+  },
+  "references": {
+    "webhook_secret_version": "projects/fixture-project/secrets/webhook/versions/1",
+    "github_app_private_key_version": "projects/fixture-project/secrets/app-key/versions/1"
+  }
+}
