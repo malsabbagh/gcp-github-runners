@@ -66,6 +66,12 @@ WORKSHEET_FIELDS = (
 ).split()
 STATES = {'satisfied', 'pending', 'held', 'deferred'}
 PLACEHOLDER = re.compile(r'(?i)(?:\b(?:todo|tbd|pending|placeholder|changeme|example|sample)\b|your[_ -]|replace[_ -]|[<>])')
+FREE_TEXT_FIELDS = {
+    'repository.owner', 'repository.name', 'repository.branch', 'routing.route_label',
+    'artifacts.worker_image_name', 'cleanup.owner', 'cleanup.evidence_location',
+    'retention.owner', 'retention.approved_location', 'retention.redaction_policy',
+    'runner_maintenance.owner', 'runner_maintenance.observations_reference',
+}
 COMMON_FIELDS = ['project_id', 'region', 'zone'] + [field for field in WORKSHEET_FIELDS
     if field.startswith(('limits.', 'cleanup.', 'retention.'))]
 RUNTIME_FIELDS = [field for field in WORKSHEET_FIELDS
@@ -99,6 +105,8 @@ def lookup(document, name):
 
 
 def field_valid(worksheet, name):
+    if not isinstance(name, str) or name not in WORKSHEET_FIELDS:
+        return False
     value = lookup(worksheet, name)
     if name in ('repository.private', 'repository.all_writers_trusted', 'retention.no_new_export_authority'):
         return value is True
@@ -153,7 +161,41 @@ def field_valid(worksheet, name):
         return re.fullmatch(r'2\.[0-9]+\.[0-9]+', value) is not None
     if name == 'runner_maintenance.update_behavior':
         return value in ('unchanged', 'updated')
-    return True
+    return name in FREE_TEXT_FIELDS
+
+
+class InputPathError(ValueError):
+    def __init__(self, role, reason):
+        self.code = role + '-' + reason
+        option = {'source-root': '--source-root', 'plan-path': '--plan', 'cases-path': '--cases'}[role]
+        kind = 'directory' if role == 'source-root' else 'JSON file'
+        self.guidance = (f'Supply {option} as an existing, readable canonical absolute {kind} path with no symlink '
+                         'in the supplied path or its ancestry. Select the canonical path explicitly; '
+                         'the validator does not resolve supplied paths or relax descendant symlink rejection.')
+        if reason == 'invalid-json':
+            self.guidance = f'Check the JSON syntax of the canonical file supplied with {option}; the validator does not rewrite it.'
+        elif reason == 'too-large':
+            self.guidance = f'Supply {option} as a canonical nonsymlinked JSON file no larger than 2 MiB.'
+        super().__init__(self.code)
+
+
+def checked_input_path(filename, role):
+    file = Path(filename)
+    if not file.is_absolute() or '..' in file.parts:
+        raise InputPathError(role, 'not-canonical-absolute')
+    try:
+        if any(parent.is_symlink() for parent in (file, *file.parents)):
+            raise InputPathError(role, 'symlinked-ancestry')
+        if role == 'source-root':
+            if not file.is_dir():
+                raise InputPathError(role, 'not-directory')
+        elif not file.is_file():
+            raise InputPathError(role, 'not-file')
+        elif file.stat().st_size > 2 * 1024 * 1024:
+            raise InputPathError(role, 'too-large')
+    except OSError as error:
+        raise InputPathError(role, 'not-readable') from error
+    return file
 
 
 def identity_blockers(worksheet, operation):
@@ -177,8 +219,10 @@ def identity_blockers(worksheet, operation):
 def validate(plan, cases, source_root, expected_commit, expected_tree):
     """Return evidence readiness, never execution authority; expected revision is caller-attested."""
     issues = []
+    guidance = []
     flags, operations = {}, {}
     try:
+        root = checked_input_path(source_root, 'source-root')
         if plan['schema_version'] != 2 or cases['schema_version'] != 2:
             raise ValueError('schema-version')
         source = plan['selected_source']
@@ -186,7 +230,6 @@ def validate(plan, cases, source_root, expected_commit, expected_tree):
         if not all(re.fullmatch(r'[a-f0-9]{40}', value or '') for value in (expected_commit, expected_tree)) or \
                 revision != {'commit': expected_commit, 'tree': expected_tree} or cases['source_revision'] != revision:
             issues.append('source-revision-mismatch')
-        root = Path(source_root)
         bindings = source['sha256']
         if set(bindings) != set(SOURCE_FILES):
             issues.append('source-bindings-incomplete')
@@ -258,6 +301,9 @@ def validate(plan, cases, source_root, expected_commit, expected_tree):
                     blockers.append('worksheet:routing-consistency')
             blockers += identity_blockers(worksheet, name)
             operations[name] = {'available': not issues and not blockers, 'blockers': blockers}
+    except InputPathError as error:
+        issues.append(error.code)
+        guidance.append(error.guidance)
     except (KeyError, TypeError, ValueError, OSError, AttributeError):
         issues.append('packet-shape-or-input-invalid')
     if issues:
@@ -266,14 +312,17 @@ def validate(plan, cases, source_root, expected_commit, expected_tree):
         for flag in flags.values():
             flag['evidence_ready'] = False
     return {'preparation_complete': not issues, 'issues': sorted(set(issues)),
-            'flags': flags, 'operations': operations, 'execution_authorized': False}
+            'guidance': guidance, 'flags': flags, 'operations': operations, 'execution_authorized': False}
 
 
-def read_json(filename):
-    file = Path(filename)
-    if any(parent.is_symlink() for parent in (file, *file.parents)) or not file.is_file() or file.stat().st_size > 2 * 1024 * 1024:
-        raise ValueError('invalid-input-file')
-    return json.loads(file.read_text())
+def read_json(filename, role):
+    file = checked_input_path(filename, role)
+    try:
+        return json.loads(file.read_text())
+    except OSError as error:
+        raise InputPathError(role, 'not-readable') from error
+    except ValueError as error:
+        raise InputPathError(role, 'invalid-json') from error
 
 
 def main(arguments=None):
@@ -290,7 +339,15 @@ def main(arguments=None):
     if args.mode == 'operation-ready' and args.operation is None:
         parser.error('--operation is required in operation-ready mode')
     try:
-        report = validate(read_json(args.plan), read_json(args.cases), args.source_root, args.source_commit, args.source_tree)
+        # Preflight every supplied path before reading any input contents.
+        checked_input_path(args.source_root, 'source-root')
+        checked_input_path(args.plan, 'plan-path')
+        checked_input_path(args.cases, 'cases-path')
+        report = validate(read_json(args.plan, 'plan-path'), read_json(args.cases, 'cases-path'),
+                          args.source_root, args.source_commit, args.source_tree)
+    except InputPathError as error:
+        report = {'preparation_complete': False, 'issues': [error.code], 'guidance': [error.guidance],
+                  'flags': {}, 'operations': {}, 'execution_authorized': False}
     except (OSError, ValueError, TypeError):
         report = {'preparation_complete': False, 'issues': ['invalid-input-file'],
                   'flags': {}, 'operations': {}, 'execution_authorized': False}

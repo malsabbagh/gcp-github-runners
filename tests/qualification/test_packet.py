@@ -169,6 +169,68 @@ class PacketTests(unittest.TestCase):
                 PACKET.main(arguments + ['--execute'])
             self.assertEqual(error.exception.code, 2)
 
+    def test_supplied_parent_symlinks_have_actionable_errors_before_any_input_read(self):
+        from unittest.mock import patch
+        plan, cases = self.documents()
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary).resolve()
+            actual = directory / 'actual'
+            actual.mkdir()
+            (actual / 'source').mkdir()
+            (actual / 'plan.json').write_text(json.dumps(plan))
+            (actual / 'cases.json').write_text(json.dumps(cases))
+            alias = directory / 'alias'
+            alias.symlink_to(actual, target_is_directory=True)
+            canonical = {'--source-root': str(ROOT), '--plan': str(actual / 'plan.json'),
+                         '--cases': str(actual / 'cases.json')}
+            for option, name, issue in [('--source-root', 'source', 'source-root-symlinked-ancestry'),
+                                         ('--plan', 'plan.json', 'plan-path-symlinked-ancestry'),
+                                         ('--cases', 'cases.json', 'cases-path-symlinked-ancestry')]:
+                with self.subTest(option=option):
+                    paths = {**canonical, option: str(alias / name)}
+                    arguments = ['--source-commit', COMMIT, '--source-tree', TREE]
+                    for flag, value in paths.items():
+                        arguments.extend([flag, value])
+                    output = io.StringIO()
+                    with patch('pathlib.Path.read_text', side_effect=AssertionError('input read')), \
+                            patch('pathlib.Path.read_bytes', side_effect=AssertionError('input read')), \
+                            contextlib.redirect_stdout(output):
+                        result = PACKET.main(arguments)
+                    report = json.loads(output.getvalue())
+                    self.assertEqual(result, 1)
+                    self.assertIn(issue, report['issues'])
+                    self.assertIn('canonical', ' '.join(report['guidance']))
+                    self.assertFalse(report['execution_authorized'])
+            # The same contents under explicitly supplied canonical paths are accepted.
+            arguments = ['--source-commit', COMMIT, '--source-tree', TREE]
+            for flag, value in canonical.items():
+                arguments.extend([flag, value])
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(PACKET.main(arguments), 0)
+            with patch('pathlib.Path.read_text', side_effect=AssertionError('source read')), \
+                    patch('pathlib.Path.read_bytes', side_effect=AssertionError('source read')):
+                report = PACKET.validate(plan, cases, alias / 'source', COMMIT, TREE)
+            self.assertIn('source-root-symlinked-ancestry', report['issues'])
+
+    def test_unknown_field_names_fail_closed_without_restricting_evidence_locations(self):
+        worksheet = self.qualified_documents()[0]['worksheet']
+        for name, value in [('unexpected', 'concrete-value'), ('limits.future_bound', 1),
+                            ('artifacts.future_sha256', 'a' * 64),
+                            ('identities.future_service_account', worksheet['identities']['worker_service_account']),
+                            ('references.future', 'projects/fixture-project/secrets/key/versions/1')]:
+            parts = name.split('.')
+            target = worksheet
+            for part in parts[:-1]:
+                target = target.setdefault(part, {})
+            target[parts[-1]] = value
+            self.assertFalse(PACKET.field_valid(worksheet, name), name)
+        for name in ['cleanup.evidence_location', 'retention.approved_location',
+                     'runner_maintenance.observations_reference']:
+            for value in ['records/private-run', 'https://records.invalid/run/42', 'urn:qualified:evidence:42']:
+                target, key = name.split('.')
+                worksheet[target][key] = value
+                self.assertTrue(PACKET.field_valid(worksheet, name), (name, value))
+
     def test_private_repository_labels_pinned_images_roles_and_numbered_references_are_required(self):
         for field, value in [('repository.private', False), ('repository.all_writers_trusted', False),
                              ('routing.required_labels', ['self-hosted']),
@@ -262,6 +324,13 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(all(row['declared_value'] is False for row in report['flags'].values()))
         self.assertEqual(plan['selected_source']['commit'], COMMIT)
         self.assertTrue(all(not row['included_in_selected_source'] for row in plan['unmerged_evidence']))
+        self.assertEqual([row['pull_request'] for row in plan['unmerged_evidence']], [62])
+        merged = plan['subsequent_merged_evidence'][0]
+        self.assertEqual(merged['pull_request'], 61)
+        self.assertEqual(merged['merge_commit'], 'e77f1d092e2011b238fd51232ef29162a1c8f021')
+        self.assertFalse(merged['included_in_selected_source'])
+        self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
+                            for row in plan['prerequisites']['source-contracts']['evidence']))
         self.assertIsNone(plan['worksheet']['artifacts']['worker_image_resource'])
         self.assertIsNone(plan['worksheet']['runner_maintenance']['post_start_version'])
         cases_text = json.dumps(cases)

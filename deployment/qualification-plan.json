@@ -364,12 +364,6 @@
   },
   "unmerged_evidence": [
     {
-      "pull_request": 61,
-      "head": "a220f5567bfbbca86f582fdb5b13d48a6d0d6200",
-      "state": "ready; natively approved; unmerged",
-      "included_in_selected_source": false
-    },
-    {
       "pull_request": 62,
       "head": "c05d00bbf502a17edc5d156fe3f0cf7cd1a48bad",
       "state": "ready; natively approved; App check absent; unmerged",
@@ -386,5 +380,17 @@
     "metadata_source": "https://api.github.com/repos/actions/runner/releases/tags/v2.337.0",
     "verification_scope": "Official release asset digest matches the checked-in SHA-256; no archive downloaded, image built or effective runner observed.",
     "rebuild_contract": "The operator must select a named rebuild owner, review supported release/version and checksum before each build, retain exact build/image identities, and record post-start binary version/hash plus update behavior. No automatic-update setting changes in this packet."
-  }
+  },
+  "subsequent_merged_evidence": [
+    {
+      "pull_request": 61,
+      "reviewed_head": "a220f5567bfbbca86f582fdb5b13d48a6d0d6200",
+      "merge_commit": "e77f1d092e2011b238fd51232ef29162a1c8f021",
+      "tree": "07c089d18e24e4057b5f16b676eee48a59b9df69",
+      "core_ci": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40135579570",
+      "state": "merged; subsequent main qualification passed",
+      "included_in_selected_source": false,
+      "scope": "Separate later-main evidence; does not relabel the selected bd700664 source snapshot or its evidence."
+    }
+  ]
 }
