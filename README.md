@@ -17,11 +17,7 @@ CI includes the built-in Node fixtures, both full Jest suites, all Python regres
 
 For installation, read [deployment instructions](DEPLOYMENT.md), [architecture](ARCHITECTURE.md), [cleanup](CLEANUP_SCRIPTS_README.md) and [job routing](docs/JOB_USAGE.md), [native image tooling](docs/WORKER_IMAGE.md) and [monitoring](docs/MONITORING.md). Setup generates ignored operator inputs; Terraform owns infrastructure deployment. Local testing does not require cloud credentials.
 
-## Repository readiness
-
-Repository visibility, Actions activation, provider authorization, App installation, image building and cloud deployment are separate operator steps. The presence of workflow files does not establish that automation is enabled. Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
-
-Maintainer automation, including optional ReviewSensei reviews and coverage publication, is documented in [repository automation](.github/README.md). It is separate from the runner controller and cloud deployment.
+Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
 
 Copyright (c) 2026 Mohamad Alsabbagh. This project is licensed under [MIT](LICENSE); [third-party notices](NOTICE.md) continue to apply. Seven known dependency alerts remain deferred for follow-up; this release does not claim that they are fixed.
 
