@@ -20,7 +20,7 @@ The client prints the controller-reported status with a fixed explanation. `inte
 
 A direct `gcloud delete`, raw GitHub runner deletion or Firestore allocation removal bypasses the controller's consistency guarantees and is not a supported cleanup procedure.
 
-Exit code 0 means the controller handled the request and returned a known outcome, including `preserved` or `denied`; it does not establish lifecycle success. Missing, malformed or unknown outcomes and transport failures return exit code 1 with a generic message. Only the recognized status and fixed explanation are printed; arbitrary response fields, reason strings and credentials are not echoed. Local validation remains the default.
+With `--execute`, exit code 0 means the controller handled the request and returned a known outcome, including `preserved` or `denied`; it does not establish lifecycle success. Missing, malformed or unknown outcomes and transport failures return exit code 1 with a generic message. Only the recognized status and fixed explanation are printed; arbitrary response fields, reason strings and credentials are not echoed. Local validation remains the default.
 
 The legacy cleanup function source is retained for regression and canonical script packaging compatibility. It is not a second authoritative deployment route. Terraform deploys the selected controller and authenticated scheduled recovery path.
 
