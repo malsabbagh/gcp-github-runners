@@ -41,9 +41,11 @@ function assemble(destination) {
 }
 function writeZip(result,archivePath,manifestPath) {
   guardPath(result.directory,'ARCHIVE_DESTINATION_INVALID');guardPath(path.resolve(archivePath),'ARCHIVE_DESTINATION_INVALID');guardPath(path.resolve(manifestPath),'ARCHIVE_DESTINATION_INVALID');
-  return JSON.parse(execFileSync('python3',[path.join(__dirname,'controller-zip.py'),result.directory,archivePath,manifestPath,path.join(root,'deployment/archive-source-map.json')],{encoding:'utf8',timeout:30000,stdio:['pipe','pipe','pipe']}));
+  const argv=['python3',path.join(__dirname,'controller-zip.py'),result.directory,archivePath,manifestPath,path.join(root,'deployment/archive-source-map.json')];
+  return {...JSON.parse(execFileSync(argv[0],argv.slice(1),{encoding:'utf8',timeout:30000,stdio:['pipe','pipe','pipe']})),argv};
 }
 function packageController(destination=path.join(root,'dist','controller')) {
+  const startedAt=new Date().toISOString();
   const dir=path.resolve(destination);
   const manifestPath=path.join(dir,'..','controller-manifest.json');
   const archive=path.join(dir,'..','controller.zip');
@@ -78,25 +80,25 @@ function packageController(destination=path.join(root,'dist','controller')) {
     }));
   }
   const sourceSnapshot=snapshot();
-  const startedAt=new Date().toISOString();
   const result=assemble(dir);
   if (result.files.length!==selected.length || result.files.some(f=>!sourceSnapshot[f.source] ||
       sha(f.content)!==sourceSnapshot[f.source].sha256 || f.mode.toString(8).padStart(4,'0')!==sourceSnapshot[f.source].mode)) throw Error('ARCHIVE_REVISION_INPUT_MISMATCH');
   fs.writeFileSync(manifestPath,JSON.stringify(result.manifest,null,2)+'\n',{flag:'wx',mode:0o600});
   const zip=writeZip(result,archive,manifestPath);
   const hashes=names=>Object.fromEntries(names.map(name=>[name,sha(fs.readFileSync(path.join(root,name)))]));
-  const receipt={version:1,scope:'local-controller-packaging-only',revision,startedAt,completedAt:new Date().toISOString(),
+  const receipt={version:1,scope:'local-controller-packaging-only',revision,startedAt,
     tools:{node:process.version,python:execFileSync('python3',['--version'],{encoding:'utf8'}).trim(),npm:execFileSync('npm',['--version'],{encoding:'utf8'}).trim()},
     toolSourceSha256:hashes(toolFiles),lockSha256:hashes(lockFiles),inventorySha256:hashes(inventoryFiles),
     sourceInputs:sourceSnapshot,
     archive:{sha256:zip.archiveSha256,fileCount:zip.fileCount,manifestSha256:sha(fs.readFileSync(manifestPath))},
     commands:[{argv:checkArgv,exitCode:0,result:checked},
-      {argv:['python3',path.join(__dirname,'controller-zip.py'),dir,archive,manifestPath,path.join(root,'deployment/archive-source-map.json')],exitCode:0,result:zip}],
+      {argv:zip.argv,exitCode:0,result:zip}],
     qualification:{fullSourceSuiteRun:false,syntheticOrLocalOnly:true,providerCalls:false,cloudDeployed:false,liveReadiness:false}};
   const owned=new Set([...result.files.map(f=>path.relative(root,path.join(dir,f.path))),path.relative(root,manifestPath),path.relative(root,archive)]);
   const changes=git('status','--porcelain=v1','-z','--untracked-files=all').split('\0').filter(Boolean);
   if (changes.some(row=>!row.startsWith('?? ') || !owned.has(row.slice(3))) || git('rev-parse','HEAD')!==revision.commit ||
       JSON.stringify(snapshot())!==JSON.stringify(sourceSnapshot)) throw Error('ARCHIVE_REVISION_CHANGED');
+  receipt.completedAt=new Date().toISOString();
   fs.writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n',{flag:'wx',mode:0o600});
   return {archive,receiptPath,receipt};
 }

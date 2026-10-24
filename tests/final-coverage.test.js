@@ -101,6 +101,7 @@ test('archive checker reports malformed tracked inventory and refuses to regener
 test('assembly CLI creates its manifest for both explicit and default destinations', () => {
   for (const destination of [undefined, path.join(root, 'dist', 'synthetic-cli', 'controller')]) {
     const writes = [];
+    const executed=[];
     const argv = ['node', path.join(root, 'packaging/assemble-controller.js')];
     if (destination) argv.push(destination);
     injectedModule('packaging/assemble-controller.js', { 'node:fs': { ...fs,
@@ -108,6 +109,7 @@ test('assembly CLI creates its manifest for both explicit and default destinatio
       readFileSync: (filename,...args)=>writes.find(([name])=>name===filename)?.[1] ?? fs.readFileSync(filename,...args),
       writeFileSync: (filename, content) => writes.push([filename, content]),
     }, 'node:child_process': {execFileSync:(command,args)=>{
+      executed.push([command,...args]);
       if(command==='git') {
         if(args.includes('status'))return args.includes('--untracked-files=all')?writes.map(([name])=>'?? '+path.relative(root,name)+'\0').join(''):'';
         if(args.includes('ls-tree'))return [...new Set([...inputs().map(f=>f.source),'packaging/assemble-controller.js','packaging/check-controller.js','packaging/archive-closure.js','packaging/controller-zip.py','package-lock.json','source-compatible/templates/package-lock.json','source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json','terraform/.terraform.lock.hcl','deployment/archive-manifest.json','deployment/declared-imports.json','deployment/archive-source-map.json'])].map(name=>`${fs.statSync(path.join(root,name)).mode&0o111?'100755':'100644'} blob ${'c'.repeat(40)}\t${name}`).join('\n');
@@ -123,6 +125,8 @@ test('assembly CLI creates its manifest for both explicit and default destinatio
     const manifest = JSON.parse(writes.find(([filename]) => filename === path.join(directory, '..', 'controller-manifest.json'))[1]);
     assert.equal(manifest.entry, 'controller-entry.js');
     assert.equal(writes.length, manifest.files.length + 2);
+    const receipt=JSON.parse(writes.find(([filename])=>filename===path.join(directory,'..','controller-receipt.json'))[1]);
+    assert.deepEqual(receipt.commands[1].argv,executed.find(argv=>argv[0]==='python3' && argv[1].endsWith('controller-zip.py')));
   }
 });
 
