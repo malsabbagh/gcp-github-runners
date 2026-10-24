@@ -21,7 +21,8 @@
     "test:fixtures": "node --test tests/*.test.js",
     "test:python": "python3 scripts/test-python.py",
     "package:controller": "node packaging/assemble-controller.js",
-    "check:archive": "node packaging/check-controller.js"
+    "check:archive": "node packaging/check-controller.js",
+    "check:dependencies": "node packaging/dependency-contract.js && node scripts/dependency-inventory.cjs --check"
   },
   "devDependencies": {
     "c8": "10.1.3",

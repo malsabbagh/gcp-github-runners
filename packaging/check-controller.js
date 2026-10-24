@@ -5,6 +5,7 @@ const {createHash}=require('node:crypto');
 const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
+const {verifyRuntimeDependencyContract,readRuntimeDependencyContract}=require('./dependency-contract');
 
 function check({writeInventory=false}={}) {
   const source=inputs();
@@ -17,6 +18,9 @@ function check({writeInventory=false}={}) {
   const sourceMap={version:1,profile:'controller-source-archive',paths:Object.fromEntries(source.map(f=>[f.path,f.source])),modes:Object.fromEntries(source.map(f=>[f.path,f.mode.toString(8).padStart(4,'0')]))};
   const lock=JSON.parse(files.find(f=>f.path==='package-lock.json').content);
   const result=verifyDeclaredArchiveClosure({manifest,files,importDescriptors:descriptors,lock});
+  const dependencyContract=verifyRuntimeDependencyContract(readRuntimeDependencyContract(root));
+  result.runtimeDependencyContractConsistent=dependencyContract.ok;
+  result.errors.push(...dependencyContract.errors);
   if (source.some(f=>![0o644,0o755].includes(f.mode))) result.errors.push('ARCHIVE_MODE_INVALID');
   const contracts={'archive-manifest.json':manifest,'declared-imports.json':descriptors,'archive-source-map.json':sourceMap};
   // Check never writes. Regeneration is an explicit, reviewable source-contract change.

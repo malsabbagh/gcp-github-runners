@@ -1,7 +1,9 @@
 {
   "name": "webhook-handler",
   "version": "1.0.0",
-  "description": "Cloud Function to handle GitHub webhooks for runner provisioning",
+  "description": "Offline tests and compatibility wrapper for the root controller; not an independent deployment package",
+  "private": true,
+  "type": "commonjs",
   "main": "index.js",
   "engines": {
     "node": "24.x"
