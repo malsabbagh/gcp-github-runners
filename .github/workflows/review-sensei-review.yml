@@ -1,6 +1,6 @@
 # ReviewSensei setup version: 5
 name: ReviewSensei review
-run-name: "ReviewSensei ${{ github.event.pull_request && format('PR #{0}', github.event.pull_request.number) || 'manual' }}"
+run-name: "ReviewSensei ${{ github.event_name == 'pull_request' && format('PR #{0}', github.event.pull_request.number) || github.event_name == 'pull_request_review_comment' && format('PR #{0} inline comment ({1})', github.event.pull_request.number, github.event.comment.user.type == 'Bot' && 'bot skipped' || format('@{0}', github.actor)) || github.event_name == 'issue_comment' && (github.event.issue.pull_request && format('PR #{0} comment ({1})', github.event.issue.number, github.event.comment.user.type == 'Bot' && 'bot skipped' || format('@{0}', github.actor)) || format('issue #{0} comment (skipped)', github.event.issue.number)) || inputs.pull_request_number && format('PR #{0} manual', inputs.pull_request_number) || 'manual' }}"
 
 # Configuration lives in .reviewsensei.yml at the repository root of the
 # trusted policy commit (the repository default branch) that the reusable
@@ -24,6 +24,11 @@ on:
         default: review
         type: choice
         options: [review]
+      review_remaining:
+        description: Continue exact retained partial coverage with one bounded window
+        required: false
+        default: false
+        type: boolean
       pull_request_number:
         description: Pull request number to review
         required: true
@@ -42,7 +47,6 @@ on:
       root_comment_id:
         description: Root comment ID for manual reply thread
         required: false
-
   issue_comment:
     types: [created]
   pull_request_review_comment:
@@ -61,21 +65,21 @@ permissions:
 jobs:
   resolve-trigger:
     # Event shape only: which events may start a run, and which commenters may
-    # address @sensei. Nothing here depends on configuration.
+    # address @reviewsensei or @sensei. Nothing here depends on configuration.
     if: >-
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' &&
       github.event.action == 'created' &&
       github.event.issue.pull_request &&
-      contains(github.event.comment.body, '@sensei') &&
+      (contains(github.event.comment.body, '@reviewsensei') || contains(github.event.comment.body, '@sensei')) &&
       (github.event.comment.author_association == 'OWNER' ||
       github.event.comment.author_association == 'MEMBER' ||
       github.event.comment.author_association == 'COLLABORATOR') &&
       github.event.comment.user.type != 'Bot') ||
       (github.event_name == 'pull_request_review_comment' &&
       github.event.action == 'created' &&
-      contains(github.event.comment.body, '@sensei') &&
+      (contains(github.event.comment.body, '@reviewsensei') || contains(github.event.comment.body, '@sensei')) &&
       (github.event.comment.author_association == 'OWNER' ||
       github.event.comment.author_association == 'MEMBER' ||
       github.event.comment.author_association == 'COLLABORATOR') &&
@@ -153,8 +157,8 @@ jobs:
           sha_full = re.compile(r"^[a-f0-9]{40}$")
           sha_prefix = re.compile(r"^[a-f0-9]{7,39}$")
           ref = re.compile(r"^[A-Za-z0-9._/-]+$")
-          rescan = re.compile(r"\bre[\s-]?scan\b", re.IGNORECASE)
-          commit_sha = re.compile(r"\bcommit\s+([a-f0-9]{7,40})\b", re.IGNORECASE)
+          rescan = re.compile(r"\A(?:@sensei|(?ai:@reviewsensei))[ \t]+(?i:re(?:[ \t]|-)?scan)(?:[ \t]+(?ai:commit)[ \t]+(?P<commit>[a-fA-F0-9]{7,40}))?\s*\Z")
+          remaining = re.compile(r"\A(?:@sensei|(?ai:@reviewsensei))[ \t]+(?ai:review)[ \t]+(?ai:remaining)(?:[ \t]+(?ai:commit)[ \t]+(?P<commit>[a-fA-F0-9]{7,40}))?[ \t\r\n]*\Z")
           pull = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
           event_name = sys.argv[2]
           comment_body = sys.argv[3] if len(sys.argv) > 3 else ""
@@ -217,20 +221,15 @@ jobs:
           elif event_name == "pull_request_review_comment":
               operation = "reply"
           elif event_name == "issue_comment":
-              wants_rescan = (
-                  isinstance(comment_body, str)
-                  and "@sensei" in comment_body
-                  and rescan.search(comment_body) is not None
-              )
-              if wants_rescan:
-                  match = commit_sha.search(comment_body)
-                  token = match.group(1).casefold() if match is not None else None
-                  if token is not None and not (
-                      sha_full.fullmatch(token) or sha_prefix.fullmatch(token)
-                  ):
-                      token = None
-                  resolved_head = choose_head(token)
-              elif isinstance(comment_body, str) and len(comment_body.encode("utf-8")) <= 4096 and re.search(r"(?m)(?<!\S)@sensei\s+(?:review\s+(?:status|pause|continue|reenroll)|verify|(?:dismiss|defer|accept-risk)\s+[a-f0-9]{16,64}\s+--reason\s+\S.*)\s*\Z", comment_body, re.IGNORECASE):
+              match = rescan.fullmatch(comment_body)
+              if match is None:
+                  match = remaining.fullmatch(comment_body)
+              if match is not None:
+                  if len(comment_body.encode("utf-8")) > 4096:
+                      print("::error::explicit rescan comment exceeds 4096 UTF-8 bytes", file=sys.stderr)
+                      raise SystemExit(1)
+                  resolved_head = choose_head(match.group("commit"))
+              elif isinstance(comment_body, str) and len(comment_body.encode("utf-8")) <= 4096 and re.search(r"\A@(?:(?ai:reviewsensei)|sensei)[ \t]+(?:review[ \t]+(?:status|pause|continue|reenroll)|verify|(?:dismiss|defer|accept-risk)[ \t]+[a-f0-9]{16,64}[ \t]+--reason[ \t]+\S[^\r\n]*|(?:review[ \t]+)?accept-coverage-uncertainty[ \t]+--reason[ \t]+\S[^\r\n]*|i[ \t]+reviewed[ \t]+the[ \t]+media[ \t]+files[ \t]+and[ \t]+i[ \t]+approve|override[ \t]+(?:(?:rs-)?[a-f0-9]{6,64})(?:(?:[ \t]*,[ \t]*|[ \t]+)(?:rs-)?[a-f0-9]{6,64}){0,9}(?:[ \t]+acceptable[ \t]+risk)?|(?:(?:rs-)?[a-f0-9]{6,64})(?:(?:[ \t]*,[ \t]*|[ \t]+)(?:rs-)?[a-f0-9]{6,64}){0,9}[ \t]+(?:is|are)[ \t]+acceptable[ \t]+risk)[ \t\r\n]*\Z", comment_body, re.IGNORECASE):
                   operation = "command"
               else:
                   operation = "reply"
