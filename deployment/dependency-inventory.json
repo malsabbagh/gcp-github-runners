@@ -4,7 +4,7 @@
   "locks": [
     {
       "path": "package-lock.json",
-      "sha256": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
+      "sha256": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
       "role": "maintainer-and-runtime",
       "directRuntimeDeclarations": [
         {
@@ -183,7 +183,7 @@
         },
         {
           "package": "body-parser",
-          "version": "2.3.0",
+          "version": "2.4.0",
           "location": "node_modules/body-parser",
           "reachability": [
             "production",
@@ -192,12 +192,12 @@
           "representativePaths": {
             "production": [
               "@google-cloud/functions-framework@5.0.5",
-              "body-parser@2.3.0"
+              "body-parser@2.4.0"
             ],
             "workspace-compatibility": [
               "cloud-functions/webhook-handler@1.0.0",
               "@google-cloud/functions-framework@5.0.5",
-              "body-parser@2.3.0"
+              "body-parser@2.4.0"
             ]
           },
           "owners": [
@@ -219,7 +219,7 @@
         },
         {
           "package": "fast-uri",
-          "version": "3.1.8",
+          "version": "3.1.9",
           "location": "node_modules/fast-uri",
           "reachability": [
             "production",
@@ -230,14 +230,14 @@
               "@google-cloud/functions-framework@5.0.5",
               "cloudevents@10.0.0",
               "ajv@8.20.0",
-              "fast-uri@3.1.8"
+              "fast-uri@3.1.9"
             ],
             "workspace-compatibility": [
               "cloud-functions/webhook-handler@1.0.0",
               "@google-cloud/functions-framework@5.0.5",
               "cloudevents@10.0.0",
               "ajv@8.20.0",
-              "fast-uri@3.1.8"
+              "fast-uri@3.1.9"
             ]
           },
           "owners": [
