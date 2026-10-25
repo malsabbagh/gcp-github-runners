@@ -6,6 +6,9 @@ import json
 from pathlib import Path
 import re
 
+# These identifier sets are duplicated by contract in deployment/qualification-plan.json,
+# tests/qualification-cases.json and the bound readiness adapter; add, remove or rename
+# an identifier only together with those files in one commit.
 SOURCE_FILES = (
     'deployment/archive-manifest.json', 'deployment/archive-source-map.json',
     'deployment/dependency-inventory.json', 'packaging/worker-image-source.json',
@@ -207,8 +210,12 @@ def identity_blockers(worksheet, operation):
         runtime = ['controller_service_account', 'provisioner_service_account',
                    'scheduler_service_account', 'worker_service_account']
         pairs.extend((left, right) for index, left in enumerate(runtime) for right in runtime[index + 1:])
+        # Numeric GitHub subjects are compared only among themselves; they can never
+        # equal a service-account email, per the documented worksheet type contract.
         subjects = ['worker_unique_id', 'admin_subject', 'scheduler_subject']
         pairs.extend((left, right) for index, left in enumerate(subjects) for right in subjects[index + 1:])
+    # image-build checks only its own image builder against the worker identity;
+    # function-build authority belongs to the controller/runtime operations.
     builders = ['image_build_service_account'] if operation == 'image-build' else [
         'image_build_service_account', 'function_build_service_account']
     pairs.extend((builder, 'worker_service_account') for builder in builders)
@@ -223,7 +230,11 @@ def validate(plan, cases, source_root, expected_commit, expected_tree):
     flags, operations = {}, {}
     try:
         root = checked_input_path(source_root, 'source-root')
-        if plan['schema_version'] != 2 or cases['schema_version'] != 2:
+        if plan.get('schema_version') != 2:
+            issues.append('plan-schema-version')
+        if cases.get('schema_version') != 2:
+            issues.append('cases-schema-version')
+        if issues:
             raise ValueError('schema-version')
         source = plan['selected_source']
         revision = {'commit': source['commit'], 'tree': source['tree']}

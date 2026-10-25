@@ -1,5 +1,5 @@
 {
-  "status": "preparation-only; operations unqualified",
+  "status": "preparation-only; operations unqualified; execution evidence must identify its tested revision, and live checks remain unverified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",

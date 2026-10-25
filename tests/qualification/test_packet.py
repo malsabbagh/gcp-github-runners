@@ -84,11 +84,12 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(PACKET.validate(*self.qualified_documents(), ROOT, COMMIT, TREE)['operations']['job']['available'])
 
     def test_revision_source_bytes_and_manifest_set_are_bound(self):
+        self.assertFalse(PACKET.validate(*self.qualified_documents(), ROOT, 'a' * 40, TREE)['preparation_complete'])
+        self.assertFalse(PACKET.validate(*self.qualified_documents(), ROOT, COMMIT, 'b' * 40)['preparation_complete'])
         plan, cases = self.qualified_documents()
-        self.assertFalse(PACKET.validate(plan, cases, ROOT, 'a' * 40, TREE)['preparation_complete'])
-        self.assertFalse(PACKET.validate(plan, cases, ROOT, COMMIT, 'b' * 40)['preparation_complete'])
         plan['selected_source']['sha256']['deployment/archive-manifest.json'] = 'c' * 64
         self.assertFalse(PACKET.validate(plan, cases, ROOT, COMMIT, TREE)['preparation_complete'])
+        plan, cases = self.qualified_documents()
         del plan['selected_source']['sha256']['packaging/worker-image-source.json']
         self.assertFalse(PACKET.validate(plan, cases, ROOT, COMMIT, TREE)['preparation_complete'])
 
@@ -138,17 +139,79 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(PACKET.validate(plan, cases, ROOT, COMMIT, TREE)['operations']['job']['available'])
 
     def test_validator_is_read_only_and_never_executes_or_opens_network_connections(self):
+        import builtins
+        import os
+        import urllib.request
         from unittest.mock import patch
         plan, cases = self.qualified_documents()
         original = copy.deepcopy((plan, cases))
+        real_open, real_os_open, real_path_open = builtins.open, os.open, Path.open
+
+        def refuse_writes_open(file, mode='r', *args, **kwargs):
+            if any(flag in mode for flag in 'wax+'):
+                raise AssertionError('write')
+            return real_open(file, mode, *args, **kwargs)
+
+        def refuse_writes_os_open(path, flags, *args, **kwargs):
+            if flags & (os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_APPEND | os.O_TRUNC):
+                raise AssertionError('write')
+            return real_os_open(path, flags, *args, **kwargs)
+
+        def refuse_writes_path_open(file, mode='r', *args, **kwargs):
+            if any(flag in mode for flag in 'wax+'):
+                raise AssertionError('write')
+            return real_path_open(file, mode, *args, **kwargs)
+
         with patch('pathlib.Path.write_text', side_effect=AssertionError('write')), \
                 patch('pathlib.Path.write_bytes', side_effect=AssertionError('write')), \
+                patch('pathlib.Path.open', refuse_writes_path_open), \
+                patch('builtins.open', refuse_writes_open), \
+                patch('os.open', refuse_writes_os_open), \
                 patch('subprocess.Popen', side_effect=AssertionError('execute')), \
+                patch('subprocess.run', side_effect=AssertionError('execute')), \
+                patch('urllib.request.urlopen', side_effect=AssertionError('network')), \
                 patch('socket.socket', side_effect=AssertionError('network')):
             report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
         self.assertTrue(report['preparation_complete'])
         self.assertEqual((plan, cases), original)
         self.assertFalse(report['execution_authorized'])
+
+    def test_binary_plan_input_reports_invalid_json_and_exits_cleanly_in_operation_ready_mode(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary).resolve()
+            plan_file = directory / 'plan.json'
+            plan_file.write_bytes(b'\x89PNG\r\n\x1a\n' + bytes(range(256)))
+            arguments = ['--plan', str(plan_file), '--source-commit', COMMIT, '--source-tree', TREE,
+                         '--mode', 'operation-ready', '--operation', 'job']
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = PACKET.main(arguments)
+            report = json.loads(output.getvalue())
+            self.assertEqual(result, 1)
+            self.assertIn('plan-path-invalid-json', report['issues'])
+            self.assertEqual(report['operations'], {})
+            self.assertIn('--plan', ' '.join(report['guidance']))
+            self.assertFalse(report['execution_authorized'])
+
+    def test_wrong_schema_versions_fail_closed_with_named_document_issues(self):
+        for document, issue in [('plan', 'plan-schema-version'), ('cases', 'cases-schema-version')]:
+            with self.subTest(document=document):
+                plan, cases = self.qualified_documents()
+                (plan if document == 'plan' else cases)['schema_version'] = 3
+                report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+                self.assertFalse(report['preparation_complete'])
+                self.assertIn(issue, report['issues'])
+                self.assertTrue(all(not row['available'] for row in report['operations'].values()))
+
+    def test_a_single_satisfied_prerequisite_on_the_checked_in_plan_unlocks_nothing(self):
+        plan, cases = self.documents()
+        plan['prerequisites']['runner-maintenance'].update(
+            status='satisfied',
+            evidence=[{'scope': 'live', 'source_revision': {'commit': COMMIT, 'tree': TREE},
+                       'reference': 'records/offline-synthetic-single-satisfied-prerequisite'}])
+        report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+        self.assertTrue(report['preparation_complete'])
+        self.assertTrue(all(not operation['available'] for operation in report['operations'].values()))
 
     def test_cli_distinguishes_preparation_from_operation_ready_and_has_no_execute_mode(self):
         plan, cases = self.documents()
@@ -213,11 +276,12 @@ class PacketTests(unittest.TestCase):
             self.assertIn('source-root-symlinked-ancestry', report['issues'])
 
     def test_unknown_field_names_fail_closed_without_restricting_evidence_locations(self):
-        worksheet = self.qualified_documents()[0]['worksheet']
         for name, value in [('unexpected', 'concrete-value'), ('limits.future_bound', 1),
                             ('artifacts.future_sha256', 'a' * 64),
-                            ('identities.future_service_account', worksheet['identities']['worker_service_account']),
+                            ('identities.future_service_account',
+                             'worker-service-account@fixture-project.iam.gserviceaccount.com'),
                             ('references.future', 'projects/fixture-project/secrets/key/versions/1')]:
+            worksheet = self.qualified_documents()[0]['worksheet']
             parts = name.split('.')
             target = worksheet
             for part in parts[:-1]:
@@ -227,6 +291,7 @@ class PacketTests(unittest.TestCase):
         for name in ['cleanup.evidence_location', 'retention.approved_location',
                      'runner_maintenance.observations_reference']:
             for value in ['records/private-run', 'https://records.invalid/run/42', 'urn:qualified:evidence:42']:
+                worksheet = self.qualified_documents()[0]['worksheet']
                 target, key = name.split('.')
                 worksheet[target][key] = value
                 self.assertTrue(PACKET.field_valid(worksheet, name), (name, value))
