@@ -4,7 +4,7 @@
   "locks": [
     {
       "path": "package-lock.json",
-      "sha256": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
+      "sha256": "967a073a63193ddf012809f3a1c996565f34d54bd788a0d59d81c0b50d00d32e",
       "role": "maintainer-and-runtime",
       "directRuntimeDeclarations": [
         {
@@ -219,7 +219,7 @@
         },
         {
           "package": "fast-uri",
-          "version": "3.1.8",
+          "version": "3.1.9",
           "location": "node_modules/fast-uri",
           "reachability": [
             "production",
@@ -230,14 +230,14 @@
               "@google-cloud/functions-framework@5.0.5",
               "cloudevents@10.0.0",
               "ajv@8.20.0",
-              "fast-uri@3.1.8"
+              "fast-uri@3.1.9"
             ],
             "workspace-compatibility": [
               "cloud-functions/webhook-handler@1.0.0",
               "@google-cloud/functions-framework@5.0.5",
               "cloudevents@10.0.0",
               "ajv@8.20.0",
-              "fast-uri@3.1.8"
+              "fast-uri@3.1.9"
             ]
           },
           "owners": [

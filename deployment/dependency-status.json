@@ -5,7 +5,7 @@
   "observedSourceCommit": "79e61e3875708b7b61145c2c520ba5f38cf914c0",
   "sourceInventory": "deployment/dependency-inventory.json",
   "lockSha256": {
-    "package-lock.json": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
+    "package-lock.json": "967a073a63193ddf012809f3a1c996565f34d54bd788a0d59d81c0b50d00d32e",
     "deployment/deployment-package-lock.json": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
     "source-compatible/templates/package-lock.json": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
     "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7"
@@ -287,8 +287,8 @@
     {
       "package": "fast-uri",
       "lockedVersions": {
-        "3.1.8": 3,
-        "3.1.9": 1
+        "3.1.8": 2,
+        "3.1.9": 2
       },
       "versionStatus": "affected-versions-locked",
       "consumedApi": "Declared path is CloudEvents -> AJV -> fast-uri. CloudEvents uses a precompiled validator; a bounded framework/CloudEvent initialization trace did not load AJV core or fast-uri.",
