@@ -68,7 +68,8 @@ WORKSHEET_FIELDS = (
     'runner_maintenance.update_behavior runner_maintenance.observations_reference'
 ).split()
 STATES = {'satisfied', 'pending', 'held', 'deferred'}
-PLACEHOLDER = re.compile(r'(?i)(?:\b(?:todo|tbd|pending|placeholder|changeme|example|sample)\b|your[_ -]|replace[_ -]|[<>])')
+# Reserve explicit sentinels/template forms, not substrings in real identifiers.
+PLACEHOLDER = re.compile(r'(?i:^(?:todo|tbd|pending|placeholder|changeme|example|sample)$)|\bYOUR_[A-Z0-9_]+\b|\bREPLACE_[A-Z0-9_]+\b|[<>]')
 FREE_TEXT_FIELDS = {
     'repository.owner', 'repository.name', 'repository.branch', 'routing.route_label',
     'artifacts.worker_image_name', 'cleanup.owner', 'cleanup.evidence_location',
@@ -99,7 +100,7 @@ OPERATION_FIELDS = {
 
 
 def concrete(value):
-    return isinstance(value, str) and bool(value.strip()) and not PLACEHOLDER.search(value)
+    return isinstance(value, str) and bool(value.strip()) and not PLACEHOLDER.search(value.strip())
 
 
 def lookup(document, name):

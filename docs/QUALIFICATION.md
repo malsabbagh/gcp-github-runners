@@ -19,7 +19,7 @@ python3 -B tests/qualification/packet.py \
 
 Preparation returns success when the records are structurally complete even with explicit pending or held prerequisites. Inspect the operation reports: the checked-in worksheet leaves every live operation unavailable. Null deployment/image identities are deliberate unknowns, not tested placeholders.
 
-For a private worksheet copy, add `--plan /absolute/path/to/reviewed-plan.json`. `--source-root` may select a local snapshot of the independently attested source. Supplied `--source-root`, `--plan` and `--cases` paths must be canonical absolute paths with no symlink in the supplied path or its ancestry. Select the canonical nonsymlinked directory/files explicitly. The validator gives an option-specific issue and guidance before reading input contents; it does not silently resolve supplied aliases or relax rejection of symlinked descendants.
+For a private worksheet copy, add `--plan /absolute/path/to/reviewed-plan.json`. `--source-root` may select a local snapshot of the independently attested source; it must contain all six bound files at the repository-relative paths listed in `selected_source.sha256`. Supplied `--source-root`, `--plan` and `--cases` paths must be canonical absolute paths with no symlink in the supplied path or its ancestry. Select the canonical nonsymlinked directory/files explicitly. The validator gives an option-specific issue and guidance before reading input contents; it does not silently resolve supplied aliases or relax rejection of symlinked descendants.
 
 > Operator-controlled input files and directories must remain unchanged throughout validation. Preflight symlink checks are not atomic protection against concurrent path swaps; descriptor-based protection against an adversary changing those paths during validation is outside this report-only validator's scope.
 
@@ -31,7 +31,7 @@ When selecting another revision, independently verify its commit/tree and artifa
 
 ## Worksheet and instruction trace
 
-Keep actual operator values, logs and receipts outside public Git. Retain every worksheet schema key, using null for unresolved or inapplicable values. Each field required by an operation must be resolved by the responsible operator before that operation can be reported available. For example, the function-build account needs a concrete value for controller installation, while image build and later job operation do not require that field's value. Secret payloads never belong in the worksheet; only numbered version references are accepted.
+Keep actual operator values, logs and receipts outside public Git. Retain every worksheet schema key, using null for unresolved or inapplicable values. Each field required by an operation must be resolved by the responsible operator before that operation can be reported available. For example, the function-build account needs a concrete value for controller installation, while image build and later job operation do not require that field's value. Placeholder detection reserves whole sentinel values such as `TODO`/`TBD`, uppercase `YOUR_...`/`REPLACE_...` templates and angle-bracket forms; it does not reject a real identifier merely for containing `sample` or `your-`. Secret payloads never belong in the worksheet; only numbered version references are accepted.
 
 | Worksheet group | Required decision or observation | Existing instructions |
 |---|---|---|

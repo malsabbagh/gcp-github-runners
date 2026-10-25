@@ -67,6 +67,47 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(all(not operation['available'] for operation in report['operations'].values()))
         self.assertFalse(report['execution_authorized'])
 
+    def test_identifier_substrings_are_not_mistaken_for_placeholder_values(self):
+        worksheet = self.qualified_documents()[0]['worksheet']
+        for field, value in [('repository.owner', 'your-org'), ('repository.name', 'real-sample-runners'),
+                             ('repository.branch', 'feature/example-cleanup')]:
+            with self.subTest(field=field, value=value):
+                group, key = field.split('.')
+                worksheet[group][key] = value
+                self.assertTrue(PACKET.field_valid(worksheet, field))
+        for value in ['TODO', ' TBD ', 'pending', 'placeholder', 'changeme', 'example', 'sample',
+                      'YOUR_PROJECT', 'records/<source>']:
+            with self.subTest(placeholder=value):
+                self.assertFalse(PACKET.concrete(value))
+
+    def test_cli_relocated_source_uses_all_bound_paths_without_falling_back_to_default_root(self):
+        plan, cases = self.documents()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            source = root / 'relocated-source'
+            for name in plan['selected_source']['sha256']:
+                target = source / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes((ROOT / name).read_bytes())
+            plan_file, cases_file = root / 'plan.json', root / 'cases.json'
+            plan_file.write_text(json.dumps(plan))
+            cases_file.write_text(json.dumps(cases))
+            arguments = ['--source-root', str(source), '--plan', str(plan_file), '--cases', str(cases_file),
+                         '--source-commit', COMMIT, '--source-tree', TREE, '--mode', 'preparation']
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                self.assertEqual(PACKET.main(arguments), 0)
+            report = json.loads(output.getvalue())
+            self.assertTrue(report['preparation_complete'])
+            self.assertFalse(report['execution_authorized'])
+
+            missing = 'cloud-functions/webhook-handler/deployment-runtime.js'
+            (source / missing).unlink()
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                self.assertEqual(PACKET.main(arguments), 1)
+            self.assertIn('source-bytes-mismatch:' + missing, json.loads(output.getvalue())['issues'])
+
     def test_placeholders_missing_identities_and_limits_cannot_report_job_ready(self):
         for field, value in [('project_id', 'YOUR_PROJECT'), ('repository.id', None),
                              ('limits.cost_ceiling', 0), ('artifacts.worker_image_resource', 'TODO')]:
