@@ -6,9 +6,9 @@ import json
 from pathlib import Path
 import re
 
-# These identifier sets are duplicated by contract in deployment/qualification-plan.json,
-# tests/qualification-cases.json and the bound readiness adapter; add, remove or rename
-# an identifier only together with those files in one commit.
+# Plan/case identifiers and requirement tables match the Python contract below.
+# The bound adapter is checked for exact flag(env,'NAME') names, not behavioral
+# equivalence of runtime requirements. Source changes need a reviewed rebind.
 SOURCE_FILES = (
     'deployment/archive-manifest.json', 'deployment/archive-source-map.json',
     'deployment/dependency-inventory.json', 'packaging/worker-image-source.json',

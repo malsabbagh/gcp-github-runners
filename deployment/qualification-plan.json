@@ -26,12 +26,12 @@
   },
   "schema_version": 2,
   "selected_source": {
-    "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
-    "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa",
+    "commit": "72592e241eb42579faf6d6024ddaca4ce234d323",
+    "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b",
     "sha256": {
       "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
-      "deployment/dependency-inventory.json": "5a3999c386d4ee07a8069264535dc30ccdc628e18c45662ffb45c026ee27f794",
+      "deployment/dependency-inventory.json": "186570cbc13d46a65109c9c7b25cba19e0e6a3fb19c8fc3dbbd350cad05a0b94",
       "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
@@ -160,27 +160,18 @@
         {
           "scope": "source",
           "source_revision": {
-            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
-            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+            "commit": "72592e241eb42579faf6d6024ddaca4ce234d323",
+            "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b"
           },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40123716645"
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236"
         }
       ],
       "consequence": "Source/package/mock assurance only; live properties need their own observations."
     },
     "dependency-disposition": {
-      "status": "held",
-      "evidence": [
-        {
-          "scope": "decision",
-          "source_revision": {
-            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
-            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
-          },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/48"
-        }
-      ],
-      "consequence": "Dependency-version execution remains held under issue 48; no affected version is described as patched."
+      "status": "pending",
+      "evidence": [],
+      "consequence": "Reviewed dependency updates are merged; live dependency-risk acceptance requires separate evidence. The separate body_parser_boundary final handback/investigation/reproducer hold is not retried by this packet."
     },
     "firestore-transactions": {
       "status": "held",
@@ -362,14 +353,7 @@
       "github_app_private_key_version": null
     }
   },
-  "unmerged_evidence": [
-    {
-      "pull_request": 62,
-      "head": "c05d00bbf502a17edc5d156fe3f0cf7cd1a48bad",
-      "state": "ready; natively approved; App check absent; unmerged",
-      "included_in_selected_source": false
-    }
-  ],
+  "unmerged_evidence": [],
   "runner_release": {
     "version": "2.337.0",
     "architecture": "linux-x64",
@@ -389,8 +373,51 @@
       "tree": "07c089d18e24e4057b5f16b676eee48a59b9df69",
       "core_ci": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40135579570",
       "state": "merged; subsequent main qualification passed",
+      "included_in_selected_source": true,
+      "scope": "This merge is an ancestor of the selected main revision; its older CI retains its own revision scope."
+    },
+    {
+      "pull_request": 62,
+      "reviewed_head": "5d60b2af171eeb3b0e3687fe21931a49488fe455",
+      "merge_commit": "60efb50e6308faf4c2fffe023ef820cd688b5af9",
+      "state": "merged; source compatibility slice only",
+      "included_in_selected_source": true,
+      "scope": "Merged source is included; prior approval and CI remain evidence for their own revision."
+    }
+  ],
+  "historical_source_evidence": [
+    {
+      "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+      "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa",
+      "sha256": {
+        "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+        "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
+        "deployment/dependency-inventory.json": "d31edf30ec6496f0558f0c899490737207a9c22fb7e9f9c19be05465528a38d9",
+        "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
+        "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
+        "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
+      },
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40123716645"
+        }
+      ],
       "included_in_selected_source": false,
-      "scope": "Separate later-main evidence; does not relabel the selected bd700664 source snapshot or its evidence."
+      "scope": "Historical source evidence only; these receipts are not qualification of the selected revision."
+    }
+  ],
+  "prior_pr_states": [
+    {
+      "pull_request": 62,
+      "head": "c05d00bbf502a17edc5d156fe3f0cf7cd1a48bad",
+      "state": "ready; natively approved; App check absent; unmerged",
+      "included_in_selected_source": false,
+      "historical_only": true
     }
   ]
 }

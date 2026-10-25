@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = 'bd70066435c399695b7c8186015c24f39d6fad66'
-TREE = 'fc9f14dd6730ed36d407fe03ebb41bb3382df9fa'
+COMMIT = '72592e241eb42579faf6d6024ddaca4ce234d323'
+TREE = '3d4870be1da0afbd5599741a32052a56c2d1093b'
 
 
 class PacketTests(unittest.TestCase):
@@ -436,7 +436,7 @@ class PacketTests(unittest.TestCase):
                 for operation in ['controller-install', 'job', 'cancellation-recovery', 'cleanup']:
                     self.assertFalse(report['operations'][operation]['available'], operation)
 
-    def test_checked_in_source_and_eight_flags_preserve_unmerged_and_unobserved_boundaries(self):
+    def test_checked_in_source_and_eight_flags_preserve_historical_and_unobserved_boundaries(self):
         plan, cases = self.documents()
         report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
         self.assertEqual(set(report['flags']), {'WEBHOOK_ENABLED', 'MANAGEMENT_ENABLED', 'SCHEDULED_ENABLED',
@@ -444,14 +444,23 @@ class PacketTests(unittest.TestCase):
             'WORKER_DRAIN_QUALIFIED', 'WORKER_STOP_QUALIFIED'})
         self.assertTrue(all(row['declared_value'] is False for row in report['flags'].values()))
         self.assertEqual(plan['selected_source']['commit'], COMMIT)
-        self.assertTrue(all(not row['included_in_selected_source'] for row in plan['unmerged_evidence']))
-        self.assertEqual([row['pull_request'] for row in plan['unmerged_evidence']], [62])
+        self.assertEqual(plan['unmerged_evidence'], [])
+        self.assertTrue(all(row['historical_only'] for row in plan['prior_pr_states']))
+        self.assertEqual([row['pull_request'] for row in plan['prior_pr_states']], [62])
+        historical = plan['historical_source_evidence'][0]
+        self.assertEqual(historical['commit'], 'bd70066435c399695b7c8186015c24f39d6fad66')
+        self.assertFalse(historical['included_in_selected_source'])
+        self.assertNotEqual(historical['sha256']['deployment/dependency-inventory.json'],
+                            plan['selected_source']['sha256']['deployment/dependency-inventory.json'])
         merged = plan['subsequent_merged_evidence'][0]
         self.assertEqual(merged['pull_request'], 61)
         self.assertEqual(merged['merge_commit'], 'e77f1d092e2011b238fd51232ef29162a1c8f021')
-        self.assertFalse(merged['included_in_selected_source'])
+        self.assertTrue(merged['included_in_selected_source'])
+        self.assertEqual(plan['subsequent_merged_evidence'][1]['pull_request'], 62)
+        self.assertTrue(plan['subsequent_merged_evidence'][1]['included_in_selected_source'])
         self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
                             for row in plan['prerequisites']['source-contracts']['evidence']))
+        self.assertEqual(plan['prerequisites']['dependency-disposition']['status'], 'pending')
         self.assertIsNone(plan['worksheet']['artifacts']['worker_image_resource'])
         self.assertIsNone(plan['worksheet']['runner_maintenance']['post_start_version'])
         cases_text = json.dumps(cases)

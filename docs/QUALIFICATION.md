@@ -2,7 +2,7 @@
 
 This packet prepares a bounded trusted-private, native Linux x64 runner trial. It records inputs, evidence, stop conditions and unresolved work; it does not perform a build, deployment, registration, job, cancellation or cleanup. Completing [issue #54](https://github.com/malsabbagh/gcp-github-runners/issues/54) does not complete #48 or #49, authorize #55, or establish production readiness.
 
-The checked-in [plan and worksheet](../deployment/qualification-plan.json) deliberately select historical merged source `bd70066435c399695b7c8186015c24f39d6fad66`, tree `fc9f14dd6730ed36d407fe03ebb41bb3382df9fa`. Six SHA-256 bindings identify its controller/archive and dependency manifests, worker-image source contract, runner release and readiness adapter. The dependency inventory is generated from the checked-in locks; when a reviewed lock update changes it, refresh its binding in the same commit so validation stays consistent with this tree. That refresh reconciles a generated manifest and is not evidence for the selected revision. The separately bound [case inventory](../tests/qualification-cases.json) describes prerequisites, ordinary actions, durable/provider observations, evidence and stop conditions. PR61 subsequently merged as `e77f1d092e2011b238fd51232ef29162a1c8f021`, tree `07c089d18e24e4057b5f16b676eee48a59b9df69`, with [successful main CI](https://github.com/malsabbagh/gcp-github-runners/actions/runs/40135579570); that later-main evidence is recorded separately. PR62 remains unmerged evidence. Neither record is included in the selected source snapshot, and updating this packet branch to later main does not relabel the snapshot's earlier qualification evidence.
+The checked-in [plan and worksheet](../deployment/qualification-plan.json) select merged main `72592e241eb42579faf6d6024ddaca4ce234d323`, tree `3d4870be1da0afbd5599741a32052a56c2d1093b`. All six SHA-256 bindings match files from that exact commit: controller/archive and dependency manifests, worker-image source contract, runner release and readiness adapter. [Main CI 40161487236](https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236) checked out that revision and passed source qualification; it supplies the selected source-contract evidence. The separately bound [case inventory](../tests/qualification-cases.json) uses the same commit/tree. A reviewed lock update must select a new independently verified revision, refresh its bindings and obtain evidence for it; changing a digest under an old commit does not qualify the resulting mixture. Original `bd700664` evidence is retained separately as historical source evidence. PR61 and PR62 are merged ancestors of the selected source; their older receipts keep their own revision scope. Supplying `--source-root` relocates the exact bound source bytes and does not select a different revision.
 
 ## Preparation and readiness reports
 
@@ -12,8 +12,8 @@ From the repository root, check structural preparation against the independently
 
 ```sh
 python3 -B tests/qualification/packet.py \
-  --source-commit bd70066435c399695b7c8186015c24f39d6fad66 \
-  --source-tree fc9f14dd6730ed36d407fe03ebb41bb3382df9fa \
+  --source-commit 72592e241eb42579faf6d6024ddaca4ce234d323 \
+  --source-tree 3d4870be1da0afbd5599741a32052a56c2d1093b \
   --mode preparation
 ```
 
@@ -25,7 +25,7 @@ For a private worksheet copy, add `--plan /absolute/path/to/reviewed-plan.json`.
 
 To check a single operation's submitted evidence, use the same arguments with `--mode operation-ready --operation job`. The five operation names are `image-build`, `controller-install`, `job`, `cancellation-recovery` and `cleanup`. This mode returns failure for placeholders, absent evidence, mismatched revisions/manifest bytes, unresolved required prerequisites, disabled required flags or incomplete worksheet fields. It reports evidence availability; success is not permission to execute. Unknown worksheet field names are rejected by field validation. Evidence locations and observation references retain their existing opaque-string semantics; they gain no new URI format rules or fetching behavior.
 
-A required prerequisite with status `pending`, `held` or `deferred` makes its operation unavailable. Deferral is never a readiness waiver. Satisfied records require a concrete reference of the expected source, live or decision scope, bound to the selected commit and tree. Source tests cannot stand in for a live observation. The optional broad fault campaign is explicitly deferred; no campaign result is counted as passed. Retain the recorded #48/#49 execution holds and never retry them through another tool or substitute procedure.
+A required prerequisite with status `pending`, `held` or `deferred` makes its operation unavailable. Deferral is never a readiness waiver. Satisfied records require a concrete reference of the expected source, live or decision scope, bound to the selected commit and tree. Source tests cannot stand in for a live observation. The optional broad fault campaign is explicitly deferred; no campaign result is counted as passed. Preserve the specific `body_parser_boundary` final handback/investigation/reproducer hold and the #49 emulator hold. Ordinary reviewed dependency updates are authorized separately and do not clear those held operations or establish live dependency-risk acceptance.
 
 When selecting another revision, independently verify its commit/tree and artifact manifests, refresh both inventories together, and obtain evidence for that revision. Merely editing the expected identity or copying a prior report does not qualify new source. The positive worksheet under [test fixtures](../tests/qualification/fixtures/synthetic-worksheet.json) is synthetic unit-test data and must never be adopted as an operator record.
 
@@ -52,7 +52,7 @@ Packer permits the exact source image to come from a separately approved source 
 
 ## Per-flag evidence matrix
 
-The validator derives these eight flag names from the bound readiness adapter and rejects a changed/missing flag or a weakened inventory requirement. `worksheet.runtime_flags` contains declared values only; it does not read a live deployment, write environment variables or apply Terraform. All checked-in values remain false. Evidence readiness of a flag and permission to enable it are separate decisions. The [deployment adapter](../cloud-functions/webhook-handler/deployment-runtime.js) and [Terraform mapping](../terraform/main.tf) remain unchanged.
+The validator extracts these eight flag names from exact `flag(env,'NAME')` calls in the bound readiness adapter and compares that set with its fixed table. It compares the plan's prerequisite and operation tables with the Python contract; it does not prove behavioral equivalence with the adapter's runtime logic. The adapter's SHA-256 binding rejects source drift before the textual flag check; a formatting or behavior change needs a reviewed rebind and fresh source qualification. `worksheet.runtime_flags` contains declared values only; it does not read a live deployment, write environment variables or apply Terraform. All checked-in values remain false. Evidence readiness of a flag and permission to enable it are separate decisions. The [deployment adapter](../cloud-functions/webhook-handler/deployment-runtime.js) and [Terraform mapping](../terraform/main.tf) remain unchanged.
 
 | Flag | Property requiring its own evidence |
 |---|---|
