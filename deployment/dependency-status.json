@@ -8,7 +8,7 @@
     "package-lock.json": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
     "deployment/deployment-package-lock.json": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
     "source-compatible/templates/package-lock.json": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
-    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915"
+    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7"
   },
   "ownership": {
     "canonicalRuntime": "package.json dependencies; exact pins, Node24, CommonJS",
@@ -287,7 +287,8 @@
     {
       "package": "fast-uri",
       "lockedVersions": {
-        "3.1.8": 4
+        "3.1.8": 3,
+        "3.1.9": 1
       },
       "versionStatus": "affected-versions-locked",
       "consumedApi": "Declared path is CloudEvents -> AJV -> fast-uri. CloudEvents uses a precompiled validator; a bounded framework/CloudEvent initialization trace did not load AJV core or fast-uri.",
@@ -345,7 +346,7 @@
       "scope": "fast-uri3.1.9 in hybrid reference",
       "observedState": "OPEN",
       "head": "b6b708493f5e401b368c97d027a76b2f6dfcb640",
-      "qualification": "failed; reconcile exact log/integrity prerequisites before normal review/merge"
+      "qualification": "reconciled hybrid reference manifest and lock inventory for PR 44; root, standalone and templates reference 3.1.8 remain separate"
     }
   ],
   "qualificationScope": "Static lock/API-source assessment plus separately retained local/hosted contracts; no live deployment, provider validation or advisory dismissal."
