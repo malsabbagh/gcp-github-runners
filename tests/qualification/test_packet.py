@@ -169,12 +169,21 @@ class PacketTests(unittest.TestCase):
                 patch('os.open', refuse_writes_os_open), \
                 patch('subprocess.Popen', side_effect=AssertionError('execute')), \
                 patch('subprocess.run', side_effect=AssertionError('execute')), \
+                patch('subprocess.call', side_effect=AssertionError('execute')), \
+                patch('subprocess.check_call', side_effect=AssertionError('execute')), \
+                patch('subprocess.check_output', side_effect=AssertionError('execute')), \
+                patch('os.system', side_effect=AssertionError('execute')), \
+                patch('os.execv', side_effect=AssertionError('execute')), \
+                patch('os.execve', side_effect=AssertionError('execute')), \
                 patch('urllib.request.urlopen', side_effect=AssertionError('network')), \
                 patch('socket.socket', side_effect=AssertionError('network')):
             report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
         self.assertTrue(report['preparation_complete'])
         self.assertEqual((plan, cases), original)
         self.assertFalse(report['execution_authorized'])
+        # The validator module must not even carry execution or network clients.
+        for name in ('subprocess', 'socket', 'urllib', 'http'):
+            self.assertNotIn(name, vars(PACKET))
 
     def test_binary_plan_input_reports_invalid_json_and_exits_cleanly_in_operation_ready_mode(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -203,6 +212,21 @@ class PacketTests(unittest.TestCase):
                 self.assertIn(issue, report['issues'])
                 self.assertTrue(all(not row['available'] for row in report['operations'].values()))
 
+    def test_non_object_plan_or_cases_fail_closed_with_named_document_issues(self):
+        for replacement, issue in (([], 'plan-shape-invalid'), ('text', 'cases-shape-invalid')):
+            with self.subTest(issue=issue):
+                plan, cases = self.qualified_documents()
+                if issue == 'plan-shape-invalid':
+                    plan = replacement
+                else:
+                    cases = replacement
+                report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+                self.assertFalse(report['preparation_complete'])
+                self.assertIn(issue, report['issues'])
+                self.assertEqual(report['operations'], {})
+                self.assertEqual(report['flags'], {})
+                self.assertFalse(report['execution_authorized'])
+
     def test_a_single_satisfied_prerequisite_on_the_checked_in_plan_unlocks_nothing(self):
         plan, cases = self.documents()
         plan['prerequisites']['runner-maintenance'].update(
@@ -230,6 +254,9 @@ class PacketTests(unittest.TestCase):
                 self.assertFalse(json.loads(output.getvalue())['execution_authorized'])
             with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
                 PACKET.main(arguments + ['--execute'])
+            self.assertEqual(error.exception.code, 2)
+            with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
+                PACKET.main(arguments + ['--mode', 'operation-ready', '--operation', 'unknown'])
             self.assertEqual(error.exception.code, 2)
 
     def test_supplied_parent_symlinks_have_actionable_errors_before_any_input_read(self):

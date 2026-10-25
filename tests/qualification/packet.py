@@ -219,8 +219,9 @@ def identity_blockers(worksheet, operation):
     builders = ['image_build_service_account'] if operation == 'image-build' else [
         'image_build_service_account', 'function_build_service_account']
     pairs.extend((builder, 'worker_service_account') for builder in builders)
+    # Compare only concrete pairs; a missing side is reported by field_valid.
     return ['worksheet:identity-separation:' + left + ':' + right for left, right in pairs
-            if concrete(identities[left]) and identities[left] == identities[right]]
+            if concrete(identities[left]) and concrete(identities[right]) and identities[left] == identities[right]]
 
 
 def validate(plan, cases, source_root, expected_commit, expected_tree):
@@ -230,6 +231,12 @@ def validate(plan, cases, source_root, expected_commit, expected_tree):
     flags, operations = {}, {}
     try:
         root = checked_input_path(source_root, 'source-root')
+        if not isinstance(plan, dict):
+            issues.append('plan-shape-invalid')
+        if not isinstance(cases, dict):
+            issues.append('cases-shape-invalid')
+        if issues:
+            raise ValueError('document-shape')
         if plan.get('schema_version') != 2:
             issues.append('plan-schema-version')
         if cases.get('schema_version') != 2:
