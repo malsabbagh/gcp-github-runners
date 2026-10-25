@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {"path": "LICENSE", "mode": "0644"},
+    {"path": "NOTICE.md", "mode": "0644"},
+    {"path": "cloudbuild/bake-worker.sh", "mode": "0644"},
+    {"path": "cloudbuild/cloudbuild-worker-image.yaml", "mode": "0644"},
+    {"path": "cloudbuild/worker.pkr.hcl", "mode": "0644"},
+    {"path": "docker/install-runner.py", "mode": "0644"},
+    {"path": "docker/runner-release.json", "mode": "0644"},
+    {"path": "startup/one-job-worker.py", "mode": "0644"},
+    {"path": "startup/one-job-worker.service", "mode": "0644"},
+    {"path": "startup/shutdown-worker.py", "mode": "0644"},
+    {"path": "startup/worker-control.py", "mode": "0644"}
+  ]
+}

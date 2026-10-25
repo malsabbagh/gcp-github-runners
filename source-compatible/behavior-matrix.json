@@ -181,11 +181,13 @@
       "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     },
     {
-      "behavior": "Hosted read-only compatibility validation with separate successful-main-push coverage publisher.",
+      "behavior": "Reference qualification on Node 24 in core CI; separate Node 20 validation and automatic coverage publication retired.",
       "code": [
-        ".github/workflows/source-compatible-ci.yml"
+        ".github/workflows/ci.yml",
+        "scripts/qualify-source-profile.py",
+        "tests/public-workflows.test.js"
       ],
-      "evidence": "Publication policy regressions cover PR denial, main push, failed validation and same-run artifact input; no publisher executed locally.",
+      "evidence": "Workflow regressions retain hosted read-only PR validation and the core reference-qualification entry point, and reject restoration of the retired workflow/publisher. Node 24 qualification does not establish Node 20 compatibility.",
       "support_boundary": "Offline reference/qualification only; use the root controller for supported trusted-private deployment."
     }
   ],

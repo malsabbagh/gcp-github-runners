@@ -1,20 +1,33 @@
 {
-  "status": "OFFLINE_NODE24_STANDALONE_QUALIFIED",
-  "runtime": "24.18.0",
-  "root_install": "npm ci --ignore-scripts --engine-strict (530 packages)",
-  "standalone_install": "npm ci --ignore-scripts --engine-strict (254 packages)",
-  "standalone_lock_sha256": "b49541c694df2c94357a64f881ff43afb0c116219a449db2d78d1a2920ab73c4",
-  "archive_sha256": "37d5878ada57e2b774419946b2cae891116d60c934c6d963b00c0c5f534415ca",
-  "archive_file_count": 29,
-  "archive_verification": "Physical ZIP reopened: exact paths, bytes, hashes, regular entry types and Unix permissions",
-  "sdk_checks": [
-    "Official Cloud Build/Compute/Firestore/Secret Manager/Google Auth constructors and required API prototypes",
-    "Exact standalone lock installation imports",
-    "Functions Framework 5.0.5 registered controllerHttp target",
-    "Octokit App authentication strategy and generateRunnerJitconfigForRepo method",
-    "Disabled production runtime remains closed without configured credentials"
+  "record_kind": "historical-execution-receipt",
+  "status": "HISTORICAL_UNBOUND_OFFLINE_OBSERVATION",
+  "revision": null,
+  "recorded_at": null,
+  "limitations": "The original record did not capture commit/tree or observation time. Its observed values are preserved below; they are not current source contracts or proof that a later revision passed.",
+  "observed": {
+    "status": "OFFLINE_NODE24_STANDALONE_QUALIFIED",
+    "runtime": "24.18.0",
+    "root_install": "npm ci --ignore-scripts --engine-strict (530 packages)",
+    "standalone_install": "npm ci --ignore-scripts --engine-strict (254 packages)",
+    "standalone_lock_sha256": "b49541c694df2c94357a64f881ff43afb0c116219a449db2d78d1a2920ab73c4",
+    "archive_sha256": "37d5878ada57e2b774419946b2cae891116d60c934c6d963b00c0c5f534415ca",
+    "archive_file_count": 29,
+    "archive_verification": "Physical ZIP reopened: exact paths, bytes, hashes, regular entry types and Unix permissions",
+    "sdk_checks": [
+      "Official Cloud Build/Compute/Firestore/Secret Manager/Google Auth constructors and required API prototypes",
+      "Exact standalone lock installation imports",
+      "Functions Framework 5.0.5 registered controllerHttp target",
+      "Octokit App authentication strategy and generateRunnerJitconfigForRepo method",
+      "Disabled production runtime remains closed without configured credentials"
+    ],
+    "provider_calls": false,
+    "cloud_deployed": false,
+    "default_flags_enabled": false
+  },
+  "current_contracts": [
+    "deployment/archive-manifest.json",
+    "deployment/declared-imports.json",
+    "deployment/archive-source-map.json"
   ],
-  "provider_calls": false,
-  "cloud_deployed": false,
-  "default_flags_enabled": false
+  "new_receipt": "npm run package:controller -- dist/<fresh-run>/controller creates a local controller-receipt.json bound to a clean commit/tree; packaging scope only."
 }

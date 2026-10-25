@@ -28,9 +28,14 @@ terraform -chdir=terraform test
 provider state, cloud API requests or cloud infrastructure are used. Its fake
 archive fixture must never be deployed. The root's real source input is an
 operator-built, screened ZIP referenced by `controller_archive_path`; build it
-using `npm run package:controller`, run `npm run check:archive`, and ZIP the
-contents of `dist/controller/` with package.json at the archive root before
-planning real infrastructure. Never ZIP the repository or parent directory.
+from a clean committed checkout using `npm run check:archive` followed by
+`npm run package:controller -- dist/<fresh-run>/controller`. The latter command
+creates and reopens `dist/<fresh-run>/controller.zip`, with package.json at the
+archive root, and writes its manifest and revision-bound packaging receipt in
+the same parent directory. Use that verified ZIP directly as
+`controller_archive_path`; do not ZIP it again or archive the repository/parent
+directory. Keep the receipt with the separately collected full qualification
+evidence. Existing stage, manifest, ZIP or receipt destinations are refused.
 
 Copy `terraform.tfvars.example` to a local ignored tfvars file or use
 `scripts/setup.sh`. Supply the selected project/region/zone and repository,

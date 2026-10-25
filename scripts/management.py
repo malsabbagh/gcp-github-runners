@@ -13,6 +13,24 @@ OPERATIONS = ('requestDrain', 'prepareStop', 'dispatchDrain', 'dispatchStop', 'r
 FIELDS = ('key', 'token', 'name', 'zone', 'project', 'instanceId', 'instanceCreationTimestamp', 'claimId')
 UUID = r'[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}'
 
+# Match the existing HTTP status vocabulary. Messages describe controller reports,
+# not new lifecycle decisions or independent provider observations.
+OUTCOME_MESSAGES = {
+    'preserved': 'The controller reported preserved state; inspect durable records before further action.',
+    'intent_recorded': 'Intent recorded; lifecycle completion is pending confirmation.',
+    'retired': 'The controller reported allocation retirement.',
+    'orphan_reconciled': 'The controller reported orphan reconciliation.',
+    'hydrated': 'Allocation evidence refreshed; this does not confirm retirement.',
+    'released': 'The controller reported allocation capacity released.',
+    'absent': 'The controller reported absence; inspect durable records for its scope.',
+    'dispatched': 'Intent dispatched; lifecycle completion is pending confirmation.',
+    'acknowledged': 'Intent acknowledged; lifecycle completion is pending confirmation.',
+    'completed': 'Controller operation completed; individual allocations may still need attention.',
+    'reconciled': 'Reconciliation pass reported; individual allocations may still be pending.',
+    'disabled': 'The requested operation is disabled.',
+    'denied': 'The controller denied the requested operation.',
+}
+
 
 def validated_body(operation, path):
     body = json.loads(path.read_text())
@@ -69,9 +87,12 @@ def main():
                                      headers={'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}, method='POST')
     with urllib.request.build_opener(NoRedirects()).open(request, timeout=30) as response:
         answer = json.loads(response.read(4096))
-    if answer.get('ok') is not True or answer.get('code') != 'MANAGEMENT_HANDLED':
-        raise ValueError('Controller did not confirm the operation.')
-    print('Controller confirmed the management operation. Check durable controller records for details.')
+    if not isinstance(answer, dict) or answer.get('ok') is not True or answer.get('code') != 'MANAGEMENT_HANDLED':
+        raise ValueError('Controller did not confirm a handled request.')
+    status = answer.get('status')
+    if not isinstance(status, str) or status not in OUTCOME_MESSAGES:
+        raise ValueError('Controller did not provide a known outcome.')
+    print(f'Controller outcome: {status}. {OUTCOME_MESSAGES[status]}')
 
 
 if __name__ == '__main__':

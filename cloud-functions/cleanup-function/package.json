@@ -1,7 +1,9 @@
 {
   "name": "cleanup-function",
   "version": "1.0.0",
-  "description": "Controller-mediated conservative cleanup for one-job Spot runners",
+  "description": "Offline cleanup tests and compatibility wrapper; root controller owns the deployed dependency set",
+  "private": true,
+  "type": "commonjs",
   "main": "index.js",
   "engines": {
     "node": "24.x"

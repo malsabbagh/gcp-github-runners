@@ -19,7 +19,7 @@ For installation, read [deployment instructions](DEPLOYMENT.md), [architecture](
 
 Destructive lifecycle and JIT/bootstrap qualification controls remain disabled by default until the target environment has passed the acceptance steps in [deployment instructions](DEPLOYMENT.md).
 
-Copyright (c) 2026 Mohamad Alsabbagh. This project is licensed under [MIT](LICENSE); [third-party notices](NOTICE.md) continue to apply. Seven known dependency alerts remain deferred for follow-up; this release does not claim that they are fixed.
+Copyright (c) 2026 Mohamad Alsabbagh. This project is licensed under [MIT](LICENSE); [third-party notices](NOTICE.md) continue to apply. The [dated dependency assessment](docs/DEPENDENCIES.md) distinguishes locked versions, inspected API exposure and remaining remediation; pins and passing tests are not advisory clearance.
 
 ## Offline compatibility references
 

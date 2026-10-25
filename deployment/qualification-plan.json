@@ -1,5 +1,5 @@
 {
-  "status": "Source implementation and offline contracts completed; remaining checks require explicit activation scope",
+  "status": "Current source qualification contract; execution evidence must identify its tested revision, and live checks remain unverified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -16,5 +16,12 @@
     "Actor quiescence for name-based stop/delete and provider asynchronous readback behavior"
   ],
   "authority": "No service activation, IAM/cloud deployment, credentials or repository visibility changes performed",
-  "readiness": "All production effect flags default false; only operator configuration can enable qualified routes"
+  "readiness": "All production effect flags default false; only operator configuration can enable qualified routes",
+  "evidence_contract": {
+    "inventory_check": "npm run check:archive (read-only; stale tracked inventory fails)",
+    "inventory_regeneration": "node packaging/check-controller.js --write-inventory (review and commit the explicit contract changes)",
+    "local_packaging_receipt": "npm run package:controller -- dist/<fresh-run>/controller; requires clean Git commit/tree; records tool, lock, inventory and archive hashes plus packaging command results",
+    "scope": "Packaging-only receipts do not claim the full source gate, an independent install, live IAM/image/JIT/network behavior or deployment readiness. Retain full source/hosted evidence separately for the same revision.",
+    "historical_receipts": "deployment/offline-qualification.json and source-only unresolved fixtures are historical observations, not current successful runs."
+  }
 }

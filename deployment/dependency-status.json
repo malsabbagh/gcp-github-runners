@@ -1,51 +1,351 @@
 {
-  "status": "EXACT_STANDALONE_LOCK_RESOLVED",
-  "runtime": "Node24.x (offline tests use24.18.0)",
-  "deployment_lock": "deployment/deployment-package-lock.json",
-  "deployment_lock_sha256": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
-  "dependencies": {
-    "@google-cloud/cloudbuild": {
-      "version": "4.8.1",
-      "resolved": "https://registry.npmjs.org/@google-cloud/cloudbuild/-/cloudbuild-4.8.1.tgz",
-      "integrity": "sha512-HGYfVUFEWvoylgoXQqyZBbft8hL2XHH2M+gG2Iw8iy+lJqyT2lepYqsHjMy1VJnjGBBg5m9r3UcoohQt/k6aug=="
-    },
-    "@google-cloud/compute": {
-      "version": "4.12.0",
-      "resolved": "https://registry.npmjs.org/@google-cloud/compute/-/compute-4.12.0.tgz",
-      "integrity": "sha512-N3isWbxIMd02qzdlFFxHxEM+2B/vNgn9N7WMpteY2sfwN1yT9PJHcilKDLyw+uIwuQAoErNxBM+JOLq3r/Tv+Q=="
-    },
-    "@google-cloud/firestore": {
-      "version": "7.11.2",
-      "resolved": "https://registry.npmjs.org/@google-cloud/firestore/-/firestore-7.11.2.tgz",
-      "integrity": "sha512-BQCSbjWJndCZ6bj8BSGhi4EM1TDFs9HgZXXsJ7d2kEPo+x64fB3OnQE8ffmn3vWADqeAmYBPaMPF/k6PHETXKA=="
-    },
-    "@google-cloud/functions-framework": {
-      "version": "5.0.5",
-      "resolved": "https://registry.npmjs.org/@google-cloud/functions-framework/-/functions-framework-5.0.5.tgz",
-      "integrity": "sha512-/w+OB1MxJux1uO9KRud4CRPLouaB7bZcy0v6STfFVh7yqafZ1L5coWIpseoKPLUgyNfawyoEfE2mEBDRZNGL2w=="
-    },
-    "@google-cloud/secret-manager": {
-      "version": "5.6.0",
-      "resolved": "https://registry.npmjs.org/@google-cloud/secret-manager/-/secret-manager-5.6.0.tgz",
-      "integrity": "sha512-0daW/OXQEVc6VQKPyJTQNyD+563I/TYQ7GCQJx4dq3lB666R9FUPvqHx9b/o/qQtZ5pfuoCbGZl3krpxgTSW8Q=="
-    },
-    "@octokit/rest": {
-      "version": "20.1.2",
-      "resolved": "https://registry.npmjs.org/@octokit/rest/-/rest-20.1.2.tgz",
-      "integrity": "sha512-GmYiltypkHHtihFwPRxlaorG5R9VAHuk/vbszVoRTGXnAsY60wYLkh/E2XiFmdZmqrisw+9FaazS1i5SbdWYgA=="
-    },
-    "google-auth-library": {
-      "version": "9.15.1",
-      "resolved": "https://registry.npmjs.org/google-auth-library/-/google-auth-library-9.15.1.tgz",
-      "integrity": "sha512-Jb6Z0+nvECVz+2lzSMt9u98UsoakXxA2HGHMCxh+so3n90XgYWkq5dur19JAJV7ONiJY22yBTyJB1TSkvPq9Ng=="
-    },
-    "@octokit/auth-app": {
-      "version": "6.1.3",
-      "resolved": "https://registry.npmjs.org/@octokit/auth-app/-/auth-app-6.1.3.tgz",
-      "integrity": "sha512-dcaiteA6Y/beAlDLZOPNReN3FGHu+pARD6OHfh3T9f3EO09++ec+5wt3KtGGSSs2Mp5tI8fQwdMOEnrzBLfgUA=="
-    }
+  "schemaVersion": 1,
+  "kind": "dated-advisory-and-exposure-assessment",
+  "observedAt": "2026-10-24T07:36:43Z",
+  "observedSourceCommit": "79e61e3875708b7b61145c2c520ba5f38cf914c0",
+  "sourceInventory": "deployment/dependency-inventory.json",
+  "lockSha256": {
+    "package-lock.json": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
+    "deployment/deployment-package-lock.json": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
+    "source-compatible/templates/package-lock.json": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915"
   },
-  "install": "npm ci --ignore-scripts --engine-strict",
-  "SDK_qualification": "Official SDK imports/prototypes, Octokit App strategy/API seams, framework registered controllerHttp tested offline; no live token/secret/provider operation",
-  "upstream_deprecations": "Some resolved transitive dependencies carry upstream deprecation notices; pins are reproducible, not a security-audit claim"
+  "ownership": {
+    "canonicalRuntime": "package.json dependencies; exact pins, Node24, CommonJS",
+    "standalone": "deployment/deployment-package.json mirrors canonical runtime but retains an independent production lock; only this manifest is staged as package.json",
+    "workspaces": "Private CommonJS test/compatibility contexts with dependency subsets; not independently deployed",
+    "references": "Two separately installed offline reference closures; never substituted for the supported controller"
+  },
+  "alertObservation": {
+    "source": "Authorized read-only GitHub Dependabot API snapshot",
+    "openRecordCount": 18,
+    "openByPackage": {
+      "fast-uri": 12,
+      "body-parser": 3,
+      "uuid": 3
+    },
+    "detectedManifestCount": 3,
+    "limits": "Alert records, advisories and locked occurrences are different counts. The custom standalone lock has affected occurrences despite no detected-manifest records. This snapshot is dated, not a live status or exhaustive safety claim.",
+    "stateChangesPerformed": false,
+    "reconciledFixedRecords": [
+      {
+        "package": "form-data",
+        "manifest": "source-compatible/templates/package-lock.json",
+        "ghsa": "GHSA-hmw2-7cc7-3qxx",
+        "state": "fixed",
+        "fixedAt": "2026-10-06T05:09:10Z"
+      },
+      {
+        "package": "@tootallnate/once",
+        "manifest": "source-compatible/templates/package-lock.json",
+        "ghsa": "GHSA-vpq2-c234-7xj6",
+        "state": "fixed",
+        "fixedAt": "2026-10-06T05:09:04Z"
+      },
+      {
+        "package": "form-data",
+        "manifest": "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
+        "ghsa": "GHSA-hmw2-7cc7-3qxx",
+        "state": "fixed",
+        "fixedAt": "2026-10-06T18:10:51Z"
+      },
+      {
+        "package": "form-data",
+        "manifest": "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
+        "ghsa": "GHSA-hmw2-7cc7-3qxx",
+        "state": "fixed",
+        "fixedAt": "2026-10-06T21:46:23Z"
+      },
+      {
+        "package": "@tootallnate/once",
+        "manifest": "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
+        "ghsa": "GHSA-vpq2-c234-7xj6",
+        "state": "fixed",
+        "fixedAt": "2026-10-06T21:46:37Z"
+      },
+      {
+        "package": "form-data",
+        "manifest": "package-lock.json",
+        "ghsa": "GHSA-hmw2-7cc7-3qxx",
+        "state": "fixed",
+        "fixedAt": "2026-10-24T06:16:31Z"
+      },
+      {
+        "package": "@tootallnate/once",
+        "manifest": "package-lock.json",
+        "ghsa": "GHSA-vpq2-c234-7xj6",
+        "state": "fixed",
+        "fixedAt": "2026-10-24T06:16:30Z"
+      }
+    ]
+  },
+  "advisories": [
+    {
+      "package": "body-parser",
+      "ghsa": "GHSA-27r3-jxmh-p828",
+      "url": "https://github.com/advisories/GHSA-27r3-jxmh-p828",
+      "cve": "CVE-2026-111181",
+      "severity": "high",
+      "publishedAt": "2026-10-23T20:53:11Z",
+      "updatedAt": "2026-10-23T20:53:12Z",
+      "affectedRanges": [
+        {
+          "range": ">= 2.0.0, < 2.4.0",
+          "firstPatched": "2.4.0"
+        },
+        {
+          "range": "< 1.20.9",
+          "firstPatched": "1.20.9"
+        }
+      ]
+    },
+    {
+      "package": "fast-uri",
+      "ghsa": "GHSA-333x-w4r6-6crp",
+      "url": "https://github.com/advisories/GHSA-333x-w4r6-6crp",
+      "cve": "CVE-2026-110725",
+      "severity": "low",
+      "publishedAt": "2026-10-23T21:36:40Z",
+      "updatedAt": "2026-10-23T21:36:41Z",
+      "affectedRanges": [
+        {
+          "range": "< 2.4.8",
+          "firstPatched": "2.4.8"
+        },
+        {
+          "range": ">= 3.0.0, < 3.1.9",
+          "firstPatched": "3.1.9"
+        },
+        {
+          "range": ">= 4.0.0, < 4.2.3",
+          "firstPatched": "4.2.3"
+        }
+      ]
+    },
+    {
+      "package": "form-data",
+      "ghsa": "GHSA-hmw2-7cc7-3qxx",
+      "url": "https://github.com/advisories/GHSA-hmw2-7cc7-3qxx",
+      "cve": "CVE-2026-12143",
+      "severity": "high",
+      "publishedAt": "2026-06-15T17:26:26Z",
+      "updatedAt": "2026-06-15T17:26:27Z",
+      "affectedRanges": [
+        {
+          "range": "< 2.5.6",
+          "firstPatched": "2.5.6"
+        },
+        {
+          "range": ">= 3.0.0, < 3.0.5",
+          "firstPatched": "3.0.5"
+        },
+        {
+          "range": ">= 4.0.0, < 4.0.6",
+          "firstPatched": "4.0.6"
+        }
+      ]
+    },
+    {
+      "package": "@tootallnate/once",
+      "ghsa": "GHSA-vpq2-c234-7xj6",
+      "url": "https://github.com/advisories/GHSA-vpq2-c234-7xj6",
+      "cve": "CVE-2026-3449",
+      "severity": "low",
+      "publishedAt": "2026-03-03T06:31:14Z",
+      "updatedAt": "2026-05-21T16:55:50Z",
+      "affectedRanges": [
+        {
+          "range": ">= 3.0.0, < 3.0.1",
+          "firstPatched": "3.0.1"
+        },
+        {
+          "range": "< 2.0.1",
+          "firstPatched": "2.0.1"
+        }
+      ]
+    },
+    {
+      "package": "uuid",
+      "ghsa": "GHSA-w5hq-g745-h8pq",
+      "url": "https://github.com/advisories/GHSA-w5hq-g745-h8pq",
+      "cve": "CVE-2026-41907",
+      "severity": "medium",
+      "publishedAt": "2026-04-22T20:53:24Z",
+      "updatedAt": "2026-05-21T18:25:57Z",
+      "affectedRanges": [
+        {
+          "range": ">= 12.0.0, < 12.0.1",
+          "firstPatched": "12.0.1"
+        },
+        {
+          "range": ">= 13.0.0, < 13.0.1",
+          "firstPatched": "13.0.1"
+        },
+        {
+          "range": "< 11.1.1",
+          "firstPatched": "11.1.1"
+        }
+      ]
+    },
+    {
+      "package": "fast-uri",
+      "ghsa": "GHSA-w74x-v6f9-j3xg",
+      "url": "https://github.com/advisories/GHSA-w74x-v6f9-j3xg",
+      "cve": "CVE-2026-110306",
+      "severity": "medium",
+      "publishedAt": "2026-10-23T21:41:36Z",
+      "updatedAt": "2026-10-23T21:41:38Z",
+      "affectedRanges": [
+        {
+          "range": "< 2.4.8",
+          "firstPatched": "2.4.8"
+        },
+        {
+          "range": ">= 3.0.0, < 3.1.9",
+          "firstPatched": "3.1.9"
+        },
+        {
+          "range": ">= 4.0.0, < 4.2.3",
+          "firstPatched": "4.2.3"
+        }
+      ]
+    },
+    {
+      "package": "fast-uri",
+      "ghsa": "GHSA-wjr9-j795-jxcr",
+      "url": "https://github.com/advisories/GHSA-wjr9-j795-jxcr",
+      "cve": "CVE-2026-110180",
+      "severity": "medium",
+      "publishedAt": "2026-10-23T21:37:59Z",
+      "updatedAt": "2026-10-23T21:38:02Z",
+      "affectedRanges": [
+        {
+          "range": ">= 2.4.2, < 2.4.8",
+          "firstPatched": "2.4.8"
+        },
+        {
+          "range": ">= 3.1.3, < 3.1.9",
+          "firstPatched": "3.1.9"
+        },
+        {
+          "range": ">= 4.0.1, < 4.2.3",
+          "firstPatched": "4.2.3"
+        }
+      ]
+    },
+    {
+      "package": "fast-uri",
+      "ghsa": "GHSA-xhq7-xmqj-769h",
+      "url": "https://github.com/advisories/GHSA-xhq7-xmqj-769h",
+      "cve": "CVE-2026-110095",
+      "severity": "low",
+      "publishedAt": "2026-10-23T21:39:34Z",
+      "updatedAt": "2026-10-23T21:39:38Z",
+      "affectedRanges": [
+        {
+          "range": "< 2.4.8",
+          "firstPatched": "2.4.8"
+        },
+        {
+          "range": ">= 3.0.0, < 3.1.9",
+          "firstPatched": "3.1.9"
+        },
+        {
+          "range": ">= 4.0.0, < 4.2.3",
+          "firstPatched": "4.2.3"
+        }
+      ]
+    }
+  ],
+  "assessments": [
+    {
+      "package": "uuid",
+      "lockedVersions": {
+        "9.0.1": 12,
+        "8.3.2": 4
+      },
+      "versionStatus": "affected-versions-locked",
+      "consumedApi": "Inspected CloudEvents 10/8, gaxios 6.7.1, google-gax 4.6.1 and teeny-request 9 calls use v4() without output buffers.",
+      "exposure": "The advisory concerns v3/v5/v6 output-buffer handling. That path was not observed in these audited consumers; this is neither a patched-version claim nor proof of universal unreachability.",
+      "disposition": "Seek compatible owner releases in #48; document and separately review residuals if existing owner ranges cannot consume patched UUID. No blanket transitive-major override.",
+      "reviewCondition": "Reassess on owner/advisory/API or trust-boundary changes; version status remains affected until versions change."
+    },
+    {
+      "package": "body-parser",
+      "lockedVersions": {
+        "2.3.0": 2,
+        "1.20.8": 2
+      },
+      "versionStatus": "affected-versions-locked",
+      "consumedApi": "Functions Framework installs JSON, text, URL-encoded and raw parsers with inflation enabled before the application handler.",
+      "exposure": "Malformed compressed bodies reach parsing before controller HMAC/body-size checks. Code establishes a pre-handler exposure path; deployed ingress behavior has not been qualified.",
+      "disposition": "Prioritize compatible 2.4.0 root/standalone and 1.20.9 reference updates in #48. Reuse PR43 for its existing reference change.",
+      "historicalReviewCondition": "Require real-middleware malformed-compression/process-survival and raw-body/signature regressions plus independent installs before merge.",
+      "reviewCondition": "Under issue #48, require existing SDK/framework registration, normal raw-body/signature and controller behavior tests plus independent installs before merge. New malformed-compression/process-survival reproducers are deferred; this does not mark them passed or clear the execution hold."
+    },
+    {
+      "package": "fast-uri",
+      "lockedVersions": {
+        "3.1.8": 4
+      },
+      "versionStatus": "affected-versions-locked",
+      "consumedApi": "Declared path is CloudEvents -> AJV -> fast-uri. CloudEvents uses a precompiled validator; a bounded framework/CloudEvent initialization trace did not load AJV core or fast-uri.",
+      "exposure": "Attacker-controlled schema-URI resolution was not demonstrated in the inspected path. Installed affected versions remain an exposure requiring remediation, not a no-risk conclusion.",
+      "disposition": "Use compatible 3.1.9 within existing AJV ranges in #48; reuse PR44 for its hybrid-reference scope and account separately for other locks.",
+      "reviewCondition": "Preserve schema behavior and isolated reference installs; reassess any added dynamic-schema/URI usage."
+    },
+    {
+      "package": "form-data",
+      "lockedVersions": {
+        "2.5.6": 4,
+        "4.0.6": 1
+      },
+      "versionStatus": "reviewed-advisory-patches-locked",
+      "consumedApi": "Transitive HTTP multipart support through SDK/request dependencies.",
+      "exposure": "Current 2.5.6/4.0.6 meet the reviewed advisory patches; this does not clear other packages or future advisories.",
+      "disposition": "Fresh GitHub observations now report relevant records fixed, resolving the earlier patched-lock/open-record discrepancy. No alert was dismissed or edited.",
+      "reviewCondition": "Recheck versions, advisory ranges and alert records after dependency changes."
+    },
+    {
+      "package": "@tootallnate/once",
+      "lockedVersions": {
+        "2.0.1": 4
+      },
+      "versionStatus": "reviewed-advisory-patch-locked",
+      "consumedApi": "Scoped helper reached through HTTP proxy dependencies.",
+      "exposure": "This is the package covered by the earlier shorthand once and the 2.0.1 patch; it is distinct from unscoped once.",
+      "disposition": "Fresh GitHub observations report relevant records fixed. Keep the scoped identity explicit; do not duplicate the completed fix.",
+      "reviewCondition": "Recheck this exact package identity and advisory if owners change."
+    },
+    {
+      "package": "once",
+      "lockedVersions": {
+        "1.4.0": 4
+      },
+      "versionStatus": "different-package-not-covered-by-scoped-advisory",
+      "consumedApi": "Unscoped callback helper in runtime/tooling graphs.",
+      "exposure": "Version 1.4.0 is not the scoped package or the target of its 2.0.1 advisory. No general vulnerability-free assertion is made.",
+      "disposition": "Retain the distinction rather than inventing an unscoped version upgrade or transferring another package's patch status.",
+      "reviewCondition": "Assess any advisory that actually names the unscoped package."
+    }
+  ],
+  "existingPullRequests": [
+    {
+      "number": 43,
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/43",
+      "scope": "body-parser1.20.9 in templates reference",
+      "observedState": "OPEN",
+      "head": "8382295eeca784575923ce68e9a03749d19d267c",
+      "qualification": "failed; reconcile exact log/integrity prerequisites before normal review/merge"
+    },
+    {
+      "number": 44,
+      "url": "https://github.com/malsabbagh/gcp-github-runners/pull/44",
+      "scope": "fast-uri3.1.9 in hybrid reference",
+      "observedState": "OPEN",
+      "head": "b6b708493f5e401b368c97d027a76b2f6dfcb640",
+      "qualification": "failed; reconcile exact log/integrity prerequisites before normal review/merge"
+    }
+  ],
+  "qualificationScope": "Static lock/API-source assessment plus separately retained local/hosted contracts; no live deployment, provider validation or advisory dismissal."
 }
