@@ -224,7 +224,7 @@
       "mode": "100644",
       "source_blob": "2b58ee888d2d68eb229e96507338f562af190551",
       "source_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
-      "template_sha256": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915",
+      "template_sha256": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7",
       "configuration_inputs": [],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -499,6 +499,22 @@
             "node_modules/ajv": {
               "from": "8.17.1",
               "to": "8.20.0"
+            }
+          },
+          "direct_dependencies_changed": false,
+          "direct_dependency_ranges": {}
+        },
+        {
+          "pr": 44,
+          "pr_head": "b6b708493f5e401b368c97d027a76b2f6dfcb640",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/44",
+          "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+          "before_sha256": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915",
+          "after_sha256": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7",
+          "changed_packages": {
+            "node_modules/fast-uri": {
+              "from": "3.1.8",
+              "to": "3.1.9"
             }
           },
           "direct_dependencies_changed": false,
@@ -1048,7 +1064,7 @@
       "mode": "100644",
       "source_blob": "b121d7cee1a3dce794f7f15bd32bb329f970cddc",
       "source_sha256": "9d0e2cd29a5704bef0a1f88c13df11f7ab1c9a9b38c2966579152a5c76e81d09",
-      "template_sha256": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+      "template_sha256": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
       "configuration_inputs": [
         "PARITY_INPUT_115"
       ],
@@ -1405,6 +1421,21 @@
             "node_modules/ajv": {
               "from": "8.17.1",
               "to": "8.20.0"
+            }
+          },
+          "direct_dependencies_changed": false
+        },
+        {
+          "pr": 43,
+          "pr_head": "8382295eeca784575923ce68e9a03749d19d267c",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/43",
+          "path": "package-lock.json",
+          "before_sha256": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+          "after_sha256": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
+          "changed_packages": {
+            "node_modules/body-parser": {
+              "from": "1.20.8",
+              "to": "1.20.9"
             }
           },
           "direct_dependencies_changed": false
