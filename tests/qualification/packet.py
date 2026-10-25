@@ -77,6 +77,9 @@ FREE_TEXT_FIELDS = {
 }
 COMMON_FIELDS = ['project_id', 'region', 'zone'] + [field for field in WORKSHEET_FIELDS
     if field.startswith(('limits.', 'cleanup.', 'retention.'))]
+# The function-build service account is intentionally a required field only for
+# controller-install and job; identity_blockers still compares it with the worker
+# identity in every runtime operation where both values are concrete.
 RUNTIME_FIELDS = [field for field in WORKSHEET_FIELDS
     if field.startswith(('repository.', 'routing.', 'references.'))] + [
     'identities.controller_service_account', 'identities.provisioner_service_account',
@@ -134,7 +137,7 @@ def field_valid(worksheet, name):
                             r'/secrets/[A-Za-z0-9_-]+/versions/[1-9][0-9]*', value) is not None
     if name == 'artifacts.source_image_resource':
         # Packer selects source_image_project_id separately from its output project.
-        return re.fullmatch(r'projects/[a-z0-9-]+/global/images/[a-z0-9-]+', value) is not None
+        return re.fullmatch(r'projects/[a-z][a-z0-9-]+/global/images/[a-z][a-z0-9-]+', value) is not None
     if name == 'artifacts.worker_image_resource':
         return re.fullmatch(r'projects/' + re.escape(str(worksheet['project_id'])) + r'/global/images/[a-z][a-z0-9-]+', value) is not None
     if name.endswith(('packer_builder_image', 'provisioner_builder_image')):
@@ -307,6 +310,8 @@ def validate(plan, cases, source_root, expected_commit, expected_tree):
             for record in records:
                 if name in record['operations']:
                     required.update(record['prerequisites'])
+            # Capacity two gates only live-job operations; image build and controller
+            # install precede the capacity-one trial and stay stage-independent.
             if worksheet['capacity_stage'] == 2 and name in ('job', 'cancellation-recovery', 'cleanup'):
                 required.add('capacity-one-trial')
             blockers = ['prerequisite:' + key for key in sorted(required) if prerequisites[key]['status'] != 'satisfied']

@@ -32,7 +32,7 @@ class PacketTests(unittest.TestCase):
     def qualified_documents(self):
         # Synthetic evidence exercises readiness logic; it is never a live receipt.
         plan, cases = self.documents()
-        plan['worksheet'] = json.loads((Path(__file__).parent / 'fixtures/worksheet.json').read_text())
+        plan['worksheet'] = json.loads((Path(__file__).parent / 'fixtures/synthetic-worksheet.json').read_text())
         revision = {'commit': COMMIT, 'tree': TREE}
         for name, item in plan['prerequisites'].items():
             if name in ('broad-fault-campaign', 'capacity-one-trial'):
@@ -73,6 +73,9 @@ class PacketTests(unittest.TestCase):
             self.assertFalse(report['operations']['job']['available'])
 
     def test_required_prerequisites_stay_unavailable_when_held_pending_or_deferred(self):
+        # The separately deferred broad campaign is never mistaken for required evidence.
+        untouched = PACKET.validate(*self.qualified_documents(), ROOT, COMMIT, TREE)
+        self.assertTrue(untouched['operations']['job']['available'])
         for status in ('held', 'pending', 'deferred'):
             plan, cases = self.qualified_documents()
             plan['prerequisites']['firestore-transactions']['status'] = status
@@ -80,8 +83,6 @@ class PacketTests(unittest.TestCase):
             self.assertTrue(report['preparation_complete'])
             self.assertFalse(report['operations']['job']['available'])
             self.assertIn('prerequisite:firestore-transactions', report['operations']['job']['blockers'])
-        # The separately deferred broad campaign is never mistaken for required evidence.
-        self.assertTrue(PACKET.validate(*self.qualified_documents(), ROOT, COMMIT, TREE)['operations']['job']['available'])
 
     def test_revision_source_bytes_and_manifest_set_are_bound(self):
         self.assertFalse(PACKET.validate(*self.qualified_documents(), ROOT, 'a' * 40, TREE)['preparation_complete'])
@@ -115,6 +116,29 @@ class PacketTests(unittest.TestCase):
             with patch('pathlib.Path.read_text', refuse_alias):
                 report = PACKET.validate(plan, cases, root, COMMIT, TREE)
             self.assertFalse(report['preparation_complete'])
+
+    def test_symlinked_intermediate_source_directory_is_refused_without_reading_it(self):
+        from unittest.mock import patch
+        plan, cases = self.documents()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            for name in plan['selected_source']['sha256']:
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes((ROOT / name).read_bytes())
+            relocated = root / 'relocated-deployment'
+            (root / 'deployment').rename(relocated)
+            (root / 'deployment').symlink_to(relocated, target_is_directory=True)
+            original = Path.read_bytes
+            def refuse_symlinked_read(file, *args, **kwargs):
+                if file.parent.is_symlink():
+                    raise AssertionError('symlinked source directory was read')
+                return original(file, *args, **kwargs)
+            with patch('pathlib.Path.read_bytes', refuse_symlinked_read):
+                report = PACKET.validate(plan, cases, root, COMMIT, TREE)
+            self.assertFalse(report['preparation_complete'])
+            self.assertIn('source-bytes-mismatch:deployment/archive-manifest.json', report['issues'])
+
     def test_missing_required_gate_case_or_flag_cannot_make_preparation_complete(self):
         for mutate in [lambda plan, cases: plan['operations']['job']['requires'].clear(),
                        lambda plan, cases: plan['flag_requirements']['WEBHOOK_ENABLED'].clear(),
@@ -173,6 +197,9 @@ class PacketTests(unittest.TestCase):
                 patch('subprocess.check_call', side_effect=AssertionError('execute')), \
                 patch('subprocess.check_output', side_effect=AssertionError('execute')), \
                 patch('os.system', side_effect=AssertionError('execute')), \
+                patch('os.popen', side_effect=AssertionError('execute')), \
+                patch('os.fork', side_effect=AssertionError('execute')), \
+                patch('os.posix_spawn', side_effect=AssertionError('execute')), \
                 patch('os.execv', side_effect=AssertionError('execute')), \
                 patch('os.execve', side_effect=AssertionError('execute')), \
                 patch('urllib.request.urlopen', side_effect=AssertionError('network')), \
@@ -392,7 +419,9 @@ class PacketTests(unittest.TestCase):
     def test_moving_image_families_and_cross_project_output_images_are_rejected(self):
         for value in ['projects/debian-cloud/global/images/family/debian-12',
                       'projects/debian-cloud/global/images/debian-12?latest=true',
-                      'debian-cloud/debian-12', 'projects/debian-cloud/global/images/']:
+                      'debian-cloud/debian-12', 'projects/debian-cloud/global/images/',
+                      'projects/123/global/images/debian-12-fixed',
+                      'projects/debian-cloud/global/images/123']:
             with self.subTest(source=value):
                 plan, cases = self.qualified_documents()
                 plan['worksheet']['artifacts']['source_image_resource'] = value
