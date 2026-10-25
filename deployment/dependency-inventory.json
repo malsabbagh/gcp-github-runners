@@ -4,7 +4,7 @@
   "locks": [
     {
       "path": "package-lock.json",
-      "sha256": "967a073a63193ddf012809f3a1c996565f34d54bd788a0d59d81c0b50d00d32e",
+      "sha256": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
       "role": "maintainer-and-runtime",
       "directRuntimeDeclarations": [
         {
@@ -183,7 +183,7 @@
         },
         {
           "package": "body-parser",
-          "version": "2.3.0",
+          "version": "2.4.0",
           "location": "node_modules/body-parser",
           "reachability": [
             "production",
@@ -192,12 +192,12 @@
           "representativePaths": {
             "production": [
               "@google-cloud/functions-framework@5.0.5",
-              "body-parser@2.3.0"
+              "body-parser@2.4.0"
             ],
             "workspace-compatibility": [
               "cloud-functions/webhook-handler@1.0.0",
               "@google-cloud/functions-framework@5.0.5",
-              "body-parser@2.3.0"
+              "body-parser@2.4.0"
             ]
           },
           "owners": [
