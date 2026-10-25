@@ -31,7 +31,7 @@ When selecting another revision, independently verify its commit/tree and artifa
 
 ## Worksheet and instruction trace
 
-Keep actual operator values, logs and receipts outside public Git. Each null must be resolved by the responsible operator before an operation can be reported available. Secret payloads never belong in the worksheet; only numbered version references are accepted.
+Keep actual operator values, logs and receipts outside public Git. Retain every worksheet schema key, using null for unresolved or inapplicable values. Each field required by an operation must be resolved by the responsible operator before that operation can be reported available. For example, the function-build account needs a concrete value for controller installation, while image build and later job operation do not require that field's value. Secret payloads never belong in the worksheet; only numbered version references are accepted.
 
 | Worksheet group | Required decision or observation | Existing instructions |
 |---|---|---|

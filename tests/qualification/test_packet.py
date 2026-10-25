@@ -48,6 +48,25 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(all(operation['available'] for operation in report['operations'].values()))
         self.assertFalse(report['execution_authorized'])
 
+    def test_unused_identity_values_may_be_null_but_schema_keys_must_remain(self):
+        plan, cases = self.qualified_documents()
+        plan['worksheet']['identities']['function_build_service_account'] = None
+        report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+        self.assertTrue(report['preparation_complete'])
+        self.assertTrue(report['operations']['image-build']['available'])
+        self.assertTrue(report['operations']['job']['available'])
+        self.assertFalse(report['operations']['controller-install']['available'])
+        self.assertIn('worksheet:identities.function_build_service_account',
+                      report['operations']['controller-install']['blockers'])
+        self.assertFalse(report['execution_authorized'])
+
+        del plan['worksheet']['identities']['function_build_service_account']
+        report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+        self.assertFalse(report['preparation_complete'])
+        self.assertIn('packet-shape-or-input-invalid', report['issues'])
+        self.assertTrue(all(not operation['available'] for operation in report['operations'].values()))
+        self.assertFalse(report['execution_authorized'])
+
     def test_placeholders_missing_identities_and_limits_cannot_report_job_ready(self):
         for field, value in [('project_id', 'YOUR_PROJECT'), ('repository.id', None),
                              ('limits.cost_ceiling', 0), ('artifacts.worker_image_resource', 'TODO')]:

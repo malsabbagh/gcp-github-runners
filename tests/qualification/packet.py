@@ -77,9 +77,9 @@ FREE_TEXT_FIELDS = {
 }
 COMMON_FIELDS = ['project_id', 'region', 'zone'] + [field for field in WORKSHEET_FIELDS
     if field.startswith(('limits.', 'cleanup.', 'retention.'))]
-# The function-build service account is intentionally a required field only for
-# controller-install and job; identity_blockers still compares it with the worker
-# identity in every runtime operation where both values are concrete.
+# The function-build account needs a concrete value for controller-install only.
+# Every worksheet retains its schema keys, using null for unresolved/inapplicable
+# values; runtime identity comparisons still reject concrete worker/build collisions.
 RUNTIME_FIELDS = [field for field in WORKSHEET_FIELDS
     if field.startswith(('repository.', 'routing.', 'references.'))] + [
     'identities.controller_service_account', 'identities.provisioner_service_account',
