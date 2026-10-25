@@ -7,7 +7,7 @@
   "lockSha256": {
     "package-lock.json": "d91638d2f2b056aeb53d68ea4348bfb8eafa7f7a4aeac4113897747a2592dcd3",
     "deployment/deployment-package-lock.json": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
-    "source-compatible/templates/package-lock.json": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+    "source-compatible/templates/package-lock.json": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
     "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "52ba5af0fc5eb7204374635d996920fb1dfc00eeaf6cb073f84c77b5bf859915"
   },
   "ownership": {
@@ -274,7 +274,8 @@
       "package": "body-parser",
       "lockedVersions": {
         "2.3.0": 2,
-        "1.20.8": 2
+        "1.20.8": 1,
+        "1.20.9": 1
       },
       "versionStatus": "affected-versions-locked",
       "consumedApi": "Functions Framework installs JSON, text, URL-encoded and raw parsers with inflation enabled before the application handler.",
@@ -336,7 +337,7 @@
       "scope": "body-parser1.20.9 in templates reference",
       "observedState": "OPEN",
       "head": "8382295eeca784575923ce68e9a03749d19d267c",
-      "qualification": "failed; reconcile exact log/integrity prerequisites before normal review/merge"
+      "qualification": "reconciled templates reference manifest and lock inventory for PR 43; root/standalone 2.3.0 and hybrid reference 1.20.8 remain separate"
     },
     {
       "number": 44,

@@ -809,7 +809,7 @@
     },
     {
       "path": "source-compatible/templates/package-lock.json",
-      "sha256": "595a90f4b035e536fb56b77fc23643063468190297bbd35defcb1f9eee0a4461",
+      "sha256": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
       "role": "reference-only",
       "directRuntimeDeclarations": [
         {
@@ -916,7 +916,7 @@
         },
         {
           "package": "body-parser",
-          "version": "1.20.8",
+          "version": "1.20.9",
           "location": "node_modules/body-parser",
           "reachability": [
             "reference-runtime"
@@ -925,7 +925,7 @@
             "reference-runtime": [
               "cloud-functions/cleanup-function@1.0.0",
               "@google-cloud/functions-framework@3.5.1",
-              "body-parser@1.20.8"
+              "body-parser@1.20.9"
             ]
           },
           "owners": [
