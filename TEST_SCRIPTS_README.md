@@ -38,6 +38,14 @@ After committing, run `npm run package:controller -- dist/<fresh-run>/controller
 
 Live acceptance requires separately authorized cloud resources and a disposable trusted-repository job. Green source checks cannot establish effective IAM, image provenance, private networking, SDK service behavior, JIT expiry, lifecycle latency or safe retirement of real workers.
 
+The explicit [local state integration prototype](tests/integration/README.md)
+uses the existing pinned Firestore emulator with both adapters and synthetic
+external clients. It is separate from the default source suite. Its initial
+run exposed a transactional REST GET incompatibility. The auxiliary loopback
+listener is now explicitly pinned to 18081 alongside API port 18080. Separate
+batchGet comparisons pass while the original GET cases remain failing; this is
+not a passing integration gate or live qualification.
+
 Core CI runs source-profile qualification on supported Node 24 with independent standalone/reference lock installations in temporary directories. Reference coverage checks still generate their reports locally during the run; automatic report publication is retired. Endpoint tests invoke all four PowerShell scripts through their real parameters with request stubs. Workflow regressions parse job policy and verify hostile PR titles remain shell data. Materialization tests check explicit purpose, notice integrity and non-executable reference output. The [dependency assessment](docs/DEPENDENCIES.md) records dated advisory/exposure observations separately from generated lock facts; source tests do not assert all advisories are remediated.
 
 Runtime ownership checks require exact root/standalone dependency parity, Node 24/CommonJS and workspace test-context subsets. `node scripts/dependency-inventory.cjs --write` deliberately refreshes the four-lock source inventory after reviewed changes; check mode is offline/read-only. Refresh authored assessments when lock hashes change. `python3 scripts/qualify-source-profile.py` independently installs the supported standalone package outside repository ancestors before its two reference installs. The SDK/framework/disabled-route checks cannot borrow root modules and use no provider operations.
