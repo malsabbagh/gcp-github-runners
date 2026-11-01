@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "recorded_date": "2026-11-01T19:22:08.985169+00:00",
-  "source_commit": "3a6b78a9e91575d7bca6bf5ab108dd6a3ab592cc",
+  "recorded_date": "2026-11-01T19:35:34.080448+00:00",
+  "source_commit": "9a6c33f15f06db8965baa91edc9b7c06ed67377e",
   "source_note": "Generated from this run; exact harness bytes are bound by tested_files_sha256, including uncommitted changes.",
   "tested_files_sha256": {
     "package.json": "999744887ebde165fef408013351ea9156e7ab93e4f40c30c57dd559e81b26c1",
     "package-lock.json": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
-    "tests/integration/run-state-integration.py": "95b8bcd5430b0ea98559c0476f7f68bf321ab58319076e0dee29dad00d89a947",
-    "tests/integration/python-process.cjs": "bc294fb499e811706d7d68fefd1f04546d8c146bd885836b2a5c4580ee160d6c",
+    "tests/integration/run-state-integration.py": "e2ad39043b970170366b77bb1ed8c2d6eb488c32b1deedf08af345680b729694",
+    "tests/integration/python-process.cjs": "0b86a5fb06fa7d1b5ae306a06276763e9f268467a405081403f7856783006d77",
     "tests/integration/python-pool-driver.py": "d4cbabe66724b794b6e6cb2597b48fa3fdb71fb470da018ce56153e2f586b35a",
-    "tests/integration/state-integration.cjs": "dae80d818bf4eecc99252e8b21e5a78bd0902c884c98bdc860973115bf6ee870",
-    "tests/local-state-process.test.js": "d26851865174060a07eb321263dbe391fd0a915e8db8fa180951d4a9c08db66a",
-    "tests/qualification/test_local_integration_configuration.py": "9aad2efe409a0a22b44ded9cf41c6de65b6f87ad2f087c4b51f20507e4a27c3f",
+    "tests/integration/state-integration.cjs": "596662d927bd9cfb69c7fa97d650ff41643be858eb87a4bbd0f85bdae4193fba",
+    "tests/local-state-process.test.js": "34eb68da4df8314af101aa49969bce5d680bd67d436a7424bc3c864796f6ae8a",
+    "tests/qualification/test_local_integration_configuration.py": "90d17751499a82432818703d72f6b1981ce4069c94c0b6e69e383aeab99c5692",
     "scripts/check-state-observations.py": "b2555d2272c9601ec87c1f47772ea9c2bf47464dcd4be53c0a315fe2a27d7cc4"
   },
   "results": {
@@ -202,12 +202,14 @@
     "java_version": "openjdk version \"21.0.13\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode, sharing)",
     "emulator_jar_sha256": "9b6498b7f62714d67f48f59b3818883cd682dbcd46b9f59511de81c97bb5166c"
   },
-  "log_sha256": "1743f6e477c63d5bc2ef277b310a09b2bb30f20dc780ddad9d18ef9a6606c9c0",
+  "log_sha256": "8751420874e31322a9e6130a0593f016be5127e99c7f3525ef29005e3eef0b8a",
   "cleanup": {
     "owned_processes_reaped": true,
     "both_ports_connection_refused": true,
-    "database_exported": false
+    "database_exported": false,
+    "errors": []
   },
+  "primary_error": null,
   "scope": {
     "cloud_clients": "mocked",
     "readiness_controls": "all eight false",

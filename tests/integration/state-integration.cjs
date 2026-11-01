@@ -83,14 +83,23 @@ test('batchGet comparison preserves both adapters fields without changing produc
   assert.equal(JSON.parse((await pool.get()).data().entries)[key].pythonObserved,true);
 });
 test('concurrent duplicate admissions reserve one slot and submit one mocked build',async()=>{
-  let submissions=0;
+  let submissions=0,entered,release;
+  const started=new Promise(resolve=>{entered=resolve;});
+  const pendingBuild=new Promise(resolve=>{release=resolve;});
   const control=coordinator({firestore:db,cloudBuild:{},compute:{async *aggregatedListAsync(){}},
     project:'demo-gcp-runner-local',zone:'us-central1-a',limit:1,
     workerServiceAccountEmail:'worker@demo-gcp-runner-local.iam.gserviceaccount.com',
     workerServiceAccountUniqueId:'123456',brokerUrl:'https://synthetic.invalid/bootstrap',
-    createBuild:async()=>{submissions++;return{metadata:{build:{id:'synthetic-build'}}};}});
+    createBuild:async()=>{submissions++;entered();await pendingBuild;return{metadata:{build:{id:'synthetic-build'}}};}});
   const a=event(10), b=event(11);
-  await Promise.all([control.provision(a),control.provision(a),control.provision(b),control.provision(b)]);
+  const first=control.provision(a);
+  await started;
+  try {
+    const duringSubmission=await Promise.all([control.provision(a),control.provision(b),control.provision(b)]);
+    assert.deepEqual(duringSubmission.sort(),['capacity','capacity','submitting']);
+    assert.equal(submissions,1);
+  } finally {release();}
+  await first;
   assert.equal(submissions,1);assert.equal(Object.keys(JSON.parse((await pool.get()).data().entries)).length,1);
   const states=(await db.collection('job_provisioning').get()).docs.map(x=>x.data().state).sort();
   assert.deepEqual(states,['pending','waiting']);

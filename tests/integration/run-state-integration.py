@@ -63,22 +63,54 @@ def verify_released_ports():
 
 def stop_owned_group(process):
     if process is None:
-        return
+        return []
+    errors = []
+    signal_denied = False
     # The Node driver and Java server each own a new process group. Killing
     # only Node on its outer deadline would leave a Python descendant running.
     try:
         os.killpg(process.pid, signal.SIGTERM)
     except ProcessLookupError:
         pass
+    except OSError as error:
+        errors.append('TERM:' + type(error).__name__)
+        signal_denied = True
     try:
         process.wait(timeout=8)
     except subprocess.TimeoutExpired:
         pass
+    except OSError as error:
+        errors.append('wait-TERM:' + type(error).__name__)
+    if not signal_denied:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        except OSError as error:
+            errors.append('KILL:' + type(error).__name__)
     try:
-        os.killpg(process.pid, signal.SIGKILL)
-    except ProcessLookupError:
-        pass
-    process.wait(timeout=5)
+        process.wait(timeout=5)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        errors.append('wait-KILL:' + type(error).__name__)
+    return errors
+
+
+def cleanup_owned_processes(node, emulator):
+    errors = []
+    for label, process in [('node', node), ('emulator', emulator)]:
+        try:
+            errors.extend(label + ':' + error for error in stop_owned_group(process))
+        except Exception as error:
+            errors.append(label + ':' + type(error).__name__)
+    ports_released = False
+    try:
+        verify_released_ports()
+        ports_released = True
+    except Exception as error:
+        errors.append('ports:' + type(error).__name__)
+    reaped = all(process is None or process.poll() is not None for process in (node, emulator))
+    return {'owned_processes_reaped': reaped, 'both_ports_connection_refused': ports_released,
+            'database_exported': False, 'errors': errors}
 
 
 def tap_results(output, returncode):
@@ -102,11 +134,12 @@ def evidence_hashes(root):
     return {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in EVIDENCE_FILES}
 
 
-def verify_observation(root, observation):
+def verify_observation(root, observation, expected_files=EVIDENCE_FILES):
     hashes = observation.get('tested_files_sha256')
     if not isinstance(hashes, dict) or not hashes:
         raise ValueError('Observation has no source hashes')
-    mismatches = []
+    mismatches = ['missing:' + name for name in sorted(set(expected_files) - set(hashes))]
+    mismatches.extend('unexpected:' + name for name in sorted(set(hashes) - set(expected_files)))
     for name, expected in hashes.items():
         relative = Path(name)
         if relative.is_absolute() or '..' in relative.parts or not isinstance(expected, str) or not re.fullmatch(r'[a-f0-9]{64}', expected):
@@ -114,9 +147,18 @@ def verify_observation(root, observation):
         path = root / relative
         if not path.resolve().is_relative_to(root.resolve()):
             raise ValueError('Observation source escapes repository')
+        if name not in expected_files:
+            continue
         if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
             mismatches.append(name)
     return mismatches
+
+
+def require_success(primary_error, result, results, cleanup):
+    if primary_error is not None:
+        raise RuntimeError('Local integration operation failed; TAP and cleanup evidence retained') from primary_error
+    if result or not results['complete'] or results['failed'] or cleanup['errors'] or not cleanup['owned_processes_reaped'] or not cleanup['both_ports_connection_refused']:
+        raise RuntimeError('Local integration or cleanup failed; retain the observed results')
 
 
 def main():
@@ -145,6 +187,8 @@ def main():
     process = None
     node = None
     node_timed_out = False
+    primary_error = None
+    result = None
     source_hashes = evidence_hashes(ROOT)
     source_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT,
                                            env=child_env, text=True).strip()
@@ -187,23 +231,23 @@ def main():
                 except subprocess.TimeoutExpired:
                     node_timed_out = True
                     result = None
+        except Exception as error:
+            primary_error = error
         finally:
-            try:
-                stop_owned_group(node)
-            finally:
-                stop_owned_group(process)
+            cleanup = cleanup_owned_processes(node, process)
             if process is not None:
                 print(json.dumps({'phase': 'cleanup', 'owned_pid': process.pid,
                                   'process_reaped': process.poll() is not None,
                                   'node_process_reaped': node is None or node.poll() is not None,
-                                  'database_exported': False}), flush=True)
+                                  **cleanup}), flush=True)
             if log.exists():
                 print('Owned emulator log:\n' + log.read_text(), flush=True)
-            verify_released_ports()
-            print('Owned process reaped; both loopback ports released; database not exported.',flush=True)
-        output = (artifact / 'node.tap').read_text()
+            if not cleanup['errors'] and cleanup['owned_processes_reaped']:
+                print('Owned process reaped; both loopback ports released; database not exported.',flush=True)
+        tap = artifact / 'node.tap'
+        output = tap.read_text() if tap.exists() else ''
         print(output, flush=True)
-        if node_timed_out:
+        if node_timed_out and node is not None:
             result = node.returncode
         results, cases = tap_results(output, result)
         effects = [json.loads(match[1]) for match in re.finditer(r'^\s*# (\{.*\})$', output, re.MULTILINE)]
@@ -222,17 +266,17 @@ def main():
                               'java_version': (version.stderr + version.stdout).strip(),
                               'emulator_jar_sha256': JAR_SHA256},
             'log_sha256': hashlib.sha256(output.encode()).hexdigest(),
-            'cleanup': {'owned_processes_reaped': True, 'both_ports_connection_refused': True, 'database_exported': False},
+            'cleanup': cleanup,
+            'primary_error': type(primary_error).__name__ if primary_error is not None else None,
             'scope': {'cloud_clients': 'mocked', 'readiness_controls': 'all eight false', 'recovery_scheduler_paused': True},
             'qualification': 'Original GET failures remain failures; no live qualification.'}
         if evidence_hashes(ROOT) != source_hashes:
-            raise RuntimeError('Source changed during integration; no revision-bound receipt written')
+            raise RuntimeError('Source changed during integration; no revision-bound receipt written') from primary_error
         if hashlib.sha256(java.read_bytes()).hexdigest() != java_sha256:
-            raise RuntimeError('Java binary changed during integration; no receipt written')
+            raise RuntimeError('Java binary changed during integration; no receipt written') from primary_error
         (artifact / 'observations.json').write_text(json.dumps(observation, indent=2) + '\n')
         print('Generated observations: ' + str(artifact / 'observations.json'), flush=True)
-        if result or not results['complete'] or results['failed']:
-            raise RuntimeError('Local integration tests failed; retain the observed results')
+        require_success(primary_error, result, results, cleanup)
         print('Local emulator process/database disposed; no cloud operations.', flush=True)
 
 

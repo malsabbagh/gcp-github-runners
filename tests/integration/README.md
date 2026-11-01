@@ -54,9 +54,18 @@ Committed observations are dated records of particular source bytes, not a claim
 that future changes passed. The original review-head record is preserved as
 `observations-3a6b78a.json`. Check the current receipt's source binding with
 `npm run check:state-observations`, or supply another receipt path after `--`.
-The check exits nonzero on source drift and never launches tests or rewrites
-history. Matching hashes establish freshness only; the recorded integration
-result can still be failing.
+The check requires the complete expected evidence-file manifest, rejects
+unexpected files and exits nonzero on missing files or source drift. It never
+launches tests or rewrites history. An older manifest remains historical evidence
+and cannot claim a match against today's required source set. Matching hashes
+establish freshness only; the recorded integration result can still be failing.
+
+Cleanup attempts both owned groups and the port checks even when an earlier
+cleanup operation fails. Permission errors are reported without retrying a
+denied signal. Bounded waits report surviving/unknown children as failures.
+Cleanup errors stay in the receipt alongside TAP results; an operational
+exception remains the chained cause of the final failure. A cleanup failure
+cannot produce a passed result or replace the original test output.
 
 ## Initial observation and current limitations
 

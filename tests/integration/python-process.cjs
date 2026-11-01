@@ -38,9 +38,9 @@ function python(operation, values={}, {environment=process.env,spawnProcess=spaw
     try {child=spawnProcess(executable,['-B','tests/integration/python-pool-driver.py'],
       {env,stdio:['pipe','pipe','pipe']});}
     catch {reject(Error('Python adapter could not start'));return;}
-    let out='',err='',spawnFailed=false,inputFailed=false,timedOut=false,terminating=false,escalation;
+    let out='',err='',spawnFailed=false,inputFailed=false,timedOut=false,terminating=false,closed=false,escalation;
     const terminate=()=>{
-      if(terminating)return;
+      if(terminating||closed)return;
       terminating=true;
       try {child.kill('SIGTERM');}catch {}
       escalation=setTimeout(()=>{try {child.kill('SIGKILL');}catch {}},killGraceMs);
@@ -49,10 +49,11 @@ function python(operation, values={}, {environment=process.env,spawnProcess=spaw
     child.stdout.on('data',data=>{out+=data;});
     child.stderr.on('data',data=>{err+=data;});
     child.on('error',()=>{spawnFailed=true;});
-    child.stdin.on('error',()=>{inputFailed=true;terminate();});
+    child.stdin.on('error',()=>{if(!closed){inputFailed=true;terminate();}});
     // close follows exit/error and all output streams; parsing on exit can
     // truncate the final JSON chunk. The owned child is reaped before settling.
     child.once('close',(code,signal)=>{
+      closed=true;
       clearTimeout(timer);clearTimeout(escalation);
       if(spawnFailed||inputFailed||timedOut||code!==0||signal) {
         reject(Error(`Python adapter failed (code=${code}, signal=${signal??'none'}, timedOut=${timedOut}, spawnFailed=${spawnFailed}, inputFailed=${inputFailed}): ${err}`));

@@ -80,9 +80,9 @@ class LocalConfigurationTests(unittest.TestCase):
             root = Path(directory)
             (root / 'fixture.py').write_text('original')
             record = {'tested_files_sha256': {'fixture.py': hashlib.sha256(b'original').hexdigest()}}
-            self.assertEqual(LAUNCHER.verify_observation(root, record), [])
+            self.assertEqual(LAUNCHER.verify_observation(root, record, ('fixture.py',)), [])
             (root / 'fixture.py').write_text('changed')
-            self.assertEqual(LAUNCHER.verify_observation(root, record), ['fixture.py'])
+            self.assertEqual(LAUNCHER.verify_observation(root, record, ('fixture.py',)), ['fixture.py'])
             self.assertEqual(record['tested_files_sha256']['fixture.py'], hashlib.sha256(b'original').hexdigest())
             with self.assertRaises(ValueError):
                 LAUNCHER.verify_observation(root, {'tested_files_sha256': {'../outside': 'a' * 64}})
@@ -100,6 +100,40 @@ class LocalConfigurationTests(unittest.TestCase):
         with patch.object(LAUNCHER.os, 'killpg', side_effect=[None, ProcessLookupError]):
             LAUNCHER.stop_owned_group(process)
         self.assertEqual(process.wait.call_count, 2)
+
+    def test_observation_rejects_incomplete_and_unexpected_manifest_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'one.py').write_text('one')
+            (root / 'two.py').write_text('two')
+            record = {'tested_files_sha256': {'one.py': hashlib.sha256(b'one').hexdigest()}}
+            self.assertEqual(LAUNCHER.verify_observation(root, record, ('one.py', 'two.py')), ['missing:two.py'])
+            record['tested_files_sha256']['two.py'] = hashlib.sha256(b'two').hexdigest()
+            record['tested_files_sha256']['other.py'] = 'a' * 64
+            self.assertEqual(LAUNCHER.verify_observation(root, record, ('one.py', 'two.py')), ['unexpected:other.py'])
+
+    def test_cleanup_reports_denials_and_timeout_without_retrying_denied_signal(self):
+        process = MagicMock(pid=12345)
+        process.wait.side_effect = subprocess.TimeoutExpired('synthetic-node', 5)
+        with patch.object(LAUNCHER.os, 'killpg', side_effect=PermissionError) as kill:
+            errors = LAUNCHER.stop_owned_group(process)
+        self.assertEqual(kill.call_count, 1)
+        self.assertEqual(errors, ['TERM:PermissionError', 'wait-KILL:TimeoutExpired'])
+
+    def test_cleanup_attempts_both_groups_and_ports_and_preserves_primary_failure(self):
+        node = MagicMock(); emulator = MagicMock()
+        with patch.object(LAUNCHER, 'stop_owned_group', side_effect=[OSError, ['wait-KILL:TimeoutExpired']]) as stop, \
+                patch.object(LAUNCHER, 'verify_released_ports', side_effect=RuntimeError):
+            cleanup = LAUNCHER.cleanup_owned_processes(node, emulator)
+        self.assertEqual(stop.call_count, 2)
+        self.assertEqual(cleanup['errors'], ['node:OSError', 'emulator:wait-KILL:TimeoutExpired', 'ports:RuntimeError'])
+        self.assertFalse(cleanup['both_ports_connection_refused'])
+        primary = ValueError('synthetic original failure')
+        with self.assertRaises(RuntimeError) as caught:
+            LAUNCHER.require_success(primary, 1, {'complete': False, 'failed': None}, cleanup)
+        self.assertIs(caught.exception.__cause__, primary)
+        with self.assertRaises(RuntimeError):
+            LAUNCHER.require_success(None, 0, {'complete': True, 'failed': 0}, cleanup)
 
 
 if __name__ == '__main__':

@@ -72,3 +72,15 @@ test('Python stdin failure terminates and closes the child instead of leaking a 
   child.stdin.emit('error',Error('synthetic closed pipe'));
   await assert.rejects(promise,/inputFailed=true/);assert.deepEqual(child.signals,['SIGTERM']);
 });
+test('Python late stdin error after close cannot restart termination or change the settled result',async()=>{
+  const child=childFixture();
+  const promise=python('roundtrip',{}, {environment:environment(),spawnProcess:()=>child});
+  child.stdout.emit('data','true');child.emit('close',0,null);
+  assert.equal(await promise,true);
+  child.stdin.emit('error',Error('synthetic late pipe error'));
+  assert.deepEqual(child.signals,[]);
+});
+test('real ENOENT spawn settles through close without a fabricated child event', {timeout:2000}, async()=>{
+  await assert.rejects(python('roundtrip',{}, {environment:{...environment(),
+    LOCAL_FIRESTORE_PYTHON:'/nonexistent-local-state-fixture/python3'}}),/spawnFailed=true/);
+});
