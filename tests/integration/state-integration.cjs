@@ -1,8 +1,8 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const {spawn} = require('node:child_process');
 const {randomUUID} = require('node:crypto');
+const {python} = require('./python-process.cjs');
 const {Firestore} = require('@google-cloud/firestore');
 const {coordinator, identity} = require('../../cloud-functions/webhook-handler/provisioning-state');
 const {createAllocationBootstrapStore} = require('../../cloud-functions/webhook-handler/allocation-bootstrap-store');
@@ -58,16 +58,6 @@ async function clean() {
     const rows = await db.collection(name).get();
     await Promise.all(rows.docs.map(doc => doc.ref.delete()));
   }
-}
-function python(operation, values={}) {
-  return new Promise((resolve,reject)=>{
-    const child=spawn('python3',['-B','tests/integration/python-pool-driver.py'],{env:process.env,stdio:['pipe','pipe','pipe']});
-    let out='',err='';child.stdout.on('data',data=>out+=data);child.stderr.on('data',data=>err+=data);
-    child.on('error',reject);child.on('exit',code=>{
-      if(code!==0) reject(Error(`Python adapter failed (${code}): ${err}`));
-      else {try{resolve(JSON.parse(out));}catch(error){reject(error);}}
-    });child.stdin.end(JSON.stringify({operation,...values}));
-  });
 }
 test.beforeEach(clean);
 test.after(async()=>{await clean();await db.terminate();});

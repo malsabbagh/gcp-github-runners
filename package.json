@@ -21,6 +21,7 @@
     "test:fixtures": "node --test tests/*.test.js",
     "test:python": "python3 scripts/test-python.py",
     "test:state-integration": "python3 -B tests/integration/run-state-integration.py",
+    "check:state-observations": "python3 -B scripts/check-state-observations.py",
     "package:controller": "node packaging/assemble-controller.js",
     "check:archive": "node packaging/check-controller.js",
     "check:dependencies": "node packaging/dependency-contract.js && node scripts/dependency-inventory.cjs --check"

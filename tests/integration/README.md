@@ -19,7 +19,17 @@ emulator's auxiliary WebSocket listener `127.0.0.1:18081`, refuses
 ambient credential variables and other targets, strips proxy/provider settings
 from child environments, and keeps all deployment flags false and recovery
 paused. Missing tools, a wrong JAR checksum and occupied endpoints fail clearly.
-Only its own child process is terminated/reaped; temporary state is not exported.
+The launcher passes its own absolute Python interpreter path to the Node driver.
+The Python child bridge independently validates the fixed target and disabled
+controls, then reconstructs the environment allowlist; direct invocation cannot
+forward extra credential/proxy/provider variables through that bridge. Empty
+credential variables are discarded, while empty target values are rejected.
+Each Python child has a 45-second deadline (above the 30-second HTTP deadline),
+bounded TERM/KILL cleanup and JSON parsing only after stdio closes. The Node
+driver and emulator own separate process groups, both terminated/reaped on an
+outer timeout. Temporary database state is not exported. The start record prints
+the resolved Java path and binary SHA-256 for provenance; only the emulator JAR
+is enforced by a fixed checksum, and the selected local toolchain remains trusted.
 
 From a clean checkout, install the committed Node dependencies with
 `npm ci --ignore-scripts --no-audit --no-fund`, then run:
@@ -33,6 +43,20 @@ npm run test:state-integration
 The tool paths must already exist. Run only in an environment where these two
 local listeners are permitted. Save the full output and exit code; failure must
 not be converted into a successful qualification result.
+
+Each completed attempt generates TAP output and an `observations.json` under a
+new ignored `dist/state-integration/<run>/` directory. The receipt is derived
+from the actual TAP results, including nonzero exits, skipped/incomplete runs,
+effect-count diagnostics, source hashes, tool identity and cleanup. It does not
+overwrite an earlier observation or convert a failed run into a passed gate.
+
+Committed observations are dated records of particular source bytes, not a claim
+that future changes passed. The original review-head record is preserved as
+`observations-3a6b78a.json`. Check the current receipt's source binding with
+`npm run check:state-observations`, or supply another receipt path after `--`.
+The check exits nonzero on source drift and never launches tests or rewrites
+history. Matching hashes establish freshness only; the recorded integration
+result can still be failing.
 
 ## Initial observation and current limitations
 
@@ -100,3 +124,12 @@ merely to hide the emulator failure. Default source CI remains unchanged and
 does not run this explicit emulator command; none of its gates are disabled or
 waived by these observations. Mocked Compute absence and build outcomes are
 fixtures, not evidence of actual cloud cleanup or capacity safety.
+
+Source CI collects the pure launcher regressions through `scripts/test-python.py`
+and the child-process regressions through the root Node fixtures. They cover
+configuration, source-receipt freshness, owned-group cleanup, child environment
+validation, interpreter selection, stdio completion, spawn/input failures and
+deadline escalation without starting an emulator or provider client. The actual
+emulator command remains a separate diagnostic until the original GET contract
+is qualified; adding its known failures to a required green source gate would
+not resolve that compatibility gap.

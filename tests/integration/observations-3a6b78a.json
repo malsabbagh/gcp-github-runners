@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-11-01",
+  "source_commit": "9b1a8e99b4a6f3a5cdbbba467b576487274210c4",
+  "source_tree": "8128733aa3c7b11f01cfde4857069ab7b1332e09",
+  "source_note": "Test harness changes are identified below by SHA-256; production runtime is unchanged from this commit.",
+  "tested_files_sha256": {
+    "tests/integration/run-state-integration.py": "20fc835bc0f90ae75141f266ed8b6f029db5eaad9d7568861b70ed612914d24f",
+    "tests/integration/python-pool-driver.py": "d4cbabe66724b794b6e6cb2597b48fa3fdb71fb470da018ce56153e2f586b35a",
+    "tests/integration/state-integration.cjs": "f30f7b13550b7bedd212426029e81de53a7d1b53a46179a08be8e5cd57e3b576",
+    "tests/qualification/test_local_integration_configuration.py": "a8f1621bffd40cda2804cbac82f7a2019bdfc93bb422b99f175dda52358b3631",
+    "package.json": "844a72bcd46e2782503804c9a5b4f9941e70f9223156d1d6481ac6385153420e",
+    "package-lock.json": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361"
+  },
+  "versions": {
+    "node": "24.18.0",
+    "npm": "11.16.0",
+    "python": "3.14.6",
+    "java": "21.0.13+9",
+    "firestore_sdk": "7.11.2",
+    "firestore_emulator": "1.22.0"
+  },
+  "emulator_jar_sha256": "9b6498b7f62714d67f48f59b3818883cd682dbcd46b9f59511de81c97bb5166c",
+  "command": [
+    "npm",
+    "run",
+    "test:state-integration"
+  ],
+  "target": {
+    "host": "127.0.0.1",
+    "api_port": 18080,
+    "websocket_port": 18081,
+    "project": "demo-gcp-runner-local",
+    "database": "runner-local-state"
+  },
+  "results": {
+    "total": 18,
+    "passed": 15,
+    "failed": 3,
+    "skipped": 0,
+    "exit_code": 1
+  },
+  "cases": [
+    {
+      "case": "JS SDK and production Python REST codec preserve strings, booleans and receipts",
+      "status": "failed",
+      "failure_class": "emulator-transactional-GET-parser-timeout"
+    },
+    {
+      "case": "batchGet comparison preserves both adapters fields without changing production GET",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "concurrent duplicate admissions reserve one slot and submit one mocked build",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "both adapters commit paired pool/job changes under contention without lost updates",
+      "status": "failed",
+      "failure_class": "emulator-transactional-GET-parser-timeout"
+    },
+    {
+      "case": "batchGet comparison permits real cross-adapter transaction contention",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "SDK retries a controlled ABORTED callback and the mock effect runs once after commit",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "concurrent broker exchanges issue one mocked JIT and retain matching durable receipts",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "cancellation and completion during an asynchronous mint retain ownership and release no material",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "uncertain mocked mint is consumed once and absence recovery retains its unknown capacity",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "eligible job B on runner reserved for A binds atomically and delayed queue events cannot build again",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "SDK waiting recovery paginates, wraps and continues after one failed demand",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "Python batchGet comparison waiting cursor paginates and wraps with actual REST queries",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "original Python GET waiting cursor uses the unchanged production transport contract",
+      "status": "failed",
+      "failure_class": "emulator-transactional-GET-parser-timeout"
+    },
+    {
+      "case": "failed unissued build recovery atomically releases a slot and waiting demand replays once",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "malformed and missing authoritative records are preserved by real SDK transactions",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "ownership changed during mocked absence inspection cannot release the replacement allocation",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "expiry and identity drift during mocked mint cannot release material or reset the consumed claim",
+      "status": "passed",
+      "failure_class": null
+    },
+    {
+      "case": "ambiguous mocked build submission retains its reservation and duplicates never resubmit",
+      "status": "passed",
+      "failure_class": null
+    }
+  ],
+  "observed_effect_counts": [
+    {
+      "action": "cancelled",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1,
+      "claim": "claimed"
+    },
+    {
+      "action": "completed",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1,
+      "claim": "claimed"
+    },
+    {
+      "mintCalls": 1,
+      "computeMockCalls": 1,
+      "chargedEntries": 1,
+      "claim": "claimed"
+    },
+    {
+      "mintCalls": 1,
+      "delayedQueueBuilds": 0,
+      "actualJob": "61",
+      "reservedJob": "60",
+      "chargedEntries": 1
+    },
+    {
+      "pageSizes": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "attempts": 7,
+      "failedItems": 1,
+      "wrapped": true
+    },
+    {
+      "adapter": "test-only batchGet",
+      "pageSizes": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "wrapped": true
+    },
+    {
+      "computeMockGets": 2,
+      "buildMockReads": 1,
+      "replayBuilds": 1,
+      "chargedEntries": 1
+    },
+    {
+      "bootstrapPreservedCases": 4,
+      "malformedEventRetained": true,
+      "malformedCursorRetained": true
+    },
+    {
+      "buildMockReads": 1,
+      "replacementCharged": true
+    },
+    {
+      "mode": "expiry",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1
+    },
+    {
+      "mode": "incarnation",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1
+    },
+    {
+      "mockBuildCalls": 1,
+      "chargedEntries": 1,
+      "state": "submitting"
+    }
+  ],
+  "log_sha256": "3771d84e011bb7b4f2aa827e28b6766c6b2f4ed9c4fd3b7a368ea5e9c5e33bda",
+  "cleanup": {
+    "owned_process_reaped": true,
+    "both_ports_connection_refused": true,
+    "database_exported": false,
+    "temporary_directory_removed": true
+  },
+  "scope": {
+    "cloud_clients": "mocked",
+    "cloud_credentials_used": false,
+    "cloud_resources_created": false,
+    "readiness_controls": "all eight false",
+    "recovery_scheduler_paused": true
+  },
+  "qualification": "Incomplete. Original GET is not qualified; comparisons do not waive failures. Emulator observations do not establish production IAM/indexes/contention/lifecycle.",
+  "history": [
+    {
+      "attempt": "first approved local run",
+      "total": 5,
+      "passed": 3,
+      "failed": 2
+    },
+    {
+      "attempt": "batchGet comparison",
+      "total": 7,
+      "passed": 5,
+      "failed": 2
+    },
+    {
+      "attempt": "cleanup verification",
+      "total": 7,
+      "passed": 5,
+      "failed": 2
+    }
+  ]
+}
