@@ -149,6 +149,21 @@ class LocalConfigurationTests(unittest.TestCase):
                 with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'complete checkout'):
                     LAUNCHER.evidence_hashes(root)
 
+    def test_archive_evidence_inventory_rejects_symlinked_file_and_parent_inside_checkout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            manifest = root / 'deployment/archive-manifest.json'
+            manifest.parent.mkdir()
+            real = root / 'real'
+            real.mkdir()
+            (real / 'value.py').write_text('fixture')
+            (root / 'linked-file.py').symlink_to(real / 'value.py')
+            (root / 'linked-parent').symlink_to(real, target_is_directory=True)
+            for name in ['linked-file.py', 'linked-parent/value.py']:
+                manifest.write_text(json.dumps({'files': [{'path': name}]}))
+                with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'complete checkout'):
+                    LAUNCHER.evidence_files(root)
+
     def test_cleanup_reports_denials_and_timeout_without_retrying_denied_signal(self):
         process = MagicMock(pid=12345)
         process.wait.side_effect = subprocess.TimeoutExpired('synthetic-node', 5)

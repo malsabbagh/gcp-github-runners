@@ -47,6 +47,18 @@ Keep `scheduler_paused=true` and all eight readiness flags false during source
 preparation. Qualification changes to those controls are separate reviewed
 operations, not consequences of a passing mock or emulator test.
 
+One job per VM is the architecture; one VM total is this trial's selected ceiling.
+Terraform accepts integer `max_runner_vms` values from 1 to 9999 for later reviewed
+capacity stages. It does not reject every value above one. The controller and
+direct provisioner use the configured global Firestore pool ceiling, counting
+uncertain reservations as charged; the scheduler has no separate one-job cap.
+Keep the trial value at one. See [the variable validation](../terraform/profile-variables.tf),
+[controller reservation](../cloud-functions/webhook-handler/provisioning-state.js)
+and [direct provisioner](../cloud-functions/webhook-handler/provision-runner.py).
+Editing a local tfvars or exported environment file does not change the deployed
+controller. Runtime limit/readiness changes require a separately authorized,
+reviewed Terraform apply through the canonical deployment route.
+
 ## GitHub App and webhook are separate setup
 
 The repository runner adapter authenticates as a GitHub App installation using
