@@ -224,7 +224,7 @@
       "mode": "100644",
       "source_blob": "2b58ee888d2d68eb229e96507338f562af190551",
       "source_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
-      "template_sha256": "eef8cd2ac7ebbb8a4291595b33e40c27435b7632bda2fbad966833929cd7c816",
+      "template_sha256": "c068ab48b690ecde3a887e89df404140aec1785b27107af1812e990b7135b14d",
       "configuration_inputs": [],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -535,9 +535,41 @@
           },
           "direct_dependencies_changed": false,
           "direct_dependency_ranges": {}
+        },
+        {
+          "pr": 69,
+          "pr_head": "fab1ba22ccf40f09fccb5227dd9e97b305c5e68b",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/69",
+          "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+          "before_sha256": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7",
+          "after_sha256": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92",
+          "changed_packages": {
+            "node_modules/follow-redirects": {
+              "from": "1.16.1",
+              "to": "1.16.2"
+            }
+          },
+          "direct_dependencies_changed": false,
+          "direct_dependency_ranges": {}
         }
       ],
-      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged."
+      "publication_adaptation": "Owned project MIT metadata; dependency versions and third-party license fields unchanged.",
+      "dependency_reconciliations": [
+        {
+          "base_main": "20dfd2c3c9b2d5ce5e7a2caebfc41d7427d98bd4",
+          "scope": "Reconcile the original PR69 follow-redirects lock change onto merged PR68 qs maintenance; original PR-head records retain their own lock hashes.",
+          "inputs_sha256": {
+            "merged_pr68_lock": "eef8cd2ac7ebbb8a4291595b33e40c27435b7632bda2fbad966833929cd7c816",
+            "original_pr69_lock": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92"
+          },
+          "result_sha256": "c068ab48b690ecde3a887e89df404140aec1785b27107af1812e990b7135b14d",
+          "versions": {
+            "qs": "6.16.2",
+            "follow-redirects": "1.16.2"
+          },
+          "direct_dependencies_changed": false
+        }
+      ]
     },
     {
       "path": "cloud-functions/hybrid-cleanup-handler/package.json",

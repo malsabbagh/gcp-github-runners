@@ -1,5 +1,5 @@
 {
-  "status": "preparation-only; source contracts observed for selected revision; operations unqualified",
+  "status": "preparation-only; combined dependency source contracts pending; execution evidence must identify its tested revision and live checks remain unverified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -26,16 +26,17 @@
   },
   "schema_version": 2,
   "selected_source": {
-    "commit": "78d734c2e0e39b30b2d5076a676cc4af4bc81540",
-    "tree": "ab418e7acb662f0b786e13544c6366a18b6bc3ad",
+    "commit": "2ecea93608915461a543898b9c7e4bc1bfb3c2f7",
+    "tree": "527191917d659614c3e3ee6f1eaa9d6cf6ebd868",
     "sha256": {
       "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
-      "deployment/dependency-inventory.json": "42fecf85c1b60b02f6dc2c1ce67b0a17bbd0469f6d083cbdeaf6c2e04b5aeda0",
+      "deployment/dependency-inventory.json": "2ecc97c497f0081734f468de39829faa6c7b3c2791c7ffd1e838ca4fdefdbe21",
       "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
-    }
+    },
+    "selection_context": "Combined PR68 and PR69 source maintenance snapshot; new hosted source qualification pending."
   },
   "flag_requirements": {
     "WEBHOOK_ENABLED": [
@@ -155,18 +156,9 @@
   },
   "prerequisites": {
     "source-contracts": {
-      "status": "satisfied",
-      "evidence": [
-        {
-          "scope": "source",
-          "source_revision": {
-            "commit": "78d734c2e0e39b30b2d5076a676cc4af4bc81540",
-            "tree": "ab418e7acb662f0b786e13544c6366a18b6bc3ad"
-          },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638"
-        }
-      ],
-      "consequence": "Hosted source qualification passed on this exact selected revision. This is source/package/mock assurance only; no live property or execution authority is established."
+      "status": "pending",
+      "evidence": [],
+      "consequence": "The combined qs/follow-redirects source snapshot requires its own successful hosted source qualification. Prior merge-preview observations retain their exact commit/tree and do not qualify the new inventory."
     },
     "dependency-disposition": {
       "status": "pending",
@@ -431,6 +423,38 @@
             "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b"
           },
           "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236"
+        }
+      ]
+    },
+    {
+      "commit": "cd2ce84d7ed07ae09e4d063faa2d676220f1d88c",
+      "tree": "e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48",
+      "sha256": {
+        "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+        "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
+        "deployment/dependency-inventory.json": "52accbcc6c0bea436abe11de6e2fef868bb0948b280c0195ceab12a42c6058dd",
+        "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
+        "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
+        "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
+      },
+      "selection_context": "GitHub pull-request merge preview actually checked out by the cited qualification job; not merged main or an assertion that the current PR head itself was that checkout.",
+      "included_in_selected_source": false,
+      "scope": "PR69-only lock source before merging PR68; exact merge-preview checkout evidence retained, not qualification for the combined inventory.",
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "cd2ce84d7ed07ae09e4d063faa2d676220f1d88c",
+            "tree": "e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375521858",
+          "checkout_observation": {
+            "run_head_commit": "e92c9c3c9f2f6c6b412516e1e655b47064e6ed94",
+            "checked_out_commit": "cd2ce84d7ed07ae09e4d063faa2d676220f1d88c",
+            "checked_out_tree": "e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48",
+            "kind": "pull-request merge preview",
+            "verification": "Qualification job checkout log git log -1 --format=%H, immutable Git commit/tree and all six bound file digests checked on 2026-11-02. The offline validator does not authenticate this observation."
+          }
         }
       ]
     }
