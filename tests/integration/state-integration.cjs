@@ -61,11 +61,11 @@ async function clean() {
 }
 test.beforeEach(clean);
 test.after(async()=>{await clean();await db.terminate();});
-test('JS SDK and production Python REST codec preserve strings, booleans and receipts',async()=>{
+test('legacy GET diagnostic preserves the original SDK/Python field and receipt assertions',async()=>{
   const key=identity(event(1)).key, receipt={claimId:randomUUID(),observed:true};
   await pool.set({entries:JSON.stringify({[key]:{token:randomUUID(),receipt,count:'0'}})});
   await job(key).set({done:false,state:'waiting',note:'مرحبا 🌱',unknownEvidence:'preserve-me',count:'0',bootstrap:JSON.stringify(receipt)});
-  await python('roundtrip',{key});
+  await python('roundtrip-legacy-get',{key});
   const seen=(await job(key).get()).data(), entries=JSON.parse((await pool.get()).data().entries);
   assert.equal(seen.done,false);assert.equal(seen.unknownEvidence,'preserve-me');
   assert.deepEqual(JSON.parse(seen.bootstrap),receipt);
@@ -105,7 +105,7 @@ test('concurrent duplicate admissions reserve one slot and submit one mocked bui
   assert.deepEqual(states,['pending','waiting']);
   const replay=await control.provision(a);assert.ok(['pending','capacity'].includes(replay));assert.equal(submissions,1);
 });
-test('both adapters commit paired pool/job changes under contention without lost updates',async()=>{
+test('legacy GET diagnostic preserves the original paired pool/job contention assertions',async()=>{
   const key=identity(event(20)).key;
   await pool.set({entries:JSON.stringify({[key]:{count:'0'}})});
   await job(key).set({done:false,state:'waiting',count:'0'});
@@ -114,7 +114,7 @@ test('both adapters commit paired pool/job changes under contention without lost
     const count=String(Number(j.data().count)+1);entries[key].count=count;
     tx.update(pool,{entries:JSON.stringify(entries)});tx.update(job(key),{count});
   });
-  for(let round=0;round<3;round++)await Promise.all([js(),python('increment',{key})]);
+  for(let round=0;round<3;round++)await Promise.all([js(),python('increment-legacy-get',{key})]);
   assert.equal((await job(key).get()).data().count,'6');
   assert.equal(JSON.parse((await pool.get()).data().entries)[key].count,'6');
 });
@@ -260,10 +260,46 @@ test('Python batchGet comparison waiting cursor paginates and wraps with actual 
   assert.equal(cursor,job(identity(JSON.parse(expected[1])).key).formattedName);
   t.diagnostic(JSON.stringify({adapter:'test-only batchGet',pageSizes:pages.map(p=>p.length),wrapped:true}));
 });
-test('original Python GET waiting cursor uses the unchanged production transport contract',async()=>{
+test('legacy GET diagnostic preserves the original waiting cursor assertion',async()=>{
   const e=event(90);await job(identity(e).key).set({done:false,state:'waiting',event:JSON.stringify(e)});
-  const rows=await python('waiting',{page_size:2});
+  const rows=await python('waiting-legacy-get',{page_size:2});
   assert.deepEqual(rows.map(row=>row.event),[JSON.stringify(e)]);
+});
+test('production Python batchGet initializes genuinely absent pool and job documents',async()=>{
+  const key=identity(event(101)).key;
+  assert.deepEqual(await python('initialize',{key}),{done:false,count:'0'});
+  assert.deepEqual((await job(key).get()).data(),{done:false,count:'0'});
+  assert.deepEqual(JSON.parse((await pool.get()).data().entries),{[key]:{count:'0'}});
+});
+test('production Python batchGet and SDK preserve field codecs and receipt strings',async()=>{
+  const key=identity(event(102)).key,receipt={claimId:randomUUID(),observed:true};
+  await pool.set({entries:JSON.stringify({[key]:{token:randomUUID(),receipt,count:'0'}})});
+  await job(key).set({done:false,state:'waiting',note:'مرحبا 🌱',unknownEvidence:'preserve-me',count:'0',bootstrap:JSON.stringify(receipt)});
+  await python('roundtrip',{key});
+  const seen=(await job(key).get()).data(),entries=JSON.parse((await pool.get()).data().entries);
+  assert.equal(seen.done,false);assert.equal(seen.unknownEvidence,'preserve-me');
+  assert.deepEqual(JSON.parse(seen.bootstrap),receipt);
+  assert.deepEqual(JSON.parse(seen.pythonReceipt),{observed:true,unicode:'مرحبا 🌱'});
+  assert.equal(entries[key].pythonObserved,true);assert.deepEqual(entries[key].receipt,receipt);
+});
+test('production Python batchGet and SDK commit paired documents under real contention',async()=>{
+  const key=identity(event(103)).key;await pool.set({entries:JSON.stringify({[key]:{count:'0'}})});
+  await job(key).set({done:false,state:'waiting',count:'0'});
+  const js=async()=>db.runTransaction(async tx=>{
+    const [p,j]=await tx.getAll(pool,job(key)),entries=JSON.parse(p.data().entries);
+    const count=String(Number(j.data().count)+1);entries[key].count=count;
+    tx.update(pool,{entries:JSON.stringify(entries)});tx.update(job(key),{count});
+  });
+  for(let round=0;round<3;round++)await Promise.all([js(),python('increment',{key})]);
+  assert.equal((await job(key).get()).data().count,'6');
+  assert.equal(JSON.parse((await pool.get()).data().entries)[key].count,'6');
+});
+test('production Python batchGet waiting cursor paginates and wraps with real REST queries',async()=>{
+  const events=[104,105,106,107,108].map(event);
+  for(const e of events)await job(identity(e).key).set({done:false,state:'waiting',event:JSON.stringify(e)});
+  const sorted=events.map(e=>({key:identity(e).key,event:JSON.stringify(e)})).sort((a,b)=>a.key.localeCompare(b.key));
+  const pages=[];for(let i=0;i<4;i++)pages.push((await python('waiting',{page_size:2})).map(row=>row.event));
+  assert.deepEqual(pages,[sorted.slice(0,2),sorted.slice(2,4),sorted.slice(4),sorted.slice(0,2)].map(rows=>rows.map(row=>row.event)));
 });
 test('failed unissued build recovery atomically releases a slot and waiting demand replays once',async t=>{
   const e={...event(100),action:'queued',verifiedWebhook:true},key=identity(e).key;

@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-11-02T02:45:40.743394+00:00",
+  "source_commit": "c59dbb09aebb6422c25413224c5e11730ab3576f",
+  "source_note": "Generated from this run; exact harness and inventoried production bytes are bound by tested_files_sha256, including uncommitted changes. File inclusion does not imply execution coverage.",
+  "tested_files_sha256": {
+    "LICENSE": "eebd1b34e94e652cda6426b07244e2f851896f40e8a3831e5a678be256ac746b",
+    "NOTICE.md": "9fa2c7fa04d9c8e4caa7a450d3ce3d5f571e651dbeab4c9a2f25de0c3ac6781b",
+    "cloud-functions/cleanup-function/allocation-lifecycle.js": "27f9d00514b79ab238d2ef683697743831f2053378219bb9979aa1bcb910c2d8",
+    "cloud-functions/cleanup-function/lifecycle-dispatcher.js": "eb997ddef0a8ca927b7467a5ccac52fd5a4277ac2b2d5f4db1e6e8fd341a4419",
+    "cloud-functions/cleanup-function/retirement-controller.js": "d87716d6835ab357642442471c6f4bfaee1686eb16b6ecc8d1015f43244ba0c1",
+    "cloud-functions/cleanup-function/runner-cleanup.sh": "85969d955b34815ee073fe41d38555f3f9d0bd41a737e8acc6ba489b7f745c67",
+    "cloud-functions/webhook-handler/actual-job-association.js": "6dd80e4de707cde7b6f939307ca972295b6e3dda37e6bf4a832fb7f5d559083c",
+    "cloud-functions/webhook-handler/allocation-bootstrap-broker.js": "87eaa20e2dfebd8fbbd78a9222eb6c29cde03faa58720a0f0dcc33d45574e6ed",
+    "cloud-functions/webhook-handler/allocation-bootstrap-store.js": "c288b8826f41328be11e7ba866840ca95dcbd9fd0f6e752437c6515c0c286cfb",
+    "cloud-functions/webhook-handler/allocation-recovery.js": "5b53b533b1bd78b06b985460522e4cb5d955931a9a960f4b0d92971841668fba",
+    "cloud-functions/webhook-handler/bootstrap-http.js": "39202c6baf004b8bcfbfb059b26211d7bd59b881fcf408a0a806cce454527742",
+    "cloud-functions/webhook-handler/bootstrap-runtime.js": "ecc3b740975518b5e394fba400f67787b9853098989e832730569d582a1ce09c",
+    "cloud-functions/webhook-handler/controller-profile.js": "b0f950cb7c8e6837580f192e013b315d4d7a280971c159e5e9d30a799dc2cf96",
+    "cloud-functions/webhook-handler/controller-runtime.js": "c75c4e647d3aa0561452fa4f1d2777eee8ddd6fd72f98d950d98c821fb70cf27",
+    "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d",
+    "cloud-functions/webhook-handler/github-app-runner-adapter.js": "daa9f7a383857c971654758bfb1f115b4385955d652501551cfdb919eb4c8cec",
+    "cloud-functions/webhook-handler/infrastructure-config.js": "07deb79aeda46551d7804a5f47b18a2ce21851bdb66d4369b1d4f11db04c6fef",
+    "cloud-functions/webhook-handler/invocation-auth.js": "ffdc728ffa7024b545ed7d05c6ebe407fe932af3c60a9adefd83aa62d24160e8",
+    "cloud-functions/webhook-handler/job-identity.js": "2afdeb3cdfdf8f89f0e59840abfbfe523ffd09671f91da09accdd318199502ae",
+    "cloud-functions/webhook-handler/managed-instance-verifier.js": "84badc1754fbf75b8ba3e8352be7e51e0e5e3417305bcf46665d16c3e0e25b17",
+    "cloud-functions/webhook-handler/management-http.js": "d72474c5829cb465e3e8be3da8bff52e3692ebfceec9f6c54235f3f06ae232da",
+    "cloud-functions/webhook-handler/provision-runner.py": "0d6d7c50e12c96500657b7b5b742c878cc4924c4372c429e884a60b048b1cb01",
+    "cloud-functions/webhook-handler/provisioning-state.js": "76f07d616622e549d0d526244795c33b2eaf65a94fb394938f4541be7ca412ca",
+    "cloud-functions/webhook-handler/runner-labels.js": "3e55ec65c904bd2e11568fb6df5d22896a1f4411e3477a47d26e3f8a376e7e4a",
+    "cloud-functions/webhook-handler/scheduled-recovery.js": "f3b7a55d9a9fe489af9635f418a322d37c6e7c515513d29fb8137c9a62fcd9d1",
+    "cloud-functions/webhook-handler/waiting-recovery.js": "ae0af847413efde65c591b689fbf74c3fa9cda7871f4a8ea111d10377772c4d1",
+    "cloud-functions/webhook-handler/webhook-runtime.js": "4f9bf4ba1646551b12923e188ea9579122b9614cf6c024e73db75250481e4de5",
+    "cloud-functions/webhook-handler/worker-control.js": "9cd0ee16fddaed1faf564f379f890572682b39c86f88a11dad6fb4078c2bb961",
+    "controller-entry.js": "15fbc790d16a1eb169f3847078a631d691001dddfc4fae828c4fda00a6cdf48e",
+    "deployment/archive-manifest.json": "2e9b4ba558d6d663aa1d4c82e91937b30e01e0c342115bb36b80f531b3f041aa",
+    "package-lock.json": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
+    "package.json": "999744887ebde165fef408013351ea9156e7ab93e4f40c30c57dd559e81b26c1",
+    "scripts/check-state-observations.py": "be0702a29763d7b13be6df4f7d993a6d57363037d6fbf2cc45187f35bcb688a3",
+    "tests/integration/python-pool-driver.py": "1f1883f608bf4c314056517a040184b903ce3cfde46a6bc863926081099c052d",
+    "tests/integration/python-process.cjs": "0b86a5fb06fa7d1b5ae306a06276763e9f268467a405081403f7856783006d77",
+    "tests/integration/run-state-integration.py": "c75af7e386b6d0909fece341748aa3ee36674bda527aa88e603ab4d78d1ae78f",
+    "tests/integration/state-integration.cjs": "8625c3a3aeb52ab2b9909bf98a00dfd39a0d2dc68338fa56a66c70bf8b01d5d9",
+    "tests/local-state-process.test.js": "34eb68da4df8314af101aa49969bce5d680bd67d436a7424bc3c864796f6ae8a",
+    "tests/qualification/test_local_integration_configuration.py": "0eb9f8f85eb3bdf99ddf76107c3d56143aa5ce7afacbf079f9ac817dc6a4c0f0"
+  },
+  "results": {
+    "total": 22,
+    "passed": 18,
+    "failed": 4,
+    "skipped": 0,
+    "cancelled": 0,
+    "exit_code": 1,
+    "complete": true
+  },
+  "cases": [
+    {
+      "case": "legacy GET diagnostic preserves the original SDK/Python field and receipt assertions",
+      "status": "failed"
+    },
+    {
+      "case": "batchGet comparison preserves both adapters fields without changing production GET",
+      "status": "passed"
+    },
+    {
+      "case": "concurrent duplicate admissions reserve one slot and submit one mocked build",
+      "status": "passed"
+    },
+    {
+      "case": "legacy GET diagnostic preserves the original paired pool/job contention assertions",
+      "status": "failed"
+    },
+    {
+      "case": "batchGet comparison permits real cross-adapter transaction contention",
+      "status": "passed"
+    },
+    {
+      "case": "SDK retries a controlled ABORTED callback and the mock effect runs once after commit",
+      "status": "passed"
+    },
+    {
+      "case": "concurrent broker exchanges issue one mocked JIT and retain matching durable receipts",
+      "status": "passed"
+    },
+    {
+      "case": "cancellation and completion during an asynchronous mint retain ownership and release no material",
+      "status": "passed"
+    },
+    {
+      "case": "uncertain mocked mint is consumed once and absence recovery retains its unknown capacity",
+      "status": "passed"
+    },
+    {
+      "case": "eligible job B on runner reserved for A binds atomically and delayed queue events cannot build again",
+      "status": "passed"
+    },
+    {
+      "case": "SDK waiting recovery paginates, wraps and continues after one failed demand",
+      "status": "passed"
+    },
+    {
+      "case": "Python batchGet comparison waiting cursor paginates and wraps with actual REST queries",
+      "status": "passed"
+    },
+    {
+      "case": "legacy GET diagnostic preserves the original waiting cursor assertion",
+      "status": "failed"
+    },
+    {
+      "case": "production Python batchGet initializes genuinely absent pool and job documents",
+      "status": "failed"
+    },
+    {
+      "case": "production Python batchGet and SDK preserve field codecs and receipt strings",
+      "status": "passed"
+    },
+    {
+      "case": "production Python batchGet and SDK commit paired documents under real contention",
+      "status": "passed"
+    },
+    {
+      "case": "production Python batchGet waiting cursor paginates and wraps with real REST queries",
+      "status": "passed"
+    },
+    {
+      "case": "failed unissued build recovery atomically releases a slot and waiting demand replays once",
+      "status": "passed"
+    },
+    {
+      "case": "malformed and missing authoritative records are preserved by real SDK transactions",
+      "status": "passed"
+    },
+    {
+      "case": "ownership changed during mocked absence inspection cannot release the replacement allocation",
+      "status": "passed"
+    },
+    {
+      "case": "expiry and identity drift during mocked mint cannot release material or reset the consumed claim",
+      "status": "passed"
+    },
+    {
+      "case": "ambiguous mocked build submission retains its reservation and duplicates never resubmit",
+      "status": "passed"
+    }
+  ],
+  "observed_effect_counts": [
+    {
+      "action": "cancelled",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1,
+      "claim": "claimed"
+    },
+    {
+      "action": "completed",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1,
+      "claim": "claimed"
+    },
+    {
+      "mintCalls": 1,
+      "computeMockCalls": 1,
+      "chargedEntries": 1,
+      "claim": "claimed"
+    },
+    {
+      "mintCalls": 1,
+      "delayedQueueBuilds": 0,
+      "actualJob": "61",
+      "reservedJob": "60",
+      "chargedEntries": 1
+    },
+    {
+      "pageSizes": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "attempts": 7,
+      "failedItems": 1,
+      "wrapped": true
+    },
+    {
+      "adapter": "test-only batchGet",
+      "pageSizes": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "wrapped": true
+    },
+    {
+      "computeMockGets": 2,
+      "buildMockReads": 1,
+      "replayBuilds": 1,
+      "chargedEntries": 1
+    },
+    {
+      "bootstrapPreservedCases": 4,
+      "malformedEventRetained": true,
+      "malformedCursorRetained": true
+    },
+    {
+      "buildMockReads": 1,
+      "replacementCharged": true
+    },
+    {
+      "mode": "expiry",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1
+    },
+    {
+      "mode": "incarnation",
+      "mintCalls": 1,
+      "release": false,
+      "chargedEntries": 1
+    },
+    {
+      "mockBuildCalls": 1,
+      "chargedEntries": 1,
+      "state": "submitting"
+    }
+  ],
+  "driver_timed_out": false,
+  "command": [
+    "npm",
+    "run",
+    "test:state-integration"
+  ],
+  "target": {
+    "host": "127.0.0.1",
+    "api_port": 18080,
+    "websocket_port": 18081,
+    "project": "demo-gcp-runner-local",
+    "database": "runner-local-state"
+  },
+  "versions": {
+    "python": "3.14.6",
+    "node": "v24.18.0",
+    "firestore_emulator": "1.22.0"
+  },
+  "tool_identity": {
+    "java_binary_sha256": "0f642542ea1f0be6957557c0db96653ec128113bb5a4aaa7c2534d1d72ddb51f",
+    "java_version": "openjdk version \"21.0.13\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode, sharing)",
+    "emulator_jar_sha256": "9b6498b7f62714d67f48f59b3818883cd682dbcd46b9f59511de81c97bb5166c"
+  },
+  "log_sha256": "5ad362473f42f4c39a35c6de6b340c4b86e373cba2b654c4b2d0c2a3baf661f9",
+  "cleanup": {
+    "owned_processes_reaped": true,
+    "both_ports_connection_refused": true,
+    "database_exported": false,
+    "errors": []
+  },
+  "primary_error": null,
+  "scope": {
+    "cloud_clients": "mocked",
+    "readiness_controls": "all eight false",
+    "recovery_scheduler_paused": true
+  },
+  "qualification": "Retained legacy GET failures remain failures; current production batchGet results are separate; no live qualification."
+}

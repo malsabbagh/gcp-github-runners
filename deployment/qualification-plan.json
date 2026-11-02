@@ -184,7 +184,7 @@
     "firestore-transactions": {
       "status": "pending",
       "evidence": [],
-      "consequence": "The approved local diagnostic completed 18 cases: 15 passed and three production transactional GET cases timed out in pinned emulator 1.22.0. Test-only batchGet passes do not qualify production GET or live Firestore. Retain original failures and obtain separately reviewed production-adapter evidence."
+      "consequence": "Current production Python transactional batchGet passes four added real-emulator adapter cases. The combined 22-case diagnostic records 19 passes and three preserved legacy GET timeouts in emulator1.22.0, exit1. No failure is waived. Production Firestore IAM/index/quota/contention and actual external effects remain unqualified; no live-readiness evidence is asserted."
     },
     "operation-approval": {
       "status": "pending",

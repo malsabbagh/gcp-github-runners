@@ -306,7 +306,7 @@ def main():
             'cleanup': cleanup,
             'primary_error': type(primary_error).__name__ if primary_error is not None else None,
             'scope': {'cloud_clients': 'mocked', 'readiness_controls': 'all eight false', 'recovery_scheduler_paused': True},
-            'qualification': 'Original GET failures remain failures; no live qualification.'}
+            'qualification': 'Retained legacy GET failures remain failures; current production batchGet results are separate; no live qualification.'}
         if evidence_hashes(ROOT) != source_hashes:
             raise RuntimeError('Source changed during integration; no revision-bound receipt written') from primary_error
         if hashlib.sha256(java.read_bytes()).hexdigest() != java_sha256:

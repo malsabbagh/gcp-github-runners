@@ -78,7 +78,39 @@ Cleanup errors stay in the receipt alongside TAP results; an operational
 exception remains the chained cause of the final failure. A cleanup failure
 cannot produce a passed result or replace the original test output.
 
-## Initial observation and current limitations
+## Reviewed transaction-read remedy
+
+The Python production adapter now deliberately uses documented transactional
+single-document POST `batchGet`, with an exact full-name found/missing response
+check. HTTP errors, malformed rows and mismatched resources fail closed. This is
+not a timeout fallback and does not change the field codec, state schema,
+transaction ownership or retry policy. The locked Node SDK uses the same read
+primitive. Offline tests cover missing/found/error responses and fresh-transaction
+retries after 409/429 reads.
+
+The original three GET cases remain active under explicit `legacy-get` operation
+names. Their original field, contention and cursor assertions are retained; the
+test-only class preserves the former production GET implementation. Four added
+cases exercise the actual current Python adapter without a read-method override:
+genuinely absent documents, cross-adapter fields/receipts, paired-document
+contention and query cursor pagination. The earlier batchGet comparisons retain
+their test-only labels and are not substituted for these production-path cases.
+The combined diagnostic still reports legacy GET failures and exits nonzero;
+passing current-adapter cases do not imply the emulator's raw GET bug is fixed.
+
+The corrected November 2 run completed **22 tests: 19 passed, three retained
+legacy GET cases failed, none skipped, exit 1**. All four added current-production
+cases passed. Cleanup confirmed both process groups reaped, both loopback ports
+closed and no database export. The first remedy attempt is retained in
+`observations-remedy-harness-failure.json`: it reported 18 passes/four failures
+because the bridge allowlist rejected the added operation names before REST
+execution. That attempt is a harness failure, not GET emulator evidence. The
+corrected allowlist has an explicit regression for every admitted operation.
+
+## Historical GET observations and emulator limitations
+
+The sections below preserve the November 1 baseline before the reviewed remedy;
+their references to the original production GET describe that tested revision.
 
 The first approved local run on November 1, 2026 completed five tests: three
 passed and two failed, with no skips. A later approved comparison pinned both

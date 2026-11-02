@@ -93,7 +93,7 @@
       "status": "pending",
       "action": "Inspect the approved local diagnostic and retained GET failures; obtain complete revision-bound production-adapter transaction evidence through a separately authorized test. This report-only packet does not execute it.",
       "expected_observations": [
-        "SDK and test-only batchGet transaction observations are recorded separately from three unresolved production Python transactional GET emulator failures.",
+        "Current production transactional batchGet adapter results are separate from retained legacy GET emulator diagnostics: 19 passes/three legacy failures, exit1, no skips. The earlier bridge allowlist failure is preserved as harness failure.",
         "Production adapter atomicity, contention and retry acceptance require complete matching evidence; mocked external effects do not prove cloud behavior."
       ],
       "evidence_required": [

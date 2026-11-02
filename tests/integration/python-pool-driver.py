@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 import sys
+import urllib.error
+import urllib.parse
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -38,6 +40,19 @@ def main():
                 return json.load(response)
     pool = LocalPool(PROJECT, '', DATABASE)
     payload = json.load(sys.stdin)
+    if payload['operation'].endswith('-legacy-get'):
+        # Preserve the original documented GET path as an explicit upstream
+        # emulator diagnostic; do not turn its known failures into passes.
+        class LegacyGetPool(LocalPool):
+            def get_document(self, suffix, transaction):
+                try:
+                    return self.request(suffix + '?transaction=' + urllib.parse.quote(transaction, safe=''))
+                except urllib.error.HTTPError as error:
+                    if error.code != 404:
+                        raise
+                    return None
+        pool = LegacyGetPool(PROJECT, '', DATABASE)
+        payload['operation'] = payload['operation'].removesuffix('-legacy-get')
     if payload['operation'].endswith('-batch'):
         class BatchComparisonPool(LocalPool):
             def get_document(self, suffix, transaction):
@@ -53,7 +68,15 @@ def main():
                 raise ValueError('Unbound batchGet response')
         pool = BatchComparisonPool(PROJECT, '', DATABASE)
         payload['operation'] = payload['operation'].removesuffix('-batch')
-    if payload['operation'] == 'roundtrip':
+    if payload['operation'] == 'initialize':
+        def initialize(entries, job):
+            if entries or job:
+                raise ValueError('Expected two genuinely missing documents')
+            entries[payload['key']] = {'count': '0'}
+            job.update(done=False, count='0')
+            return job
+        result = pool.mutate(initialize, payload['key'])
+    elif payload['operation'] == 'roundtrip':
         def update(entries, job):
             if job['done'] is not False or job['note'] != 'مرحبا 🌱':
                 raise ValueError('Cross-adapter field drift')

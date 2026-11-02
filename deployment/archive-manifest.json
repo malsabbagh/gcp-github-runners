@@ -84,7 +84,7 @@
     },
     {
       "path": "cloud-functions/webhook-handler/provision-runner.py",
-      "sha256": "ddc700b8adccc6f641f3df7b63f43088dea8804f5343cb5decd922017e2e8da9"
+      "sha256": "0d6d7c50e12c96500657b7b5b742c878cc4924c4372c429e884a60b048b1cb01"
     },
     {
       "path": "cloud-functions/webhook-handler/provisioning-state.js",
