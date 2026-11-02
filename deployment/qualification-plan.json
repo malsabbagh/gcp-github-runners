@@ -1,5 +1,5 @@
 {
-  "status": "preparation-only; operations unqualified; execution evidence must identify its tested revision, and live checks remain unverified",
+  "status": "preparation-only; source contracts observed for selected revision; operations unqualified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -26,12 +26,12 @@
   },
   "schema_version": 2,
   "selected_source": {
-    "commit": "72592e241eb42579faf6d6024ddaca4ce234d323",
-    "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b",
+    "commit": "78d734c2e0e39b30b2d5076a676cc4af4bc81540",
+    "tree": "ab418e7acb662f0b786e13544c6366a18b6bc3ad",
     "sha256": {
       "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
-      "deployment/dependency-inventory.json": "186570cbc13d46a65109c9c7b25cba19e0e6a3fb19c8fc3dbbd350cad05a0b94",
+      "deployment/dependency-inventory.json": "42fecf85c1b60b02f6dc2c1ce67b0a17bbd0469f6d083cbdeaf6c2e04b5aeda0",
       "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
@@ -160,13 +160,13 @@
         {
           "scope": "source",
           "source_revision": {
-            "commit": "72592e241eb42579faf6d6024ddaca4ce234d323",
-            "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b"
+            "commit": "78d734c2e0e39b30b2d5076a676cc4af4bc81540",
+            "tree": "ab418e7acb662f0b786e13544c6366a18b6bc3ad"
           },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236"
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638"
         }
       ],
-      "consequence": "Source/package/mock assurance only; live properties need their own observations."
+      "consequence": "Hosted source qualification passed on this exact selected revision. This is source/package/mock assurance only; no live property or execution authority is established."
     },
     "dependency-disposition": {
       "status": "pending",
@@ -409,6 +409,30 @@
       ],
       "included_in_selected_source": false,
       "scope": "Historical source evidence only; these receipts are not qualification of the selected revision."
+    },
+    {
+      "commit": "72592e241eb42579faf6d6024ddaca4ce234d323",
+      "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b",
+      "sha256": {
+        "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+        "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
+        "deployment/dependency-inventory.json": "186570cbc13d46a65109c9c7b25cba19e0e6a3fb19c8fc3dbbd350cad05a0b94",
+        "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
+        "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
+        "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
+      },
+      "included_in_selected_source": false,
+      "scope": "Historical source contracts before the reference-lock update; not evidence for the newly selected revision.",
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "72592e241eb42579faf6d6024ddaca4ce234d323",
+            "tree": "3d4870be1da0afbd5599741a32052a56c2d1093b"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236"
+        }
+      ]
     }
   ],
   "prior_pr_states": [
