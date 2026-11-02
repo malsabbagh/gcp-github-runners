@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = '72592e241eb42579faf6d6024ddaca4ce234d323'
-TREE = '3d4870be1da0afbd5599741a32052a56c2d1093b'
+COMMIT = '78d734c2e0e39b30b2d5076a676cc4af4bc81540'
+TREE = 'ab418e7acb662f0b786e13544c6366a18b6bc3ad'
 
 
 class PacketTests(unittest.TestCase):
@@ -520,6 +520,13 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(plan['subsequent_merged_evidence'][1]['included_in_selected_source'])
         self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
                             for row in plan['prerequisites']['source-contracts']['evidence']))
+        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'satisfied')
+        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'][0]['reference'],
+                         'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638')
+        prior = plan['historical_source_evidence'][-1]
+        self.assertEqual(prior['commit'], '72592e241eb42579faf6d6024ddaca4ce234d323')
+        self.assertNotEqual(prior['sha256']['deployment/dependency-inventory.json'],
+                            plan['selected_source']['sha256']['deployment/dependency-inventory.json'])
         self.assertEqual(plan['prerequisites']['dependency-disposition']['status'], 'pending')
         self.assertIsNone(plan['worksheet']['artifacts']['worker_image_resource'])
         self.assertIsNone(plan['worksheet']['runner_maintenance']['post_start_version'])
