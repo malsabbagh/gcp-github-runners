@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "recorded_date": "2026-11-02T02:21:42.852889+00:00",
-  "source_commit": "26d680702e7d75325054f3a2a1e26cca1eef0b7d",
+  "recorded_date": "2026-11-02T02:37:56.447304+00:00",
+  "source_commit": "f58b94219d1d63cd147cf1641926a15f89762364",
   "source_note": "Generated from this run; exact harness and inventoried production bytes are bound by tested_files_sha256, including uncommitted changes. File inclusion does not imply execution coverage.",
   "tested_files_sha256": {
     "LICENSE": "eebd1b34e94e652cda6426b07244e2f851896f40e8a3831e5a678be256ac746b",
@@ -42,7 +42,7 @@
     "tests/integration/run-state-integration.py": "cd0ddcad27667c217e97d840c2517f2c4391aae256e2efd171d1b71b66a9283f",
     "tests/integration/state-integration.cjs": "596662d927bd9cfb69c7fa97d650ff41643be858eb87a4bbd0f85bdae4193fba",
     "tests/local-state-process.test.js": "34eb68da4df8314af101aa49969bce5d680bd67d436a7424bc3c864796f6ae8a",
-    "tests/qualification/test_local_integration_configuration.py": "63a4a9c79d25902b21702f706612defd0d95b416de02cde973f4f0aeec126402"
+    "tests/qualification/test_local_integration_configuration.py": "0eb9f8f85eb3bdf99ddf76107c3d56143aa5ce7afacbf079f9ac817dc6a4c0f0"
   },
   "results": {
     "total": 18,
@@ -232,7 +232,7 @@
     "java_version": "openjdk version \"21.0.13\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode, sharing)",
     "emulator_jar_sha256": "9b6498b7f62714d67f48f59b3818883cd682dbcd46b9f59511de81c97bb5166c"
   },
-  "log_sha256": "3217d88eaeb4a9e4062ff5ab14d52c360a0d8d55fad280e6b1e688c5fc4075d6",
+  "log_sha256": "4cc9cd7c63f670d9f6461c38366843a0c9a2f4dd3e4f7c1cc2be24dd7c8b790e",
   "cleanup": {
     "owned_processes_reaped": true,
     "both_ports_connection_refused": true,
