@@ -90,16 +90,17 @@
       "prerequisites": [
         "firestore-transactions"
       ],
-      "status": "held",
-      "action": "Record the held transaction prerequisite; do not install or invoke an emulator from this packet.",
+      "status": "pending",
+      "action": "Inspect the approved local diagnostic and retained GET failures; obtain complete revision-bound production-adapter transaction evidence through a separately authorized test. This report-only packet does not execute it.",
       "expected_observations": [
-        "Atomicity and SDK retry observations remain unestablished while issue 49 is held."
+        "SDK and test-only batchGet transaction observations are recorded separately from three unresolved production Python transactional GET emulator failures.",
+        "Production adapter atomicity, contention and retry acceptance require complete matching evidence; mocked external effects do not prove cloud behavior."
       ],
       "evidence_required": [
-        "Separately authorized revision-bound transaction result when available."
+        "Complete revision-bound production-adapter results, including failures, transport/tool identity and exact tested source hashes."
       ],
       "stop_conditions": [
-        "Stop: this prerequisite is held and must not be retried by another route."
+        "Stop if the tested adapter/source differs, a production GET failure is hidden, or cloud/credential/configuration actions exceed the separately approved scope."
       ]
     },
     {

@@ -112,6 +112,20 @@ class LocalConfigurationTests(unittest.TestCase):
             record['tested_files_sha256']['other.py'] = 'a' * 64
             self.assertEqual(LAUNCHER.verify_observation(root, record, ('one.py', 'two.py')), ['unexpected:other.py'])
 
+    def test_observation_binds_production_adapters_and_rejects_the_historical_harness_only_manifest(self):
+        production = 'cloud-functions/webhook-handler/provision-runner.py'
+        coordinator = 'cloud-functions/webhook-handler/provisioning-state.js'
+        hashes = LAUNCHER.evidence_hashes(LAUNCHER.ROOT)
+        self.assertIn(production, hashes)
+        self.assertIn(coordinator, hashes)
+        self.assertIn('deployment/archive-manifest.json', hashes)
+        record = {'tested_files_sha256': hashes.copy()}
+        self.assertEqual(LAUNCHER.verify_observation(LAUNCHER.ROOT, record), [])
+        record['tested_files_sha256'][production] = '0' * 64
+        self.assertEqual(LAUNCHER.verify_observation(LAUNCHER.ROOT, record), [production])
+        del record['tested_files_sha256'][production]
+        self.assertEqual(LAUNCHER.verify_observation(LAUNCHER.ROOT, record), ['missing:' + production])
+
     def test_cleanup_reports_denials_and_timeout_without_retrying_denied_signal(self):
         process = MagicMock(pid=12345)
         process.wait.side_effect = subprocess.TimeoutExpired('synthetic-node', 5)

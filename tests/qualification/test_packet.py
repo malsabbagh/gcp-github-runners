@@ -535,6 +535,22 @@ class PacketTests(unittest.TestCase):
                 continue
             self.assertTrue((document.parent / target.split('#')[0]).is_file(), target)
 
+    def test_completed_local_diagnostic_does_not_satisfy_production_transaction_readiness(self):
+        plan, cases = self.documents()
+        self.assertEqual(plan['prerequisites']['firestore-transactions']['status'], 'pending')
+        self.assertEqual(plan['prerequisites']['firestore-transactions']['evidence'], [])
+        history = plan['historical_prerequisite_states'][-1]
+        self.assertTrue(history['historical_only'])
+        self.assertEqual(history['state']['status'], 'held')
+        transaction = next(row for row in cases['cases'] if row['id'] == 'durable-transaction')
+        self.assertEqual(transaction['status'], 'pending')
+        report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+        self.assertTrue(report['preparation_complete'])
+        self.assertFalse(report['execution_authorized'])
+        for operation in ('job', 'cancellation-recovery', 'cleanup'):
+            self.assertFalse(report['operations'][operation]['available'])
+            self.assertIn('prerequisite:firestore-transactions', report['operations'][operation]['blockers'])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -49,6 +49,11 @@ new ignored `dist/state-integration/<run>/` directory. The receipt is derived
 from the actual TAP results, including nonzero exits, skipped/incomplete runs,
 effect-count diagnostics, source hashes, tool identity and cleanup. It does not
 overwrite an earlier observation or convert a failed run into a passed gate.
+The source manifest includes the reviewed controller archive inventory and all
+production files it lists, in addition to the harness. Binding a packaged file
+does not claim it executed in the emulator; it prevents an adapter change from
+silently retaining a fresh-looking receipt. Earlier harness-only receipts remain
+historical and fail the expanded freshness check until a new run is recorded.
 
 Committed observations are dated records of particular source bytes, not a claim
 that future changes passed. The original review-head record is preserved as

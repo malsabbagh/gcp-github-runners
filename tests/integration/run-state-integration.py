@@ -31,6 +31,12 @@ EVIDENCE_FILES = ('package.json', 'package-lock.json',
     'tests/integration/python-pool-driver.py', 'tests/integration/state-integration.cjs',
     'tests/local-state-process.test.js', 'tests/qualification/test_local_integration_configuration.py',
     'scripts/check-state-observations.py')
+# Bind the code exercised by the adapters as well as the harness. Hash the
+# reviewed archive inventory too: an older receipt cannot silently follow a
+# changed production-file set. This deliberately includes unexercised packaged
+# modules; source identity is not a claim that every module ran in this test.
+EVIDENCE_FILES = tuple(sorted(set(EVIDENCE_FILES) | {'deployment/archive-manifest.json'} |
+    {row['path'] for row in json.loads((ROOT / 'deployment/archive-manifest.json').read_text())['files']}))
 
 
 def configuration(environment):

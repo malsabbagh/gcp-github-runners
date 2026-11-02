@@ -174,18 +174,9 @@
       "consequence": "Reviewed dependency updates are merged; live dependency-risk acceptance requires separate evidence. The separate body_parser_boundary final handback/investigation/reproducer hold is not retried by this packet."
     },
     "firestore-transactions": {
-      "status": "held",
-      "evidence": [
-        {
-          "scope": "decision",
-          "source_revision": {
-            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
-            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
-          },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/49"
-        }
-      ],
-      "consequence": "Issue 49 execution remains held; source mocks cannot establish transaction or contention behavior."
+      "status": "pending",
+      "evidence": [],
+      "consequence": "The approved local diagnostic completed 18 cases: 15 passed and three production transactional GET cases timed out in pinned emulator 1.22.0. Test-only batchGet passes do not qualify production GET or live Firestore. Retain original failures and obtain separately reviewed production-adapter evidence."
     },
     "operation-approval": {
       "status": "pending",
@@ -418,6 +409,27 @@
       "state": "ready; natively approved; App check absent; unmerged",
       "included_in_selected_source": false,
       "historical_only": true
+    }
+  ],
+  "historical_prerequisite_states": [
+    {
+      "prerequisite": "firestore-transactions",
+      "state": {
+        "status": "held",
+        "evidence": [
+          {
+            "scope": "decision",
+            "source_revision": {
+              "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+              "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+            },
+            "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/49"
+          }
+        ],
+        "consequence": "Issue 49 execution remains held; source mocks cannot establish transaction or contention behavior."
+      },
+      "historical_only": true,
+      "superseded_by": "Approved local diagnostic execution recorded in PR66; production GET compatibility remains unqualified."
     }
   ]
 }
