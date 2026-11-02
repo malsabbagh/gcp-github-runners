@@ -2,6 +2,7 @@
 import importlib.util
 import errno
 import hashlib
+import json
 from pathlib import Path
 import signal
 import subprocess
@@ -125,6 +126,28 @@ class LocalConfigurationTests(unittest.TestCase):
         self.assertEqual(LAUNCHER.verify_observation(LAUNCHER.ROOT, record), [production])
         del record['tested_files_sha256'][production]
         self.assertEqual(LAUNCHER.verify_observation(LAUNCHER.ROOT, record), ['missing:' + production])
+
+    def test_archive_evidence_inventory_missing_or_malformed_fails_on_invocation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'deployment/archive-manifest.json'
+            path.parent.mkdir()
+            for value in [None, '{', '[]', '{}', '{"files":[]}', '{"files":[{}]}',
+                          '{"files":[{"path":"one.py"},{"path":"one.py"}]}']:
+                if value is not None:
+                    path.write_text(value)
+                with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'complete checkout'):
+                    LAUNCHER.evidence_files(root)
+
+    def test_archive_evidence_inventory_cannot_hash_paths_outside_checkout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'deployment/archive-manifest.json'
+            path.parent.mkdir()
+            for name in ['../outside', '/outside', 'one/../../outside', 'one//two']:
+                path.write_text(json.dumps({'files': [{'path': name}]}))
+                with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'complete checkout'):
+                    LAUNCHER.evidence_hashes(root)
 
     def test_cleanup_reports_denials_and_timeout_without_retrying_denied_signal(self):
         process = MagicMock(pid=12345)

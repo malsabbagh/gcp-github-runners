@@ -14,8 +14,15 @@ spec.loader.exec_module(launcher)
 
 def main():
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'tests/integration/observations.json'
-    observation = json.loads(path.read_text())
-    mismatches = launcher.verify_observation(ROOT, observation)
+    try:
+        observation = json.loads(path.read_text())
+        if not isinstance(observation, dict):
+            raise ValueError('Observation must be an object')
+        mismatches = launcher.verify_observation(ROOT, observation)
+    except (OSError, ValueError, TypeError, RecursionError):
+        print(json.dumps({'source_binding': 'invalid-input',
+            'issue': 'Observation or reviewed archive evidence inventory is missing or invalid; use a complete checkout and a valid receipt.'}))
+        return 1
     print(json.dumps({'observation': str(path), 'recorded_date': observation.get('recorded_date'),
         'source_binding': 'historical-source-mismatch' if mismatches else 'matches',
         'mismatches': mismatches, 'recorded_results': observation.get('results'),

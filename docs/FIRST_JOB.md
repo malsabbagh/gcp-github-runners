@@ -112,6 +112,8 @@ audience checks. Neither route is a GitHub OAuth callback or the webhook URL.
    repository token permissions, and has a five-minute job timeout. Do not retry
    automatically after Spot interruption. Confirm the signed actual job
    association rather than assuming the reservation's job necessarily ran.
+   This minimal smoke does not test private repository checkout or job-token
+   authorization. Qualify those separately before using a real build workflow.
 6. Reconcile completion, exact owned runner deregistration and exact VM absence.
    Confirm the auto-delete boot disk is absent before releasing capacity. A job
    exit, runner going offline, elapsed time or Spot interruption alone is not a
