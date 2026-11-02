@@ -1,5 +1,5 @@
 {
-  "status": "preparation-only; source contracts observed for selected revision; operations unqualified",
+  "status": "preparation-only; source contracts observed for the selected tested revision; execution evidence must identify its tested revision and live checks remain unverified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -26,8 +26,8 @@
   },
   "schema_version": 2,
   "selected_source": {
-    "commit": "e92c9c3c9f2f6c6b412516e1e655b47064e6ed94",
-    "tree": "fa6246a2acf9e076cef7fec49a58972def8c843e",
+    "commit": "cd2ce84d7ed07ae09e4d063faa2d676220f1d88c",
+    "tree": "e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48",
     "sha256": {
       "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
@@ -35,7 +35,8 @@
       "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
-    }
+    },
+    "selection_context": "GitHub pull-request merge preview actually checked out by the cited qualification job; not merged main or an assertion that the current PR head itself was that checkout."
   },
   "flag_requirements": {
     "WEBHOOK_ENABLED": [
@@ -160,10 +161,17 @@
         {
           "scope": "source",
           "source_revision": {
-            "commit": "e92c9c3c9f2f6c6b412516e1e655b47064e6ed94",
-            "tree": "fa6246a2acf9e076cef7fec49a58972def8c843e"
+            "commit": "cd2ce84d7ed07ae09e4d063faa2d676220f1d88c",
+            "tree": "e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48"
           },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375521858"
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375521858",
+          "checkout_observation": {
+            "run_head_commit": "e92c9c3c9f2f6c6b412516e1e655b47064e6ed94",
+            "checked_out_commit": "cd2ce84d7ed07ae09e4d063faa2d676220f1d88c",
+            "checked_out_tree": "e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48",
+            "kind": "pull-request merge preview",
+            "verification": "Qualification job checkout log git log -1 --format=%H, immutable Git commit/tree and all six bound file digests checked on 2026-11-02. The offline validator does not authenticate this observation."
+          }
         }
       ],
       "consequence": "Hosted source qualification passed on this exact selected revision. This is source/package/mock assurance only; no live property or execution authority is established."
