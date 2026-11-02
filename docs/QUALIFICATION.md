@@ -2,7 +2,7 @@
 
 This packet prepares a bounded trusted-private, native Linux x64 runner trial. It records inputs, evidence, stop conditions and unresolved work; it does not perform a build, deployment, registration, job, cancellation or cleanup. Completing [issue #54](https://github.com/malsabbagh/gcp-github-runners/issues/54) does not complete #48 or #49, authorize #55, or establish production readiness.
 
-The checked-in [plan and worksheet](../deployment/qualification-plan.json) select maintenance commit `42444e02e26cea4f6bb642164a51cef001a0e771`, tree `639e514e364fc40850c9d3a81144d334005560a2`. All six SHA-256 bindings match files from that exact commit, including the updated reference dependency inventory. Its source-contract prerequisite remains pending until successful hosted qualification of this revision is recorded. [Main CI 40161487236](https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236) belongs to earlier commit `72592e241eb42579faf6d6024ddaca4ce234d323` and is retained as historical evidence, not proof for this lock update. The separately bound [case inventory](../tests/qualification-cases.json) uses the new commit/tree. A reviewed lock update must select a new independently verified revision, refresh its bindings and obtain evidence for it; changing a digest under an old commit does not qualify the resulting mixture. Original `bd700664` evidence and merged PR61/PR62 receipts retain their own historical scope. Supplying `--source-root` relocates the exact bound source bytes and does not select a different revision.
+The checked-in [plan and worksheet](../deployment/qualification-plan.json) select maintenance commit `78d734c2e0e39b30b2d5076a676cc4af4bc81540`, tree `ab418e7acb662f0b786e13544c6366a18b6bc3ad`. All six SHA-256 bindings match files from that exact commit, including the updated reference dependency inventory. [Hosted CI 41375449638](https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638) passed on this exact selected revision and supplies source-contract evidence only. Live prerequisites and execution approval remain unavailable. [Main CI 40161487236](https://github.com/malsabbagh/gcp-github-runners/actions/runs/40161487236) belongs to earlier commit `72592e241eb42579faf6d6024ddaca4ce234d323` and is retained as historical evidence, not proof for this lock update. The separately bound [case inventory](../tests/qualification-cases.json) uses the new commit/tree. A reviewed lock update must select a new independently verified revision, refresh its bindings and obtain evidence for it; changing a digest under an old commit does not qualify the resulting mixture. Original `bd700664` evidence and merged PR61/PR62 receipts retain their own historical scope. Supplying `--source-root` relocates the exact bound source bytes and does not select a different revision.
 
 ## Preparation and readiness reports
 
@@ -12,8 +12,8 @@ From the repository root, check structural preparation against the independently
 
 ```sh
 python3 -B tests/qualification/packet.py \
-  --source-commit 42444e02e26cea4f6bb642164a51cef001a0e771 \
-  --source-tree 639e514e364fc40850c9d3a81144d334005560a2 \
+  --source-commit 78d734c2e0e39b30b2d5076a676cc4af4bc81540 \
+  --source-tree ab418e7acb662f0b786e13544c6366a18b6bc3ad \
   --mode preparation
 ```
 
