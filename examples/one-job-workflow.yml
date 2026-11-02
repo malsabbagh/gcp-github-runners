@@ -1,16 +1,19 @@
 # Copy into a trusted private workload repository after deployment qualification.
-name: Dedicated GCP one-job worker
+name: Dedicated GCP one-job smoke test
 on:
   workflow_dispatch:
-permissions:
-  contents: read
+permissions: {}
 jobs:
   build:
     if: github.event.repository.private == true
     runs-on: [self-hosted, linux, x64, gcp-one-job]
-    timeout-minutes: 30
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-      - run: printf '%s\n' 'Run trusted private workload here'
+      - name: Verify the native unprivileged worker executes a job
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -s)" = Linux
+          test "$(uname -m)" = x86_64
+          test "$(id -u)" -ne 0
+          printf '%s\n' 'GCP one-job worker executed the smoke test'

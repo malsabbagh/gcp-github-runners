@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = '2ecea93608915461a543898b9c7e4bc1bfb3c2f7'
-TREE = '527191917d659614c3e3ee6f1eaa9d6cf6ebd868'
+COMMIT = '5741105538c59aee8e416cd668c692577472f80d'
+TREE = '515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2'
 
 
 class PacketTests(unittest.TestCase):
@@ -520,10 +520,16 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(plan['subsequent_merged_evidence'][1]['included_in_selected_source'])
         self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
                             for row in plan['prerequisites']['source-contracts']['evidence']))
-        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'pending')
-        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'], [])
+        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'satisfied')
+        observation = plan['prerequisites']['source-contracts']['evidence'][0]['checkout_observation']
+        self.assertEqual(observation['checked_out_commit'], COMMIT)
+        self.assertEqual(observation['checked_out_tree'], TREE)
+        self.assertEqual(observation['run_head_commit'], COMMIT)
+        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'][0]['reference'],
+                         'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185')
         prior = next(row for row in plan['historical_source_evidence']
                      if row['commit'] == '72592e241eb42579faf6d6024ddaca4ce234d323')
+        self.assertEqual(prior['commit'], '72592e241eb42579faf6d6024ddaca4ce234d323')
         self.assertNotEqual(prior['sha256']['deployment/dependency-inventory.json'],
                             plan['selected_source']['sha256']['deployment/dependency-inventory.json'])
         self.assertEqual(plan['prerequisites']['dependency-disposition']['status'], 'pending')
@@ -540,6 +546,22 @@ class PacketTests(unittest.TestCase):
             if target.startswith('https://') or target.startswith('#'):
                 continue
             self.assertTrue((document.parent / target.split('#')[0]).is_file(), target)
+
+    def test_completed_local_diagnostic_does_not_satisfy_production_transaction_readiness(self):
+        plan, cases = self.documents()
+        self.assertEqual(plan['prerequisites']['firestore-transactions']['status'], 'pending')
+        self.assertEqual(plan['prerequisites']['firestore-transactions']['evidence'], [])
+        history = plan['historical_prerequisite_states'][-1]
+        self.assertTrue(history['historical_only'])
+        self.assertEqual(history['state']['status'], 'held')
+        transaction = next(row for row in cases['cases'] if row['id'] == 'durable-transaction')
+        self.assertEqual(transaction['status'], 'pending')
+        report = PACKET.validate(plan, cases, ROOT, COMMIT, TREE)
+        self.assertTrue(report['preparation_complete'])
+        self.assertFalse(report['execution_authorized'])
+        for operation in ('job', 'cancellation-recovery', 'cleanup'):
+            self.assertFalse(report['operations'][operation]['available'])
+            self.assertIn('prerequisite:firestore-transactions', report['operations'][operation]['blockers'])
 
 
 if __name__ == '__main__':

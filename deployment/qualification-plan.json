@@ -1,5 +1,5 @@
 {
-  "status": "preparation-only; combined dependency source contracts pending; execution evidence must identify its tested revision and live checks remain unverified",
+  "status": "preparation-only; source contracts observed for selected merged main; execution evidence must identify its tested revision and live checks remain unverified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -26,8 +26,8 @@
   },
   "schema_version": 2,
   "selected_source": {
-    "commit": "2ecea93608915461a543898b9c7e4bc1bfb3c2f7",
-    "tree": "527191917d659614c3e3ee6f1eaa9d6cf6ebd868",
+    "commit": "5741105538c59aee8e416cd668c692577472f80d",
+    "tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2",
     "sha256": {
       "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
@@ -36,7 +36,7 @@
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
     },
-    "selection_context": "Combined PR68 and PR69 source maintenance snapshot; new hosted source qualification pending."
+    "selection_context": "Durable merged main commit containing PR68 and PR69, directly checked out by its successful push CI; not a PR-head/merge-preview inference."
   },
   "flag_requirements": {
     "WEBHOOK_ENABLED": [
@@ -156,9 +156,25 @@
   },
   "prerequisites": {
     "source-contracts": {
-      "status": "pending",
-      "evidence": [],
-      "consequence": "The combined qs/follow-redirects source snapshot requires its own successful hosted source qualification. Prior merge-preview observations retain their exact commit/tree and do not qualify the new inventory."
+      "status": "satisfied",
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "5741105538c59aee8e416cd668c692577472f80d",
+            "tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185",
+          "checkout_observation": {
+            "run_head_commit": "5741105538c59aee8e416cd668c692577472f80d",
+            "checked_out_commit": "5741105538c59aee8e416cd668c692577472f80d",
+            "checked_out_tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2",
+            "kind": "main push",
+            "verification": "Successful main push qualification job git log -1 --format=%H and all six Git object/file SHA256 bindings verified on 2026-11-02. Offline packet validation does not authenticate this observation."
+          }
+        }
+      ],
+      "consequence": "Source/package/mock assurance only. Main push CI tested this exact durable commit; no live properties or execution authority are established."
     },
     "dependency-disposition": {
       "status": "pending",
@@ -166,18 +182,9 @@
       "consequence": "Reviewed dependency updates are merged; live dependency-risk acceptance requires separate evidence. The separate body_parser_boundary final handback/investigation/reproducer hold is not retried by this packet."
     },
     "firestore-transactions": {
-      "status": "held",
-      "evidence": [
-        {
-          "scope": "decision",
-          "source_revision": {
-            "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
-            "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
-          },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/49"
-        }
-      ],
-      "consequence": "Issue 49 execution remains held; source mocks cannot establish transaction or contention behavior."
+      "status": "pending",
+      "evidence": [],
+      "consequence": "The approved local diagnostic completed 18 cases: 15 passed and three production transactional GET cases timed out in pinned emulator 1.22.0. Test-only batchGet passes do not qualify production GET or live Firestore. Retain original failures and obtain separately reviewed production-adapter evidence."
     },
     "operation-approval": {
       "status": "pending",
@@ -457,6 +464,38 @@
           }
         }
       ]
+    },
+    {
+      "commit": "275bae22e50ffde60b044d714a5d6d6b628eabe1",
+      "tree": "333f43e9e7cda96d219f1b9604e31039102fb1a4",
+      "sha256": {
+        "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+        "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
+        "deployment/dependency-inventory.json": "42fecf85c1b60b02f6dc2c1ce67b0a17bbd0469f6d083cbdeaf6c2e04b5aeda0",
+        "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
+        "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
+        "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
+      },
+      "selection_context": "GitHub pull-request merge preview actually checked out by the cited qualification job; not merged main or an assertion that the current PR head itself was that checkout.",
+      "included_in_selected_source": false,
+      "scope": "Corrected historical PR68 merge-preview checkout; superseded by a durable main commit with its own successful push CI.",
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "275bae22e50ffde60b044d714a5d6d6b628eabe1",
+            "tree": "333f43e9e7cda96d219f1b9604e31039102fb1a4"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638",
+          "checkout_observation": {
+            "run_head_commit": "78d734c2e0e39b30b2d5076a676cc4af4bc81540",
+            "checked_out_commit": "275bae22e50ffde60b044d714a5d6d6b628eabe1",
+            "checked_out_tree": "333f43e9e7cda96d219f1b9604e31039102fb1a4",
+            "kind": "pull-request merge preview",
+            "verification": "Qualification job checkout log git log -1 --format=%H, immutable Git commit/tree and all six bound file digests checked on 2026-11-02. The offline validator does not authenticate this observation."
+          }
+        }
+      ]
     }
   ],
   "prior_pr_states": [
@@ -466,6 +505,27 @@
       "state": "ready; natively approved; App check absent; unmerged",
       "included_in_selected_source": false,
       "historical_only": true
+    }
+  ],
+  "historical_prerequisite_states": [
+    {
+      "prerequisite": "firestore-transactions",
+      "state": {
+        "status": "held",
+        "evidence": [
+          {
+            "scope": "decision",
+            "source_revision": {
+              "commit": "bd70066435c399695b7c8186015c24f39d6fad66",
+              "tree": "fc9f14dd6730ed36d407fe03ebb41bb3382df9fa"
+            },
+            "reference": "https://github.com/malsabbagh/gcp-github-runners/issues/49"
+          }
+        ],
+        "consequence": "Issue 49 execution remains held; source mocks cannot establish transaction or contention behavior."
+      },
+      "historical_only": true,
+      "superseded_by": "Approved local diagnostic execution recorded in PR66; production GET compatibility remains unqualified."
     }
   ]
 }

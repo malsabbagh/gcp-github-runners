@@ -2,6 +2,9 @@
 
 This guide describes the supported installation path. Cloud deployment, live IAM changes, image creation, webhook registration, App installation and repository Actions activation require separate operator authorization. The compatibility references are not a deployment path.
 
+For the dependency-ordered App/webhook/configuration checklist and the bounded
+one-Spot-VM smoke job, start with [the first-job guide](docs/FIRST_JOB.md).
+
 ## Required operator inputs
 
 Choose an independently authorized Google Cloud project and region/zone. Terraform creates the dedicated private network/subnet/NAT, named Firestore database and distinct controller/provisioner/scheduler/worker identities. Supply an existing separately authorized function-build identity. Review those resources and IAM grants before applying them, including the approved egress route to GitHub and the controller. The worker needs private connectivity and an allocation broker invocation route; management credentials stay on the controller.

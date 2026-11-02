@@ -2,7 +2,7 @@
 
 This packet prepares a bounded trusted-private, native Linux x64 runner trial. It records inputs, evidence, stop conditions and unresolved work; it does not perform a build, deployment, registration, job, cancellation or cleanup. Completing [issue #54](https://github.com/malsabbagh/gcp-github-runners/issues/54) does not complete #48 or #49, authorize #55, or establish production readiness.
 
-The checked-in [plan and worksheet](../deployment/qualification-plan.json) select combined dependency maintenance commit `2ecea93608915461a543898b9c7e4bc1bfb3c2f7`, tree `527191917d659614c3e3ee6f1eaa9d6cf6ebd868`. Its six source bindings include both the merged PR68 qs update and PR69 follow-redirects update. Hosted source qualification is pending for this combined snapshot. Prior [CI 41375521858](https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375521858) reported PR head `e92c9c3c9f2f6c6b412516e1e655b47064e6ed94` but checked out merge preview `cd2ce84d7ed07ae09e4d063faa2d676220f1d88c`, tree `e8afeb71cc6e0ffee44f9a7dcc9da53ba0ba3e48`; that observation is historical and does not qualify the combined inventory. The [case inventory](../tests/qualification-cases.json) selects the same new commit/tree. All earlier source evidence retains its tested identity. Refreshing digests under an old commit or borrowing an earlier CI result does not qualify new source. Supplying `--source-root` relocates the exact bound source bytes and does not select a different revision.
+The checked-in [plan and worksheet](../deployment/qualification-plan.json) select durable merged main commit `5741105538c59aee8e416cd668c692577472f80d`, tree `515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2`, containing both PR68 and PR69 dependency maintenance. All six SHA-256 bindings match that exact commit. [Main push CI 41378237185](https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185) succeeded and its qualification checkout log records this same commit from `git log -1 --format=%H`. The run head, actual checkout and selected source agree. This supplies source-contract evidence only; live prerequisites and execution approval remain unavailable. Prior PR runs used merge previews whose identity differed from the API PR head; their corrected commit/tree observations remain historical, rather than being labelled as tests of the PR head. The [case inventory](../tests/qualification-cases.json) selects the same durable main revision. Refreshing hashes under an old identity or borrowing an earlier CI result does not qualify new source. Supplying `--source-root` relocates the exact bound source bytes and does not select a different revision.
 
 ## Preparation and readiness reports
 
@@ -12,8 +12,8 @@ From the repository root, check structural preparation against the independently
 
 ```sh
 python3 -B tests/qualification/packet.py \
-  --source-commit 2ecea93608915461a543898b9c7e4bc1bfb3c2f7 \
-  --source-tree 527191917d659614c3e3ee6f1eaa9d6cf6ebd868 \
+  --source-commit 5741105538c59aee8e416cd668c692577472f80d \
+  --source-tree 515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2 \
   --mode preparation
 ```
 
@@ -25,7 +25,7 @@ For a private worksheet copy, add `--plan /absolute/path/to/reviewed-plan.json`.
 
 To check a single operation's submitted evidence, use the same arguments with `--mode operation-ready --operation job`. The five operation names are `image-build`, `controller-install`, `job`, `cancellation-recovery` and `cleanup`. This mode returns failure for placeholders, absent evidence, mismatched revisions/manifest bytes, unresolved required prerequisites, disabled required flags or incomplete worksheet fields. It reports evidence availability; success is not permission to execute. Unknown worksheet field names are rejected by field validation. Evidence locations and observation references retain their existing opaque-string semantics; they gain no new URI format rules or fetching behavior.
 
-A required prerequisite with status `pending`, `held` or `deferred` makes its operation unavailable. Deferral is never a readiness waiver. Satisfied records require a concrete reference of the expected source, live or decision scope, bound to the selected commit and tree. Source tests cannot stand in for a live observation. The optional broad fault campaign is explicitly deferred; no campaign result is counted as passed. Preserve the specific `body_parser_boundary` final handback/investigation/reproducer hold and the #49 emulator hold. Ordinary reviewed dependency updates are authorized separately and do not clear those held operations or establish live dependency-risk acceptance.
+A required prerequisite with status `pending`, `held` or `deferred` makes its operation unavailable. Deferral is never a readiness waiver. Satisfied records require a concrete reference of the expected source, live or decision scope, bound to the selected commit and tree. Source tests cannot stand in for a live observation. The optional broad fault campaign is explicitly deferred; no campaign result is counted as passed. Preserve the specific `body_parser_boundary` final handback/investigation/reproducer hold. The historical #49 local execution hold is retained as history: approved emulator runs now record 15 passes and three production GET failures. Transaction qualification remains pending, not satisfied. Ordinary reviewed dependency updates are authorized separately and do not clear those held operations or establish live dependency-risk acceptance.
 
 When selecting another revision, independently verify its commit/tree and artifact manifests, refresh both inventories together, and obtain evidence for that revision. Merely editing the expected identity or copying a prior report does not qualify new source. The positive worksheet under [test fixtures](../tests/qualification/fixtures/synthetic-worksheet.json) is synthetic unit-test data and must never be adopted as an operator record.
 
@@ -65,7 +65,7 @@ The validator extracts these eight flag names from exact `flag(env,'NAME')` call
 | `WORKER_DRAIN_QUALIFIED` | Allocation/incarnation-bound drain and quiescence observations; an acknowledgement is not job completion |
 | `WORKER_STOP_QUALIFIED` | Allocation/incarnation-bound stop observations; exit/acceptance is not exact VM or runner absence |
 
-There is no enable-all step. The validator evaluates the required flags and prerequisite union for each named operation, plus the corresponding worksheet fields and cases. Image-build preparation does not borrow unrelated transaction qualification; the ordinary job and cancellation/cleanup reports remain unavailable while their required #48/#49 evidence is held.
+There is no enable-all step. The validator evaluates the required flags and prerequisite union for each named operation, plus the corresponding worksheet fields and cases. Image-build preparation does not borrow unrelated transaction qualification; the ordinary job and cancellation/cleanup reports remain unavailable while their required #48/#49 evidence is incomplete.
 
 ## Evidence that must remain distinct
 
@@ -89,4 +89,4 @@ The bake script already retains runner release, apt snapshot and installed packa
 python3 -B -m unittest discover -s tests/qualification -p 'test_*.py' -v
 ```
 
-The existing [Python collector](../scripts/test-python.py) discovers this suite. Run the relevant image/worker regressions and source checks in the [test guide](../TEST_SCRIPTS_README.md); do not invoke held emulator or dependency-update work. Completion of this preparation slice means that another operator can trace the worksheet to the existing instructions and see every unresolved prerequisite and its consequence. It is not a successful live trial, acceptance of residual dependency risk, or deployment/release approval.
+The existing [Python collector](../scripts/test-python.py) discovers this suite. Run the relevant image/worker regressions and source checks in the [test guide](../TEST_SCRIPTS_README.md); this packet itself does not invoke emulator or dependency-update work. Separately authorized local diagnostics are recorded in [the integration guide](../tests/integration/README.md). Completion of this preparation slice means that another operator can trace the worksheet to the existing instructions and see every unresolved prerequisite and its consequence. It is not a successful live trial, acceptance of residual dependency risk, or deployment/release approval.

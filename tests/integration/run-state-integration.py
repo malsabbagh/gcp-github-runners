@@ -33,6 +33,40 @@ EVIDENCE_FILES = ('package.json', 'package-lock.json',
     'scripts/check-state-observations.py')
 
 
+def evidence_path(root, name):
+    if not isinstance(name, str) or not name or '\x00' in name:
+        raise ValueError('Invalid evidence source path')
+    relative = Path(name)
+    if relative.is_absolute() or '..' in relative.parts or relative.as_posix() != name:
+        raise ValueError('Invalid evidence source path')
+    path = root / relative
+    if not path.resolve().is_relative_to(root.resolve()) or any(
+            item.is_symlink() for item in (path, *path.parents)):
+        raise ValueError('Evidence source must remain inside the nonsymlinked checkout')
+    return path
+
+
+def evidence_files(root):
+    # Resolve the reviewed production set on invocation, not module import.
+    # Its own hash binds that set; inclusion is source identity, not coverage.
+    try:
+        manifest = evidence_path(root, 'deployment/archive-manifest.json')
+        if manifest.stat().st_size > 2 * 1024 * 1024:
+            raise ValueError('Oversized archive inventory')
+        document = json.loads(manifest.read_text())
+        rows = document.get('files') if isinstance(document, dict) else None
+        if not isinstance(rows, list) or not 1 <= len(rows) <= 256:
+            raise ValueError('Invalid archive inventory files')
+        names = [row.get('path') if isinstance(row, dict) else None for row in rows]
+        for name in names:
+            evidence_path(root, name)
+        if len(set(names)) != len(names):
+            raise ValueError('Duplicate archive inventory path')
+    except (OSError, ValueError, TypeError, RecursionError) as error:
+        raise ValueError('Reviewed controller archive evidence inventory is missing or invalid; use a complete checkout') from error
+    return tuple(sorted(set(EVIDENCE_FILES) | {'deployment/archive-manifest.json'} | set(names)))
+
+
 def configuration(environment):
     for key in ('GOOGLE_APPLICATION_CREDENTIALS', 'GOOGLE_CREDENTIALS',
                 'CLOUDSDK_AUTH_ACCESS_TOKEN', 'CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE'):
@@ -131,10 +165,13 @@ def tap_results(output, returncode):
 
 
 def evidence_hashes(root):
-    return {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in EVIDENCE_FILES}
+    return {name: hashlib.sha256(evidence_path(root, name).read_bytes()).hexdigest()
+            for name in evidence_files(root)}
 
 
-def verify_observation(root, observation, expected_files=EVIDENCE_FILES):
+def verify_observation(root, observation, expected_files=None):
+    if expected_files is None:
+        expected_files = evidence_files(root)
     hashes = observation.get('tested_files_sha256')
     if not isinstance(hashes, dict) or not hashes:
         raise ValueError('Observation has no source hashes')
@@ -253,7 +290,7 @@ def main():
         effects = [json.loads(match[1]) for match in re.finditer(r'^\s*# (\{.*\})$', output, re.MULTILINE)]
         observation = {'schema_version': 1, 'recorded_date': datetime.datetime.now(datetime.timezone.utc).isoformat(),
             'source_commit': source_commit,
-            'source_note': 'Generated from this run; exact harness bytes are bound by tested_files_sha256, including uncommitted changes.',
+            'source_note': 'Generated from this run; exact harness and inventoried production bytes are bound by tested_files_sha256, including uncommitted changes. File inclusion does not imply execution coverage.',
             'tested_files_sha256': source_hashes, 'results': results, 'cases': cases,
             'observed_effect_counts': effects,
             'driver_timed_out': node_timed_out,

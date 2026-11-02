@@ -15,7 +15,7 @@ github_app_id = "123456"
 github_app_installation_id = "123456"
 github_repository_id = "123456"
 admin_subject = "123456789012345678901"
-max_runner_vms = 2
+max_runner_vms = 1
 # False/paused defaults are deliberate until qualification evidence is reviewed.
 scheduler_paused = true
 runtime_readiness = {}
