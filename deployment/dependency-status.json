@@ -8,7 +8,7 @@
     "package-lock.json": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
     "deployment/deployment-package-lock.json": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
     "source-compatible/templates/package-lock.json": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
-    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92"
+    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "c068ab48b690ecde3a887e89df404140aec1785b27107af1812e990b7135b14d"
   },
   "ownership": {
     "canonicalRuntime": "package.json dependencies; exact pins, Node24, CommonJS",
@@ -350,5 +350,44 @@
       "qualification": "reconciled hybrid reference manifest and lock inventory for PR 44; root, standalone and templates reference 3.1.8 remain separate"
     }
   ],
-  "qualificationScope": "Static lock/API-source assessment plus separately retained local/hosted contracts; no live deployment, provider validation or advisory dismissal."
+  "qualificationScope": "Static lock/API-source assessment plus separately retained local/hosted contracts; no live deployment, provider validation or advisory dismissal.",
+  "subsequentLockMaintenance": [
+    {
+      "pullRequest": 68,
+      "head": "d58c7e0ab75613d6c63dee9ed5933a6f3b6c11c3",
+      "changedPackages": {
+        "node_modules/qs": {
+          "from": "6.16.0",
+          "to": "6.16.2"
+        }
+      },
+      "scope": "Hybrid reference closure only. Historical advisory/API observations retain their original date; this maintenance record is not a new advisory clearance.",
+      "upstreamComparison": "https://github.com/ljharb/qs/compare/v6.16.0...v6.16.2"
+    },
+    {
+      "pullRequest": 69,
+      "head": "fab1ba22ccf40f09fccb5227dd9e97b305c5e68b",
+      "changedPackages": {
+        "node_modules/follow-redirects": {
+          "from": "1.16.1",
+          "to": "1.16.2"
+        }
+      },
+      "scope": "Original follow-redirects patch reconciled with merged PR68 qs update; historical advisory observations retain their original date. No new advisory clearance.",
+      "reconciliation": {
+        "base_main": "20dfd2c3c9b2d5ce5e7a2caebfc41d7427d98bd4",
+        "scope": "Reconcile the original PR69 follow-redirects lock change onto merged PR68 qs maintenance; original PR-head records retain their own lock hashes.",
+        "inputs_sha256": {
+          "merged_pr68_lock": "eef8cd2ac7ebbb8a4291595b33e40c27435b7632bda2fbad966833929cd7c816",
+          "original_pr69_lock": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92"
+        },
+        "result_sha256": "c068ab48b690ecde3a887e89df404140aec1785b27107af1812e990b7135b14d",
+        "versions": {
+          "qs": "6.16.2",
+          "follow-redirects": "1.16.2"
+        },
+        "direct_dependencies_changed": false
+      }
+    }
+  ]
 }
