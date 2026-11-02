@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = 'a6f4f4be93c2f1162e87ab6f798805b6ca8be31e'
-TREE = '6e3725d36cd9c37e2f53f53899f6b34b7e040cde'
+COMMIT = 'e92c9c3c9f2f6c6b412516e1e655b47064e6ed94'
+TREE = 'fa6246a2acf9e076cef7fec49a58972def8c843e'
 
 
 class PacketTests(unittest.TestCase):
@@ -520,8 +520,9 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(plan['subsequent_merged_evidence'][1]['included_in_selected_source'])
         self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
                             for row in plan['prerequisites']['source-contracts']['evidence']))
-        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'pending')
-        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'], [])
+        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'satisfied')
+        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'][0]['reference'],
+                         'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375521858')
         prior = plan['historical_source_evidence'][-1]
         self.assertEqual(prior['commit'], '72592e241eb42579faf6d6024ddaca4ce234d323')
         self.assertNotEqual(prior['sha256']['deployment/dependency-inventory.json'],
