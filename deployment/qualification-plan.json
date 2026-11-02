@@ -1,5 +1,5 @@
 {
-  "status": "preparation-only; source contracts observed for selected merged main; execution evidence must identify its tested revision and live checks remain unverified",
+  "status": "preparation-only; transaction-read remedy source contracts pending; execution evidence must identify its tested revision and live checks remain unverified",
   "completed_source_checks": [
     "Node24 dependency declaration/lock consistency",
     "Official Functions Framework registration and SDK/API import contracts",
@@ -26,17 +26,17 @@
   },
   "schema_version": 2,
   "selected_source": {
-    "commit": "5741105538c59aee8e416cd668c692577472f80d",
-    "tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2",
+    "commit": "c13f04ee22f41a613fd5136b685e997321cc00c4",
+    "tree": "eff7a70cd6ebcbcd40c975c8a3980296ec15d555",
     "sha256": {
-      "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+      "deployment/archive-manifest.json": "2e9b4ba558d6d663aa1d4c82e91937b30e01e0c342115bb36b80f531b3f041aa",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
       "deployment/dependency-inventory.json": "2ecc97c497f0081734f468de39829faa6c7b3c2791c7ffd1e838ca4fdefdbe21",
       "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
     },
-    "selection_context": "Durable merged main commit containing PR68 and PR69, directly checked out by its successful push CI; not a PR-head/merge-preview inference."
+    "selection_context": "Committed production batchGet remedy snapshot; source CI for this changed runtime must be retained separately. No prior main CI result is reused as its proof."
   },
   "flag_requirements": {
     "WEBHOOK_ENABLED": [
@@ -156,25 +156,9 @@
   },
   "prerequisites": {
     "source-contracts": {
-      "status": "satisfied",
-      "evidence": [
-        {
-          "scope": "source",
-          "source_revision": {
-            "commit": "5741105538c59aee8e416cd668c692577472f80d",
-            "tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2"
-          },
-          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185",
-          "checkout_observation": {
-            "run_head_commit": "5741105538c59aee8e416cd668c692577472f80d",
-            "checked_out_commit": "5741105538c59aee8e416cd668c692577472f80d",
-            "checked_out_tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2",
-            "kind": "main push",
-            "verification": "Successful main push qualification job git log -1 --format=%H and all six Git object/file SHA256 bindings verified on 2026-11-02. Offline packet validation does not authenticate this observation."
-          }
-        }
-      ],
-      "consequence": "Source/package/mock assurance only. Main push CI tested this exact durable commit; no live properties or execution authority are established."
+      "status": "pending",
+      "evidence": [],
+      "consequence": "The provisioner and archive changed. Retain exact-candidate remote source CI for the remedy; earlier main CI proves its own GET-based snapshot only."
     },
     "dependency-disposition": {
       "status": "pending",
@@ -493,6 +477,38 @@
             "checked_out_tree": "333f43e9e7cda96d219f1b9604e31039102fb1a4",
             "kind": "pull-request merge preview",
             "verification": "Qualification job checkout log git log -1 --format=%H, immutable Git commit/tree and all six bound file digests checked on 2026-11-02. The offline validator does not authenticate this observation."
+          }
+        }
+      ]
+    },
+    {
+      "commit": "5741105538c59aee8e416cd668c692577472f80d",
+      "tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2",
+      "sha256": {
+        "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+        "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
+        "deployment/dependency-inventory.json": "2ecc97c497f0081734f468de39829faa6c7b3c2791c7ffd1e838ca4fdefdbe21",
+        "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
+        "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
+        "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
+      },
+      "selection_context": "Durable merged main commit containing PR68 and PR69, directly checked out by its successful push CI; not a PR-head/merge-preview inference.",
+      "included_in_selected_source": false,
+      "scope": "Qualified main before the production transaction-read remedy; this receipt does not qualify the changed provisioner/archive.",
+      "evidence": [
+        {
+          "scope": "source",
+          "source_revision": {
+            "commit": "5741105538c59aee8e416cd668c692577472f80d",
+            "tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2"
+          },
+          "reference": "https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185",
+          "checkout_observation": {
+            "run_head_commit": "5741105538c59aee8e416cd668c692577472f80d",
+            "checked_out_commit": "5741105538c59aee8e416cd668c692577472f80d",
+            "checked_out_tree": "515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2",
+            "kind": "main push",
+            "verification": "Successful main push qualification job git log -1 --format=%H and all six Git object/file SHA256 bindings verified on 2026-11-02. Offline packet validation does not authenticate this observation."
           }
         }
       ]

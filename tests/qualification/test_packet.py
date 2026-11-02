@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = '5741105538c59aee8e416cd668c692577472f80d'
-TREE = '515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2'
+COMMIT = 'c13f04ee22f41a613fd5136b685e997321cc00c4'
+TREE = 'eff7a70cd6ebcbcd40c975c8a3980296ec15d555'
 
 
 class PacketTests(unittest.TestCase):
@@ -520,13 +520,11 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(plan['subsequent_merged_evidence'][1]['included_in_selected_source'])
         self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
                             for row in plan['prerequisites']['source-contracts']['evidence']))
-        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'satisfied')
-        observation = plan['prerequisites']['source-contracts']['evidence'][0]['checkout_observation']
-        self.assertEqual(observation['checked_out_commit'], COMMIT)
-        self.assertEqual(observation['checked_out_tree'], TREE)
-        self.assertEqual(observation['run_head_commit'], COMMIT)
-        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'][0]['reference'],
-                         'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185')
+        self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'pending')
+        self.assertEqual(plan['prerequisites']['source-contracts']['evidence'], [])
+        old_source = plan['historical_source_evidence'][-1]
+        self.assertEqual(old_source['commit'], '5741105538c59aee8e416cd668c692577472f80d')
+        self.assertEqual(old_source['evidence'][0]['source_revision']['commit'], old_source['commit'])
         prior = next(row for row in plan['historical_source_evidence']
                      if row['commit'] == '72592e241eb42579faf6d6024ddaca4ce234d323')
         self.assertEqual(prior['commit'], '72592e241eb42579faf6d6024ddaca4ce234d323')
