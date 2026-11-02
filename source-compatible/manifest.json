@@ -224,7 +224,7 @@
       "mode": "100644",
       "source_blob": "2b58ee888d2d68eb229e96507338f562af190551",
       "source_sha256": "96bbc44e882a97f1125e2379b40bb0b7d22f11e9b681dd50b0f88d4d71e58d5a",
-      "template_sha256": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7",
+      "template_sha256": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92",
       "configuration_inputs": [],
       "control_logic_changed": false,
       "relocation_adapter": null,
@@ -515,6 +515,22 @@
             "node_modules/fast-uri": {
               "from": "3.1.8",
               "to": "3.1.9"
+            }
+          },
+          "direct_dependencies_changed": false,
+          "direct_dependency_ranges": {}
+        },
+        {
+          "pr": 69,
+          "pr_head": "fab1ba22ccf40f09fccb5227dd9e97b305c5e68b",
+          "url": "https://github.com/malsabbagh/gcp-github-runners/pull/69",
+          "path": "cloud-functions/hybrid-cleanup-handler/package-lock.json",
+          "before_sha256": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7",
+          "after_sha256": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92",
+          "changed_packages": {
+            "node_modules/follow-redirects": {
+              "from": "1.16.1",
+              "to": "1.16.2"
             }
           },
           "direct_dependencies_changed": false,

@@ -8,7 +8,7 @@
     "package-lock.json": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
     "deployment/deployment-package-lock.json": "de111e01ae3f3888a4c044d7ff897fe9a75fdb1a91ce2735df0e2eabaf988a44",
     "source-compatible/templates/package-lock.json": "2a76f00b94027889df80ed70e207800bd22602018fed667f438b2b17899978df",
-    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7"
+    "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92"
   },
   "ownership": {
     "canonicalRuntime": "package.json dependencies; exact pins, Node24, CommonJS",

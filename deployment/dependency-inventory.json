@@ -1161,7 +1161,7 @@
     },
     {
       "path": "source-compatible/templates/cloud-functions/hybrid-cleanup-handler/package-lock.json",
-      "sha256": "93757b0a422187f9c85abc5d2271c670d4d0d7685f8bbe96983a14fce2947fe7",
+      "sha256": "5916f5c619516313f17fb49157397dcce7be4260496ef90211408078c47abd92",
       "role": "reference-only",
       "directRuntimeDeclarations": [
         {

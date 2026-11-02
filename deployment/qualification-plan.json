@@ -31,7 +31,7 @@
     "sha256": {
       "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
       "deployment/archive-source-map.json": "f1f7720113443761f0f094c7baf98960d3e43e4a55b1f1f90655fc527d03e85c",
-      "deployment/dependency-inventory.json": "186570cbc13d46a65109c9c7b25cba19e0e6a3fb19c8fc3dbbd350cad05a0b94",
+      "deployment/dependency-inventory.json": "52accbcc6c0bea436abe11de6e2fef868bb0948b280c0195ceab12a42c6058dd",
       "packaging/worker-image-source.json": "28bc304974ca5a8f665ef6748db83e2f9981afe6b3b656486bff2ab27ca055f6",
       "docker/runner-release.json": "fdf72c0e808940b7c235893f64479a2d7f016dd179acdc185ec05d9f8a36f2c9",
       "cloud-functions/webhook-handler/deployment-runtime.js": "21f8dacadfb456ff2489e3ac7a484e5ab4944582039b961415fd268d8aa2c99d"
