@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = '275bae22e50ffde60b044d714a5d6d6b628eabe1'
-TREE = '333f43e9e7cda96d219f1b9604e31039102fb1a4'
+COMMIT = '5741105538c59aee8e416cd668c692577472f80d'
+TREE = '515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2'
 
 
 class PacketTests(unittest.TestCase):
@@ -524,10 +524,11 @@ class PacketTests(unittest.TestCase):
         observation = plan['prerequisites']['source-contracts']['evidence'][0]['checkout_observation']
         self.assertEqual(observation['checked_out_commit'], COMMIT)
         self.assertEqual(observation['checked_out_tree'], TREE)
-        self.assertNotEqual(observation['run_head_commit'], COMMIT)
+        self.assertEqual(observation['run_head_commit'], COMMIT)
         self.assertEqual(plan['prerequisites']['source-contracts']['evidence'][0]['reference'],
-                         'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638')
-        prior = plan['historical_source_evidence'][-1]
+                         'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185')
+        prior = next(row for row in plan['historical_source_evidence']
+                     if row['commit'] == '72592e241eb42579faf6d6024ddaca4ce234d323')
         self.assertEqual(prior['commit'], '72592e241eb42579faf6d6024ddaca4ce234d323')
         self.assertNotEqual(prior['sha256']['deployment/dependency-inventory.json'],
                             plan['selected_source']['sha256']['deployment/dependency-inventory.json'])
