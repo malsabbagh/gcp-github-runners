@@ -45,6 +45,18 @@ test('Python child waits for closed stdio before parsing JSON',async()=>{
   child.stdout.emit('data','true}');child.emit('close',0,null);
   assert.deepEqual(await promise,{value:true});
 });
+test('production and retained legacy operations pass the fixed bridge while unknown operations never spawn',async()=>{
+  for(const operation of ['initialize','roundtrip','increment','waiting','roundtrip-batch',
+    'increment-batch','waiting-batch','roundtrip-legacy-get','increment-legacy-get','waiting-legacy-get']) {
+    const child=childFixture();
+    const promise=python(operation,{}, {environment:environment(),spawnProcess:()=>child});
+    assert.equal(child.input.operation,operation);
+    child.stdout.emit('data','true');child.emit('close',0,null);
+    assert.equal(await promise,true);
+  }
+  assert.throws(()=>python('arbitrary-operation',{}, {environment:environment(),
+    spawnProcess:()=>{assert.fail('Unknown operation must not spawn');}}),/Unknown fixed/);
+});
 test('Python spawn failures and signal exits reject after close with explicit diagnostics',async()=>{
   for(const mode of ['spawn','signal','invalid-json']) {
     const child=childFixture();const promise=python('waiting',{},

@@ -1,8 +1,25 @@
 # Transaction transport compatibility
 
-Verified against the existing locked client and pinned emulator on November 1,
-2026. This diagnosis does not change the production adapter or qualify a cloud
-database.
+The November 1 diagnosis below identifies a pinned emulator query-transcoding
+bug, not an invalid production GET request. Official Firebase download metadata
+was rechecked on November 2 and still selects emulator 1.22.0 with the same
+checksum; no verified fixed upgrade was found.
+
+The reviewed remedy deliberately moves production single-document transaction
+reads to POST `batchGet`, aligning the read primitive with locked Node SDK7.11.2.
+The transaction stays in its original base64 form in JSON. Exactly one found or
+missing result must match the requested full resource name; malformed/error rows,
+wrong names and HTTP errors cannot become absence. No GET timeout fallback,
+new provider, credential, permission, state schema or lifetime authority is added.
+409/429 errors still enter the existing fresh-transaction retry/rollback policy.
+
+The integration harness keeps the original GET method in an explicit legacy
+diagnostic subclass and retains all three failing assertions. Added current
+production-path cases call the real method without overriding it. This remedies
+the adapter's emulator compatibility without pretending the emulator GET bug is
+fixed, hiding failed history, or qualifying live Firestore.
+
+## Historical diagnosis before the remedy
 
 ## Contract and observed failure
 

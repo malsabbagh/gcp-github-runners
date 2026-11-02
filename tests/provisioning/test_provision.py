@@ -328,8 +328,10 @@ class ProvisionTests(unittest.TestCase):
         def request(suffix, data=None):
             if suffix == ":beginTransaction":
                 return {"transaction": "synthetic-transaction"}
-            if suffix.startswith("/provisioning_cursors/waiting?"):
-                return {"fields": cursor}
+            if suffix == ":batchGet":
+                name = pool.name.rsplit("/provisioning_pools/global", 1)[0] + "/provisioning_cursors/waiting"
+                self.assertEqual(data, {"documents": [name], "transaction": "synthetic-transaction"})
+                return [{"found": {"name": name, "fields": cursor}}]
             if suffix == ":runQuery":
                 query = data["structuredQuery"]
                 queries.append(json.loads(json.dumps(query)))
@@ -363,8 +365,10 @@ class ProvisionTests(unittest.TestCase):
         def request(suffix, data=None):
             if suffix == ":beginTransaction":
                 return {"transaction": "synthetic-transaction"}
-            if suffix.startswith("/provisioning_cursors/waiting?"):
-                return {"fields": cursor}
+            if suffix == ":batchGet":
+                name = pool.name.rsplit("/provisioning_pools/global", 1)[0] + "/provisioning_cursors/waiting"
+                self.assertEqual(data, {"documents": [name], "transaction": "synthetic-transaction"})
+                return [{"found": {"name": name, "fields": cursor}}]
             if suffix == ":runQuery":
                 self.assertNotIn("startAt", data["structuredQuery"])
                 return [{"document": {"name": "projects/synthetic/databases/autoscaler-state/documents/job_provisioning/first", "fields": {"event": {"stringValue": "first"}}}}]

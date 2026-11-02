@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "recorded_date": "2026-11-02T02:37:56.447304+00:00",
-  "source_commit": "f58b94219d1d63cd147cf1641926a15f89762364",
+  "recorded_date": "2026-11-02T02:51:01.506359+00:00",
+  "source_commit": "c59dbb09aebb6422c25413224c5e11730ab3576f",
   "source_note": "Generated from this run; exact harness and inventoried production bytes are bound by tested_files_sha256, including uncommitted changes. File inclusion does not imply execution coverage.",
   "tested_files_sha256": {
     "LICENSE": "eebd1b34e94e652cda6426b07244e2f851896f40e8a3831e5a678be256ac746b",
@@ -25,7 +25,7 @@
     "cloud-functions/webhook-handler/job-identity.js": "2afdeb3cdfdf8f89f0e59840abfbfe523ffd09671f91da09accdd318199502ae",
     "cloud-functions/webhook-handler/managed-instance-verifier.js": "84badc1754fbf75b8ba3e8352be7e51e0e5e3417305bcf46665d16c3e0e25b17",
     "cloud-functions/webhook-handler/management-http.js": "d72474c5829cb465e3e8be3da8bff52e3692ebfceec9f6c54235f3f06ae232da",
-    "cloud-functions/webhook-handler/provision-runner.py": "ddc700b8adccc6f641f3df7b63f43088dea8804f5343cb5decd922017e2e8da9",
+    "cloud-functions/webhook-handler/provision-runner.py": "0d6d7c50e12c96500657b7b5b742c878cc4924c4372c429e884a60b048b1cb01",
     "cloud-functions/webhook-handler/provisioning-state.js": "76f07d616622e549d0d526244795c33b2eaf65a94fb394938f4541be7ca412ca",
     "cloud-functions/webhook-handler/runner-labels.js": "3e55ec65c904bd2e11568fb6df5d22896a1f4411e3477a47d26e3f8a376e7e4a",
     "cloud-functions/webhook-handler/scheduled-recovery.js": "f3b7a55d9a9fe489af9635f418a322d37c6e7c515513d29fb8137c9a62fcd9d1",
@@ -33,20 +33,20 @@
     "cloud-functions/webhook-handler/webhook-runtime.js": "4f9bf4ba1646551b12923e188ea9579122b9614cf6c024e73db75250481e4de5",
     "cloud-functions/webhook-handler/worker-control.js": "9cd0ee16fddaed1faf564f379f890572682b39c86f88a11dad6fb4078c2bb961",
     "controller-entry.js": "15fbc790d16a1eb169f3847078a631d691001dddfc4fae828c4fda00a6cdf48e",
-    "deployment/archive-manifest.json": "c819c91aaa1d0ad58d5c07809f79c294b81aea3becbbaaa76d7ae637ea7bae7f",
+    "deployment/archive-manifest.json": "2e9b4ba558d6d663aa1d4c82e91937b30e01e0c342115bb36b80f531b3f041aa",
     "package-lock.json": "87637fe3a716b8bf08fbf526a2f047288cefd6694015a55bb30e8f93248a6361",
     "package.json": "999744887ebde165fef408013351ea9156e7ab93e4f40c30c57dd559e81b26c1",
     "scripts/check-state-observations.py": "be0702a29763d7b13be6df4f7d993a6d57363037d6fbf2cc45187f35bcb688a3",
-    "tests/integration/python-pool-driver.py": "d4cbabe66724b794b6e6cb2597b48fa3fdb71fb470da018ce56153e2f586b35a",
-    "tests/integration/python-process.cjs": "0b86a5fb06fa7d1b5ae306a06276763e9f268467a405081403f7856783006d77",
-    "tests/integration/run-state-integration.py": "cd0ddcad27667c217e97d840c2517f2c4391aae256e2efd171d1b71b66a9283f",
-    "tests/integration/state-integration.cjs": "596662d927bd9cfb69c7fa97d650ff41643be858eb87a4bbd0f85bdae4193fba",
-    "tests/local-state-process.test.js": "34eb68da4df8314af101aa49969bce5d680bd67d436a7424bc3c864796f6ae8a",
+    "tests/integration/python-pool-driver.py": "1f1883f608bf4c314056517a040184b903ce3cfde46a6bc863926081099c052d",
+    "tests/integration/python-process.cjs": "5bacebe3e7b3347c564e6a4dc331307d8cfe8e95743d02f42ff743aedd1c9006",
+    "tests/integration/run-state-integration.py": "c75af7e386b6d0909fece341748aa3ee36674bda527aa88e603ab4d78d1ae78f",
+    "tests/integration/state-integration.cjs": "8625c3a3aeb52ab2b9909bf98a00dfd39a0d2dc68338fa56a66c70bf8b01d5d9",
+    "tests/local-state-process.test.js": "f5184a96da40616e28b9c0a352bafcc782acc0b1f82aa4c847d8b20a9c030ce3",
     "tests/qualification/test_local_integration_configuration.py": "0eb9f8f85eb3bdf99ddf76107c3d56143aa5ce7afacbf079f9ac817dc6a4c0f0"
   },
   "results": {
-    "total": 18,
-    "passed": 15,
+    "total": 22,
+    "passed": 19,
     "failed": 3,
     "skipped": 0,
     "cancelled": 0,
@@ -55,7 +55,7 @@
   },
   "cases": [
     {
-      "case": "JS SDK and production Python REST codec preserve strings, booleans and receipts",
+      "case": "legacy GET diagnostic preserves the original SDK/Python field and receipt assertions",
       "status": "failed"
     },
     {
@@ -67,7 +67,7 @@
       "status": "passed"
     },
     {
-      "case": "both adapters commit paired pool/job changes under contention without lost updates",
+      "case": "legacy GET diagnostic preserves the original paired pool/job contention assertions",
       "status": "failed"
     },
     {
@@ -103,8 +103,24 @@
       "status": "passed"
     },
     {
-      "case": "original Python GET waiting cursor uses the unchanged production transport contract",
+      "case": "legacy GET diagnostic preserves the original waiting cursor assertion",
       "status": "failed"
+    },
+    {
+      "case": "production Python batchGet initializes genuinely absent pool and job documents",
+      "status": "passed"
+    },
+    {
+      "case": "production Python batchGet and SDK preserve field codecs and receipt strings",
+      "status": "passed"
+    },
+    {
+      "case": "production Python batchGet and SDK commit paired documents under real contention",
+      "status": "passed"
+    },
+    {
+      "case": "production Python batchGet waiting cursor paginates and wraps with real REST queries",
+      "status": "passed"
     },
     {
       "case": "failed unissued build recovery atomically releases a slot and waiting demand replays once",
@@ -232,7 +248,7 @@
     "java_version": "openjdk version \"21.0.13\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode, sharing)",
     "emulator_jar_sha256": "9b6498b7f62714d67f48f59b3818883cd682dbcd46b9f59511de81c97bb5166c"
   },
-  "log_sha256": "4cc9cd7c63f670d9f6461c38366843a0c9a2f4dd3e4f7c1cc2be24dd7c8b790e",
+  "log_sha256": "c0f242e4d1fcd1c8125d227d3d7eaa9ffcc688400f41d531be43920af56134f7",
   "cleanup": {
     "owned_processes_reaped": true,
     "both_ports_connection_refused": true,
@@ -245,5 +261,5 @@
     "readiness_controls": "all eight false",
     "recovery_scheduler_paused": true
   },
-  "qualification": "Original GET failures remain failures; no live qualification."
+  "qualification": "Retained legacy GET failures remain failures; current production batchGet results are separate; no live qualification."
 }

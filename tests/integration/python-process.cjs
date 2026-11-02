@@ -29,7 +29,8 @@ function configuration(environment) {
 function python(operation, values={}, {environment=process.env,spawnProcess=spawn,
   timeoutMs=45000,killGraceMs=1000}={}) {
   const {executable,env}=configuration(environment);
-  if(!['roundtrip','increment','waiting','roundtrip-batch','increment-batch','waiting-batch'].includes(operation))
+  if(!['initialize','roundtrip','increment','waiting','roundtrip-batch','increment-batch','waiting-batch',
+    'roundtrip-legacy-get','increment-legacy-get','waiting-legacy-get'].includes(operation))
     throw Error('Unknown fixed integration operation');
   if(!Number.isSafeInteger(timeoutMs)||timeoutMs<1||!Number.isSafeInteger(killGraceMs)||killGraceMs<1)
     throw Error('Invalid local child timeout');

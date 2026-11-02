@@ -10,7 +10,6 @@ import re
 import subprocess
 import time
 import urllib.error
-import urllib.parse
 import urllib.request
 
 
@@ -45,12 +44,31 @@ class Pool:
             return json.load(response)
 
     def get_document(self, suffix, transaction):
-        try:
-            return self.request(suffix + "?transaction=" + urllib.parse.quote(transaction, safe=""))
-        except urllib.error.HTTPError as error:
-            if error.code != 404:
-                raise
+        # Documented transactional batchGet; no GET fallback. Fail closed on
+        # anything but one name-bound found/missing row. HTTP errors remain errors.
+        if not isinstance(suffix, str) or not suffix.startswith("/") or "://" in suffix or any(c in suffix for c in "?#"):
+            raise ValueError("Invalid document path")
+        if not isinstance(transaction, str) or not transaction:
+            raise ValueError("Invalid transaction")
+        name = self.name.rsplit("/provisioning_pools/global", 1)[0] + suffix
+        rows = self.request(":batchGet", {"documents": [name], "transaction": transaction})
+        if not isinstance(rows, list) or len(rows) != 1 or not isinstance(rows[0], dict):
+            raise ValueError("Invalid batchGet response")
+        row = rows[0]
+        if "error" in row or not set(row) <= {"found", "missing", "readTime", "transaction"}:
+            raise ValueError("Invalid batchGet response")
+        if ("found" in row) == ("missing" in row):
+            raise ValueError("Invalid batchGet response")
+        if "missing" in row:
+            if row["missing"] != name:
+                raise ValueError("Unbound batchGet response")
             return None
+        found = row["found"]
+        if not isinstance(found, dict) or found.get("name") != name:
+            raise ValueError("Unbound batchGet response")
+        if "fields" in found and not isinstance(found["fields"], dict):
+            raise ValueError("Invalid batchGet response")
+        return found
 
     @staticmethod
     def decode_job(doc):

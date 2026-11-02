@@ -2,7 +2,7 @@
 
 This packet prepares a bounded trusted-private, native Linux x64 runner trial. It records inputs, evidence, stop conditions and unresolved work; it does not perform a build, deployment, registration, job, cancellation or cleanup. Completing [issue #54](https://github.com/malsabbagh/gcp-github-runners/issues/54) does not complete #48 or #49, authorize #55, or establish production readiness.
 
-The checked-in [plan and worksheet](../deployment/qualification-plan.json) select durable merged main commit `5741105538c59aee8e416cd668c692577472f80d`, tree `515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2`, containing both PR68 and PR69 dependency maintenance. All six SHA-256 bindings match that exact commit. [Main push CI 41378237185](https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185) succeeded and its qualification checkout log records this same commit from `git log -1 --format=%H`. The run head, actual checkout and selected source agree. This supplies source-contract evidence only; live prerequisites and execution approval remain unavailable. Prior PR runs used merge previews whose identity differed from the API PR head; their corrected commit/tree observations remain historical, rather than being labelled as tests of the PR head. The [case inventory](../tests/qualification-cases.json) selects the same durable main revision. Refreshing hashes under an old identity or borrowing an earlier CI result does not qualify new source. Supplying `--source-root` relocates the exact bound source bytes and does not select a different revision.
+The checked-in [plan and worksheet](../deployment/qualification-plan.json) select remedy source snapshot `c13f04ee22f41a613fd5136b685e997321cc00c4`, tree `eff7a70cd6ebcbcd40c975c8a3980296ec15d555`. All six source bindings match this committed runtime/archive, including the production transactional batchGet change. Source qualification is pending for the changed runtime; retain exact-candidate remote CI separately. Earlier [main CI 41378237185](https://github.com/malsabbagh/gcp-github-runners/actions/runs/41378237185) directly checked out main `5741105538c59aee8e416cd668c692577472f80d`, but that snapshot used the former GET adapter. It remains historical evidence and is not borrowed to qualify this remedy. The [case inventory](../tests/qualification-cases.json) selects the same new source identity. The local composite diagnostic records 19 passes and three deliberately retained legacy GET failures; no live Firestore qualification, flag activation or execution approval is asserted.
 
 ## Preparation and readiness reports
 
@@ -12,8 +12,8 @@ From the repository root, check structural preparation against the independently
 
 ```sh
 python3 -B tests/qualification/packet.py \
-  --source-commit 5741105538c59aee8e416cd668c692577472f80d \
-  --source-tree 515cd24a2e41cd1c2e20d2a44e60ebb3f80fccd2 \
+  --source-commit c13f04ee22f41a613fd5136b685e997321cc00c4 \
+  --source-tree eff7a70cd6ebcbcd40c975c8a3980296ec15d555 \
   --mode preparation
 ```
 

@@ -104,12 +104,13 @@ audience checks. Neither route is a GitHub OAuth callback or the webhook URL.
 
 1. Finish current-head source CI and independent review, then package the exact
    clean source revision. Keep the ZIP receipt and immutable image provenance.
-2. Complete the Firestore adapter acceptance separately. The local diagnostic
-   currently retains three transactional GET failures in emulator 1.22.0; passing
-   test-only batchGet comparisons do not qualify the production Python GET.
-   [The contract diagnosis](../tests/integration/CONTRACT.md) gives the bounded
-   choices: a verified upstream fix, a reviewed adapter change, or an explicitly
-   authorized synthetic remote database test. Do not mark this gate passed.
+2. Inspect the revision-bound Firestore adapter results. The reviewed production
+   Python adapter now uses transactional POST `batchGet`; four added cases test
+   it directly against the emulator alongside the SDK. The combined diagnostic
+   reports 19 passes and three retained legacy GET failures, with exit 1. The
+   emulator's GET bug is not fixed or hidden. Local results do not establish
+   production IAM, indexes, quotas or cloud contention; qualify those within an
+   explicitly approved trial. See [the contract diagnosis](../tests/integration/CONTRACT.md).
 3. Inspect the saved Terraform plan and effective IAM, private egress, cloud
    quotas, image availability and distinct service identities. Approve only the
    intended installation. Prove the actual worker cannot read secrets, mutate
