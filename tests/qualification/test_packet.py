@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('qualification_packet', Path(__file__).with_name('packet.py'))
 PACKET = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PACKET)
-COMMIT = '78d734c2e0e39b30b2d5076a676cc4af4bc81540'
-TREE = 'ab418e7acb662f0b786e13544c6366a18b6bc3ad'
+COMMIT = '275bae22e50ffde60b044d714a5d6d6b628eabe1'
+TREE = '333f43e9e7cda96d219f1b9604e31039102fb1a4'
 
 
 class PacketTests(unittest.TestCase):
@@ -521,6 +521,10 @@ class PacketTests(unittest.TestCase):
         self.assertTrue(all(row['source_revision'] == {'commit': COMMIT, 'tree': TREE}
                             for row in plan['prerequisites']['source-contracts']['evidence']))
         self.assertEqual(plan['prerequisites']['source-contracts']['status'], 'satisfied')
+        observation = plan['prerequisites']['source-contracts']['evidence'][0]['checkout_observation']
+        self.assertEqual(observation['checked_out_commit'], COMMIT)
+        self.assertEqual(observation['checked_out_tree'], TREE)
+        self.assertNotEqual(observation['run_head_commit'], COMMIT)
         self.assertEqual(plan['prerequisites']['source-contracts']['evidence'][0]['reference'],
                          'https://github.com/malsabbagh/gcp-github-runners/actions/runs/41375449638')
         prior = plan['historical_source_evidence'][-1]
